@@ -12,5 +12,41 @@ class GovspeakTest < Test::Unit::TestCase
     assert_equal "<p>this </p>\n\n<p><em>si</em></p>\n\n<p>markdown</p>\n", rendered
   end
   
+  test "govspark extensions" do
+    markdown_regression_tests = [
+{
+input: "^ I am very informational ^",
+output: "<div class=\"application-notice info-notice\">
+<p>I am very informational</p>
+</div>"
+},
+{
+input: "^ I am very informational",
+output: "<div class=\"application-notice info-notice\">
+<p>I am very informational</p>
+</div>"
+},
+{
+input: "@ I am very important @",
+output: "<h3 class=\"advisory\"><span>I am very important</span></h3>"
+}, {
+input: "% I am very helpful %",
+output:  "<div class=\"application-notice help-notice\">
+<p>I am very helpful</p>
+</div>"
+},
+{
+input: "% I am very helpful",
+output: "<div class=\"application-notice help-notice\">
+<p>I am very helpful</p>
+</div>"
+}]
+  
+  markdown_regression_tests.each do |t|
+    rendered = Govspeak::Document.new(t[:input]).to_html
+    assert_equal t[:output].strip, rendered.strip
+  end
+  
+  end
   
 end
