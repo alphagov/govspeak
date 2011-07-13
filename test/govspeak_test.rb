@@ -40,7 +40,11 @@ input: "% I am very helpful",
 output: "<div class=\"application-notice help-notice\">
 <p>I am very helpful</p>
 </div>"
-}]
+},
+input: "I am very [helpful] yes I am.",
+output: '<p>I am very <em class="glossary" title="See glossary">helpful</em> yes I am.</p>'
+
+]
   
   markdown_regression_tests.each do |t|
     rendered = Govspeak::Document.new(t[:input]).to_html

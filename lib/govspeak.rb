@@ -29,9 +29,14 @@ module Govspeak
       @@extensions << [title,regexp,block]
     end
     
-    def self.surrounded_by(char)
-      char = Regexp::escape(char)
-      regexp ||= %r+#{char}(.*?)#{char}?(\n|$)+m
+    def self.surrounded_by(open,close=nil)
+      open = Regexp::escape(open)
+      if close
+        close = Regexp::escape(close)
+        %r+#{open}(.*?)#{close}(\n|$)?+m
+      else
+        %r+#{open}(.*?)#{open}?(\n|$)+m
+      end
     end
     
     extension('reverse') { |body|
@@ -50,6 +55,10 @@ module Govspeak
     
     extension('helpful',surrounded_by("%")) { |body|
       "<div class=\"application-notice help-notice\">\n<p>#{body.strip}</p>\n</div>"
+    }
+    
+    extension('glossary',surrounded_by("[","]")) { |body|
+      "<em class=\"glossary\" title=\"See glossary\">#{body.strip}</em>"
     }
     
   end
