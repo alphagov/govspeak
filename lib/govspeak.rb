@@ -61,6 +61,17 @@ module Govspeak
       "<em class=\"glossary\" title=\"See glossary\">#{body.strip}</em>"
     }
     
+    extension("numbered list", /((\d+\.\s.*(?:\n|$))+)/) do |body|
+      steps ||= 0
+      body.gsub!(/(\d+)\.\s(.*)(?:\n|$)/) do |b|
+          steps = steps + 1
+          "<p class=\"step-label\"><span class=\"step-number\">#{steps}</span><span class=\"step-total\">of [[TOTAL_STEPS]]</span></p>
+<p>#{$2.strip}</p>\n"
+      end
+      body.gsub!("[[TOTAL_STEPS]]",steps.to_s)
+      "<div class=\"answer-step\">\n#{body}</div>"
+    end
+    
   end
 
   

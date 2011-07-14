@@ -53,4 +53,20 @@ output: '<p>I am very <em class="glossary" title="See glossary">helpful</em> yes
   
   end
   
+  test "numbered list extension" do
+    input = "1. Blah
+2. Blah blah
+3. Blah blah blah"
+    output = "<div class=\"answer-step\">
+<p class=\"step-label\"><span class=\"step-number\">1</span><span class=\"step-total\">of 3</span></p>
+<p>Blah</p>
+<p class=\"step-label\"><span class=\"step-number\">2</span><span class=\"step-total\">of 3</span></p>
+<p>Blah blah</p>
+<p class=\"step-label\"><span class=\"step-number\">3</span><span class=\"step-total\">of 3</span></p>
+<p>Blah blah blah</p>
+</div>
+"
+    assert_equal output, Govspeak::Document.new(input).to_html
+  end
+  
 end
