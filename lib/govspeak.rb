@@ -72,9 +72,24 @@ module Govspeak
       "<div class=\"answer-step\">\n#{body}</div>"
     end
     
+    def self.devolved_options 
+     { 'scotland' => 'Scotland',
+       'england' => 'England',      
+       'england-wales' => 'England and Wales',
+       'northern-ireland' => 'Northern Ireland',
+       'wales' => 'Wales',      
+       'london' => 'London' }
+    end
+    
+   devolved_options.each do |k,v| 
+     extension("devolved-#{k}",/:#{k}:(.*?):\/#{k}:/m) do |body|
+"<div class=\"devolved-content #{k}\">
+<p class=\"devolved-header\">This section applies to #{v}</p>
+<div class=\"devolved-body\"><p>I am very devolved</p>
+<p>and very scottish</p></div>
+</div>"
+     end
+   end  
   end
-
-  
-  
 end
 

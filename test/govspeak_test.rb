@@ -69,4 +69,15 @@ output: '<p>I am very <em class="glossary" title="See glossary">helpful</em> yes
     assert_equal output, Govspeak::Document.new(input).to_html
   end
   
+  test "devolved markdown sections" do
+    input =  ":scotland: I am very devolved \n and very scottish \n:/scotland:"
+    output = '<div class="devolved-content scotland">
+<p class="devolved-header">This section applies to Scotland</p>
+<div class="devolved-body"><p>I am very devolved</p>
+<p>and very scottish</p></div>
+</div>
+'
+    assert_equal output, Govspeak::Document.new(input).to_html
+  end
+  
 end
