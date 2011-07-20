@@ -62,7 +62,7 @@ module Govspeak
       "<em class=\"glossary\" title=\"See glossary\">#{body.strip}</em>"
     }
     
-    extension("numbered list", /((\d+\.\s.*(?:\n|$))+)/) do |body|
+    extension("numbered list", /(((\n|\r|^)\d+\.\s.*(?:\n|$))+)/) do |body|
       steps ||= 0
       body.gsub!(/(\d+)\.\s(.*)(?:\n|$)/) do |b|
           steps = steps + 1

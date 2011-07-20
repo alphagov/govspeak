@@ -78,6 +78,14 @@ output: '<p>I am very <em class="glossary" title="See glossary">helpful</em> yes
     assert_equal output, Govspeak::Document.new(input).to_html
   end
   
+  test "numbered lists should be anchored" do
+    input = "This was in 2011/12.
+    
+And something 'appened"
+    output = "<p>This was in 2011/12.</p>\n\n<p>And something &lsquo;appened</p>\n"
+    assert_equal output, Govspeak::Document.new(input).to_html
+  end
+  
   test "devolved markdown sections" do
     input =  ":scotland: I am very devolved \n and very scottish \n:/scotland:"
     output = '<div class="devolved-content scotland">
