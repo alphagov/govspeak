@@ -7,6 +7,7 @@ module Govspeak
     @@extensions = []
     
     def initialize(source,options = {})
+      source ||= ""
       @doc = Kramdown::Document.new(preprocess(source),options)
       super
     end  
@@ -46,15 +47,15 @@ module Govspeak
     extension('informational',surrounded_by("^")) { |body|
       "<div class=\"application-notice info-notice\">
 <p>#{body.strip}</p>
-</div>"
+</div>\n"
     }
     
     extension('important',surrounded_by("@")) { |body|
-      "<h3 class=\"advisory\"><span>#{body.strip}</span></h3>"
+      "<h3 class=\"advisory\"><span>#{body.strip}</span></h3>\n"
     }
     
     extension('helpful',surrounded_by("%")) { |body|
-      "<div class=\"application-notice help-notice\">\n<p>#{body.strip}</p>\n</div>"
+      "<div class=\"application-notice help-notice\">\n<p>#{body.strip}</p>\n</div>\n"
     }
     
     extension('glossary',surrounded_by("[","]")) { |body|
@@ -69,7 +70,7 @@ module Govspeak
 <p>#{$2.strip}</p>\n"
       end
       body.gsub!("[[TOTAL_STEPS]]",steps.to_s)
-      "<div class=\"answer-step\">\n#{body}</div>"
+      "<div class=\"answer-step\">\n#{body}</div>\n"
     end
     
     def self.devolved_options 
@@ -85,9 +86,9 @@ module Govspeak
      extension("devolved-#{k}",/:#{k}:(.*?):\/#{k}:/m) do |body|
 "<div class=\"devolved-content #{k}\">
 <p class=\"devolved-header\">This section applies to #{v}</p>
-<div class=\"devolved-body\"><p>I am very devolved</p>
-<p>and very scottish</p></div>
-</div>"
+<div class=\"devolved-body\"><p>#{body.strip}</p>
+</div>
+</div>\n"
      end
    end  
   end
