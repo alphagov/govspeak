@@ -34,6 +34,15 @@ input: "% I am very helpful %",
 output:  "<div class=\"application-notice help-notice\">
 <p>I am very helpful</p>
 </div>"
+}, {
+input: "## Hello ##\n\n% I am very helpful %\r\n### Young Workers ###\n\n",
+output:  "<h2 id=\"hello\">Hello</h2>
+
+<div class=\"application-notice help-notice\">
+<p>I am very helpful</p>
+</div>
+
+<h3 id=\"young-workers\">Young Workers</h3>"
 },
 {
 input: "% I am very helpful",
