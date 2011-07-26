@@ -37,7 +37,6 @@ output:  "<div class=\"application-notice help-notice\">
 }, {
 input: "## Hello ##\n\n% I am very helpful %\r\n### Young Workers ###\n\n",
 output:  "<h2 id=\"hello\">Hello</h2>
-
 <div class=\"application-notice help-notice\">
 <p>I am very helpful</p>
 </div>
@@ -53,7 +52,11 @@ output: "<div class=\"application-notice help-notice\">
 {
   input: "This is a [link](http://www.google.com) isn't it?",
   output: '<p>This is a <a href="http://www.google.com">link</a> isn&rsquo;t it?</p>'
-}
+}  ,
+  {
+    input: "This is a [link with an at sign in it](http://www.google.com/@dg/@this) isn't it?",
+    output: '<p>This is a <a href="http://www.google.com/@dg/@this">link with an at sign in it</a> isn&rsquo;t it?</p>'
+  }
 ]
   
   markdown_regression_tests.each do |t|
