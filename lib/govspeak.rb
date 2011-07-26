@@ -58,10 +58,6 @@ module Govspeak
       "<div class=\"application-notice help-notice\">\n<p>#{body.strip}</p>\n</div>\n"
     }
     
-    extension('glossary',surrounded_by("[","]")) { |body|
-      "<em class=\"glossary\" title=\"See glossary\">#{body.strip}</em>"
-    }
-    
     extension("numbered list", /(((\n|\r|^)\d+\.\s.*(?:\n|$))+)/) do |body|
       steps ||= 0
       body.gsub!(/(\d+)\.\s(.*)(?:\n|$)/) do |b|

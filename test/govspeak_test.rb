@@ -50,9 +50,10 @@ output: "<div class=\"application-notice help-notice\">
 <p>I am very helpful</p>
 </div>"
 },
-input: "I am very [helpful] yes I am.",
-output: '<p>I am very <em class="glossary" title="See glossary">helpful</em> yes I am.</p>'
-
+{
+  input: "This is a [link](http://www.google.com) isn't it?",
+  output: '<p>This is a <a href="http://www.google.com">link</a> isn&rsquo;t it?</p>'
+}
 ]
   
   markdown_regression_tests.each do |t|
