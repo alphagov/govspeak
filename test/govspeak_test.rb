@@ -66,30 +66,6 @@ output: "<div class=\"application-notice help-notice\">
   
   end
   
-  test "numbered list extension" do
-    input = "1. Blah
-2. Blah blah
-3. Blah blah blah"
-    output = "<div class=\"answer-step\">
-<p class=\"step-label\"><span class=\"step-number\">1</span><span class=\"step-total\">of 3</span></p>
-<p>Blah</p>
-<p class=\"step-label\"><span class=\"step-number\">2</span><span class=\"step-total\">of 3</span></p>
-<p>Blah blah</p>
-<p class=\"step-label\"><span class=\"step-number\">3</span><span class=\"step-total\">of 3</span></p>
-<p>Blah blah blah</p>
-</div>
-"
-    assert_equal output, Govspeak::Document.new(input).to_html
-  end
-  
-  test "numbered lists should be anchored" do
-    input = "This was in 2011/12.
-    
-And something 'appened"
-    output = "<p>This was in 2011/12.</p>\n\n<p>And something &lsquo;appened</p>\n"
-    assert_equal output, Govspeak::Document.new(input).to_html
-  end
-  
   test "devolved markdown sections" do
     input =  ":scotland: I am very devolved \n and very scottish \n:/scotland:"
     output = '<div class="devolved-content scotland">
