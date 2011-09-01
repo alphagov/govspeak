@@ -82,6 +82,13 @@ $A",
 street<br />road<br />
 </div></div>"
 }, {
+  input: "$P
+$I
+help
+$I
+$P",
+  output: "<div class=\"place\">\n<div class=\"information\">\n<p>help</p>\n</div>\n</div>"
+}, {
   input: "$D
 can you tell me how to get to...
 $D",

@@ -9,7 +9,7 @@ module Govspeak
     def initialize(source,options = {})
       source ||= ""
       options[:entity_output] ||= :symbolic
-      @doc = Kramdown::Document.new(preprocess(source),options)
+      @doc = Kramdown::Document.new(preprocess(source), options)
       super
     end
 
@@ -41,9 +41,9 @@ module Govspeak
       end
     end
 
-    def self.wrap_with_div(class_name, character)
+    def self.wrap_with_div(class_name, character, parser=Kramdown::Document)
       extension(class_name, surrounded_by(character)) { |body|
-        "<div class=\"#{class_name}\">\n#{Kramdown::Document.new("#{body.strip}\n").to_html}</div>\n"
+        "<div class=\"#{class_name}\">\n#{parser.new("#{body.strip}\n").to_html}</div>\n"
       }
     end
 
@@ -72,6 +72,9 @@ module Govspeak
     wrap_with_div('summary', '$!')
     wrap_with_div('form_download', '$D')
     wrap_with_div('contact', '$C')
+    wrap_with_div('place', '$P', Govspeak::Document)
+    wrap_with_div('information', '$I')
+    wrap_with_div('additional_information', '$AI')
 
     extension('address', surrounded_by("$A")) { |body|
       "<div class=\"address vcard\"><div class=\"adr org fn\">\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</div></div>\n"
