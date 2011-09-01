@@ -70,14 +70,14 @@ module Govspeak
     }
 
     wrap_with_div('summary', '$!')
-    wrap_with_div('form_download', '$D')
+    wrap_with_div('form-download', '$D')
     wrap_with_div('contact', '$C')
     wrap_with_div('place', '$P', Govspeak::Document)
     wrap_with_div('information', '$I')
-    wrap_with_div('additional_information', '$AI')
+    wrap_with_div('additional-information', '$AI')
 
     extension('address', surrounded_by("$A")) { |body|
-      "<div class=\"address vcard\"><div class=\"adr org fn\">\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</div></div>\n"
+      "<div class=\"address vcard\"><div class=\"adr org fn\"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n"
     }
 
     extension("numbered list", /((s\d+\.\s.*(?:\n|$))+)/) do |body|

@@ -78,9 +78,9 @@ $C",
 street
 road
 $A",
-  output: "<div class=\"address vcard\"><div class=\"adr org fn\">
+  output: "<div class=\"address vcard\"><div class=\"adr org fn\"><p>
 street<br />road<br />
-</div></div>"
+</p></div></div>"
 }, {
   input: "$P
 $I
@@ -92,7 +92,7 @@ $P",
   input: "$D
 can you tell me how to get to...
 $D",
-  output: "<div class=\"form_download\">
+  output: "<div class=\"form-download\">
 <p>can you tell me how to get to&hellip;</p>
 </div>"
 }, {
