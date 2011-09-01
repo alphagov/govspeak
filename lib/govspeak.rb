@@ -1,22 +1,22 @@
 require 'kramdown'
 
 module Govspeak
-  
-  class Document 
-    
+
+  class Document
+
     @@extensions = []
-    
+
     def initialize(source,options = {})
       source ||= ""
       options[:entity_output] ||= :symbolic
       @doc = Kramdown::Document.new(preprocess(source),options)
       super
-    end  
-  
+    end
+
     def to_html
       @doc.to_html
     end
-  
+
     def preprocess(source)
       @@extensions.each do |title,regexp,block|
         source.gsub!(regexp) {|match|
@@ -25,13 +25,13 @@ module Govspeak
       end
       source
     end
-    
-    def self.extension(title,regexp = nil, &block)
+
+    def self.extension(title, regexp = nil, &block)
       regexp ||= %r${::#{title}}(.*?){:/#{title}}$m
-      @@extensions << [title,regexp,block]
+      @@extensions << [title, regexp, block]
     end
-    
-    def self.surrounded_by(open,close=nil)
+
+    def self.surrounded_by(open, close=nil)
       open = Regexp::escape(open)
       if close
         close = Regexp::escape(close)
@@ -40,34 +40,38 @@ module Govspeak
         %r+(?:\r|\n|^)#{open}(.*?)#{open}?(\r|\n|$)+m
       end
     end
-    
+
     extension('reverse') { |body|
       body.reverse
     }
-    
-    extension('informational',surrounded_by("^")) { |body|
+
+    extension('external', surrounded_by("x")) { |body|
+      Kramdown::Document.new("#{body.strip}{:rel='external'}").to_html
+    }
+
+    extension('informational', surrounded_by("^")) { |body|
       "<div class=\"application-notice info-notice\">
 <p>#{body.strip}</p>
 </div>\n"
     }
-    
-    extension('important',surrounded_by("@")) { |body|
+
+    extension('important', surrounded_by("@")) { |body|
       "<h3 class=\"advisory\"><span>#{body.strip}</span></h3>\n"
     }
-    
-    extension('helpful',surrounded_by("%")) { |body|
+
+    extension('helpful', surrounded_by("%")) { |body|
       "<div class=\"application-notice help-notice\">\n<p>#{body.strip}</p>\n</div>\n"
     }
-    
-    def self.devolved_options 
+
+    def self.devolved_options
      { 'scotland' => 'Scotland',
-       'england' => 'England',      
+       'england' => 'England',
        'england-wales' => 'England and Wales',
        'northern-ireland' => 'Northern Ireland',
-       'wales' => 'Wales',      
+       'wales' => 'Wales',
        'london' => 'London' }
     end
-    
+
    devolved_options.each do |k,v| 
      extension("devolved-#{k}",/:#{k}:(.*?):\/#{k}:/m) do |body|
 "<div class=\"devolved-content #{k}\">
@@ -76,7 +80,6 @@ module Govspeak
 </div>
 </div>\n"
      end
-   end  
+   end
   end
 end
-
