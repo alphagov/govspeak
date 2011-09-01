@@ -63,6 +63,25 @@ module Govspeak
       "<div class=\"application-notice help-notice\">\n<p>#{body.strip}</p>\n</div>\n"
     }
 
+    extension('summary', surrounded_by("$!")) { |body|
+      "<div class=\"summary\">\n#{Kramdown::Document.new("#{body.strip}\n").to_html}</div>\n"
+    }
+
+    extension('form download', surrounded_by("\o/")) { |body|
+      "<div class=\"form_download\">\n#{Kramdown::Document.new("#{body.strip}\n").to_html}</div>\n"
+    }
+
+    extension("numbered list", /((s\d+\.\s.*(?:\n|$))+)/) do |body|
+      steps ||= 0
+      body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do |b|
+          steps = steps + 1
+          "<p class=\"step-label\"><span class=\"step-number\">#{steps}</span><span class=\"step-total\">of [[TOTAL_STEPS]]</span></p>
+<p>#{$2.strip}</p>\n"
+      end
+      body.gsub!("[[TOTAL_STEPS]]", steps.to_s)
+      "<div class=\"answer-step\">\n#{body}</div>"
+    end
+
     def self.devolved_options
      { 'scotland' => 'Scotland',
        'england' => 'England',

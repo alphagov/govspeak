@@ -59,6 +59,38 @@ class GovspeakTest < Test::Unit::TestCase
 }, {
   input: "x[a link](http://rubyforge.org)x",
   output: '<p><a href="http://rubyforge.org" rel="external">a link</a></p>'
+}, {
+  input: "$!
+rainbow
+$!",
+  output: "<div class=\"summary\">
+<p>rainbow</p>
+</div>"
+}, {
+  input: "\o/
+can you tell me how to get to...
+\o/",
+  output: "<div class=\"form_download\">
+<p>can you tell me how to get to&hellip;</p>
+</div>"
+}, {
+  input: "1. rod
+2. jane
+3. freddy",
+  output: "<ol>\n  <li>rod</li>\n  <li>jane</li>\n  <li>freddy</li>\n</ol>"
+}, {
+  input: "s1. zippy
+s2. bungle
+s3. george
+",
+  output: "<div class=\"answer-step\">
+<p class=\"step-label\"><span class=\"step-number\">1</span><span class=\"step-total\">of 3</span></p>
+<p>zippy</p>
+<p class=\"step-label\"><span class=\"step-number\">2</span><span class=\"step-total\">of 3</span></p>
+<p>bungle</p>
+<p class=\"step-label\"><span class=\"step-number\">3</span><span class=\"step-total\">of 3</span></p>
+<p>george</p>
+</div>"
 }
 ]
 
