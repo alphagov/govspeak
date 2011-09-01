@@ -67,9 +67,24 @@ $!",
 <p>rainbow</p>
 </div>"
 }, {
-  input: "\o/
+  input: "$C
+  help, send cake
+$C",
+  output: "<div class=\"contact\">
+<p>help, send cake</p>
+</div>"
+}, {
+  input: "$A
+street
+road
+$A",
+  output: "<div class=\"address vcard\"><div class=\"adr org fn\">
+street<br />road<br />
+</div></div>"
+}, {
+  input: "$D
 can you tell me how to get to...
-\o/",
+$D",
   output: "<div class=\"form_download\">
 <p>can you tell me how to get to&hellip;</p>
 </div>"

@@ -41,6 +41,12 @@ module Govspeak
       end
     end
 
+    def self.wrap_with_div(class_name, character)
+      extension(class_name, surrounded_by(character)) { |body|
+        "<div class=\"#{class_name}\">\n#{Kramdown::Document.new("#{body.strip}\n").to_html}</div>\n"
+      }
+    end
+
     extension('reverse') { |body|
       body.reverse
     }
@@ -63,12 +69,12 @@ module Govspeak
       "<div class=\"application-notice help-notice\">\n<p>#{body.strip}</p>\n</div>\n"
     }
 
-    extension('summary', surrounded_by("$!")) { |body|
-      "<div class=\"summary\">\n#{Kramdown::Document.new("#{body.strip}\n").to_html}</div>\n"
-    }
+    wrap_with_div('summary', '$!')
+    wrap_with_div('form_download', '$D')
+    wrap_with_div('contact', '$C')
 
-    extension('form download', surrounded_by("\o/")) { |body|
-      "<div class=\"form_download\">\n#{Kramdown::Document.new("#{body.strip}\n").to_html}</div>\n"
+    extension('address', surrounded_by("$A")) { |body|
+      "<div class=\"address vcard\"><div class=\"adr org fn\">\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</div></div>\n"
     }
 
     extension("numbered list", /((s\d+\.\s.*(?:\n|$))+)/) do |body|
