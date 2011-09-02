@@ -58,8 +58,7 @@ module Govspeak
 
     extension('informational', surrounded_by("^")) { |body|
       "<div class=\"application-notice info-notice\">
-<p>#{body.strip}</p>
-</div>\n"
+#{Kramdown::Document.new(body.strip).to_html}</div>\n"
     }
 
     extension('important', surrounded_by("@")) { |body|
