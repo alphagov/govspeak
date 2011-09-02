@@ -71,14 +71,14 @@ module Govspeak
     }
 
     extension('map_link', surrounded_by("((", "))")) { |body|
-      "<div class=\"map\"><iframe width=\"200\" height=\"200\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"#{body.strip}&output=embed\"></iframe><br /><small><a href=\"#{body.strip}\">View Larger Map</a></small></div></div>"
+      "<div class=\"map\"><iframe width=\"200\" height=\"200\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"#{body.strip}&output=embed\"></iframe><br /><small><a href=\"#{body.strip}\">View Larger Map</a></small></div>"
     }
 
     wrap_with_div('summary', '$!')
     wrap_with_div('form-download', '$D')
     wrap_with_div('contact', '$C')
     wrap_with_div('place', '$P', Govspeak::Document)
-    wrap_with_div('information', '$I')
+    wrap_with_div('information', '$I', Govspeak::Document)
     wrap_with_div('additional-information', '$AI')
 
     extension('address', surrounded_by("$A")) { |body|
@@ -88,12 +88,9 @@ module Govspeak
     extension("numbered list", /((s\d+\.\s.*(?:\n|$))+)/) do |body|
       steps ||= 0
       body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do |b|
-          steps = steps + 1
-          "<p class=\"step-label\"><span class=\"step-number\">#{steps}</span><span class=\"step-total\">of [[TOTAL_STEPS]]</span></p>
-<p>#{$2.strip}</p>\n"
+          "<li><p>#{$2.strip}</p></li>\n"
       end
-      body.gsub!("[[TOTAL_STEPS]]", steps.to_s)
-      "<div class=\"answer-step\">\n#{body}</div>"
+      "<ol class=\"steps\">\n#{body}</ol>"
     end
 
     def self.devolved_options
