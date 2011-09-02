@@ -67,9 +67,7 @@ $!",
 <p>rainbow</p>
 </div>"
 }, {
-  input: "$C
-  help, send cake
-$C",
+  input: "$C help, send cake $C",
   output: "<div class=\"contact\">
 <p>help, send cake</p>
 </div>"
