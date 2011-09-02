@@ -43,7 +43,8 @@ module Govspeak
 
     def self.wrap_with_div(class_name, character, parser=Kramdown::Document)
       extension(class_name, surrounded_by(character)) { |body|
-        "<div class=\"#{class_name}\">\n#{parser.new("#{body.strip}\n").to_html}</div>\n"
+        content = parser ? parser.new("#{body.strip}\n").to_html : body.strip
+        "<div class=\"#{class_name}\">\n#{content}</div>\n"
       }
     end
 
@@ -67,6 +68,10 @@ module Govspeak
 
     extension('helpful', surrounded_by("%")) { |body|
       "<div class=\"application-notice help-notice\">\n<p>#{body.strip}</p>\n</div>\n"
+    }
+
+    extension('map_link', surrounded_by("((", "))")) { |body|
+      "<div class=\"map\"><iframe width=\"200\" height=\"200\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"#{body.strip}&output=embed\"></iframe><br /><small><a href=\"#{body.strip}\">View Larger Map</a></small></div></div>"
     }
 
     wrap_with_div('summary', '$!')
