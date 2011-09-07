@@ -109,9 +109,9 @@ s2. bungle
 s3. george
 ",
   output: "<ol class=\"steps\">
-<li><p>zippy</p></li>
-<li><p>bungle</p></li>
-<li><p>george</p></li>
+<li><p>zippy</p>\n</li>
+<li><p>bungle</p>\n</li>
+<li><p>george</p>\n</li>
 </ol>"
 }
 ]

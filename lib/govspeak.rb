@@ -88,7 +88,7 @@ module Govspeak
     extension("numbered list", /((s\d+\.\s.*(?:\n|$))+)/) do |body|
       steps ||= 0
       body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do |b|
-          "<li><p>#{$2.strip}</p></li>\n"
+          "<li>#{Kramdown::Document.new($2.strip).to_html}</li>\n"
       end
       "<ol class=\"steps\">\n#{body}</ol>"
     end
