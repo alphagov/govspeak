@@ -103,7 +103,7 @@ module Govspeak
     end
 
    devolved_options.each do |k,v| 
-     extension("devolved-#{k}",/:#{k}:(.*?):\/#{k}:/m) do |body|
+     extension("devolved-#{k}",/:#{k}:(.*?):#{k}:/m) do |body|
 "<div class=\"devolved-content #{k}\">
 <p class=\"devolved-header\">This section applies to #{v}</p>
 <div class=\"devolved-body\"><p>#{body.strip}</p>
