@@ -106,8 +106,7 @@ module Govspeak
      extension("devolved-#{k}",/:#{k}:(.*?):#{k}:/m) do |body|
 "<div class=\"devolved-content #{k}\">
 <p class=\"devolved-header\">This section applies to #{v}</p>
-<div class=\"devolved-body\"><p>#{body.strip}</p>
-</div>
+<div class=\"devolved-body\">#{Kramdown::Document.new(body.strip).to_html}</div>
 </div>\n"
      end
    end
