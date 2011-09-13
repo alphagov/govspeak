@@ -1,3 +1,9 @@
+require 'simplecov'
+require 'simplecov-rcov'
+
+SimpleCov.start
+SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+
 require 'test_helper'
 
 class GovspeakTest < Test::Unit::TestCase

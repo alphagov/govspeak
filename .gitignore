@@ -6,3 +6,4 @@ pkg/*
 *.pyc
 *.pyo
 .venv
+coverage
