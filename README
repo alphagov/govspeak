@@ -3,7 +3,7 @@ Govspeak is our markdown-derived mark-up language.
 Extension examples:
 
 ^ This is informational text ^
-@ This is important text ^
+@ This is important text @
 % This is helpful text %
 These words appear in the glossary: [government],[department],[tax]
 
