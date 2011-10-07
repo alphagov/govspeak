@@ -26,6 +26,13 @@ class GovspeakTest < Test::Unit::TestCase
 <p>I am very informational</p>
 </div>}
 }, {
+  input: "The following is very informational\n^ I am very informational ^",
+  output: %{<p>The following is very informational</p>
+
+<div class="application-notice info-notice">
+<p>I am very informational</p>
+</div>}
+}, {
   input: "^ I am very informational",
   output: %{<div class="application-notice info-notice">
 <p>I am very informational</p>
@@ -34,13 +41,27 @@ class GovspeakTest < Test::Unit::TestCase
   input: "@ I am very important @",
   output: %{<h3 class="advisory"><span>I am very important</span></h3>}
 }, {
+  input: "The following is very important
+@ I am very important @",
+  output: %{<p>The following is very important</p>
+
+<h3 class="advisory"><span>I am very important</span></h3>}
+}, {
   input: "% I am very helpful %",
   output:  %{<div class="application-notice help-notice">
 <p>I am very helpful</p>
 </div>}
 }, {
+  input: "The following is very helpful\n% I am very helpful %",
+  output:  %{<p>The following is very helpful</p>
+
+<div class="application-notice help-notice">
+<p>I am very helpful</p>
+</div>}
+}, {
   input: "## Hello ##\n\n% I am very helpful %\r\n### Young Workers ###\n\n",
   output:  %{<h2 id="hello">Hello</h2>
+
 <div class="application-notice help-notice">
 <p>I am very helpful</p>
 </div>
