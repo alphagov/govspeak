@@ -44,7 +44,7 @@ module Govspeak
     def self.wrap_with_div(class_name, character, parser=Kramdown::Document)
       extension(class_name, surrounded_by(character)) { |body|
         content = parser ? parser.new("#{body.strip}\n").to_html : body.strip
-        "<div class=\"#{class_name}\">\n#{content}</div>\n"
+        %{<div class="#{class_name}">\n#{content}</div>\n}
       }
     end
 
@@ -57,20 +57,20 @@ module Govspeak
     }
 
     extension('informational', surrounded_by("^")) { |body|
-      "<div class=\"application-notice info-notice\">
-#{Kramdown::Document.new(body.strip).to_html}</div>\n"
+      %{\n\n<div class="application-notice info-notice">
+#{Kramdown::Document.new(body.strip).to_html}</div>\n}
     }
 
     extension('important', surrounded_by("@")) { |body|
-      "<h3 class=\"advisory\"><span>#{body.strip}</span></h3>\n"
+      %{\n\n<h3 class="advisory"><span>#{body.strip}</span></h3>\n}
     }
 
     extension('helpful', surrounded_by("%")) { |body|
-      "<div class=\"application-notice help-notice\">\n<p>#{body.strip}</p>\n</div>\n"
+      %{\n\n<div class="application-notice help-notice">\n<p>#{body.strip}</p>\n</div>\n}
     }
 
     extension('map_link', surrounded_by("((", "))")) { |body|
-      "<div class=\"map\"><iframe width=\"200\" height=\"200\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"#{body.strip}&output=embed\"></iframe><br /><small><a href=\"#{body.strip}\">View Larger Map</a></small></div>"
+      %{<div class="map"><iframe width="200" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="#{body.strip}&output=embed"></iframe><br /><small><a href="#{body.strip}">View Larger Map</a></small></div>}
     }
 
     wrap_with_div('summary', '$!')
@@ -82,7 +82,7 @@ module Govspeak
     wrap_with_div('example', '$E', Govspeak::Document)
 
     extension('address', surrounded_by("$A")) { |body|
-      "<div class=\"address vcard\"><div class=\"adr org fn\"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n"
+      %{<div class="address vcard"><div class="adr org fn"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n}
     }
 
     extension("numbered list", /((s\d+\.\s.*(?:\n|$))+)/) do |body|
@@ -90,7 +90,7 @@ module Govspeak
       body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do |b|
           "<li>#{Kramdown::Document.new($2.strip).to_html}</li>\n"
       end
-      "<ol class=\"steps\">\n#{body}</ol>"
+      %{<ol class="steps">\n#{body}</ol>}
     end
 
     def self.devolved_options
@@ -102,12 +102,12 @@ module Govspeak
        'london' => 'London' }
     end
 
-   devolved_options.each do |k,v| 
+   devolved_options.each do |k,v|
      extension("devolved-#{k}",/:#{k}:(.*?):#{k}:/m) do |body|
-"<div class=\"devolved-content #{k}\">
-<p class=\"devolved-header\">This section applies to #{v}</p>
-<div class=\"devolved-body\">#{Kramdown::Document.new(body.strip).to_html}</div>
-</div>\n"
+%{<div class="devolved-content #{k}">
+<p class="devolved-header">This section applies to #{v}</p>
+<div class="devolved-body">#{Kramdown::Document.new(body.strip).to_html}</div>
+</div>\n}
      end
    end
   end
