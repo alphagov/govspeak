@@ -13,6 +13,11 @@ class GovspeakTest < Test::Unit::TestCase
     assert_equal "<p><em>this is markdown</em></p>\n", rendered
   end
 
+  test "simple smoke-test for simplified API" do
+    rendered =  Govspeak::Document.to_html("*this is markdown*")
+    assert_equal "<p><em>this is markdown</em></p>\n", rendered
+  end
+
   test "simple block extension" do
     rendered =  Govspeak::Document.new("this \n{::reverse}\n*is*\n{:/reverse}\n markdown").to_html
     assert_equal "<p>this </p>\n\n<p><em>si</em></p>\n\n<p>markdown</p>\n", rendered

@@ -6,7 +6,11 @@ module Govspeak
 
     @@extensions = []
 
-    def initialize(source,options = {})
+    def self.to_html(source, options = {})
+      new(source, options).to_html
+    end
+
+    def initialize(source, options = {})
       source ||= ""
       options[:entity_output] ||= :symbolic
       @doc = Kramdown::Document.new(preprocess(source), options)
