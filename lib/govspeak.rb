@@ -14,7 +14,7 @@ module Govspeak
       source ||= ""
       options[:entity_output] ||= :symbolic
       @doc = Kramdown::Document.new(preprocess(source), options)
-      super
+      super()
     end
 
     def to_html
