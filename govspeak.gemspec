@@ -3,10 +3,10 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name          = "govspeak"
-  s.version       = "0.8.3"
+  s.version       = "0.8.4"
   s.platform      = Gem::Platform::RUBY
-  s.authors       = ["Ben Griffiths"]
-  s.email         = ["ben@alphagov.co.uk"]
+  s.authors       = ["Ben Griffiths", "James Stewart"]
+  s.email         = ["ben@alphagov.co.uk", "james.stewart@digital.cabinet-office.gov.uk"]
   s.homepage      = "http://github.com/alphagov/govspeak"
   s.summary       = %q{Markup language for single domain}
   s.description   = %q{Markup language for single domain}
