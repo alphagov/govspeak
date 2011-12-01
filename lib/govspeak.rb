@@ -1,4 +1,5 @@
 require 'kramdown'
+require 'govspeak/header_extractor'
 
 module Govspeak
 
@@ -19,6 +20,10 @@ module Govspeak
 
     def to_html
       @doc.to_html
+    end
+
+    def headers
+      Govspeak::HeaderExtractor.convert(@doc).first
     end
 
     def preprocess(source)

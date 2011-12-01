@@ -23,6 +23,29 @@ class GovspeakTest < Test::Unit::TestCase
     assert_equal "<p>this </p>\n\n<p><em>si</em></p>\n\n<p>markdown</p>\n", rendered
   end
 
+  test "extracts headers with text, level and generated id" do
+    document =  Govspeak::Document.new %{
+# Big title
+
+### Small subtitle
+
+## Medium title
+}
+    assert_equal [
+      Govspeak::Header.new('Big title', 1, 'big-title'),
+      Govspeak::Header.new('Small subtitle', 3, 'small-subtitle'),
+      Govspeak::Header.new('Medium title', 2, 'medium-title')
+    ], document.headers
+  end
+
+  test "extracts different ids for duplicate headers" do
+    document =  Govspeak::Document.new("## Duplicate header\n\n## Duplicate header")
+    assert_equal [
+      Govspeak::Header.new('Duplicate header', 2, 'duplicate-header'),
+      Govspeak::Header.new('Duplicate header', 2, 'duplicate-header-1')
+    ], document.headers
+  end
+
   test "govspark extensions" do
     markdown_regression_tests = [
 {
@@ -159,7 +182,7 @@ test "devolved markdown sections" do
     input =  ":scotland: I am very devolved \n and very scottish \n:scotland:"
     output = '<div class="devolved-content scotland">
 <p class="devolved-header">This section applies to Scotland</p>
-<div class="devolved-body"><p>I am very devolved 
+<div class="devolved-body"><p>I am very devolved
  and very scottish</p>
 </div>
 </div>
