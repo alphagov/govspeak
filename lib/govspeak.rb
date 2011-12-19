@@ -71,11 +71,11 @@ module Govspeak
     }
 
     extension('important', surrounded_by("@")) { |body|
-      %{\n\n<h3 class="advisory"><span>#{body.strip}</span></h3>\n}
+      %{\n\n<h3 class="advisory"><span>#{Kramdown::Document.new(body.strip).to_html}</span></h3>\n}
     }
 
     extension('helpful', surrounded_by("%")) { |body|
-      %{\n\n<div class="application-notice help-notice">\n<p>#{body.strip}</p>\n</div>\n}
+      %{\n\n<div class="application-notice help-notice">\n<p>#{Kramdown::Document.new(body.strip).to_html}</p>\n</div>\n}
     }
 
     extension('map_link', surrounded_by("((", "))")) { |body|
