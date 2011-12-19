@@ -67,13 +67,15 @@ class GovspeakTest < Test::Unit::TestCase
 </div>}
 }, {
   input: "@ I am very important @",
-  output: %{<h3 class="advisory"><span>I am very important</span></h3>}
+  output: %{<h3 class="advisory"><p>I am very important</p>
+</h3>}
 }, {
   input: "The following is very important
 @ I am very important @",
   output: %{<p>The following is very important</p>
 
-<h3 class="advisory"><span>I am very important</span></h3>}
+<h3 class="advisory"><p>I am very important</p>
+</h3>}
 }, {
   input: "% I am very helpful %",
   output:  %{<div class="application-notice help-notice">
@@ -188,6 +190,16 @@ test "devolved markdown sections" do
 </div>
 '
 
+  assert_equal output, Govspeak::Document.new(input).to_html
+end         
+
+test "links inside markdown boxes" do
+  input = "@ Message with [a link](http://foo.bar/)@"
+  output = %{
+<h3 class="advisory"><p>Message with <a href="http://foo.bar/">a link</a></p>
+</h3>
+}  
+  
   assert_equal output, Govspeak::Document.new(input).to_html
 end
 
