@@ -55,6 +55,10 @@ module Govspeak
         content = parser ? parser.new("#{body.strip}\n").to_html : body.strip
         %{<div class="#{class_name}">\n#{content}</div>\n}
       }
+    end           
+    
+    def self.insert_strong_inside_p(body, parser=Kramdown::Document)
+      parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/,"<p><strong>\\1</strong></p>")
     end
 
     extension('reverse') { |body|
@@ -71,7 +75,7 @@ module Govspeak
     }
 
     extension('important', surrounded_by("@")) { |body|
-      %{\n\n<h3 class="advisory">#{Kramdown::Document.new(body.strip).to_html}</h3>\n}
+      %{\n\n<div class="advisory">#{insert_strong_inside_p(body)}</div>\n}
     }
 
     extension('helpful', surrounded_by("%")) { |body|
