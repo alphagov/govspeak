@@ -1,5 +1,6 @@
 require 'kramdown'
 require 'govspeak/header_extractor'
+require 'htmlentities'
 
 module Govspeak
 
@@ -20,6 +21,10 @@ module Govspeak
 
     def to_html
       @doc.to_html
+    end
+
+    def to_text
+      HTMLEntities.new.decode(to_html.gsub(/(?:<[^>]+>|\s)+/, " ").strip)
     end
 
     def headers
