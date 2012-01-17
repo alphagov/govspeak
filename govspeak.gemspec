@@ -24,6 +24,6 @@ library for use in the UK Government Single Domain project}
   s.add_dependency 'kramdown', '~> 0.13.3'
   s.add_dependency 'htmlentities', '~> 4'
   
-  s.add_development_dependency 'rake', '~> 0.8.0'
+  s.add_development_dependency 'rake', '~> 0.9.0'
   
 end
