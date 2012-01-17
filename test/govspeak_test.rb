@@ -54,6 +54,16 @@ class GovspeakTest < Test::Unit::TestCase
     assert_equal "foo bar baz", doc.to_text
   end
 
+  test "trailing space after the address should not prevent parsing" do
+    input = %{$A
+123 Test Street
+Testcase Cliffs
+Teston
+0123 456 7890 $A    }
+    doc = Govspeak::Document.new(input)
+    assert_equal %{<div class="address vcard"><div class="adr org fn"><p>\n123 Test Street<br />Testcase Cliffs<br />Teston<br />0123 456 7890 \n</p></div></div>\n}, doc.to_html
+  end
+
   test "govspark extensions" do
     markdown_regression_tests = [
 {

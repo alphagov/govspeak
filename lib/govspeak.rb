@@ -49,9 +49,9 @@ module Govspeak
       open = Regexp::escape(open)
       if close
         close = Regexp::escape(close)
-        %r+(?:\r|\n|^)#{open}(.*?)#{close}(\r|\n|$)?+m
+        %r+(?:\r|\n|^)#{open}(.*?)#{close} *(\r|\n|$)?+m
       else
-        %r+(?:\r|\n|^)#{open}(.*?)#{open}?(\r|\n|$)+m
+        %r+(?:\r|\n|^)#{open}(.*?)#{open}? *(\r|\n|$)+m
       end
     end
 
