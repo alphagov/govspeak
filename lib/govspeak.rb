@@ -70,6 +70,11 @@ module Govspeak
       body.reverse
     }
 
+    extension('highlight-answer') { |body|
+      %{\n\n<div class="highlight-answer">
+#{Kramdown::Document.new(body.strip).to_html}</div>\n}
+    }
+
     extension('external', surrounded_by("x")) { |body|
       Kramdown::Document.new("#{body.strip}{:rel='external'}").to_html
     }

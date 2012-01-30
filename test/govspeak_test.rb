@@ -25,6 +25,11 @@ class GovspeakTest < Test::Unit::TestCase
     assert_equal "<p>this </p>\n\n<p><em>si</em></p>\n\n<p>markdown</p>\n", rendered
   end
 
+  test "highlight-answer block extension" do
+    rendered =  Govspeak::Document.new("this \n{::highlight-answer}Lead in to *BIG TEXT*\n{:/highlight-answer}").to_html
+    assert_equal %Q{<p>this </p>\n\n<div class="highlight-answer">\n<p>Lead in to <em>BIG TEXT</em></p>\n</div>\n}, rendered
+  end
+  
   test "extracts headers with text, level and generated id" do
     document =  Govspeak::Document.new %{
 # Big title

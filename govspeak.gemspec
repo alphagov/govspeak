@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name          = "govspeak"
-  s.version       = "0.8.8"
+  s.version       = "0.8.9"
   s.platform      = Gem::Platform::RUBY
   s.authors       = ["Ben Griffiths", "James Stewart"]
   s.email         = ["ben@alphagov.co.uk", "james.stewart@digital.cabinet-office.gov.uk"]
