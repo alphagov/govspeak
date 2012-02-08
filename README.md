@@ -112,6 +112,18 @@ Static Maps can be embedded by wrapping the URL in double parenthesis.
 
     ((http://maps.google.co.uk/maps?q=Winkfield+Rd,+Windsor,+Berkshire+SL4+4AY&hl=en&sll=53.800651,-4.064941&sspn=17.759517,42.055664&vpsrc=0&z=14))
 
+## Abbreviations
+
+Abbreviations can be defined at the end of the document, and any occurrences elswhere in the document will wrapped in an `<abbr>` tag. They are parsed in the order in which they are defined, so `PCSOs` should be defined before `PCSO`, for example.
+
+    Special rules apply if you’re exporting a vehicle outside the EU.
+
+    *[EU]:European Union
+
+becomes
+
+    <p>Special rules apply if you’re exporting a vehicle outside the <abbr title="European Union">EU</abbr>.</p>
+
 ## Devolved content
 
     :england:content goes here:england:
