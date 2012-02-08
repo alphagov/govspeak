@@ -1,5 +1,23 @@
 Govspeak is our markdown-derived mark-up language.
 
+# Usage
+
+Install the gem
+
+    gem install govspeak
+
+or add it to your Gemfile
+
+    gem "govspeak", "~> 0.8.9"
+
+then create a new document
+
+    require 'rubygems'
+    require 'govspeak'
+
+    doc = Govspeak::Document.new "^Test^"
+    puts doc.to_html
+
 # Extensions
 
 In addition to the [standard Markdown syntax](http://daringfireball.net/projects/markdown/syntax "Markdown syntax"), we have added our own extensions. 
