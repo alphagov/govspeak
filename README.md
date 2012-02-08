@@ -162,10 +162,3 @@ becomes
     :wales:content goes here:wales:
     :northern-ireland:content goes here:northern-ireland:
     :england-wales:content goes here:england-wales:
-
-## Usage
-
-govspeak has a basic *Cloth API:
-
-    require 'govspeak'
-    Govspeak::Document.new(text).to_html
