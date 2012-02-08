@@ -26,6 +26,18 @@ creates a callout with a warning or alert (!) icon
     	<p>This is a warning callout</p> 
     </div>
 
+### Example callout
+
+    $E
+    **Example**: Open the pod bay doors
+    $E
+
+creates an example box
+    
+    <div class="example">
+    <p><strong>Example:</strong> Open the pod bay doors</p>
+    </div>
+
 ## Highlights
 
 ### Advisory
