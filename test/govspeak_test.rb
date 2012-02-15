@@ -79,6 +79,12 @@ Teston
     assert_text_output "I am very informational"
   end
 
+  test "processing an extension does not modify the provided input" do
+    input = "^ I am very informational"
+    Govspeak::Document.new(input).to_html
+    assert_equal "^ I am very informational", input
+  end
+
   test_given_govspeak "The following is very informational\n^ I am very informational ^" do
     assert_html_output %{
       <p>The following is very informational</p>
