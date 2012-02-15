@@ -284,5 +284,57 @@ Teston
       </div>
       }  
   end
+  
+  test "can reference attached images using !!n" do
+    images = [OpenStruct.new(alt_text: 'my alt', url: "http://example.com/image.jpg")]
+    given_govspeak "!!1", images do
+      assert_html_output %Q{
+          <figure class="image embedded">
+            <div class="img"><img alt="my alt" src="http://example.com/image.jpg" /></div>
+          </figure>
+        }
+    end
+  end
+
+  test "alt text of referenced images is escaped" do
+    images = [OpenStruct.new(alt_text: %Q{my alt '&"<>}, url: "http://example.com/image.jpg")]
+    given_govspeak "!!1", images do
+      assert_html_output %Q{
+          <figure class="image embedded">
+            <div class="img"><img alt="my alt &apos;&amp;&quot;&lt;&gt;" src="http://example.com/image.jpg" /></div>
+          </figure>
+        }
+    end
+  end
+
+  test "silently ignores an image attachment if the referenced image is missing" do
+    doc = Govspeak::Document.new("!!1")
+    doc.images = []
+    
+    assert_equal %Q{\n}, doc.to_html
+  end
+
+  test "adds image caption if given" do
+    images = [OpenStruct.new(alt_text: "my alt", url: "http://example.com/image.jpg", caption: 'My Caption & so on')]
+    given_govspeak "!!1", images do
+      assert_html_output %Q{
+          <figure class="image embedded">
+            <div class="img"><img alt="my alt" src="http://example.com/image.jpg" /></div>
+            <figcaption>My Caption &amp; so on</figcaption>
+          </figure>
+        }
+    end
+  end
+  
+  test "ignores a blank caption" do
+    images = [OpenStruct.new(alt_text: "my alt", url: "http://example.com/image.jpg", caption: '  ')]
+    given_govspeak "!!1", images do
+      assert_html_output %Q{
+          <figure class="image embedded">
+            <div class="img"><img alt="my alt" src="http://example.com/image.jpg" /></div>
+          </figure>
+        }
+    end
+  end
 
 end

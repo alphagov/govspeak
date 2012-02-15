@@ -8,19 +8,26 @@ module Govspeak
 
     @@extensions = []
 
+    attr_accessor :images
+    
     def self.to_html(source, options = {})
       new(source, options).to_html
     end
 
     def initialize(source, options = {})
-      source = source ? source.dup : ""
-      options[:entity_output] ||= :symbolic
-      @doc = Kramdown::Document.new(preprocess(source), options)
+      @source = source ? source.dup : ""
+      @options = options.merge(entity_output: :symbolic)
+      @images = []
       super()
     end
 
+    def kramdown_doc
+      @kramdown_doc ||= Kramdown::Document.new(preprocess(@source), @options)
+    end
+    private :kramdown_doc
+    
     def to_html
-      @doc.to_html
+      kramdown_doc.to_html
     end
 
     def to_text
@@ -28,17 +35,22 @@ module Govspeak
     end
 
     def headers
-      Govspeak::HeaderExtractor.convert(@doc).first
+      Govspeak::HeaderExtractor.convert(kramdown_doc).first
     end
 
     def preprocess(source)
       @@extensions.each do |title,regexp,block|
         source.gsub!(regexp) {|match|
-          block.call($1)
+          instance_exec($1, &block)
         }
       end
       source
     end
+    
+    def encode(text)
+      HTMLEntities.new.encode(text)
+    end
+    private :encode
 
     def self.extension(title, regexp = nil, &block)
       regexp ||= %r${::#{title}}(.*?){:/#{title}}$m
@@ -62,7 +74,7 @@ module Govspeak
       }
     end           
     
-    def self.insert_strong_inside_p(body, parser=Kramdown::Document)
+    def insert_strong_inside_p(body, parser=Kramdown::Document)
       parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/,"<p><strong>\\1</strong></p>")
     end
 
@@ -95,6 +107,25 @@ module Govspeak
     extension('map_link', surrounded_by("((", "))")) { |body|
       %{<div class="map"><iframe width="200" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="#{body.strip}&output=embed"></iframe><br /><small><a href="#{body.strip}">View Larger Map</a></small></div>}
     }
+    
+    extension('attached-image', /^!!([0-9]+)/) do |image_number|
+      image = images[image_number.to_i - 1]
+      if image
+        caption = image.caption rescue nil
+        render_image(image.url, image.alt_text, caption)
+      else
+        ""
+      end
+    end
+    
+    def render_image(url, alt_text, caption = nil)
+      lines = []
+      lines << '<figure class="image embedded">'
+      lines << %Q{  <div class="img"><img alt="#{encode(alt_text)}" src="#{encode(url)}" /></div>}
+      lines << %Q{  <figcaption>#{encode(caption.strip)}</figcaption>} if caption && !caption.strip.empty?
+      lines << '</figure>'
+      lines.join "\n"
+    end
 
     wrap_with_div('summary', '$!')
     wrap_with_div('form-download', '$D')
@@ -125,13 +156,13 @@ module Govspeak
        'london' => 'London' }
     end
 
-   devolved_options.each do |k,v|
-     extension("devolved-#{k}",/:#{k}:(.*?):#{k}:/m) do |body|
+    devolved_options.each do |k,v|
+      extension("devolved-#{k}",/:#{k}:(.*?):#{k}:/m) do |body|
 %{<div class="devolved-content #{k}">
 <p class="devolved-header">This section applies to #{v}</p>
 <div class="devolved-body">#{Kramdown::Document.new(body.strip).to_html}</div>
 </div>\n}
-     end
-   end
+      end
+    end
   end
 end

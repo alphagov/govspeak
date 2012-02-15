@@ -5,13 +5,16 @@ module GovspeakTestHelper
   end
     
   class GovspeakAsserter
-    def initialize(testcase, govspeak)
+    def initialize(testcase, govspeak, images = [])
       @testcase = testcase
       @govspeak = remove_indentation(govspeak)
+      @images = images
     end
     
     def document
-      Govspeak::Document.new(@govspeak)
+      Govspeak::Document.new(@govspeak).tap do |doc|
+        doc.images = @images
+      end
     end
     
     def assert_text_output(raw_expected)
@@ -44,12 +47,20 @@ module GovspeakTestHelper
     end
     
     def describe_error(govspeak, expected, actual)
-      "Expected:\n#{govspeak}\n\nto produce:\n#{expected}\n\nbut got:\n#{actual}\n"
+      "Expected:\n#{govspeak}\n\nto produce:\n#{show_linenumbers(expected)}\n\nbut got:\n#{show_linenumbers(actual)}\n"
+    end
+    
+    def show_linenumbers(text)
+      lines = text.split "\n"
+      digits = Math.log10(lines.size + 2).ceil
+      lines.map.with_index do |line, i|
+        "%#{digits}d: %s" % [i+1, line]
+      end.join "\n"
     end
   end
 
-  def given_govspeak(govspeak, &block)
-    asserter = GovspeakAsserter.new(self, govspeak)
+  def given_govspeak(govspeak, images=[], &block)
+    asserter = GovspeakAsserter.new(self, govspeak, images)
     asserter.instance_eval(&block)
   end
   
