@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
 
+require 'govspeak/version'
+
 Gem::Specification.new do |s|
   s.name          = "govspeak"
-  s.version       = "0.8.9"
+  s.version       = Govspeak::VERSION
   s.platform      = Gem::Platform::RUBY
   s.authors       = ["Ben Griffiths", "James Stewart"]
   s.email         = ["ben@alphagov.co.uk", "james.stewart@digital.cabinet-office.gov.uk"]
