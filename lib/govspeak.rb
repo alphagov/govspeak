@@ -13,7 +13,7 @@ module Govspeak
     end
 
     def initialize(source, options = {})
-      source ||= ""
+      source = source.dup || source
       options[:entity_output] ||= :symbolic
       @doc = Kramdown::Document.new(preprocess(source), options)
       super()
