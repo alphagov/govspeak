@@ -87,8 +87,8 @@ module Govspeak
 #{Kramdown::Document.new(body.strip).to_html}</div>\n}
     }
 
-    extension('external', surrounded_by("x")) { |body|
-      Kramdown::Document.new("#{body.strip}{:rel='external'}").to_html
+    extension('external', surrounded_by("x[", "x")) { |body|
+      Kramdown::Document.new("[#{body.strip}{:rel='external'}").to_html
     }
 
     extension('informational', surrounded_by("^")) { |body|
