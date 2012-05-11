@@ -14,3 +14,9 @@ Rake::TestTask.new("test_units") { |t|
   t.verbose = true
   t.warning = true
 }
+
+require "gem_publisher"
+task :publish_gem do |t|
+  gem = GemPublisher.publish_if_updated("govspeak.gemspec", :rubygems)
+  puts "Published #{gem}" if gem
+end
