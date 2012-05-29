@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email         = ["ben@alphagov.co.uk", "james.stewart@digital.cabinet-office.gov.uk"]
   s.homepage      = "http://github.com/alphagov/govspeak"
   s.summary       = %q{Markup language for single domain}
-  s.description   = %q{A set of extensions to markdown layered on top of the kramdown 
+  s.description   = %q{A set of extensions to markdown layered on top of the kramdown
 library for use in the UK Government Single Domain project}
 
   s.files         = Dir[

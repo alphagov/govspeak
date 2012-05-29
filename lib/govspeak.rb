@@ -9,7 +9,7 @@ module Govspeak
     @@extensions = []
 
     attr_accessor :images
-    
+
     def self.to_html(source, options = {})
       new(source, options).to_html
     end
@@ -25,7 +25,7 @@ module Govspeak
       @kramdown_doc ||= Kramdown::Document.new(preprocess(@source), @options)
     end
     private :kramdown_doc
-    
+
     def to_html
       kramdown_doc.to_html
     end
@@ -46,7 +46,7 @@ module Govspeak
       end
       source
     end
-    
+
     def encode(text)
       HTMLEntities.new.encode(text)
     end
@@ -72,8 +72,8 @@ module Govspeak
         content = parser ? parser.new("#{body.strip}\n").to_html : body.strip
         %{<div class="#{class_name}">\n#{content}</div>\n}
       }
-    end           
-    
+    end
+
     def insert_strong_inside_p(body, parser=Kramdown::Document)
       parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/,"<p><strong>\\1</strong></p>")
     end
@@ -107,7 +107,7 @@ module Govspeak
     extension('map_link', surrounded_by("((", "))")) { |body|
       %{<div class="map"><iframe width="200" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="#{body.strip}&output=embed"></iframe><br /><small><a href="#{body.strip}">View Larger Map</a></small></div>}
     }
-    
+
     extension('attached-image', /^!!([0-9]+)/) do |image_number|
       image = images[image_number.to_i - 1]
       if image
@@ -117,7 +117,7 @@ module Govspeak
         ""
       end
     end
-    
+
     def render_image(url, alt_text, caption = nil)
       lines = []
       lines << '<figure class="image embedded">'

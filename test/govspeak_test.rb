@@ -11,7 +11,7 @@ require 'govspeak_test_helper'
 
 class GovspeakTest < Test::Unit::TestCase
   include GovspeakTestHelper
-  
+
   test "simple smoke-test" do
     rendered =  Govspeak::Document.new("*this is markdown*").to_html
     assert_equal "<p><em>this is markdown</em></p>\n", rendered
@@ -31,7 +31,7 @@ class GovspeakTest < Test::Unit::TestCase
     rendered =  Govspeak::Document.new("this \n{::highlight-answer}Lead in to *BIG TEXT*\n{:/highlight-answer}").to_html
     assert_equal %Q{<p>this </p>\n\n<div class="highlight-answer">\n<p>Lead in to <em>BIG TEXT</em></p>\n</div>\n}, rendered
   end
-  
+
   test "extracts headers with text, level and generated id" do
     document =  Govspeak::Document.new %{
 # Big title
@@ -94,7 +94,7 @@ Teston
       </div>}
     assert_text_output "The following is very informational I am very informational"
   end
-  
+
   test_given_govspeak "^ I am very informational" do
     assert_html_output %{
       <div class="application-notice info-notice">
@@ -102,14 +102,14 @@ Teston
       </div>}
     assert_text_output "I am very informational"
   end
-  
+
   test_given_govspeak "@ I am very important @" do
     assert_html_output %{
       <div class="advisory"><p><strong>I am very important</strong></p>
       </div>}
     assert_text_output "I am very important"
   end
-  
+
   test_given_govspeak "
     The following is very important
     @ I am very important @
@@ -121,7 +121,7 @@ Teston
       </div>}
     assert_text_output "The following is very important I am very important"
   end
-  
+
   test_given_govspeak "% I am very helpful %" do
     assert_html_output %{
       <div class="application-notice help-notice">
@@ -129,7 +129,7 @@ Teston
       </div>}
     assert_text_output "I am very helpful"
   end
-  
+
   test_given_govspeak "The following is very helpful\n% I am very helpful %" do
     assert_html_output %{
       <p>The following is very helpful</p>
@@ -139,7 +139,7 @@ Teston
       </div>}
     assert_text_output "The following is very helpful I am very helpful"
   end
-  
+
   test_given_govspeak "## Hello ##\n\n% I am very helpful %\r\n### Young Workers ###\n\n" do
     assert_html_output %{
       <h2 id="hello">Hello</h2>
@@ -151,7 +151,7 @@ Teston
       <h3 id="young-workers">Young Workers</h3>}
     assert_text_output "Hello I am very helpful Young Workers"
   end
-  
+
   test_given_govspeak "% I am very helpful" do
     assert_html_output %{
       <div class="application-notice help-notice">
@@ -159,17 +159,17 @@ Teston
       </div>}
     assert_text_output "I am very helpful"
   end
-  
+
   test_given_govspeak "This is a [link](http://www.google.com) isn't it?" do
     assert_html_output '<p>This is a <a href="http://www.google.com">link</a> isn&rsquo;t it?</p>'
     assert_text_output "This is a link isn’t it?"
   end
-  
+
   test_given_govspeak "This is a [link with an at sign in it](http://www.google.com/@dg/@this) isn't it?" do
     assert_html_output '<p>This is a <a href="http://www.google.com/@dg/@this">link with an at sign in it</a> isn&rsquo;t it?</p>'
     assert_text_output "This is a link with an at sign in it isn’t it?"
   end
-  
+
   test_given_govspeak "
     HTML
 
@@ -177,12 +177,12 @@ Teston
     assert_html_output %{<p><abbr title="Hyper Text Markup Language">HTML</abbr></p>}
     assert_text_output "HTML"
   end
-  
+
   test_given_govspeak "x[a link](http://rubyforge.org)x" do
     assert_html_output '<p><a href="http://rubyforge.org" rel="external">a link</a></p>'
     assert_text_output "a link"
   end
-  
+
   # Regression test - the surrounded_by helper doesn't require the closing x
   # so 'xaa' was getting picked up by the external link helper above
   # TODO: review whether we should require closing symbols for these extensions
@@ -202,7 +202,7 @@ Teston
       </div>}
     assert_text_output "rainbow"
   end
-  
+
   test_given_govspeak "$C help, send cake $C" do
     assert_html_output %{
       <div class="contact">
@@ -210,7 +210,7 @@ Teston
       </div>}
     assert_text_output "help, send cake"
   end
-  
+
   test_given_govspeak "
     $A
     street
@@ -222,7 +222,7 @@ Teston
       </p></div></div>}
     assert_text_output "street road"
   end
-  
+
   test_given_govspeak "
     $P
     $I
@@ -232,7 +232,7 @@ Teston
     assert_html_output %{<div class="place">\n<div class="information">\n<p>help</p>\n</div>\n</div>}
     assert_text_output "help"
   end
-  
+
   test_given_govspeak "
     $D
     can you tell me how to get to...
@@ -243,7 +243,7 @@ Teston
       </div>}
     assert_text_output "can you tell me how to get to…"
   end
-  
+
   test_given_govspeak "
     1. rod
     2. jane
@@ -251,14 +251,14 @@ Teston
     assert_html_output "<ol>\n  <li>rod</li>\n  <li>jane</li>\n  <li>freddy</li>\n</ol>"
     assert_text_output "rod jane freddy"
   end
-  
+
   test_given_govspeak "
 ((http://maps.google.co.uk/maps?q=Winkfield+Rd,+Windsor,+Berkshire+SL4+4AY&hl=en&sll=53.800651,-4.064941&sspn=17.759517,42.055664&vpsrc=0&z=14))
 " do
     assert_html_output %{<div class="map"><iframe width="200" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/maps?q=Winkfield+Rd,+Windsor,+Berkshire+SL4+4AY&amp;hl=en&amp;sll=53.800651,-4.064941&amp;sspn=17.759517,42.055664&amp;vpsrc=0&amp;z=14&amp;output=embed"></iframe><br /><small><a href="http://maps.google.co.uk/maps?q=Winkfield+Rd,+Windsor,+Berkshire+SL4+4AY&amp;hl=en&amp;sll=53.800651,-4.064941&amp;sspn=17.759517,42.055664&amp;vpsrc=0&amp;z=14">View Larger Map</a></small></div>}
     assert_text_output "View Larger Map"
   end
-  
+
   test_given_govspeak "
     s1. zippy
     s2. bungle
@@ -275,7 +275,7 @@ Teston
       </ol>}
     assert_text_output "zippy bungle george"
   end
-  
+
   test_given_govspeak ":scotland: I am very devolved\n and very scottish \n:scotland:" do
     assert_html_output '
       <div class="devolved-content scotland">
@@ -285,15 +285,15 @@ Teston
       </div>
       </div>
       '
-  end         
+  end
 
   test_given_govspeak "@ Message with [a link](http://foo.bar/)@" do
     assert_html_output %{
       <div class="advisory"><p><strong>Message with <a href="http://foo.bar/">a link</a></strong></p>
       </div>
-      }  
+      }
   end
-  
+
   test "can reference attached images using !!n" do
     images = [OpenStruct.new(alt_text: 'my alt', url: "http://example.com/image.jpg")]
     given_govspeak "!!1", images do
@@ -319,7 +319,7 @@ Teston
   test "silently ignores an image attachment if the referenced image is missing" do
     doc = Govspeak::Document.new("!!1")
     doc.images = []
-    
+
     assert_equal %Q{\n}, doc.to_html
   end
 
@@ -334,7 +334,7 @@ Teston
         }
     end
   end
-  
+
   test "ignores a blank caption" do
     images = [OpenStruct.new(alt_text: "my alt", url: "http://example.com/image.jpg", caption: '  ')]
     given_govspeak "!!1", images do

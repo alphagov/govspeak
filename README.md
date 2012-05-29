@@ -20,7 +20,7 @@ then create a new document
 
 # Extensions
 
-In addition to the [standard Markdown syntax](http://daringfireball.net/projects/markdown/syntax "Markdown syntax"), we have added our own extensions. 
+In addition to the [standard Markdown syntax](http://daringfireball.net/projects/markdown/syntax "Markdown syntax"), we have added our own extensions.
 
 ## Callouts
 
@@ -30,8 +30,8 @@ In addition to the [standard Markdown syntax](http://daringfireball.net/projects
 
 creates a callout with an info (i) icon.
 
-    <div class="application-notice info-notice"> 
-    	<p>This is an information callout</p> 
+    <div class="application-notice info-notice">
+    	<p>This is an information callout</p>
     </div>
 
 ### Warning callouts
@@ -40,8 +40,8 @@ creates a callout with an info (i) icon.
 
 creates a callout with a warning or alert (!) icon
 
-    <div class="application-notice help-notice"> 
-    	<p>This is a warning callout</p> 
+    <div class="application-notice help-notice">
+    	<p>This is a warning callout</p>
     </div>
 
 ### Example callout
@@ -51,7 +51,7 @@ creates a callout with a warning or alert (!) icon
     $E
 
 creates an example box
-    
+
     <div class="example">
     <p><strong>Example:</strong> Open the pod bay doors</p>
     </div>
@@ -66,7 +66,7 @@ highlights the enclosed text in yellow
 
     <h3 class="advisory">
     	<span>This is a very important message or warning</span>
-    </h3> 
+    </h3>
 
 ### Answer
 
@@ -85,8 +85,8 @@ creates a large pink highlight box with optional preamble text and giant text de
 ### Contact
 
     $C
-    **Student Finance England**  
-    **Telephone:** 0845 300 50 90  
+    **Student Finance England**
+    **Telephone:** 0845 300 50 90
     **Minicom:** 0845 604 44 34
     $C
 
@@ -108,8 +108,8 @@ creates an address box
 
     <div class="address vcard"><div class="adr org fn"><p>
     Hercules House
-    <br>Hercules Road  
-    <br>London SE1 7DU   
+    <br>Hercules Road
+    <br>London SE1 7DU
     <br></p></div></div>
 
 ## Downloads

@@ -11,7 +11,7 @@ class Test::Unit::TestCase
      clean_name = name.gsub(/\s+/,'_')
      method = "test_#{clean_name.gsub(/\s+/,'_')}".to_sym
      already_defined = instance_method(method) rescue false
-     raise "#{method} exists" if already_defined   
+     raise "#{method} exists" if already_defined
      define_method(method, &block)
     end
   end

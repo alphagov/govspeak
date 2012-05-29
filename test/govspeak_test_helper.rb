@@ -3,32 +3,32 @@ module GovspeakTestHelper
   def self.included(base)
     base.extend(ClassMethods)
   end
-    
+
   class GovspeakAsserter
     def initialize(testcase, govspeak, images = [])
       @testcase = testcase
       @govspeak = remove_indentation(govspeak)
       @images = images
     end
-    
+
     def document
       Govspeak::Document.new(@govspeak).tap do |doc|
         doc.images = @images
       end
     end
-    
+
     def assert_text_output(raw_expected)
       expected = remove_indentation(raw_expected)
       actual = document.to_text
       @testcase.assert expected == actual, describe_error(@govspeak, expected, actual)
     end
-    
+
     def assert_html_output(raw_expected)
       expected = remove_indentation(raw_expected)
       actual = document.to_html.strip
       @testcase.assert expected.strip == actual, describe_error(@govspeak, expected.strip, actual)
     end
-    
+
     def remove_indentation(raw)
       lines = raw.split("\n")
       if lines.first.empty?
@@ -45,11 +45,11 @@ module GovspeakTestHelper
         raw
       end
     end
-    
+
     def describe_error(govspeak, expected, actual)
       "Expected:\n#{govspeak}\n\nto produce:\n#{show_linenumbers(expected)}\n\nbut got:\n#{show_linenumbers(actual)}\n"
     end
-    
+
     def show_linenumbers(text)
       lines = text.split "\n"
       digits = Math.log10(lines.size + 2).ceil
@@ -63,7 +63,7 @@ module GovspeakTestHelper
     asserter = GovspeakAsserter.new(self, govspeak, images)
     asserter.instance_eval(&block)
   end
-  
+
   module ClassMethods
     def test_given_govspeak(govspeak, &block)
       test "Given #{govspeak}" do
