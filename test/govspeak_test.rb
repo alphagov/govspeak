@@ -183,6 +183,10 @@ Teston
     assert_text_output "a link"
   end
 
+  test_given_govspeak "x[an xx link](http://x.com)x" do
+    assert_html_output '<p><a href="http://x.com" rel="external">an xx link</a></p>'
+  end
+
   # Regression test - the surrounded_by helper doesn't require the closing x
   # so 'xaa' was getting picked up by the external link helper above
   # TODO: review whether we should require closing symbols for these extensions
