@@ -68,7 +68,7 @@ Testcase Cliffs
 Teston
 0123 456 7890 $A    }
     doc = Govspeak::Document.new(input)
-    assert_equal %{<div class="address vcard"><div class="adr org fn"><p>\n123 Test Street<br />Testcase Cliffs<br />Teston<br />0123 456 7890 \n</p></div></div>\n}, doc.to_html
+    assert_equal %{<div class="address"><div class="adr org fn"><p>\n123 Test Street<br />Testcase Cliffs<br />Teston<br />0123 456 7890 \n</p></div></div>\n}, doc.to_html
   end
 
   test_given_govspeak("^ I am very informational ^") do
@@ -221,7 +221,7 @@ Teston
     road
     $A" do
     assert_html_output %{
-      <div class="address vcard"><div class="adr org fn"><p>
+      <div class="address"><div class="adr org fn"><p>
       street<br />road<br />
       </p></div></div>}
     assert_text_output "street road"

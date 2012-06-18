@@ -137,7 +137,7 @@ module Govspeak
     wrap_with_div('example', '$E', Govspeak::Document)
 
     extension('address', surrounded_by("$A")) { |body|
-      %{<div class="address vcard"><div class="adr org fn"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n}
+      %{<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n}
     }
 
     extension("numbered list", /((s\d+\.\s.*(?:\n|$))+)/) do |body|
