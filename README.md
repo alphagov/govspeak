@@ -106,7 +106,7 @@ creates an contact box
 
 creates an address box
 
-    <div class="address vcard"><div class="adr org fn"><p>
+    <div class="address"><div class="adr org fn"><p>
     Hercules House
     <br>Hercules Road
     <br>London SE1 7DU
