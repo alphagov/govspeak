@@ -1,10 +1,14 @@
 require 'kramdown'
 require 'govspeak/header_extractor'
+require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'htmlentities'
 
 module Govspeak
 
   class Document
+
+    Parser = Kramdown::Parser::KramdownWithAutomaticExternalLinks
+    PARSER_CLASS_NAME = Parser.name.split("::").last
 
     @@extensions = []
 
@@ -16,7 +20,8 @@ module Govspeak
 
     def initialize(source, options = {})
       @source = source ? source.dup : ""
-      @options = options.merge(entity_output: :symbolic)
+      Parser.document_domains = options.delete(:document_domains)
+      @options = {input: PARSER_CLASS_NAME, entity_output: :symbolic}.merge(options)
       @images = []
       super()
     end

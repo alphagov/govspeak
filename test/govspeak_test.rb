@@ -162,13 +162,13 @@ Teston
     assert_text_output "I am very helpful"
   end
 
-  test_given_govspeak "This is a [link](http://www.google.com) isn't it?" do
-    assert_html_output '<p>This is a <a href="http://www.google.com">link</a> isn&rsquo;t it?</p>'
+  test_given_govspeak "This is a [link](http://www.gov.uk) isn't it?" do
+    assert_html_output '<p>This is a <a href="http://www.gov.uk">link</a> isn&rsquo;t it?</p>'
     assert_text_output "This is a link isn’t it?"
   end
 
-  test_given_govspeak "This is a [link with an at sign in it](http://www.google.com/@dg/@this) isn't it?" do
-    assert_html_output '<p>This is a <a href="http://www.google.com/@dg/@this">link with an at sign in it</a> isn&rsquo;t it?</p>'
+  test_given_govspeak "This is a [link with an at sign in it](http://www.gov.uk/@dg/@this) isn't it?" do
+    assert_html_output '<p>This is a <a href="http://www.gov.uk/@dg/@this">link with an at sign in it</a> isn&rsquo;t it?</p>'
     assert_text_output "This is a link with an at sign in it isn’t it?"
   end
 
@@ -187,6 +187,68 @@ Teston
 
   test_given_govspeak "x[an xx link](http://x.com)x" do
     assert_html_output '<p><a href="http://x.com" rel="external">an xx link</a></p>'
+  end
+
+  test_given_govspeak "[internal link](http://www.gov.uk)" do
+    assert_html_output '<p><a href="http://www.gov.uk">internal link</a></p>'
+  end
+
+  test_given_govspeak "[link with no host is assumed to be internal](/)" do
+    assert_html_output '<p><a href="/">link with no host is assumed to be internal</a></p>'
+  end
+
+  test_given_govspeak "[internal link with rel attribute keeps it](http://www.gov.uk){:rel='next'}" do
+    assert_html_output '<p><a href="http://www.gov.uk" rel="next">internal link with rel attribute keeps it</a></p>'
+  end
+
+  test_given_govspeak "[external link without x markers](http://www.google.com)" do
+    assert_html_output '<p><a rel="external" href="http://www.google.com">external link without x markers</a></p>'
+  end
+
+  test_given_govspeak "[external link with rel attribute](http://www.google.com){:rel='next'}" do
+    assert_html_output '<p><a rel="next" href="http://www.google.com">external link with rel attribute</a></p>'
+  end
+
+  test_given_govspeak "Text before [an external link](http://www.google.com)" do
+    assert_html_output '<p>Text before <a rel="external" href="http://www.google.com">an external link</a></p>'
+  end
+
+  test_given_govspeak "[An external link](http://www.google.com) with text afterwards" do
+    assert_html_output '<p><a rel="external" href="http://www.google.com">An external link</a> with text afterwards</p>'
+  end
+
+  test_given_govspeak "Text before [an external link](http://www.google.com) and text afterwards" do
+    assert_html_output '<p>Text before <a rel="external" href="http://www.google.com">an external link</a> and text afterwards</p>'
+  end
+
+  test "should be able to override default 'document_domains' option" do
+    html = Govspeak::Document.new("[internal link](http://www.not-external.com)", document_domains: %w(www.not-external.com)).to_html
+    refute html.include?('rel="external"'), "should not consider www.not-external.com as an external url"
+  end
+
+  test "should be able to supply multiple domains for 'document_domains' option" do
+    html = Govspeak::Document.new("[internal link](http://www.not-external-either.com)", document_domains: %w(www.not-external.com www.not-external-either.com)).to_html
+    refute html.include?('rel="external"'), "should not consider www.not-external-either.com as an external url"
+  end
+
+  test "should be able to override default 'input' option" do
+    html = Govspeak::Document.new("[external link](http://www.external.com)", input: "kramdown").to_html
+    refute html.include?('rel="external"'), "should not automatically add rel external attribute"
+  end
+
+  test "should be able to override default 'entity output' option" do
+    html = Govspeak::Document.new("&amp;", entity_output: :numeric).to_html
+    assert html.include?("&#38;")
+  end
+
+  test "should be assume link with invalid uri is internal" do
+    html = Govspeak::Document.new("[link](:invalid-uri)").to_html
+    refute html.include?('rel="external"')
+  end
+
+  test "should be assume link with invalid uri component is internal" do
+    html = Govspeak::Document.new("[link](mailto://www.example.com)").to_html
+    refute html.include?('rel="external"')
   end
 
   # Regression test - the surrounded_by helper doesn't require the closing x
