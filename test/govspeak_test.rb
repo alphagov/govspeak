@@ -9,6 +9,8 @@ SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 require 'test_helper'
 require 'govspeak_test_helper'
 
+require 'ostruct'
+
 class GovspeakTest < Test::Unit::TestCase
   include GovspeakTestHelper
 
