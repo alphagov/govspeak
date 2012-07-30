@@ -313,6 +313,17 @@ Teston
   end
 
   test_given_govspeak "
+    $CTA
+    Click here to start the tool
+    $CTA" do
+    assert_html_output %{
+      <div class="call-to-action">
+      <p>Click here to start the tool</p>
+      </div>}
+    assert_text_output "Click here to start the tool"
+  end
+
+  test_given_govspeak "
     1. rod
     2. jane
     3. freddy" do
