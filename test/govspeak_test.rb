@@ -297,7 +297,7 @@ Teston
     help
     $I
     $P" do
-    assert_html_output %{<div class="place">\n<div class="information">\n<p>help</p>\n</div>\n</div>}
+    assert_html_output %{<div class="place">\n\n<div class="information">\n<p>help</p>\n</div>\n</div>}
     assert_text_output "help"
   end
 
@@ -321,6 +321,20 @@ Teston
       <p>Click here to start the tool</p>
       </div>}
     assert_text_output "Click here to start the tool"
+  end
+
+  test_given_govspeak "Here is some text
+
+$CTA
+Click here to start the tool
+$CTA
+    " do
+    assert_html_output %{
+      <p>Here is some text</p>
+
+      <div class="call-to-action">
+      <p>Click here to start the tool</p>
+      </div>}
   end
 
   test_given_govspeak "

@@ -75,7 +75,7 @@ module Govspeak
     def self.wrap_with_div(class_name, character, parser=Kramdown::Document)
       extension(class_name, surrounded_by(character)) { |body|
         content = parser ? parser.new("#{body.strip}\n").to_html : body.strip
-        %{<div class="#{class_name}">\n#{content}</div>\n}
+        %{\n<div class="#{class_name}">\n#{content}</div>\n}
       }
     end
 
