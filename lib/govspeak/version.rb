@@ -1,3 +1,3 @@
 module Govspeak
-  VERSION = "0.8.18"
+  VERSION = "1.0.0"
 end
