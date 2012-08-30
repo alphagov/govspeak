@@ -110,10 +110,6 @@ module Govspeak
       %{\n\n<div class="application-notice help-notice">\n#{Kramdown::Document.new(body.strip).to_html}</div>\n}
     }
 
-    extension('map_link', surrounded_by("((", "))")) { |body|
-      %{<div class="map"><iframe width="200" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="#{body.strip}&output=embed"></iframe><br /><small><a href="#{body.strip}">View Larger Map</a></small></div>}
-    }
-
     extension('attached-image', /^!!([0-9]+)/) do |image_number|
       image = images[image_number.to_i - 1]
       if image
