@@ -432,4 +432,13 @@ $CTA
     end
   end
 
+  test "identifies a Govspeak document containing malicious HTML as invalid" do
+    document = Govspeak::Document.new("<script>doBadThings();</script>")
+    refute document.valid?
+  end
+
+  test "identifies a Govspeak document containing acceptable HTML as valid" do
+    document = Govspeak::Document.new("<div>some content</div>")
+    assert document.valid?
+  end
 end

@@ -39,6 +39,10 @@ module Govspeak
       HTMLEntities.new.decode(to_html.gsub(/(?:<[^>]+>|\s)+/, " ").strip)
     end
 
+    def valid?
+      Govspeak::HtmlValidator.new(@source).valid?
+    end
+
     def headers
       Govspeak::HeaderExtractor.convert(kramdown_doc).first
     end
