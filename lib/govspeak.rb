@@ -1,5 +1,6 @@
 require 'kramdown'
 require 'govspeak/header_extractor'
+require 'govspeak/html_validator'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'htmlentities'
 
