@@ -23,7 +23,6 @@ module Govspeak
       Parser.document_domains = options.delete(:document_domains)
       @options = {input: PARSER_CLASS_NAME, entity_output: :symbolic}.merge(options)
       @images = []
-      super()
     end
 
     def kramdown_doc
