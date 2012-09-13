@@ -1,5 +1,3 @@
-require 'sanitize'
-
 class Govspeak::HtmlValidator
   attr_reader :string
 
@@ -13,7 +11,7 @@ class Govspeak::HtmlValidator
 
   def valid?
     dirty_html = govspeak_to_html
-    clean_html = sanitize_html(dirty_html)
+    clean_html = Govspeak::HtmlSanitizer.new(dirty_html).sanitize
     normalise_html(dirty_html) == normalise_html(clean_html)
   end
 
@@ -24,17 +22,5 @@ class Govspeak::HtmlValidator
 
   def govspeak_to_html
     Govspeak::Document.new(string).to_html
-  end
-
-  def sanitize_html(dirty_html)
-    Sanitize.clean(dirty_html, sanitize_config)
-  end
-
-  def sanitize_config
-    config = Sanitize::Config::RELAXED.dup
-    config[:attributes][:all].push("id", "class")
-    config[:attributes]["a"].push("rel")
-    config[:elements].push("div", "hr")
-    config
   end
 end
