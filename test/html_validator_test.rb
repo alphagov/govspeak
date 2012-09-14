@@ -57,7 +57,7 @@ class HtmlValidatorTest < Test::Unit::TestCase
     end
   end
 
-  test "disallow a script tags" do
+  test "disallow a script tag" do
     assert Govspeak::HtmlValidator.new("<script>alert('XSS')</script>").invalid?
   end
 
