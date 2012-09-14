@@ -432,6 +432,11 @@ $CTA
     end
   end
 
+  test "can sanitize a document" do
+    document = Govspeak::Document.new("<script>doBadThings();</script>")
+    assert_equal "doBadThings();", document.to_sanitized_html
+  end
+
   test "identifies a Govspeak document containing malicious HTML as invalid" do
     document = Govspeak::Document.new("<script>doBadThings();</script>")
     refute document.valid?

@@ -36,6 +36,10 @@ module Govspeak
       kramdown_doc.to_html
     end
 
+    def to_sanitized_html
+      HtmlSanitizer.new(to_html).sanitize
+    end
+
     def to_text
       HTMLEntities.new.decode(to_html.gsub(/(?:<[^>]+>|\s)+/, " ").strip)
     end
