@@ -89,7 +89,7 @@ class HtmlValidatorTest < Test::Unit::TestCase
     assert Govspeak::HtmlValidator.new("Fortnum & Mason").valid?
   end
 
-  test "allow empty li" do
-    assert Govspeak::HtmlValidator.new("RESPONSE to factcheck - as below \r\n\r\nNO ACTION - \r\n\r\nTransaction aimed at those who have login / vat number and just want to send return. If not, content we link to services needs - how to get vat number / how get online account\r\n\r\n\r\n\r\n\r\n2. \r\n\r\nNO ACTION ").valid?
+  test "allow empty li tags via govspeak" do
+    assert Govspeak::HtmlValidator.new("2. ").valid?
   end
 end
