@@ -338,6 +338,20 @@ $CTA
   end
 
   test_given_govspeak "
+    [internal link](http://www.not-external.com)
+
+    $CTA
+    Click here to start the tool
+    $CTA", [], document_domains: %w(www.not-external.com) do
+    assert_html_output %{
+      <p><a href="http://www.not-external.com">internal link</a></p>
+
+      <div class="call-to-action">
+      <p>Click here to start the tool</p>
+      </div>}
+  end
+
+  test_given_govspeak "
     1. rod
     2. jane
     3. freddy" do
