@@ -27,13 +27,15 @@ EOF
       end
 
       def add_link(el, href, title, alt_text = nil)
-        begin
-          host = URI.parse(href).host
-          unless host.nil? || (@document_domains.compact.include?(host))
-            el.attr['rel'] = 'external'
+        if el.type == :a
+          begin
+            host = URI.parse(href).host
+            unless host.nil? || (@document_domains.compact.include?(host))
+              el.attr['rel'] = 'external'
+            end
+          rescue URI::InvalidURIError, URI::InvalidComponentError
+            # it's safe to ignore these very *specific* exceptions
           end
-        rescue URI::InvalidURIError, URI::InvalidComponentError
-          # it's safe to ignore these very *specific* exceptions
         end
         super
       end

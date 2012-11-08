@@ -221,6 +221,10 @@ Teston
     assert_html_output '<p>Text before <a rel="external" href="http://www.google.com">an external link</a> and text afterwards</p>'
   end
 
+  test_given_govspeak "![image with external url](http://www.example.com/image.jpg)" do
+    assert_html_output '<p><img src="http://www.example.com/image.jpg" alt="image with external url" /></p>'
+  end
+
   test "should be able to override default 'document_domains' option" do
     html = Govspeak::Document.new("[internal link](http://www.not-external.com)", document_domains: %w(www.not-external.com)).to_html
     refute html.include?('rel="external"'), "should not consider www.not-external.com as an external url"
