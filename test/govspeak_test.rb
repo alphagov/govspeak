@@ -465,7 +465,7 @@ $CTA
     assert document.valid?
   end
 
-  test_given_govspeak "$DownloadLink{GOV.UK is the home of the UK Government|https://www.gov.uk|1.4MB|html}" do
+  test_given_govspeak "$DownloadLink{GOV.UK is the home of the UK Government|https://www.gov.uk|html|1.4MB}" do
     assert_html_output %{
       <div class="download-link">
         <p><a href="https://www.gov.uk" rel="external">GOV.UK is the home of the UK Government</a></p>

@@ -129,7 +129,7 @@ module Govspeak
     end
 
     extension("downloadlink", surrounded_by("$DownloadLink{", "}")) { |body|
-      download = Hash[[:title, :url, :size, :format].zip(body.strip.split("|"))]
+      download = Hash[[:title, :url, :format, :size].zip(body.strip.split("|"))]
 
       %{
 <div class="download-link">
