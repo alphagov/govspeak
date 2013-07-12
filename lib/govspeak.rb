@@ -128,6 +128,19 @@ module Govspeak
       end
     end
 
+    extension("downloadlink", surrounded_by("$DownloadLink{", "}")) { |body|
+      download = Hash[[:title, :url, :size, :format].zip(body.strip.split("|"))]
+
+      %{
+<div class="download-link">
+  <p><a href="#{download[:url]}" rel="external">#{download[:title]}</a></p>
+  <ul class="download-meta">
+    <li class="format">#{download[:format]}</li>
+    <li class="size">#{download[:size]}</li>
+  </ul>
+</div>\n}
+    }
+
     def render_image(url, alt_text, caption = nil)
       lines = []
       lines << '<figure class="image embedded">'
