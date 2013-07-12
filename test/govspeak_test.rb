@@ -470,8 +470,7 @@ $CTA
       <div class="download-link">
         <p><a href="https://www.gov.uk" rel="external">GOV.UK is the home of the UK Government</a></p>
         <ul class="download-meta">
-          <li class="format">html</li>
-          <li class="size">1.4MB</li>
+          <li class="format">html</li><li class="size">1.4MB</li>
         </ul>
       </div>
       }

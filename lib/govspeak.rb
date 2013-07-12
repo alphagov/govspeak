@@ -132,13 +132,11 @@ module Govspeak
       download = Hash[[:title, :url, :format, :size].zip(body.strip.split("|"))]
 
       # :size is an optional value, so filter out any that don't exist.
-      metadata = [:format, :size].map { |meta|
-        [meta, download[meta]]
-      }.select { |key, value|
-        !value.nil?
-      }.map { |key, value|
-        "<li class=\"#{key}\">#{value}</li>"
-      }.join "\n    "
+      metadata = ""
+      [:format, :size].each do |meta|
+        meta_value = download[meta]
+        metadata << "<li class=\"#{meta}\">#{meta_value}</li>" unless meta_value.nil?
+      end
 
       %{
 <div class="download-link">
