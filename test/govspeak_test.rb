@@ -476,4 +476,15 @@ $CTA
       </div>
       }
   end
+
+  test_given_govspeak "$DownloadLink{GOV.UK is the home of the UK Government|https://www.gov.uk|html}" do
+    assert_html_output %{
+      <div class="download-link">
+        <p><a href="https://www.gov.uk" rel="external">GOV.UK is the home of the UK Government</a></p>
+        <ul class="download-meta">
+          <li class="format">html</li>
+        </ul>
+      </div>
+      }
+  end
 end

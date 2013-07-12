@@ -131,12 +131,20 @@ module Govspeak
     extension("downloadlink", surrounded_by("$DownloadLink{", "}")) { |body|
       download = Hash[[:title, :url, :format, :size].zip(body.strip.split("|"))]
 
+      # :size is an optional value, so filter out any that don't exist.
+      metadata = [:format, :size].map { |meta|
+        [meta, download[meta]]
+      }.select { |key, value|
+        !value.nil?
+      }.map { |key, value|
+        "<li class=\"#{key}\">#{value}</li>"
+      }.join "\n    "
+
       %{
 <div class="download-link">
   <p><a href="#{download[:url]}" rel="external">#{download[:title]}</a></p>
   <ul class="download-meta">
-    <li class="format">#{download[:format]}</li>
-    <li class="size">#{download[:size]}</li>
+    #{metadata}
   </ul>
 </div>\n}
     }
