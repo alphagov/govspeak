@@ -14,6 +14,7 @@ class Govspeak::HtmlSanitizer
     config[:attributes][:all].push("id", "class")
     config[:attributes]["a"].push("rel")
     config[:elements].push("div", "hr")
+    config[:protocols]["a"]["href"].push("#fn", "#fnref")
     config
   end
 end

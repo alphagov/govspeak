@@ -50,7 +50,8 @@ class HtmlValidatorTest < Test::Unit::TestCase
       $P
       """,
       ":england:content goes here:england:",
-      ":scotland:content goes here:scotland:"
+      ":scotland:content goes here:scotland:",
+      "thing with footnote[^1]\n\n[^1]: Some footnote content"
     ]
     values.each do |value|
       assert Govspeak::HtmlValidator.new(value).valid?
