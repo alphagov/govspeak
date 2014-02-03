@@ -9,6 +9,12 @@ class Govspeak::HtmlSanitizer
     Sanitize.clean(@dirty_html, sanitize_config)
   end
 
+  def sanitize_without_images
+    config = sanitize_config
+    config[:elements].delete('img')
+    Sanitize.clean(@dirty_html, config)
+  end
+
   def sanitize_config
     config = Sanitize::Config::RELAXED.dup
     config[:attributes][:all].push("id", "class")
