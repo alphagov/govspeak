@@ -27,4 +27,9 @@ class HtmlSanitizerTest < Test::Unit::TestCase
     html = "Fortnum & Mason"
     assert_equal "Fortnum &amp; Mason", Govspeak::HtmlSanitizer.new(html).sanitize
   end
+
+  test "can strip images" do
+    html = "<img src='http://example.com/image.jgp'>"
+    assert_equal "", Govspeak::HtmlSanitizer.new(html).sanitize_without_images
+  end
 end

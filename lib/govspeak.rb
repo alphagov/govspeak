@@ -39,6 +39,10 @@ module Govspeak
       HtmlSanitizer.new(to_html).sanitize
     end
 
+    def to_sanitized_html_without_images
+      HtmlSanitizer.new(to_html).sanitize_without_images
+    end
+
     def to_text
       HTMLEntities.new.decode(to_html.gsub(/(?:<[^>]+>|\s)+/, " ").strip)
     end
