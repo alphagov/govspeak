@@ -1,5 +1,6 @@
 require 'kramdown'
 require 'govspeak/header_extractor'
+require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
 require 'govspeak/html_sanitizer'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
@@ -53,6 +54,10 @@ module Govspeak
 
     def headers
       Govspeak::HeaderExtractor.convert(kramdown_doc).first
+    end
+
+    def structured_headers
+      Govspeak::StructuredHeaderExtractor.new(self).call
     end
 
     def preprocess(source)
