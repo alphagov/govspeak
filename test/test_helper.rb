@@ -1,3 +1,9 @@
+require 'simplecov'
+require 'simplecov-rcov'
+
+SimpleCov.start
+SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+
 $:.unshift(File.expand_path("../lib")) unless $:.include?(File.expand_path("../lib"))
 
 require 'bundler'
