@@ -62,8 +62,8 @@ module Govspeak
 
     def preprocess(source)
       @@extensions.each do |title,regexp,block|
-        source.gsub!(regexp) {|match|
-          instance_exec($1, &block)
+        source.gsub!(regexp) {
+          instance_exec(*Regexp.last_match.captures, &block)
         }
       end
       source
