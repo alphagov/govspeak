@@ -463,4 +463,31 @@ $CTA
     document = Govspeak::Document.new("<div>some content</div>")
     assert document.valid?
   end
+
+["$PriorityList:3
+ * List item 1
+ * List item 2
+ * List item 3
+ * List item 4
+ * List item 5",
+"$PriorityList:3
+ * List item 1
+ * List item 2
+ * List item 3
+ * List item 4
+ * List item 5
+
+ "].each do |govspeak|
+    test_given_govspeak(govspeak) do
+      assert_html_output %|
+        <ul>
+          <li class="primary-item">List item 1</li>
+          <li class="primary-item">List item 2</li>
+          <li class="primary-item">List item 3</li>
+          <li>List item 4</li>
+          <li>List item 5</li>
+        </ul>
+      |
+    end
+  end
 end

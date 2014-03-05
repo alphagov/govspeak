@@ -184,5 +184,18 @@ module Govspeak
 </div>\n}
       end
     end
+
+    extension("Priority list", /\$PriorityList:(\d+)\n(.*)(?:^\s*\n|\Z)/m) do |number_to_show, body|
+      number_to_show = number_to_show.to_i
+      tagged = 0
+      Kramdown::Document.new(body.strip).to_html.gsub(/<li>/) do |match|
+        if tagged < number_to_show
+          tagged += 1
+          '<li class="primary-item">'
+        else
+          match
+        end
+      end
+    end
   end
 end
