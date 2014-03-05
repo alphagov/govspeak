@@ -1,11 +1,5 @@
 # encoding: UTF-8
 
-require 'simplecov'
-require 'simplecov-rcov'
-
-SimpleCov.start
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-
 require 'test_helper'
 require 'govspeak_test_helper'
 
