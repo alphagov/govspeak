@@ -137,6 +137,25 @@ module Govspeak
       end
     end
 
+    extension("downloadlink", surrounded_by("$DownloadLink{", "}")) { |body|
+      download = Hash[[:title, :url, :format, :size].zip(body.strip.split("|"))]
+
+      # :size is an optional value, so filter out any that don't exist.
+      metadata = ""
+      [:format, :size].each do |meta|
+        meta_value = download[meta]
+        metadata << "<li class=\"#{meta}\">#{meta_value}</li>" unless meta_value.nil?
+      end
+
+      %{
+<div class="download-link">
+  <p><a href="#{download[:url]}" rel="external">#{download[:title]}</a></p>
+  <ul class="download-meta">
+    #{metadata}
+  </ul>
+</div>\n}
+    }
+
     def render_image(url, alt_text, caption = nil)
       lines = []
       lines << '<figure class="image embedded">'

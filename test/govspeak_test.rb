@@ -463,4 +463,26 @@ $CTA
     document = Govspeak::Document.new("<div>some content</div>")
     assert document.valid?
   end
+
+  test_given_govspeak "$DownloadLink{GOV.UK is the home of the UK Government|https://www.gov.uk|html|1.4MB}" do
+    assert_html_output %{
+      <div class="download-link">
+        <p><a href="https://www.gov.uk" rel="external">GOV.UK is the home of the UK Government</a></p>
+        <ul class="download-meta">
+          <li class="format">html</li><li class="size">1.4MB</li>
+        </ul>
+      </div>
+      }
+  end
+
+  test_given_govspeak "$DownloadLink{GOV.UK is the home of the UK Government|https://www.gov.uk|html}" do
+    assert_html_output %{
+      <div class="download-link">
+        <p><a href="https://www.gov.uk" rel="external">GOV.UK is the home of the UK Government</a></p>
+        <ul class="download-meta">
+          <li class="format">html</li>
+        </ul>
+      </div>
+      }
+  end
 end
