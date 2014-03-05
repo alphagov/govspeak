@@ -17,6 +17,7 @@ library for use in the UK Government Single Domain project}
   s.files         = Dir[
     'lib/**/*',
     'README.md',
+    'CHANGELOG.md',
     'Gemfile',
     'Rakefile'
   ]
