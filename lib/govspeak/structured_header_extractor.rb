@@ -39,9 +39,8 @@ module Govspeak
       structured_headers
     end
 
-    private
-
     attr_reader :doc, :stack, :structured_headers
+    private :doc, :stack, :structured_headers
 
     def headers_list
       @headers_list ||= doc.headers.map { |h|
