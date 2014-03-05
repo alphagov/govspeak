@@ -62,8 +62,8 @@ module Govspeak
 
     def preprocess(source)
       @@extensions.each do |title,regexp,block|
-        source.gsub!(regexp) {|match|
-          instance_exec($1, &block)
+        source.gsub!(regexp) {
+          instance_exec(*Regexp.last_match.captures, &block)
         }
       end
       source
@@ -182,6 +182,19 @@ module Govspeak
 <p class="devolved-header">This section applies to #{v}</p>
 <div class="devolved-body">#{Kramdown::Document.new(body.strip).to_html}</div>
 </div>\n}
+      end
+    end
+
+    extension("Priority list", /\$PriorityList:(\d+)\n(.*)(?:^\s*\n|\Z)/m) do |number_to_show, body|
+      number_to_show = number_to_show.to_i
+      tagged = 0
+      Kramdown::Document.new(body.strip).to_html.gsub(/<li>/) do |match|
+        if tagged < number_to_show
+          tagged += 1
+          '<li class="primary-item">'
+        else
+          match
+        end
       end
     end
   end

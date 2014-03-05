@@ -447,7 +447,7 @@ $CTA
   test "can sanitize a document" do
     document = Govspeak::Document.new("<script>doBadThings();</script>")
     assert_equal "doBadThings();", document.to_sanitized_html
-  end  
+  end
 
   test "can sanitize a document without image" do
     document = Govspeak::Document.new("<script>doBadThings();</script><img src='https://example.com/image.jpg'>")
@@ -462,5 +462,32 @@ $CTA
   test "identifies a Govspeak document containing acceptable HTML as valid" do
     document = Govspeak::Document.new("<div>some content</div>")
     assert document.valid?
+  end
+
+["$PriorityList:3
+ * List item 1
+ * List item 2
+ * List item 3
+ * List item 4
+ * List item 5",
+"$PriorityList:3
+ * List item 1
+ * List item 2
+ * List item 3
+ * List item 4
+ * List item 5
+
+ "].each do |govspeak|
+    test_given_govspeak(govspeak) do
+      assert_html_output %|
+        <ul>
+          <li class="primary-item">List item 1</li>
+          <li class="primary-item">List item 2</li>
+          <li class="primary-item">List item 3</li>
+          <li>List item 4</li>
+          <li>List item 5</li>
+        </ul>
+      |
+    end
   end
 end
