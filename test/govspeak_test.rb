@@ -447,7 +447,7 @@ $CTA
   test "can sanitize a document" do
     document = Govspeak::Document.new("<script>doBadThings();</script>")
     assert_equal "doBadThings();", document.to_sanitized_html
-  end  
+  end
 
   test "can sanitize a document without image" do
     document = Govspeak::Document.new("<script>doBadThings();</script><img src='https://example.com/image.jpg'>")
