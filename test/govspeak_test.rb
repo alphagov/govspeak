@@ -517,4 +517,36 @@ $CTA
       assert_html_output(expected_priority_list_output)
     end
   end
+
+
+  test "Multiple priority lists" do
+    govspeak = "
+$PriorityList:3
+* List item 1
+* List item 2
+* List item 3
+* List item 4
+* List item 5
+
+$PriorityList:1
+* List item 1
+* List item 2"
+
+    given_govspeak(govspeak) do
+      assert_html_output %|
+        <ul>
+          <li class="primary-item">List item 1</li>
+          <li class="primary-item">List item 2</li>
+          <li class="primary-item">List item 3</li>
+          <li>List item 4</li>
+          <li>List item 5</li>
+        </ul>
+
+        <ul>
+          <li class="primary-item">List item 1</li>
+          <li>List item 2</li>
+        </ul>
+      |
+    end
+  end
 end
