@@ -464,30 +464,41 @@ $CTA
     assert document.valid?
   end
 
-["$PriorityList:3
- * List item 1
- * List item 2
- * List item 3
- * List item 4
- * List item 5",
-"$PriorityList:3
- * List item 1
- * List item 2
- * List item 3
- * List item 4
- * List item 5
+  expected_priority_list_output = %|
+    <ul>
+      <li class="primary-item">List item 1</li>
+      <li class="primary-item">List item 2</li>
+      <li class="primary-item">List item 3</li>
+      <li>List item 4</li>
+      <li>List item 5</li>
+    </ul>
+  |
 
- "].each do |govspeak|
-    test_given_govspeak(govspeak) do
-      assert_html_output %|
-        <ul>
-          <li class="primary-item">List item 1</li>
-          <li class="primary-item">List item 2</li>
-          <li class="primary-item">List item 3</li>
-          <li>List item 4</li>
-          <li>List item 5</li>
-        </ul>
-      |
+  test "Single priority list ending with EOF" do
+    govspeak = "$PriorityList:3
+ * List item 1
+ * List item 2
+ * List item 3
+ * List item 4
+ * List item 5"
+
+    given_govspeak(govspeak) do
+      assert_html_output(expected_priority_list_output)
+    end
+  end
+
+  test "Single priority list ending with newlines" do
+    govspeak = "$PriorityList:3
+* List item 1
+* List item 2
+* List item 3
+* List item 4
+* List item 5
+
+"
+
+    given_govspeak(govspeak) do
+      assert_html_output(expected_priority_list_output)
     end
   end
 end
