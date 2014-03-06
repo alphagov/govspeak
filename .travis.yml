@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - 1.9.3-p484
+env:
+  - GOVUK_APP_DOMAIN=dev.gov.uk
+script:
+  - bundle exec rake
+branches:
+  except:
+    - release
+notifications:
+  email: false
