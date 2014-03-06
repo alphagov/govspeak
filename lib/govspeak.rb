@@ -185,7 +185,7 @@ module Govspeak
       end
     end
 
-    extension("Priority list", /\$PriorityList:(\d+)\n(.*)(?:^\s*\n|\Z)/m) do |number_to_show, body|
+    extension("Priority list", /\$PriorityList:(\d+)\s*$(.*)(?:^\s*$|\Z)/m) do |number_to_show, body|
       number_to_show = number_to_show.to_i
       tagged = 0
       Kramdown::Document.new(body.strip).to_html.gsub(/<li>/) do |match|

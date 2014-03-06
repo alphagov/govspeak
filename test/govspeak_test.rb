@@ -501,4 +501,20 @@ $CTA
       assert_html_output(expected_priority_list_output)
     end
   end
+
+  test 'Single priority list with \n newlines' do
+    govspeak = "$PriorityList:3\n * List item 1\n * List item 2\n * List item 3\n * List item 4\n * List item 5"
+
+    given_govspeak(govspeak) do
+      assert_html_output(expected_priority_list_output)
+    end
+  end
+
+  test 'Single priority list with \r\n newlines' do
+    govspeak = "$PriorityList:3\r\n * List item 1\r\n * List item 2\r\n * List item 3\r\n * List item 4\r\n * List item 5"
+
+    given_govspeak(govspeak) do
+      assert_html_output(expected_priority_list_output)
+    end
+  end
 end
