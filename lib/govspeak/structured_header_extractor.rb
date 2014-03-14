@@ -8,6 +8,12 @@ module Govspeak
     def top_level?
       level == top_level
     end
+
+    def to_h
+      Hash[members.zip(values)].merge(
+        headers: headers.map(&:to_h),
+      )
+    end
   end
 
   class StructuredHeaderExtractor

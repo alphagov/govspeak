@@ -68,6 +68,44 @@ class GovspeakStructuredHeadersTest < Test::Unit::TestCase
     assert_equal "Sub heading 4.2", structured_headers[3].headers[1].text
   end
 
+  test "structured headers serialize to hashes recursively serializing sub headers" do
+    serialized_headers = structured_headers[1].to_h
+
+    expected_serialized_headers = {
+      :text => "Heading 2",
+      :level => 2,
+      :id => "heading-2",
+      :headers =>  [
+        {
+          :text => "Sub heading 2.1",
+          :level => 3,
+          :id => "sub-heading-21",
+          :headers => [],
+        },
+        {
+          :text => "Sub heading 2.2",
+          :level => 3,
+          :id => "sub-heading-22",
+          :headers =>  [
+            {
+              :text => "Sub sub heading 2.2.1",
+              :level => 4,
+              :id => "sub-sub-heading-221",
+              :headers => []
+            },
+          ],
+        },
+        {
+          :text => "Sub heading 2.3",
+          :level => 3, :id=>"sub-heading-23",
+          :headers => []
+        },
+      ],
+    }
+
+    assert_equal expected_serialized_headers, serialized_headers
+  end
+
   def invalid_document_body
     %{
 ### Invalid heading (h3)
