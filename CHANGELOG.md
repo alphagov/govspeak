@@ -1,10 +1,18 @@
+## 1.5.2
+
+* Fixed over-eager step list matching.
+
+## 1.5.1
+
+* Fixed newline matching and operating over multiple list blocks.
+
 ## 1.5.0
 
-Added `$PriorityList:x` construct to class the first `x` list items with
-`primary-item`.
-Fixed `rcov` dependency.
+* Added `$PriorityList:x` construct to class the first `x` list items with
+  `primary-item`.
+* Fixed `rcov` dependency.
 
 ## 1.4.0
 
-Added `#structured_headers` method to provide heirarchically structured
-headers extracted from markdown text heading tags.
+* Added `#structured_headers` method to provide heirarchically structured
+  headers extracted from markdown text heading tags.
