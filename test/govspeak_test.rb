@@ -374,6 +374,14 @@ $CTA
     assert_text_output "zippy bungle george"
   end
 
+  test_given_govspeak "
+    Zippy, Bungle and George did not qualify for the tax exemption in s428. They filled in their tax return accordingly.
+    " do
+    assert_html_output %{
+      <p>Zippy, Bungle and George did not qualify for the tax exemption in s428. They filled in their tax return accordingly.</p>
+    }
+  end
+
   test_given_govspeak ":scotland: I am very devolved\n and very scottish \n:scotland:" do
     assert_html_output '
       <div class="devolved-content scotland">
