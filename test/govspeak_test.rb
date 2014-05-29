@@ -557,4 +557,15 @@ $PriorityList:1
       |
     end
   end
+
+  test "Content seen tracker tags for analytics are converted" do
+    govspeak = %Q{
+      Some text.{@track-seen:some_text}
+    }
+    given_govspeak(govspeak) do
+      assert_html_output %Q{
+        <p>Some text.<span data-track-seen="some_text"></span></p>
+      }
+    end
+  end
 end

@@ -137,6 +137,10 @@ module Govspeak
       end
     end
 
+    extension('track-seen', /\{@track-seen:(.*)\}/) do |content_identifier|
+      %{<span data-track-seen="#{content_identifier}"></span>}
+    end
+
     def render_image(url, alt_text, caption = nil)
       lines = []
       lines << '<figure class="image embedded">'
