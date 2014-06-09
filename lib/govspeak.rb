@@ -96,7 +96,7 @@ module Govspeak
       }
     end
 
-    def insert_strong_inside_p(body, parser=Kramdown::Document)
+    def insert_strong_inside_p(body, parser=Govspeak::Document)
       parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/,"<p><strong>\\1</strong></p>")
     end
 
@@ -106,7 +106,7 @@ module Govspeak
 
     extension('highlight-answer') { |body|
       %{\n\n<div class="highlight-answer">
-#{Kramdown::Document.new(body.strip).to_html}</div>\n}
+#{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
     # FIXME: these surrounded_by arguments look dodgy
@@ -116,7 +116,7 @@ module Govspeak
 
     extension('informational', surrounded_by("^")) { |body|
       %{\n\n<div class="application-notice info-notice">
-#{Kramdown::Document.new(body.strip).to_html}</div>\n}
+#{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
     extension('important', surrounded_by("@")) { |body|
@@ -124,7 +124,7 @@ module Govspeak
     }
 
     extension('helpful', surrounded_by("%")) { |body|
-      %{\n\n<div class="application-notice help-notice">\n#{Kramdown::Document.new(body.strip).to_html}</div>\n}
+      %{\n\n<div class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
     extension('attached-image', /^!!([0-9]+)/) do |image_number|
@@ -162,7 +162,7 @@ module Govspeak
     extension("numbered list", /^\s*((s\d+\.\s.*(?:\n|$))+)/) do |body|
       steps ||= 0
       body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do |b|
-          "<li>#{Kramdown::Document.new($2.strip).to_html}</li>\n"
+          "<li>#{Govspeak::Document.new($2.strip).to_html}</li>\n"
       end
       %{<ol class="steps">\n#{body}</ol>}
     end
@@ -180,7 +180,7 @@ module Govspeak
       extension("devolved-#{k}",/:#{k}:(.*?):#{k}:/m) do |body|
 %{<div class="devolved-content #{k}">
 <p class="devolved-header">This section applies to #{v}</p>
-<div class="devolved-body">#{Kramdown::Document.new(body.strip).to_html}</div>
+<div class="devolved-body">#{Govspeak::Document.new(body.strip).to_html}</div>
 </div>\n}
       end
     end
@@ -188,7 +188,7 @@ module Govspeak
     extension("Priority list", /\$PriorityList:(\d+)\s*$(.*?)(?:^\s*$|\Z)/m) do |number_to_show, body|
       number_to_show = number_to_show.to_i
       tagged = 0
-      Kramdown::Document.new(body.strip).to_html.gsub(/<li>/) do |match|
+      Govspeak::Document.new(body.strip).to_html.gsub(/<li>/) do |match|
         if tagged < number_to_show
           tagged += 1
           '<li class="primary-item">'

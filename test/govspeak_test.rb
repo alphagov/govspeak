@@ -395,7 +395,7 @@ $CTA
 
   test_given_govspeak "@ Message with [a link](http://foo.bar/)@" do
     assert_html_output %{
-      <div class="advisory"><p><strong>Message with <a href="http://foo.bar/">a link</a></strong></p>
+      <div class="advisory"><p><strong>Message with <a rel="external" href="http://foo.bar/">a link</a></strong></p>
       </div>
       }
   end
