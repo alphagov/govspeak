@@ -1,3 +1,8 @@
+## 1.5.3
+
+* Nested Govspeak blocks are now parsed recursively using Govspeak. Among other
+  things, this fixes the display of external links in callout blocks.
+
 ## 1.5.2
 
 * Fixed over-eager step list matching.
