@@ -159,7 +159,7 @@ module Govspeak
       %{<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n}
     }
 
-    extension("numbered list", /^\s*((s\d+\.\s.*(?:\n|$))+)/) do |body|
+    extension("numbered list", /^[ \t]*((s\d+\.\s.*(?:\n|$))+)/) do |body|
       steps ||= 0
       body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do |b|
           "<li>#{Govspeak::Document.new($2.strip).to_html}</li>\n"

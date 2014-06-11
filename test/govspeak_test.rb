@@ -375,6 +375,28 @@ $CTA
   end
 
   test_given_govspeak "
+    - unordered
+    - list
+
+    s1. step
+    s2. list
+    " do
+    assert_html_output %{
+      <ul>
+        <li>unordered</li>
+        <li>list</li>
+      </ul>
+
+      <ol class="steps">
+      <li><p>step</p>
+      </li>
+      <li><p>list</p>
+      </li>
+      </ol>}
+    assert_text_output "unordered list step list"
+  end
+
+  test_given_govspeak "
     Zippy, Bungle and George did not qualify for the tax exemption in s428. They filled in their tax return accordingly.
     " do
     assert_html_output %{
