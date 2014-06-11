@@ -1,3 +1,7 @@
+## 1.5.4
+
+* Stop steps list regex matching newline.
+
 ## 1.5.3
 
 * Nested Govspeak blocks are now parsed recursively using Govspeak. Among other
