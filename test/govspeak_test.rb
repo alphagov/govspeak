@@ -397,6 +397,28 @@ $CTA
   end
 
   test_given_govspeak "
+    $LegislativeList
+    * 1. The quick
+    * 2. Brown fox
+      * a) Jumps over
+      * b) The lazy
+    * 3. Dog
+  " do
+    assert_html_output %{
+      <ol class="legislative-list">
+        <li>1. The quick</li>
+        <li>2. Brown fox
+          <ol>
+            <li>a) Jumps over</li>
+            <li>b) The lazy</li>
+          </ol>
+        </li>
+        <li>3. Dog</li>
+      </ol>
+    }
+  end
+
+  test_given_govspeak "
     Zippy, Bungle and George did not qualify for the tax exemption in s428. They filled in their tax return accordingly.
     " do
     assert_html_output %{
