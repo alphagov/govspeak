@@ -3,7 +3,7 @@ require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
 require 'govspeak/html_sanitizer'
-require 'govspeak/kramdown_list_override'
+require 'govspeak/kramdown_overrides'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'htmlentities'
 
@@ -161,7 +161,7 @@ module Govspeak
     }
 
     extension("legislative list", /\$LegislativeList\s*$(.*?)(?:^\s*$|\Z)/m) do |body|
-      Kramdown::Parser::Kramdown.without_parsing_ordered_lists do
+      Govspeak::KramdownOverrides.with_kramdown_ordered_lists_disabled do
         Kramdown::Document.new(body.strip).to_html.tap do |doc|
           doc.gsub!('<ul>', '<ol>')
           doc.gsub!('</ul>', '</ol>')
