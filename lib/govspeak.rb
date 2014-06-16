@@ -3,6 +3,7 @@ require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
 require 'govspeak/html_sanitizer'
+require 'govspeak/kramdown_overrides'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'htmlentities'
 
@@ -158,6 +159,16 @@ module Govspeak
     extension('address', surrounded_by("$A")) { |body|
       %{<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n}
     }
+
+    extension("legislative list", /\$LegislativeList\s*$(.*?)(?:^\s*$|\Z)/m) do |body|
+      Govspeak::KramdownOverrides.with_kramdown_ordered_lists_disabled do
+        Kramdown::Document.new(body.strip).to_html.tap do |doc|
+          doc.gsub!('<ul>', '<ol>')
+          doc.gsub!('</ul>', '</ol>')
+          doc.sub!('<ol>', '<ol class="legislative-list">')
+        end
+      end
+    end
 
     extension("numbered list", /^[ \t]*((s\d+\.\s.*(?:\n|$))+)/) do |body|
       steps ||= 0
