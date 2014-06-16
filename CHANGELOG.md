@@ -1,3 +1,7 @@
+## 1.6.0
+
+* Add `$LegislativeList` to allow editors to insert lists with custom markers.
+
 ## 1.5.4
 
 * Stop steps list regex matching newline.
