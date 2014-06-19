@@ -419,6 +419,32 @@ $CTA
   end
 
   test_given_govspeak "
+    The quick brown
+    $LegislativeList
+    * 1. fox jumps over
+  " do
+    assert_html_output "
+    <p>The quick brown
+    $LegislativeList
+    * 1. fox jumps over</p>"
+  end
+
+  test_given_govspeak "
+    The quick brown fox
+
+    $LegislativeList
+    * 1. jumps over the lazy dog
+  " do
+    assert_html_output %{
+      <p>The quick brown fox</p>
+
+      <ol class="legislative-list">
+        <li>1. jumps over the lazy dog</li>
+      </ol>
+    }
+  end
+
+  test_given_govspeak "
     Zippy, Bungle and George did not qualify for the tax exemption in s428. They filled in their tax return accordingly.
     " do
     assert_html_output %{
@@ -597,6 +623,54 @@ $PriorityList:1
         <ul>
           <li class="primary-item">List item 1</li>
           <li>List item 2</li>
+        </ul>
+      |
+    end
+  end
+
+  test "Priority list placed incorrectly" do
+    govspeak = "
+    This is a paragraph
+    $PriorityList:3
+    * List item 1
+    * List item 2
+    * List item 3
+    * List item 4
+    * List item 5"
+
+    given_govspeak(govspeak) do
+      assert_html_output("
+      <p>This is a paragraph
+      $PriorityList:3
+      * List item 1
+      * List item 2
+      * List item 3
+      * List item 4
+      * List item 5</p>")
+    end
+  end
+
+  test "Priority list placed correctly" do
+    govspeak = "
+    This is a paragraph
+
+    $PriorityList:3
+    * List item 1
+    * List item 2
+    * List item 3
+    * List item 4
+    * List item 5"
+
+    given_govspeak(govspeak) do
+      assert_html_output %|
+        <p>This is a paragraph</p>
+
+        <ul>
+          <li class="primary-item">List item 1</li>
+          <li class="primary-item">List item 2</li>
+          <li class="primary-item">List item 3</li>
+          <li>List item 4</li>
+          <li>List item 5</li>
         </ul>
       |
     end
