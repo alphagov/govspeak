@@ -136,6 +136,20 @@ Steps can be created similar to an ordered list:
 
 Note that steps need an extra line break after the final step (ie. two full blank lines) or other markdown directly afterwards won't work. If you have a subhead after - add a line break after this.
 
+## Legislative Lists
+
+For lists where you want to specify the numbering and have multiple indent levels.
+
+    $LegislativeList
+    * 1. Item 1
+    * 2. Item 2
+      * a) Item 2a
+      * b) Item 2b
+        * i. Item 2 b i
+        * ii. Item 2 b ii
+    * 3. Item 3
+    (to indent, add 2 spaces)
+
 ## Abbreviations
 
 Abbreviations can be defined at the end of the document, and any occurrences elswhere in the document will wrapped in an `<abbr>` tag. They are parsed in the order in which they are defined, so `PCSOs` should be defined before `PCSO`, for example.
