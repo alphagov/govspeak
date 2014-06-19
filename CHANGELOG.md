@@ -1,3 +1,8 @@
+## 1.6.1
+
+* Fix a bug with parsing of `$LegislativeList` and `$PriorityList` so that they
+  are not matched when immediately preceeded by other text.
+
 ## 1.6.0
 
 * Add `$LegislativeList` to allow editors to insert lists with custom markers.
