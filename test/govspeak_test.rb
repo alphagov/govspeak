@@ -444,6 +444,16 @@ $CTA
     }
   end
 
+  test_given_govspeak "This bit of text\r\n\r\n$LegislativeList\r\n* 1. should be turned into a list" do
+    assert_html_output %{
+      <p>This bit of text</p>
+
+      <ol class="legislative-list">
+        <li>1. should be turned into a list</li>
+      </ol>
+    }
+  end
+
   test_given_govspeak "
     Zippy, Bungle and George did not qualify for the tax exemption in s428. They filled in their tax return accordingly.
     " do

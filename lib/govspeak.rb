@@ -160,7 +160,7 @@ module Govspeak
       %{<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n}
     }
 
-    extension("legislative list", /(?<=\A|\n{2})^\$LegislativeList\s*$(.*?)(?:^\s*$|\Z)/m) do |body|
+    extension("legislative list", /(?<=\A|\n\n|\r\n\r\n)^\$LegislativeList\s*$(.*?)(?:^\s*$|\Z)/m) do |body|
       Govspeak::KramdownOverrides.with_kramdown_ordered_lists_disabled do
         Kramdown::Document.new(body.strip).to_html.tap do |doc|
           doc.gsub!('<ul>', '<ol>')
@@ -196,7 +196,7 @@ module Govspeak
       end
     end
 
-    extension("Priority list", /(?<=\A|\n{2})^\$PriorityList:(\d+)\s*$(.*?)(?:^\s*$|\Z)/m) do |number_to_show, body|
+    extension("Priority list", /(?<=\A|\n\n|\r\n\r\n)^\$PriorityList:(\d+)\s*$(.*?)(?:^\s*$|\Z)/m) do |number_to_show, body|
       number_to_show = number_to_show.to_i
       tagged = 0
       Govspeak::Document.new(body.strip).to_html.gsub(/<li>/) do |match|
