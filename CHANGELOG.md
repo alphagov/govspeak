@@ -1,3 +1,8 @@
+## 1.6.2
+
+* Fix a bug with parsing of `$LegislativeList` and `$PriorityList` with `\r\n`
+  line endings.
+
 ## 1.6.1
 
 * Fix a bug with parsing of `$LegislativeList` and `$PriorityList` so that they
