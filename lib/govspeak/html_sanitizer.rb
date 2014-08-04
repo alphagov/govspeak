@@ -1,6 +1,9 @@
 require 'sanitize'
+require 'with_deep_merge'
 
 class Govspeak::HtmlSanitizer
+  include WithDeepMerge
+
   def initialize(dirty_html)
     @dirty_html = dirty_html
   end
@@ -16,10 +19,12 @@ class Govspeak::HtmlSanitizer
   end
 
   def sanitize_config
-    config = Sanitize::Config::RELAXED.dup
-    config[:attributes][:all].push("id", "class")
-    config[:attributes]["a"].push("rel")
-    config[:elements].push("div", "hr")
-    config
+    deep_merge(Sanitize::Config::RELAXED, {
+      attributes: {
+        :all => Sanitize::Config::RELAXED[:attributes][:all] + [ "id", "class" ],
+        "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + [ "rel" ],
+      },
+      elements: Sanitize::Config::RELAXED[:elements] + [ "div", "hr" ],
+    })
   end
 end
