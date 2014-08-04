@@ -1,3 +1,11 @@
+## 2.0.0
+
+* Upgrade sanitize dependency to 2.1.0
+  * Now allows `address`, `bdi`, `hr` and `summary` elements by default.
+  * Allows colons in IDs
+  * BREAKING CHANGE: This changes the validation rules of HtmlSanitizer.
+* Stop duplicate entries in the sanitization config
+
 ## 1.6.2
 
 * Fix a bug with parsing of `$LegislativeList` and `$PriorityList` with `\r\n`
