@@ -235,8 +235,8 @@ Teston
   end
 
   test "should be able to override default 'entity output' option" do
-    html = Govspeak::Document.new("&amp;", entity_output: :numeric).to_html
-    assert html.include?("&#38;")
+    html = Govspeak::Document.new("&yen;", entity_output: :numeric).to_html
+    assert html.include?("&#165;")
   end
 
   test "should be assume link with invalid uri is internal" do
