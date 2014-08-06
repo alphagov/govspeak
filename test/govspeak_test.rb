@@ -398,11 +398,55 @@ $CTA
 
   test_given_govspeak "
     $LegislativeList
+    * 1.0 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Fusce felis ante, lobortis non quam sit amet, tempus interdum justo.
+
+      Pellentesque quam enim, egestas sit amet congue sit amet, ultrices vitae arcu.
+      fringilla, metus dui scelerisque est.
+
+      * a) A list item
+
+      * b) Another list item
+
+    * 1.1 Second entry
+      Curabitur pretium pharetra sapien, a feugiat arcu euismod eget.
+      Nunc luctus ornare varius. Nulla scelerisque, justo dictum dapibus
+    $EndLegislativeList
+  " do
+    assert_html_output %{
+      <ol class="legislative-list">
+        <li>
+          <p>1.0 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Fusce felis ante, lobortis non quam sit amet, tempus interdum justo.</p>
+
+          <p>Pellentesque quam enim, egestas sit amet congue sit amet, ultrices vitae arcu.
+      fringilla, metus dui scelerisque est.</p>
+
+          <ol>
+            <li>
+              <p>a) A list item</p>
+            </li>
+            <li>
+              <p>b) Another list item</p>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <p>1.1 Second entry
+      Curabitur pretium pharetra sapien, a feugiat arcu euismod eget.
+      Nunc luctus ornare varius. Nulla scelerisque, justo dictum dapibus</p>
+        </li>
+      </ol>}
+  end
+
+  test_given_govspeak "
+    $LegislativeList
     * 1. The quick
     * 2. Brown fox
       * a) Jumps over
       * b) The lazy
     * 3. Dog
+    $EndLegislativeList
   " do
     assert_html_output %{
       <ol class="legislative-list">
@@ -434,6 +478,7 @@ $CTA
 
     $LegislativeList
     * 1. jumps over the lazy dog
+    $EndLegislativeList
   " do
     assert_html_output %{
       <p>The quick brown fox</p>
@@ -444,7 +489,7 @@ $CTA
     }
   end
 
-  test_given_govspeak "This bit of text\r\n\r\n$LegislativeList\r\n* 1. should be turned into a list" do
+  test_given_govspeak "This bit of text\r\n\r\n$LegislativeList\r\n* 1. should be turned into a list\r\n$EndLegislativeList" do
     assert_html_output %{
       <p>This bit of text</p>
 
