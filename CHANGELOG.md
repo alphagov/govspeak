@@ -1,3 +1,8 @@
+## 2.0.1
+
+* Upgrade to newest kramdown, which fixes a number of bugs, including rendering
+  multiple footnote references and handling underscores in attachment titles
+
 ## 2.0.0
 
 * Upgrade sanitize dependency to 2.1.0
