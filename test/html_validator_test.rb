@@ -7,6 +7,7 @@ class HtmlValidatorTest < Test::Unit::TestCase
       "*bold text*",
       "* bullet",
       "- alternative bullet",
+      "double -- dash -- ndash",
       "+ another bullet",
       "1. Numbered list",
       "s2. Step",
