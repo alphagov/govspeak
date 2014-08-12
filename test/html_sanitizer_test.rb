@@ -28,6 +28,17 @@ class HtmlSanitizerTest < Test::Unit::TestCase
     assert_equal "Fortnum &amp; Mason", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
+  test "allows images on whitelisted domains" do
+    html = "<img src='http://allowed.com/image.jgp'>"
+    sanitized_html = Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ['allowed.com']).sanitize
+    assert_equal "<img src=\"http://allowed.com/image.jgp\">", sanitized_html
+  end
+
+  test "removes images not on whitelisted domains" do
+    html = "<img src='http://evil.com/image.jgp'>"
+    assert_equal "", Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ['allowed.com']).sanitize
+  end
+
   test "can strip images" do
     html = "<img src='http://example.com/image.jgp'>"
     assert_equal "", Govspeak::HtmlSanitizer.new(html).sanitize_without_images
