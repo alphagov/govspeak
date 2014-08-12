@@ -2,7 +2,7 @@ class Govspeak::HtmlValidator
   attr_reader :string
 
   def initialize(string)
-    @string = string
+    @string = string.dup.force_encoding(Encoding::UTF_8)
   end
 
   def invalid?
