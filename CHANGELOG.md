@@ -1,3 +1,7 @@
+## 2.0.2
+* Fix a bug with the HtmlValidator to do with kramdown now respecting character
+  encodings of input data.
+
 ## 2.0.1
 
 * Upgrade to newest kramdown, which fixes a number of bugs, including rendering
