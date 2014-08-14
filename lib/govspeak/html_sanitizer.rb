@@ -4,12 +4,33 @@ require 'with_deep_merge'
 class Govspeak::HtmlSanitizer
   include WithDeepMerge
 
-  def initialize(dirty_html)
+  class ImageSourceWhitelister
+    def initialize(allowed_image_hosts)
+      @allowed_image_hosts = allowed_image_hosts
+    end
+
+    def call(sanitize_context)
+      return unless sanitize_context[:node_name] == "img"
+
+      node = sanitize_context[:node]
+      image_uri = URI.parse(node['src'])
+      unless image_uri.relative? || @allowed_image_hosts.include?(image_uri.host)
+        node.unlink # the node isn't sanitary. Remove it from the document.
+      end
+    end
+  end
+
+  def initialize(dirty_html, options = {})
     @dirty_html = dirty_html
+    @allowed_image_hosts = options[:allowed_image_hosts]
   end
 
   def sanitize
-    Sanitize.clean(@dirty_html, sanitize_config)
+    transformers = []
+    if @allowed_image_hosts && @allowed_image_hosts.any?
+      transformers << ImageSourceWhitelister.new(@allowed_image_hosts)
+    end
+    Sanitize.clean(@dirty_html, sanitize_config.merge(transformers: transformers))
   end
 
   def sanitize_without_images

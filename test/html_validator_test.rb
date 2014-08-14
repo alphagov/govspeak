@@ -85,4 +85,9 @@ class HtmlValidatorTest < Test::Unit::TestCase
   test "allow things that will end up as HTML entities" do
     assert Govspeak::HtmlValidator.new("Fortnum & Mason").valid?
   end
+
+  test "optionally disallow images not on a whitelisted domain" do
+    html = "<img src='http://evil.com/image.jgp'>"
+    assert Govspeak::HtmlValidator.new(html, allowed_image_hosts: ['allowed.com']).invalid?
+  end
 end
