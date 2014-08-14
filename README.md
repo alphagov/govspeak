@@ -148,6 +148,7 @@ For lists where you want to specify the numbering and have multiple indent level
         * i. Item 2 b i
         * ii. Item 2 b ii
     * 3. Item 3
+    $EndLegislativeList
     (to indent, add 2 spaces)
 
 ## Abbreviations
