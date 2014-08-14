@@ -1,3 +1,8 @@
+## 3.0.0
+
+* Add an `allowed_image_hosts` options to `HtmlValidator` (and `HtmlSanitizer`)
+* BREAKING CHANGE: Added the `$EndLegislativeList` tag which allows line breaks in `LegislativeLists`.
+
 ## 2.0.2
 * Fix a bug with the HtmlValidator to do with kramdown now respecting character
   encodings of input data.
