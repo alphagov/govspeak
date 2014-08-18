@@ -1,8 +1,8 @@
 class Govspeak::HtmlValidator
-  attr_reader :string
+  attr_reader :govspeak_string
 
-  def initialize(string, sanitization_options = {})
-    @string = string.dup.force_encoding(Encoding::UTF_8)
+  def initialize(govspeak_string, sanitization_options = {})
+    @govspeak_string = govspeak_string.dup.force_encoding(Encoding::UTF_8)
     @sanitization_options = sanitization_options
   end
 
@@ -22,6 +22,6 @@ class Govspeak::HtmlValidator
   end
 
   def govspeak_to_html
-    Govspeak::Document.new(string).to_html
+    Govspeak::Document.new(govspeak_string).to_html
   end
 end
