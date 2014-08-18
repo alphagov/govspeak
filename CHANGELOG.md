@@ -1,3 +1,7 @@
+## 3.1.0
+
+* Allow a call to `#valid?` on a `Govspeak::Document` to accept validation options.
+
 ## 3.0.0
 
 * Add an `allowed_image_hosts` options to `HtmlValidator` (and `HtmlSanitizer`)
