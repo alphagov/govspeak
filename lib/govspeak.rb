@@ -49,8 +49,8 @@ module Govspeak
       HTMLEntities.new.decode(to_html.gsub(/(?:<[^>]+>|\s)+/, " ").strip)
     end
 
-    def valid?
-      Govspeak::HtmlValidator.new(@source).valid?
+    def valid?(validation_options = {})
+      Govspeak::HtmlValidator.new(@source, validation_options).valid?
     end
 
     def headers
