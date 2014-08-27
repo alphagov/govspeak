@@ -157,7 +157,7 @@ module Govspeak
     wrap_with_div('call-to-action', '$CTA', Govspeak::Document)
 
     extension('address', surrounded_by("$A")) { |body|
-      %{<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n}
+      %{\n<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n}
     }
 
     extension("legislative list", /(?<=\A|\n\n|\r\n\r\n)^\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
