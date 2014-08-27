@@ -1,3 +1,7 @@
+## 3.1.1
+
+* Fix a bug where address information could get mixed in with preceding paragraph text.
+
 ## 3.1.0
 
 * Allow a call to `#valid?` on a `Govspeak::Document` to accept validation options.
