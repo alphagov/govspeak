@@ -64,7 +64,20 @@ Testcase Cliffs
 Teston
 0123 456 7890 $A    }
     doc = Govspeak::Document.new(input)
-    assert_equal %{<div class="address"><div class="adr org fn"><p>\n123 Test Street<br />Testcase Cliffs<br />Teston<br />0123 456 7890 \n</p></div></div>\n}, doc.to_html
+    assert_equal %{\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br />Testcase Cliffs<br />Teston<br />0123 456 7890 \n</p></div></div>\n}, doc.to_html
+  end
+
+  test "address div is separated from paragraph text by a couple of line-breaks" do
+    # else kramdown processes address div as part of paragraph text and escapes HTML
+    input = %{Paragraph1
+
+$A
+123 Test Street
+Testcase Cliffs
+Teston
+0123 456 7890 $A}
+    doc = Govspeak::Document.new(input)
+    assert_equal %{<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br />Testcase Cliffs<br />Teston<br />0123 456 7890 \n</p></div></div>\n}, doc.to_html
   end
 
   test_given_govspeak("^ I am very informational ^") do
