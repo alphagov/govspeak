@@ -1,3 +1,7 @@
+## 3.2.0
+
+* `span` elements are now allowed through the sanitization process.
+
 ## 3.1.1
 
 * Fix a bug where address information could get mixed in with preceding paragraph text.
