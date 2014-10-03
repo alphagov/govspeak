@@ -90,4 +90,9 @@ class HtmlValidatorTest < Test::Unit::TestCase
     html = "<img src='http://evil.com/image.jgp'>"
     assert Govspeak::HtmlValidator.new(html, allowed_image_hosts: ['allowed.com']).invalid?
   end
+
+  test "allow <div> and <span> HTML elements" do
+    html = "<div class=\"govspeak\"><h2 id=\"some-title\">\n<span class=\"number\">1. </span> Some title</h2>\n\n<p>Some text</p>\n</div>"
+    assert Govspeak::HtmlValidator.new(html).valid?
+  end
 end
