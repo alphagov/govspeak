@@ -24,8 +24,8 @@ module Govspeak
 
     def initialize(source, options = {})
       @source = source ? source.dup : ""
+      @images = options.delete(:images) || []
       @options = {input: PARSER_CLASS_NAME, entity_output: :symbolic}.merge(options)
-      @images = []
     end
 
     def kramdown_doc
