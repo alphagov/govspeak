@@ -13,9 +13,7 @@ module GovspeakTestHelper
     end
 
     def document
-      Govspeak::Document.new(@govspeak, @options).tap do |doc|
-        doc.images = @images
-      end
+      Govspeak::Document.new(@govspeak, @options.merge(:images => @images))
     end
 
     def assert_text_output(raw_expected)
