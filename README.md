@@ -30,7 +30,7 @@ In addition to the [standard Markdown syntax](http://daringfireball.net/projects
 
 creates a callout with an info (i) icon.
 
-    <div class="application-notice info-notice">
+    <div role="note" aria-label="Information" class="application-notice info-notice">
     	<p>This is an information callout</p>
     </div>
 
@@ -40,7 +40,7 @@ creates a callout with an info (i) icon.
 
 creates a callout with a warning or alert (!) icon
 
-    <div class="application-notice help-notice">
+    <div role="note" aria-label="Help" class="application-notice help-notice">
     	<p>This is a warning callout</p>
     </div>
 
@@ -64,7 +64,7 @@ creates an example box
 
 highlights the enclosed text in yellow
 
-    <h3 class="advisory">
+    <h3 role="note" aria-label="Important" class="advisory">
     	<span>This is a very important message or warning</span>
     </h3>
 
