@@ -116,16 +116,16 @@ module Govspeak
     }
 
     extension('informational', surrounded_by("^")) { |body|
-      %{\n\n<div class="application-notice info-notice">
+      %{\n\n<div role="note" aria-label="Information" class="application-notice info-notice">
 #{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
     extension('important', surrounded_by("@")) { |body|
-      %{\n\n<div class="advisory">#{insert_strong_inside_p(body)}</div>\n}
+      %{\n\n<div role="note" aria-label="Important" class="advisory">#{insert_strong_inside_p(body)}</div>\n}
     }
 
     extension('helpful', surrounded_by("%")) { |body|
-      %{\n\n<div class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n}
+      %{\n\n<div role="note" aria-label="Help" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
     extension('attached-image', /^!!([0-9]+)/) do |image_number|
