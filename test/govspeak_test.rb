@@ -82,7 +82,7 @@ Teston
 
   test_given_govspeak("^ I am very informational ^") do
     assert_html_output %{
-      <div class="application-notice info-notice">
+      <div role="note" aria-label="Information" class="application-notice info-notice">
       <p>I am very informational</p>
       </div>}
     assert_text_output "I am very informational"
@@ -98,7 +98,7 @@ Teston
     assert_html_output %{
       <p>The following is very informational</p>
 
-      <div class="application-notice info-notice">
+      <div role="note" aria-label="Information" class="application-notice info-notice">
       <p>I am very informational</p>
       </div>}
     assert_text_output "The following is very informational I am very informational"
@@ -106,7 +106,7 @@ Teston
 
   test_given_govspeak "^ I am very informational" do
     assert_html_output %{
-      <div class="application-notice info-notice">
+      <div role="note" aria-label="Information" class="application-notice info-notice">
       <p>I am very informational</p>
       </div>}
     assert_text_output "I am very informational"
@@ -114,7 +114,7 @@ Teston
 
   test_given_govspeak "@ I am very important @" do
     assert_html_output %{
-      <div class="advisory"><p><strong>I am very important</strong></p>
+      <div role="note" aria-label="Important" class="advisory"><p><strong>I am very important</strong></p>
       </div>}
     assert_text_output "I am very important"
   end
@@ -126,14 +126,14 @@ Teston
     assert_html_output %{
       <p>The following is very important</p>
 
-      <div class="advisory"><p><strong>I am very important</strong></p>
+      <div role="note" aria-label="Important" class="advisory"><p><strong>I am very important</strong></p>
       </div>}
     assert_text_output "The following is very important I am very important"
   end
 
   test_given_govspeak "% I am very helpful %" do
     assert_html_output %{
-      <div class="application-notice help-notice">
+      <div role="note" aria-label="Help" class="application-notice help-notice">
       <p>I am very helpful</p>
       </div>}
     assert_text_output "I am very helpful"
@@ -143,7 +143,7 @@ Teston
     assert_html_output %{
       <p>The following is very helpful</p>
 
-      <div class="application-notice help-notice">
+      <div role="note" aria-label="Help" class="application-notice help-notice">
       <p>I am very helpful</p>
       </div>}
     assert_text_output "The following is very helpful I am very helpful"
@@ -153,7 +153,7 @@ Teston
     assert_html_output %{
       <h2 id="hello">Hello</h2>
 
-      <div class="application-notice help-notice">
+      <div role="note" aria-label="Help" class="application-notice help-notice">
       <p>I am very helpful</p>
       </div>
 
@@ -163,7 +163,7 @@ Teston
 
   test_given_govspeak "% I am very helpful" do
     assert_html_output %{
-      <div class="application-notice help-notice">
+      <div role="note" aria-label="Help" class="application-notice help-notice">
       <p>I am very helpful</p>
       </div>}
     assert_text_output "I am very helpful"
@@ -533,7 +533,7 @@ $CTA
 
   test_given_govspeak "@ Message with [a link](http://foo.bar/)@" do
     assert_html_output %{
-      <div class="advisory"><p><strong>Message with <a rel="external" href="http://foo.bar/">a link</a></strong></p>
+      <div role="note" aria-label="Important" class="advisory"><p><strong>Message with <a rel="external" href="http://foo.bar/">a link</a></strong></p>
       </div>
       }
   end
