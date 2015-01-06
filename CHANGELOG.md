@@ -1,3 +1,8 @@
+## 3.3.0
+
+* Relax Nokogiri dependency to `1.5.x` rather than `1.5.10`. This allows
+  Govspeak to work with Rails 4.2 and greater.
+
 ## 3.2.0
 
 * `span` elements are now allowed through the sanitization process.
