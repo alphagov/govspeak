@@ -77,7 +77,7 @@ highlights the enclosed text in yellow
 creates a large pink highlight box with optional preamble text and giant text denoted with `**`
 
     <div class="highlight-answer">
-    <p>The standard VAT rate is <em>20%</em></p>
+    <p>The VAT rate is <em>20%</em></p>
     </div>
 
 ## Points of Contact
