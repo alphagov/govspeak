@@ -36,6 +36,10 @@ module Govspeak
     def to_html
       kramdown_doc.to_html
     end
+    
+    def to_liquid
+      to_html
+    end
 
     def to_sanitized_html
       HtmlSanitizer.new(to_html).sanitize
