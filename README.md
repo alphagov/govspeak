@@ -8,7 +8,7 @@ Install the gem
 
 or add it to your Gemfile
 
-    gem "govspeak", "~> 0.8.9"
+    gem "govspeak", "~> 3.4.0"
 
 then create a new document
 

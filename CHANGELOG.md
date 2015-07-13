@@ -1,3 +1,8 @@
+## 3.4.0
+
+* Increase the version of Kramdown to `1.5.0`. This allows compatibility with Jekyll
+  and the GitHub pages gem.
+
 ## 3.3.0
 
 * Relax Nokogiri dependency to `1.5.x` rather than `1.5.10`. This allows
