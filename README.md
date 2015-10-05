@@ -74,7 +74,7 @@ highlights the enclosed text in yellow
     The VAT rate is *20%*
     {:/highlight-answer}
 
-creates a large pink highlight box with optional preamble text and giant text denoted with `**`
+creates a large highlight box with optional preamble text and giant text denoted with `**`
 
     <div class="highlight-answer">
     <p>The VAT rate is <em>20%</em></p>
@@ -90,7 +90,7 @@ creates a large pink highlight box with optional preamble text and giant text de
     **Minicom:** 0845 604 44 34
     $C
 
-creates an contact box
+creates a contact box
 
     <div class="contact">
     <p><strong>Student Finance England</strong><br><strong>Telephone:</strong> 0845 300 50 90<br><strong>Minicom:</strong> 0845 604 44 34</p>
