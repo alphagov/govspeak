@@ -36,7 +36,7 @@ module Govspeak
     def to_html
       kramdown_doc.to_html
     end
-    
+
     def to_liquid
       to_html
     end
@@ -112,6 +112,11 @@ module Govspeak
     extension('highlight-answer') { |body|
       %{\n\n<div class="highlight-answer">
 #{Govspeak::Document.new(body.strip).to_html}</div>\n}
+    }
+
+    extension('stat-headline') { |body|
+      %{\n\n<aside class="stat-headline">
+#{Govspeak::Document.new(body.strip).to_html}</aside>\n}
     }
 
     # FIXME: these surrounded_by arguments look dodgy
