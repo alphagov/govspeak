@@ -33,6 +33,11 @@ class GovspeakTest < Test::Unit::TestCase
     assert_equal %Q{<p>this </p>\n\n<aside class="stat-headline">\n<p><em>13.8bn</em> Age of the universe in years</p>\n</aside>\n}, rendered
   end
 
+  test "stat-headline-group block extension" do
+    rendered =  Govspeak::Document.new("this \n{::stat-headline-group}\n{::stat-headline}*13.8bn* Age of the universe in years{:/stat-headline}\n{:/stat-headline-group}").to_html
+    assert_equal %Q{<p>this </p>\n\n<div class="stat-headline-group">\n<aside class="stat-headline">\n<p><em>13.8bn</em> Age of the universe in years</p>\n</aside>\n</div>\n}, rendered
+  end
+
   test "extracts headers with text, level and generated id" do
     document =  Govspeak::Document.new %{
 # Big title
