@@ -80,6 +80,46 @@ creates a large highlight box with optional preamble text and giant text denoted
     <p>The VAT rate is <em>20%</em></p>
     </div>
 
+### Statistic headline
+
+Used in HTML publications.
+
+Statistic headlines highlight important numbers in content. Displays a statistic as a large number with a description. The statistic and description must make sense when read aloud. The giant number is denoted with `**`.
+
+```
+{::stat-headline}
+*13.8bn* years since the big bang
+{:/stat-headline}
+```
+
+You can display many statistic headlines together using a group:
+
+```
+{::stat-headline-group}
+{::stat-headline}*13.8bn* years since the big bang{:/stat-headline}
+{::stat-headline}*100bn* stars in our galaxy{:/stat-headline}
+{::stat-headline}*141m* miles to Mars{:/stat-headline}
+{:/stat-headline-group}
+```
+
+Creates the following:
+
+```html
+<div class="stat-headline-group">
+  <aside class="stat-headline">
+    <p><em>13.8bn</em> years since the big bang</p>
+  </aside>
+
+  <aside class="stat-headline">
+    <p><em>100bn</em> stars in our galaxy</p>
+  </aside>
+
+  <aside class="stat-headline">
+    <p><em>141m</em> miles to Mars</p>
+  </aside>
+</div>
+```
+
 ## Points of Contact
 
 ### Contact
