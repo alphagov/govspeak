@@ -119,11 +119,6 @@ module Govspeak
 #{Govspeak::Document.new(body.strip).to_html}</aside>\n}
     }
 
-    extension('stat-headline-group') { |body|
-      %{\n\n<div class="stat-headline-group">
-#{Govspeak::Document.new(body.strip).to_html}</div>\n}
-    }
-
     # FIXME: these surrounded_by arguments look dodgy
     extension('external', surrounded_by("x[", ")x")) { |body|
       Kramdown::Document.new("[#{body.strip}){:rel='external'}").to_html
