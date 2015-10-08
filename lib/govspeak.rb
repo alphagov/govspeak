@@ -114,7 +114,7 @@ module Govspeak
 #{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
-    extension('stat-headline') { |body|
+    extension('stat-headline', %r${stat-headline}(.*?){/stat-headline}$m) { |body|
       %{\n\n<aside class="stat-headline">
 #{Govspeak::Document.new(body.strip).to_html}</aside>\n}
     }

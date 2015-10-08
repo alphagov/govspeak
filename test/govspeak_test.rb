@@ -29,7 +29,7 @@ class GovspeakTest < Test::Unit::TestCase
   end
 
   test "stat-headline block extension" do
-    rendered =  Govspeak::Document.new("this \n{::stat-headline}*13.8bn* Age of the universe in years{:/stat-headline}").to_html
+    rendered =  Govspeak::Document.new("this \n{stat-headline}*13.8bn* Age of the universe in years{/stat-headline}").to_html
     assert_equal %Q{<p>this </p>\n\n<aside class="stat-headline">\n<p><em>13.8bn</em> Age of the universe in years</p>\n</aside>\n}, rendered
   end
 

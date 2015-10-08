@@ -84,12 +84,12 @@ creates a large highlight box with optional preamble text and giant text denoted
 
 Used in HTML publications.
 
-Statistic headlines highlight important numbers in content. Displays a statistic as a large number with a description. The statistic and description must make sense when read aloud. The giant number is denoted with `**`.
+Statistic headlines highlight important numbers in content. Displays a statistic as a large number with a description. The statistic and description must make sense when read aloud. The important number must be wrapped in `**`.
 
 ```
-{::stat-headline}
+{stat-headline}
 *13.8bn* years since the big bang
-{:/stat-headline}
+{/stat-headline}
 ```
 
 Creates the following:
