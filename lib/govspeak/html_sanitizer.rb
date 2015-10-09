@@ -45,7 +45,7 @@ class Govspeak::HtmlSanitizer
         :all => Sanitize::Config::RELAXED[:attributes][:all] + [ "id", "class", "role", "aria-label" ],
         "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + [ "rel" ],
       },
-      elements: Sanitize::Config::RELAXED[:elements] + [ "div", "span" ],
+      elements: Sanitize::Config::RELAXED[:elements] + [ "div", "span", "aside" ],
     })
   end
 end
