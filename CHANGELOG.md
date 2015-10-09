@@ -1,3 +1,9 @@
+## 3.5.0
+
+* Add `{stat-headline}*10m* big numbers{/stat-headline}` markdown for HTML publications
+* `aside` elements are now allowed through the sanitization process.
+* Update Ruby from 1.9.3 to 2.1
+
 ## 3.4.0
 
 * Increase the version of Kramdown to `1.5.0`. This allows compatibility with Jekyll
