@@ -1,4 +1,4 @@
-require "uri"
+require "addressable/uri"
 require "kramdown/options"
 
 module Kramdown
@@ -29,11 +29,11 @@ EOF
       def add_link(el, href, title, alt_text = nil)
         if el.type == :a
           begin
-            host = URI.parse(href).host
+            host = Addressable::URI.parse(href).host
             unless host.nil? || (@document_domains.compact.include?(host))
               el.attr['rel'] = 'external'
             end
-          rescue URI::InvalidURIError, URI::InvalidComponentError
+          rescue Addressable::URI::InvalidURIError
             # it's safe to ignore these very *specific* exceptions
           end
         end
