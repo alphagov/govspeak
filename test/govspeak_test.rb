@@ -257,12 +257,12 @@ Teston
     assert html.include?("&#165;")
   end
 
-  test "should be assume link with invalid uri is internal" do
+  test "should assume a link with an invalid uri is internal" do
     html = Govspeak::Document.new("[link](:invalid-uri)").to_html
     refute html.include?('rel="external"')
   end
 
-  test "should be assume link with invalid uri component is internal" do
+  test "should assume link with an invalid uri component is internal" do
     html = Govspeak::Document.new("[link](mailto://www.example.com)").to_html
     refute html.include?('rel="external"')
   end
