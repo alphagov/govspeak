@@ -262,8 +262,8 @@ Teston
     refute html.include?('rel="external"')
   end
 
-  test "should assume link with an invalid uri component is internal" do
-    html = Govspeak::Document.new("[link](mailto://www.example.com)").to_html
+  test "should treat a mailto as internal" do
+    html = Govspeak::Document.new("[link](mailto:a@b.com)").to_html
     refute html.include?('rel="external"')
   end
 
