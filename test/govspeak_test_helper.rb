@@ -63,6 +63,14 @@ module GovspeakTestHelper
     asserter.instance_eval(&block)
   end
 
+  def deobfuscate_mailto(html)
+    # Kramdown obfuscates mailto addresses as an anti-spam measure. It
+    # obfuscates by encoding them as HTML entities.
+    # https://github.com/gettalong/kramdown/blob/7a7bd675b9d2593ad40c26fc4c77bf8407b70b42/lib/kramdown/converter/html.rb#L237-L246
+    coder = HTMLEntities.new
+    coder.decode(html)
+  end
+
   module ClassMethods
     def test_given_govspeak(govspeak, images=[], options = {}, &block)
       test "Given #{govspeak}" do
