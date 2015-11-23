@@ -1,3 +1,4 @@
+require 'addressable/uri'
 require 'sanitize'
 require 'with_deep_merge'
 
@@ -13,7 +14,7 @@ class Govspeak::HtmlSanitizer
       return unless sanitize_context[:node_name] == "img"
 
       node = sanitize_context[:node]
-      image_uri = URI.parse(node['src'])
+      image_uri = Addressable::URI.parse(node['src'])
       unless image_uri.relative? || @allowed_image_hosts.include?(image_uri.host)
         node.unlink # the node isn't sanitary. Remove it from the document.
       end

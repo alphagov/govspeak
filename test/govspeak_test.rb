@@ -257,14 +257,29 @@ Teston
     assert html.include?("&#165;")
   end
 
-  test "should be assume link with invalid uri is internal" do
+  test "should assume a link with an invalid uri is internal" do
     html = Govspeak::Document.new("[link](:invalid-uri)").to_html
     refute html.include?('rel="external"')
   end
 
-  test "should be assume link with invalid uri component is internal" do
-    html = Govspeak::Document.new("[link](mailto://www.example.com)").to_html
+  test "should treat a mailto as internal" do
+    html = Govspeak::Document.new("[link](mailto:a@b.com)").to_html
     refute html.include?('rel="external"')
+    assert_equal %Q{<p><a href="mailto:a@b.com">link</a></p>\n}, deobfuscate_mailto(html)
+  end
+
+  test "permits mailto:// URI" do
+    html = Govspeak::Document.new("[link](mailto://a@b.com)").to_html
+    assert_equal %Q{<p><a rel="external" href="mailto://a@b.com">link</a></p>\n}, deobfuscate_mailto(html)
+  end
+
+  test "permits dud mailto: URI" do
+    html = Govspeak::Document.new("[link](mailto:)").to_html
+    assert_equal %Q{<p><a href="mailto:">link</a></p>\n}, deobfuscate_mailto(html)
+  end
+
+  test "permits trailing whitespace in an URI" do
+    Govspeak::Document.new("[link](http://example.com/%20)").to_html
   end
 
   # Regression test - the surrounded_by helper doesn't require the closing x
