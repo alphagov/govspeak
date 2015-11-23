@@ -1,3 +1,7 @@
+## 3.5.1
+
+* Continue to support non-strict URIs in links on Ruby 2.2.x. See [https://github.com/alphagov/govspeak/issues/57](https://github.com/alphagov/govspeak/issues/57)
+
 ## 3.5.0
 
 * Add `{stat-headline}*10m* big numbers{/stat-headline}` markdown for HTML publications
