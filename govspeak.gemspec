@@ -32,6 +32,7 @@ library for use in the UK Government Single Domain project}
 
   s.add_development_dependency 'rake', '~> 0.9.0'
   s.add_development_dependency 'gem_publisher', '~> 1.1.1'
+  s.add_development_dependency 'minitest', '~> 5.8.3'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'simplecov-rcov'
 end

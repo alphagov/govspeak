@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GovspeakStructuredHeadersTest < Test::Unit::TestCase
+class GovspeakStructuredHeadersTest < Minitest::Test
 
   def document_body
     %{

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class HtmlSanitizerTest < Test::Unit::TestCase
+class HtmlSanitizerTest < Minitest::Test
 
   test "disallow a script tag" do
     html = "<script>alert('XSS')</script>"

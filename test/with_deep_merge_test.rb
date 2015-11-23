@@ -1,6 +1,6 @@
 require 'with_deep_merge'
 
-class WithDeepMergeTest < Test::Unit::TestCase
+class WithDeepMergeTest < Minitest::Test
   include WithDeepMerge
 
   def test_simple_merge
