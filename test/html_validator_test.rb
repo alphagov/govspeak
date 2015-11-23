@@ -1,6 +1,6 @@
 require "test_helper"
 
-class HtmlValidatorTest < Test::Unit::TestCase
+class HtmlValidatorTest < Minitest::Test
   test "allow Govspeak Markdown" do
     values = [
       "## is H2",

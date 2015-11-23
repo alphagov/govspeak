@@ -9,9 +9,9 @@ $:.unshift(File.expand_path("../lib")) unless $:.include?(File.expand_path("../l
 require 'bundler'
 Bundler.setup :default, :development, :test
 
-require 'test/unit'
+require 'minitest/autorun'
 
-class Test::Unit::TestCase
+class Minitest::Test
   class << self
     def test(name, &block)
      clean_name = name.gsub(/\s+/,'_')

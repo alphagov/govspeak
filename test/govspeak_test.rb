@@ -5,7 +5,7 @@ require 'govspeak_test_helper'
 
 require 'ostruct'
 
-class GovspeakTest < Test::Unit::TestCase
+class GovspeakTest < Minitest::Test
   include GovspeakTestHelper
 
   test "simple smoke-test" do
