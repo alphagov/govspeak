@@ -56,6 +56,43 @@ class GovspeakTest < Minitest::Test
     ], document.headers
   end
 
+  test "extracts headers when nested inside blocks" do
+    document =  Govspeak::Document.new %{
+# First title
+
+<div markdown="1">
+## Nested subtitle
+</div>
+
+<div>
+<div markdown="1">
+### Double nested subtitle
+</div>
+<div markdown="1">
+### Second double subtitle
+</div>
+</div>
+}
+    assert_equal [
+      Govspeak::Header.new('First title', 1, 'first-title'),
+      Govspeak::Header.new('Nested subtitle', 2, 'nested-subtitle'),
+      Govspeak::Header.new('Double nested subtitle', 3, 'double-nested-subtitle'),
+      Govspeak::Header.new('Second double subtitle', 3, 'second-double-subtitle')
+    ], document.headers
+  end
+
+  test "extracts headers with explicitly specified ids" do
+    document =  Govspeak::Document.new %{
+# First title
+
+## Second title {#special}
+}
+    assert_equal [
+      Govspeak::Header.new('First title', 1, 'first-title'),
+      Govspeak::Header.new('Second title', 2, 'special'),
+    ], document.headers
+  end
+
   test "extracts text with no HTML and normalised spacing" do
     input = "# foo\n\nbar    baz  "
     doc = Govspeak::Document.new(input)
