@@ -1,3 +1,7 @@
+## 3.5.2
+
+* Fix a couple of issues with the [header_extractor](https://github.com/alphagov/govspeak/blob/master/lib/govspeak/header_extractor.rb). The method now picks up headers nested inside `blocks`, and when ID's are [explicitly set](http://kramdown.gettalong.org/syntax.html#specifying-a-header-id). See [https://github.com/alphagov/govspeak/pull/66](https://github.com/alphagov/govspeak/pull/66) for more.
+
 ## 3.5.1
 
 * Continue to support non-strict URIs in links on Ruby 2.2.x. See [https://github.com/alphagov/govspeak/issues/57](https://github.com/alphagov/govspeak/issues/57)
