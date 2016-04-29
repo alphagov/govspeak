@@ -21,13 +21,26 @@ class Govspeak::HtmlSanitizer
     end
   end
 
+  class TableCellTextAlignWhitelister
+    def call(sanitize_context)
+      return unless ["td", "th"].include?(sanitize_context[:node_name])
+      node = sanitize_context[:node]
+
+      # Kramdown uses text-align to allow table cells to be aligned
+      # http://kramdown.gettalong.org/quickref.html#tables
+      unless node['style'].match(/^text-align:\s*(center|left|right)$/)
+        node.remove_attribute('style')
+      end
+    end
+  end
+
   def initialize(dirty_html, options = {})
     @dirty_html = dirty_html
     @allowed_image_hosts = options[:allowed_image_hosts]
   end
 
   def sanitize
-    transformers = []
+    transformers = [TableCellTextAlignWhitelister.new]
     if @allowed_image_hosts && @allowed_image_hosts.any?
       transformers << ImageSourceWhitelister.new(@allowed_image_hosts)
     end
@@ -45,6 +58,8 @@ class Govspeak::HtmlSanitizer
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + [ "id", "class", "role", "aria-label" ],
         "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + [ "rel" ],
+        "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + [ "style" ],
+        "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + [ "style" ],
       },
       elements: Sanitize::Config::RELAXED[:elements] + [ "div", "span", "aside" ],
     })

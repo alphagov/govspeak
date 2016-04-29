@@ -43,4 +43,22 @@ class HtmlSanitizerTest < Minitest::Test
     html = "<img src='http://example.com/image.jgp'>"
     assert_equal "", Govspeak::HtmlSanitizer.new(html).sanitize_without_images
   end
+
+  test "allows valid text-align properties on the style attribute for table cells and table headings" do
+    ["left", "right", "center"].each do |alignment|
+      html = "<td style=\"text-align: #{alignment}\">thing</td>"
+      assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize
+    end
+
+    [
+      "width: 10000px",
+      "text-align: middle",
+      "text-align: left; width: 10px",
+      "background-image: url(javascript:alert('XSS'))",
+      "expression(alert('XSS'));"
+    ].each do |style|
+      html = "<td style=\"#{style}\">thing</td>"
+      assert_equal '<td>thing</td>', Govspeak::HtmlSanitizer.new(html).sanitize
+    end
+  end
 end
