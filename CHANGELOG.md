@@ -1,7 +1,11 @@
-## 3.6.0
+## 3.6.1
 
 * Update minimum Kramdown version from 1.5.0 to 1.10.0 ([changelog](https://github.com/gettalong/kramdown/tree/2cd02dfacda041d3108a039e085f804645a9d538/doc/news))
 * Allow table columns to be left, right or centre aligned using the [standard markdown pattern](http://kramdown.gettalong.org/quickref.html#tables) provided by Kramdown
+
+## 3.6.0
+
+* Yanked, see 3.6.1 which includes [fix](https://github.com/alphagov/govspeak/pull/73)
 
 ## 3.5.2
 
