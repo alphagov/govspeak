@@ -28,9 +28,13 @@ class Govspeak::HtmlSanitizer
 
       # Kramdown uses text-align to allow table cells to be aligned
       # http://kramdown.gettalong.org/quickref.html#tables
-      unless node['style'].match(/^text-align:\s*(center|left|right)$/)
+      if invalid_style_attribute?(node['style'])
         node.remove_attribute('style')
       end
+    end
+
+    def invalid_style_attribute?(style)
+      style && !style.match(/^text-align:\s*(center|left|right)$/)
     end
   end
 

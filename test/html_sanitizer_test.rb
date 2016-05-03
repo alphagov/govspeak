@@ -44,9 +44,14 @@ class HtmlSanitizerTest < Minitest::Test
     assert_equal "", Govspeak::HtmlSanitizer.new(html).sanitize_without_images
   end
 
+  test "allows table cells and table headings without a style attribute" do
+    html = "<th>thing</th><td>thing</td>"
+    assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize
+  end
+
   test "allows valid text-align properties on the style attribute for table cells and table headings" do
     ["left", "right", "center"].each do |alignment|
-      html = "<td style=\"text-align: #{alignment}\">thing</td>"
+      html = "<th style=\"text-align: #{alignment}\">thing</th><td style=\"text-align: #{alignment}\">thing</td>"
       assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize
     end
 
@@ -57,8 +62,8 @@ class HtmlSanitizerTest < Minitest::Test
       "background-image: url(javascript:alert('XSS'))",
       "expression(alert('XSS'));"
     ].each do |style|
-      html = "<td style=\"#{style}\">thing</td>"
-      assert_equal '<td>thing</td>', Govspeak::HtmlSanitizer.new(html).sanitize
+      html = "<th style=\"#{style}\">thing</th><td style=\"#{style}\">thing</td>"
+      assert_equal '<th>thing</th><td>thing</td>', Govspeak::HtmlSanitizer.new(html).sanitize
     end
   end
 end
