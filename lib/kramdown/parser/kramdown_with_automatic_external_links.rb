@@ -26,7 +26,7 @@ EOF
         super
       end
 
-      def add_link(el, href, title, alt_text = nil)
+      def add_link(el, href, title, alt_text = nil, ial = nil)
         if el.type == :a
           begin
             host = Addressable::URI.parse(href).host
@@ -42,4 +42,3 @@ EOF
     end
   end
 end
-
