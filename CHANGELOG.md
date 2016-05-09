@@ -1,3 +1,7 @@
+## 3.6.2
+
+* Fix bug with link parsing introduced in Kramdown 1.6.0 with the "inline attribute lists" feature which clashed with our monkey patch [#75](https://github.com/alphagov/govspeak/pull/75)
+
 ## 3.6.1
 
 * Update minimum Kramdown version from 1.5.0 to 1.10.0 ([changelog](https://github.com/gettalong/kramdown/tree/2cd02dfacda041d3108a039e085f804645a9d538/doc/news))
