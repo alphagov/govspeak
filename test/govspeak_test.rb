@@ -254,6 +254,16 @@ Teston
     assert_html_output '<p><a rel="external" href="http://www.google.com">external link without x markers</a></p>'
   end
 
+  # Based on Kramdown inline attribute list (IAL) test:
+  # https://github.com/gettalong/kramdown/blob/627978525cf5ee5b290d8a1b8675aae9cc9e2934/test/testcases/span/01_link/link_defs_with_ial.text
+  test_given_govspeak "External link definitions with [attr] and [attr 2] and [attr 3] and [attr before]\n\n[attr]: http://example.com 'title'\n{: hreflang=\"en\" .test}\n\n[attr 2]: http://example.com 'title'\n{: hreflang=\"en\"}\n{: .test}\n\n[attr 3]: http://example.com\n{: .test}\ntest\n\n{: hreflang=\"en\"}\n{: .test}\n[attr before]: http://example.com" do
+    assert_html_output "<p>External link definitions with <a rel=\"external\" hreflang=\"en\" class=\"test\" href=\"http://example.com\" title=\"title\">attr</a> and <a rel=\"external\" hreflang=\"en\" class=\"test\" href=\"http://example.com\" title=\"title\">attr 2</a> and <a rel=\"external\" class=\"test\" href=\"http://example.com\">attr 3</a> and <a rel=\"external\" hreflang=\"en\" class=\"test\" href=\"http://example.com\">attr before</a></p>\n\n<p>test</p>"
+  end
+
+  test_given_govspeak "External link with [inline attribute list] (IAL)\n\n[inline attribute list]: http://example.com 'title'\n{: hreflang=\"en\" .test}" do
+    assert_html_output '<p>External link with <a rel="external" hreflang="en" class="test" href="http://example.com" title="title">inline attribute list</a> (IAL)</p>'
+  end
+
   test_given_govspeak "[external link with rel attribute](http://www.google.com){:rel='next'}" do
     assert_html_output '<p><a rel="next" href="http://www.google.com">external link with rel attribute</a></p>'
   end
