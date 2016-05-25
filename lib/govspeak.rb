@@ -105,10 +105,6 @@ module Govspeak
       parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/,"<p><strong>\\1</strong></p>")
     end
 
-    extension('reverse') { |body|
-      body.reverse
-    }
-
     extension('highlight-answer') { |body|
       %{\n\n<div class="highlight-answer">
 #{Govspeak::Document.new(body.strip).to_html}</div>\n}
