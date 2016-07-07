@@ -5,6 +5,7 @@ require 'govspeak/html_validator'
 require 'govspeak/html_sanitizer'
 require 'govspeak/kramdown_overrides'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
+require 'govspeak/fractions'
 require 'htmlentities'
 
 module Govspeak
@@ -212,6 +213,29 @@ module Govspeak
           match
         end
       end
+    end
+
+    extension("Fraction", %r{\[Fraction:([0-9a-zA-Z]+)/([0-9a-zA-Z]+)\]}) do |numerator, denominator|
+      fallback = <<-HTML
+        <span class="fraction">
+          <sup>#{numerator}</sup>&frasl;<sub>#{denominator}</sub>
+        </span>
+      HTML
+
+      return fallback unless numerator.present? && denominator.present?
+
+      numerator = numerator.to_i
+      denominator = denominator.to_i
+
+      data_uri = Govspeak::Fractions.data_uri(numerator, denominator)
+
+      return fallback unless data_uri.present?
+
+      <<-HTML
+        <span class="fraction">
+          <img src="#{data_uri}" alt="#{numerator}/#{denominator}" height="27" />
+        </span>
+      HTML
     end
   end
 end

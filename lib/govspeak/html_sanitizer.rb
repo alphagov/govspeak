@@ -66,6 +66,13 @@ class Govspeak::HtmlSanitizer
         "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + [ "style" ],
       },
       elements: Sanitize::Config::RELAXED[:elements] + [ "div", "span", "aside" ],
+      protocols: allowed_protocols,
     })
+  end
+
+  def allowed_protocols
+    relaxed_protocols = Sanitize::Config::RELAXED[:protocols].dup
+    relaxed_protocols["img"]["src"] << "data" # Allow data URIs in images
+    relaxed_protocols
   end
 end
