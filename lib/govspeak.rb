@@ -133,6 +133,22 @@ module Govspeak
       %{\n\n<div role="note" aria-label="Help" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
+    extension('barchart', /{barchart(.*?)}/) do |captures, body|
+      stacked = '.mc-stacked' if captures.include? 'stacked'
+      compact = '.compact' if captures.include? 'compact'
+      negative = '.mc-negative' if captures.include? 'negative'
+
+      [
+       '{:',
+       '.js-barchart-table',
+       stacked,
+       compact,
+       negative,
+       '.mc-auto-outdent',
+       '}'
+      ].join(' ')
+    end
+
     extension('attached-image', /^!!([0-9]+)/) do |image_number|
       image = images[image_number.to_i - 1]
       if image
