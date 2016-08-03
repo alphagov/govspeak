@@ -6,6 +6,8 @@ require 'govspeak/html_sanitizer'
 require 'govspeak/kramdown_overrides'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'htmlentities'
+require 'presenters/attachment_presenter'
+require 'erb'
 
 module Govspeak
 
@@ -17,6 +19,7 @@ module Govspeak
     @@extensions = []
 
     attr_accessor :images
+    attr_reader :attachments, :locale
 
     def self.to_html(source, options = {})
       new(source, options).to_html
@@ -25,8 +28,18 @@ module Govspeak
     def initialize(source, options = {})
       @source = source ? source.dup : ""
       @images = options.delete(:images) || []
+      @attachments = Array(options.delete(:attachments))
+      @locale = options.fetch(:locale, "en")
       @options = {input: PARSER_CLASS_NAME, entity_output: :symbolic}.merge(options)
+      i18n_load_paths
     end
+
+    def i18n_load_paths
+      Dir.glob('locales/*.yml') do |f|
+        I18n.load_path << f
+      end
+    end
+    private :i18n_load_paths
 
     def kramdown_doc
       @kramdown_doc ||= Kramdown::Document.new(preprocess(@source), @options)
@@ -39,6 +52,12 @@ module Govspeak
 
     def to_liquid
       to_html
+    end
+
+    def t(*args)
+      options = args.last.is_a?(Hash) ? args.last.dup : {}
+      key = args.shift
+      I18n.t(key, options.merge(locale: locale))
     end
 
     def to_sanitized_html
@@ -157,6 +176,14 @@ module Govspeak
       else
         ""
       end
+    end
+
+    extension('attachment', /\[embed:attachments:([0-9a-f-]+)\]/) do |content_id, body|
+      attachment = attachments.detect { |a| a.content_id.match(content_id) }
+      return "" unless attachment
+      attachment = AttachmentPresenter.new(attachment)
+      content = File.read('lib/govspeak/extension/attachment.html.erb')
+      ERB.new(content).result(binding)
     end
 
     def render_image(url, alt_text, caption = nil)
