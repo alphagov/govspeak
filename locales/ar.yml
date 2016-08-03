@@ -1,0 +1,19 @@
+---
+ar:
+  attachment:
+    accessibility:
+      full_help_html: لاستلام وثيقة مكتوبة بشكل آخر، كلغة بريل أو وثيقة صوتية أو أي
+        نوع آخر من الوثائق، يرجى إرسال رسالة إلكترونية إلى %{email} مع كتابة عنوانك
+        ورقم هاتفك إلى جانب عنوان الوثيقة المطلوبة ("{title}")%{references}
+      heading: هذا المف قد لا يكون مناسبا لمستخدمي التكنولوجيا المساعدة على القراءة
+      request_a_different_format: طلب الوثيقة بشكل آخر
+    headings:
+      order_a_copy: طلب نسخة
+      order_a_copy_full: طلب نسخة عن المطبوعة
+      published: تاريخ النشر
+      reference: إشارة
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 

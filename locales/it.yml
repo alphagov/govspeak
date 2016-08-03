@@ -1,0 +1,20 @@
+---
+it:
+  attachment:
+    accessibility:
+      full_help_html: Per richiedere il presente documento in formato diverso, ad
+        es. in formato braille, audio o altro, scrivi a %{email} indicando il tuo
+        indirizzo e numero di telefono nonché il titolo della pubblicazione ("%{title}")%{references}.
+      heading: Il presente file potrebbe non essere adatto agli utenti di tecnologie
+        d'ausilio.
+      request_a_different_format: Richiedi un formato diverso.
+    headings:
+      order_a_copy: Ordina una copia
+      order_a_copy_full: Ordina una copia della pubblicazione
+      published: Pubblicato
+      reference: Rif
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 

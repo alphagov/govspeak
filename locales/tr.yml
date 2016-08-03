@@ -1,0 +1,19 @@
+---
+tr:
+  attachment:
+    accessibility:
+      full_help_html: |-
+        Bu dosyaya farklı formatta erişim için lütfen bize adresiniz, telefon numaranız ve yayının adı ("%{title}")%{references}.
+         ile birlikte e-posta %{email} yoluyla ulaşın
+      heading: Bu dosya yardımcı teknoloji kullananlar için uygun olmayabilir
+      request_a_different_format: Dosyaya farklı formatta erişim için
+    headings:
+      order_a_copy: Bir kopyasını sipariş edin
+      order_a_copy_full: Yayının bir kopyasını sipariş edin
+      published: Yayında
+      reference: Ref
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 

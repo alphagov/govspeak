@@ -1,0 +1,20 @@
+---
+ur:
+  attachment:
+    accessibility:
+      full_help_html: اس عبارت کو کسی دوسرے فارمیٹ مثلا بریل،آڈیو یا مختلف فائل ٹائپ
+        میں حاصل کرنے کے لئے برائے مہربانی ایمیل %{email} کیجئیے، جس میں اپنا پتا،ٹیلیفون
+        نمبراور  %{title}"(%{references}") لکھئیے
+      heading: ممکن ہےیہ فائل  معاون ٹیکنالوجی استعمال کرنے والوں کے لئے موزوں نہ
+        ہو
+      request_a_different_format: مختلف فارمیٹ طلب کیجئیے
+    headings:
+      order_a_copy: کاپی منگائیے
+      order_a_copy_full: اشاعت کی کاپی طلب کیجئیے
+      published: شائع شدہ
+      reference: حوالہ
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 

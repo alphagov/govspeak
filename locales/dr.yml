@@ -1,0 +1,19 @@
+---
+dr:
+  attachment:
+    accessibility:
+      full_help_html: جهت درخواست سند در فارمت بدیل مانند بریل، صوتی و یا هم در فارمت
+        متفاوت لطفاً آدرس، شماره تماس با نام نشریه ("%{title}")%{references} را ایمیل
+        %{email} کنید
+      heading: این فایل برای استعمال کننده گان تکنالوجی کمکی مناسب نخواهد بود
+      request_a_different_format: فارمت متفاوت را درخواست نمائید
+    headings:
+      order_a_copy: نقل را درخواست نمائید
+      order_a_copy_full: نقل نشریه را درخواست نمائید
+      published: نشر شده
+      reference: ماخذ
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 
