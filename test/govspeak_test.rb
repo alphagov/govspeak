@@ -835,7 +835,7 @@ $PriorityList:1
     )
     govspeak = "[embed:attachments:inline:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]"
     rendered = Govspeak::Document.new(govspeak, {attachments: attachment}).to_html
-    assert_match /<span id=\"attachment_456\" class=\"attachment-inline\">/, rendered
+    assert_match(/<span id=\"attachment_456\" class=\"attachment-inline\">/, rendered)
   end
 
   test "attachment" do
@@ -852,14 +852,14 @@ $PriorityList:1
     )
     govspeak = "[embed:attachments:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]"
     rendered = Govspeak::Document.new(govspeak, {attachments: attachment}).to_html
-    assert_match /<section class=\"attachment embedded\">/, rendered
-    assert_match /<div class=\"attachment-thumb\">/, rendered
-    assert_match /attachment-123-accessibility-help/, rendered
-    assert_match /If you use assistive technology/, rendered
-    assert_match /<p class=\"opendocument-help\">/, rendered
-    assert_match /<span class=\"price\">£12.30/, rendered
-    assert_match /<span class=\"preview\">/, rendered
-    assert_match /<span class=\"unnumbered-paper\">/, rendered
-    assert_match /<span class=\"references\">/, rendered
+    assert_match(/<section class=\"attachment embedded\">/, rendered)
+    assert_match(/<div class=\"attachment-thumb\">/, rendered)
+    assert_match(/attachment-123-accessibility-help/, rendered)
+    assert_match(/If you use assistive technology/, rendered)
+    assert_match(/<p class=\"opendocument-help\">/, rendered)
+    assert_match(/<span class=\"price\">£12.30/, rendered)
+    assert_match(/<span class=\"preview\">/, rendered)
+    assert_match(/<span class=\"unnumbered-paper\">/, rendered)
+    assert_match(/<span class=\"references\">/, rendered)
   end
 end

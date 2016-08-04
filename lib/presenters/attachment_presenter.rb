@@ -70,9 +70,17 @@ class AttachmentPresenter
       attachment_info << "  Parliamentary session: #{attachment.parliamentary_session}"
     end
 
-    mail_to alternative_format_contact_email, alternative_format_contact_email,
+    options = {
       subject: "Request for '#{attachment.title}' in an alternative format",
-      body: %(Details of document required:
+      body: body_for_mail(attachment_info)
+    }
+
+    mail_to(alternative_format_contact_email, alternative_format_contact_email, options)
+  end
+
+  def body_for_mail(attachment_info)
+    <<-END
+    Details of document required:
 
 #{attachment_info.join("\n")}
 
@@ -80,7 +88,7 @@ Please tell us:
 
   1. What makes this format unsuitable for you?
   2. What format you would prefer?
-      )
+   END
   end
 
   def alternative_format_contact_email
