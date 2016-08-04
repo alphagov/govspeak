@@ -828,6 +828,23 @@ $PriorityList:1
     end
   end
 
+  test "should add class to last paragraph of blockquote" do
+    govspeak = "
+    > first line
+    >
+    > last line"
+
+    given_govspeak(govspeak) do
+      assert_html_output %|
+        <blockquote>
+          <p>first line</p>
+
+          <p class="last-child">last line</p>
+        </blockquote>
+      |
+    end
+  end
+
   test "inline attachment" do
     attachment = OpenStruct.new(
       content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",

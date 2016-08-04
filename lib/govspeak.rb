@@ -4,6 +4,7 @@ require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
 require 'govspeak/html_sanitizer'
 require 'govspeak/kramdown_overrides'
+require 'govspeak/post_processor'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'htmlentities'
 require 'presenters/attachment_presenter'
@@ -47,7 +48,7 @@ module Govspeak
     private :kramdown_doc
 
     def to_html
-      kramdown_doc.to_html
+      @html ||= Govspeak::PostProcessor.process(kramdown_doc.to_html)
     end
 
     def to_liquid
