@@ -6,7 +6,6 @@ class AttachmentPresenter
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::AssetTagHelper
-  include ActionView::Helpers::UrlHelper
 
   def initialize(attachment)
     @attachment = attachment
@@ -22,6 +21,10 @@ class AttachmentPresenter
 
   def opendocument?
     attachment.opendocument?
+  end
+
+  def url
+    attachment.url
   end
 
   def external?
@@ -40,7 +43,7 @@ class AttachmentPresenter
   def thumbnail_link
     return if hide_thumbnail?
     return if previewable?
-    link(attachment_thumbnail, attachment.url, "aria-hidden=true class=#{attachment_class}")
+    link(attachment_thumbnail, url, "aria-hidden=true class=#{attachment_class}")
   end
 
   def help_block_toggle_id
@@ -49,6 +52,10 @@ class AttachmentPresenter
 
   def section_class
     attachment.external? ? "hosted-externally" : "embedded"
+  end
+
+  def mail_to(email_address, name, options = {})
+    "<a href='mailto:#{email_address}?Subject=#{options[:subject]}&body=#{options[:body]}'>#{name}</a>"
   end
 
   def alternative_format_order_link
@@ -129,7 +136,7 @@ Please tell us:
     if attachment.html?
       attributes << content_tag(:span, 'HTML', class: 'type')
     elsif attachment.external?
-      attributes << content_tag(:span, attachment.url, class: 'url')
+      attributes << content_tag(:span, url, class: 'url')
     else
       attributes << content_tag(:span, humanized_content_type(attachment.file_extension), class: 'type')
       attributes << content_tag(:span, number_to_human_size(attachment.file_size), class: 'file-size')
@@ -139,7 +146,7 @@ Please tell us:
   end
 
   def preview_url
-    attachment.url << '/preview'
+    url << '/preview'
   end
 
   MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document"
@@ -203,7 +210,7 @@ Please tell us:
 
   def attachement_details
     return if previewable?
-    link(attachment.title, attachment.url, title_link_options)
+    link(attachment.title, url, title_link_options)
   end
 
   def title_link_options

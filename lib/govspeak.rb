@@ -186,6 +186,14 @@ module Govspeak
       ERB.new(content).result(binding)
     end
 
+    extension('attachment inline', /\[embed:attachments:inline:([0-9a-f-]+)\]/) do |content_id, body|
+      attachment = attachments.detect { |a| a.content_id.match(content_id) }
+      return "" unless attachment
+      attachment = AttachmentPresenter.new(attachment)
+      content = File.read('lib/govspeak/extension/inline_attachment.html.erb')
+      ERB.new(content).result(binding)
+    end
+
     def render_image(url, alt_text, caption = nil)
       lines = []
       lines << '<figure class="image embedded">'

@@ -828,6 +828,16 @@ $PriorityList:1
     end
   end
 
+  test "inline attachment" do
+    attachment = OpenStruct.new(
+      content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",
+      id: 456,
+    )
+    govspeak = "[embed:attachments:inline:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]"
+    rendered = Govspeak::Document.new(govspeak, {attachments: attachment}).to_html
+    assert_match /<span id=\"attachment_456\" class=\"attachment-inline\">/, rendered
+  end
+
   test "attachment" do
     attachment = OpenStruct.new(
       url: "www.test.com",
@@ -841,7 +851,6 @@ $PriorityList:1
       isbn: 'isbn-123',
     )
     govspeak = "[embed:attachments:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]"
-    rendered = Govspeak::Document.new(govspeak, {attachments: attachment}).to_html
     rendered = Govspeak::Document.new(govspeak, {attachments: attachment}).to_html
     assert_match /<section class=\"attachment embedded\">/, rendered
     assert_match /<div class=\"attachment-thumb\">/, rendered
