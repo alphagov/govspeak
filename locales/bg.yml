@@ -1,0 +1,23 @@
+---
+bg:
+  attachment:
+    accessibility:
+      full_help_html: |
+        За да направите заявка за алтернативен формат на този документ като Брайл, аудио или друг, моля
+        пратете електронна поща на %{email}
+        като упоменете Вашия адрес, телефон, както и заглавието на публикацията
+        ("%{title}")%{references}.
+      heading: Този файл може да не е подходящ за хора, ползващи помощни технологии
+      request_a_different_format: 'Направете заявка за друг формат
+
+'
+    headings:
+      order_a_copy: Поръчайте копие
+      order_a_copy_full: Поръчайте копия
+      published: Публикувано
+      reference: Справка
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 

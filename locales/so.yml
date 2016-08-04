@@ -1,0 +1,21 @@
+---
+so:
+  attachment:
+    accessibility:
+      full_help_html: Sida aad u codsato qoraalka oo qaab kale u qoran sida isaga
+        oo lagu qorey farta loogu talogaley dadka aan indhaha lahayn, cod ah ama fayl
+        nooc kale ah fadlan e-mail soo dir %{email} adiga oo ku soo sheegaya cinwaankaada,
+        lambarka telefoonkaada adiga oo soo raacinaya cinwaanka qoraalka ("%{title}")%{references}.
+      heading: Waxaa laga yaabaa in aanu faylkan u habbooneyn kuwa isticmaala tiknolojiyada
+        la kaashado
+      request_a_different_format: Codsi isaga oo qaab kale ah
+    headings:
+      order_a_copy: Dalbo nuqul
+      order_a_copy_full: Dalbo nuqulka daabacaadda
+      published: La-daabacay
+      reference: Xigasho
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 

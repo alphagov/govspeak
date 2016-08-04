@@ -1,0 +1,20 @@
+---
+sq:
+  attachment:
+    accessibility:
+      full_help_html: Per te kerkuar kete dokument ne format alternativ si braille,
+        audio ose format tjeter te lutem email %{email} duke cituar adresen tende,
+        telefonin dhe titullin e publikimit ("%{title}")%{references}.
+      heading: Ky dokument mund te mos jete i pershtatshem per perdoruesit e teknologjise
+        ndihmuese.
+      request_a_different_format: Kerko nje format ndryshe
+    headings:
+      order_a_copy: Porosit nje kopje
+      order_a_copy_full: Porosit nje kopje te publikimit
+      published: Publikuar
+      reference: Ref
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 

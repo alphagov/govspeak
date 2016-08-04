@@ -1,0 +1,19 @@
+---
+lt:
+  attachment:
+    accessibility:
+      full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio,
+        audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną
+        bei leidinio pavadinimą ("%{title}")%{references}.
+      heading: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
+      request_a_different_format: Paprašykite kito formato
+    headings:
+      order_a_copy: Užsisakykite leidinį
+      order_a_copy_full: Užsisakykite leidinį
+      published: Publikuota
+      reference: Nuorodos
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 

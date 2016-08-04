@@ -1,0 +1,20 @@
+---
+es:
+  attachment:
+    accessibility:
+      full_help_html: Para solicitar este documento en un formato diferente como braille,
+        audio o cualquier otro formato por favor envíe un email %{email} indicando
+        su dirección y teléfono acompañado con el título de la publicación  ("%{title}")%{references}.
+      heading: Este archivo puede estar no disponible para usuarios con tecnología
+        asistida
+      request_a_different_format: Solicítelo en un formato diferente
+    headings:
+      order_a_copy: Pida una copia
+      order_a_copy_full: Pida una copa de la publicación
+      published: Publicado
+      reference: Referencia
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 

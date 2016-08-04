@@ -1,0 +1,20 @@
+---
+de:
+  attachment:
+    accessibility:
+      full_help_html: Wenn Sie dieses Dokument in Braille-Schrift, als Audiodatei
+        oder in einem anderen Format erhalten möchten, senden Sie uns eine E-Mail
+        %{email} mit Ihrer Adresse, Telefonnummer und dem Titel der Publikation ("%{title}")%{references}.
+      heading: Für Nutzer technischer Hilfsmittel ist diese Datei möglicherweise nicht
+        geeignet
+      request_a_different_format: Anderes Format
+    headings:
+      order_a_copy: Exemplar bestellen
+      order_a_copy_full: Exemplar der Veröffentlichung bestellen
+      published: Veröffentlicht
+      reference: Aktenzeichen
+      unnumbered_command_paper: 
+      unnumbered_hoc_paper: 
+    opendocument:
+      help_html: 
+    see_more: 
