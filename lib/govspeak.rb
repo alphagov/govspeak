@@ -21,7 +21,7 @@ module Govspeak
     @@extensions = []
 
     attr_accessor :images
-    attr_reader :attachments, :locale
+    attr_reader :attachments, :links, :locale
 
     def self.to_html(source, options = {})
       new(source, options).to_html
@@ -31,6 +31,7 @@ module Govspeak
       @source = source ? source.dup : ""
       @images = options.delete(:images) || []
       @attachments = Array(options.delete(:attachments))
+      @links = Array(options.delete(:links))
       @locale = options.fetch(:locale, "en")
       @options = {input: PARSER_CLASS_NAME}.merge(options)
       @options[:entity_output] = :symbolic
@@ -266,6 +267,16 @@ module Govspeak
         else
           match
         end
+      end
+    end
+
+    extension('embed link', /\[embed:link:([0-9a-f-]+)\]/) do |content_id|
+      link = links.detect { |l| l.content_id.match(content_id) }
+      next "" unless link
+      if link.url
+        %Q{<a href="#{encode(link.url)}">#{encode(link.title)}</a>}
+      else
+        encode(link.title)
       end
     end
   end
