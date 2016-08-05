@@ -32,7 +32,8 @@ module Govspeak
       @images = options.delete(:images) || []
       @attachments = Array(options.delete(:attachments))
       @locale = options.fetch(:locale, "en")
-      @options = {input: PARSER_CLASS_NAME, entity_output: :symbolic}.merge(options)
+      @options = {input: PARSER_CLASS_NAME}.merge(options)
+      @options[:entity_output] = :symbolic
       i18n_load_paths
     end
 

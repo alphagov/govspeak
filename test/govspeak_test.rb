@@ -318,9 +318,9 @@ Teston
     refute html.include?('rel="external"'), "should not automatically add rel external attribute"
   end
 
-  test "should be able to override default 'entity output' option" do
-    html = Govspeak::Document.new("&yen;", entity_output: :numeric).to_html
-    assert html.include?("&#165;")
+  test "should not be able to override default 'entity output' option" do
+    html = Govspeak::Document.new("&gt;", entity_output: :numeric).to_html
+    assert html.include?("&gt;")
   end
 
   test "should assume a link with an invalid uri is internal" do
