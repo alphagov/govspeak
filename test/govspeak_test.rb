@@ -101,7 +101,7 @@ Testcase Cliffs
 Teston
 0123 456 7890 $A    }
     doc = Govspeak::Document.new(input)
-    assert_equal %{\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br />Testcase Cliffs<br />Teston<br />0123 456 7890 \n</p></div></div>\n}, doc.to_html
+    assert_equal %{\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n}, doc.to_html
   end
 
   test "should convert barchart" do
@@ -136,7 +136,7 @@ Testcase Cliffs
 Teston
 0123 456 7890 $A}
     doc = Govspeak::Document.new(input)
-    assert_equal %{<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br />Testcase Cliffs<br />Teston<br />0123 456 7890 \n</p></div></div>\n}, doc.to_html
+    assert_equal %{<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n}, doc.to_html
   end
 
   test_given_govspeak("^ I am very informational ^") do
@@ -173,7 +173,8 @@ Teston
 
   test_given_govspeak "@ I am very important @" do
     assert_html_output %{
-      <div role="note" aria-label="Important" class="advisory"><p><strong>I am very important</strong></p>
+      <div role="note" aria-label="Important" class="advisory">
+      <p><strong>I am very important</strong></p>
       </div>}
     assert_text_output "I am very important"
   end
@@ -185,7 +186,8 @@ Teston
     assert_html_output %{
       <p>The following is very important</p>
 
-      <div role="note" aria-label="Important" class="advisory"><p><strong>I am very important</strong></p>
+      <div role="note" aria-label="Important" class="advisory">
+      <p><strong>I am very important</strong></p>
       </div>}
     assert_text_output "The following is very important I am very important"
   end
@@ -229,12 +231,12 @@ Teston
   end
 
   test_given_govspeak "This is a [link](http://www.gov.uk) isn't it?" do
-    assert_html_output '<p>This is a <a href="http://www.gov.uk">link</a> isn&rsquo;t it?</p>'
+    assert_html_output '<p>This is a <a href="http://www.gov.uk">link</a> isn’t it?</p>'
     assert_text_output "This is a link isn’t it?"
   end
 
   test_given_govspeak "This is a [link with an at sign in it](http://www.gov.uk/@dg/@this) isn't it?" do
-    assert_html_output '<p>This is a <a href="http://www.gov.uk/@dg/@this">link with an at sign in it</a> isn&rsquo;t it?</p>'
+    assert_html_output '<p>This is a <a href="http://www.gov.uk/@dg/@this">link with an at sign in it</a> isn’t it?</p>'
     assert_text_output "This is a link with an at sign in it isn’t it?"
   end
 
@@ -298,7 +300,7 @@ Teston
   end
 
   test_given_govspeak "![image with external url](http://www.example.com/image.jpg)" do
-    assert_html_output '<p><img src="http://www.example.com/image.jpg" alt="image with external url" /></p>'
+    assert_html_output '<p><img src="http://www.example.com/image.jpg" alt="image with external url"></p>'
   end
 
   test "should be able to override default 'document_domains' option" do
@@ -316,9 +318,9 @@ Teston
     refute html.include?('rel="external"'), "should not automatically add rel external attribute"
   end
 
-  test "should be able to override default 'entity output' option" do
-    html = Govspeak::Document.new("&yen;", entity_output: :numeric).to_html
-    assert html.include?("&#165;")
+  test "should not be able to override default 'entity output' option" do
+    html = Govspeak::Document.new("&gt;", entity_output: :numeric).to_html
+    assert html.include?("&gt;")
   end
 
   test "should assume a link with an invalid uri is internal" do
@@ -381,7 +383,7 @@ Teston
     $A" do
     assert_html_output %{
       <div class="address"><div class="adr org fn"><p>
-      street<br />road<br />
+      street<br>road<br>
       </p></div></div>}
     assert_text_output "street road"
   end
@@ -461,11 +463,14 @@ $CTA
     " do
     assert_html_output %{
       <ol class="steps">
-      <li><p>zippy</p>
+      <li>
+      <p>zippy</p>
       </li>
-      <li><p>bungle</p>
+      <li>
+      <p>bungle</p>
       </li>
-      <li><p>george</p>
+      <li>
+      <p>george</p>
       </li>
       </ol>}
     assert_text_output "zippy bungle george"
@@ -485,9 +490,11 @@ $CTA
       </ul>
 
       <ol class="steps">
-      <li><p>step</p>
+      <li>
+      <p>step</p>
       </li>
-      <li><p>list</p>
+      <li>
+      <p>list</p>
       </li>
       </ol>}
     assert_text_output "unordered list step list"
@@ -608,7 +615,8 @@ $CTA
     assert_html_output '
       <div class="devolved-content scotland">
       <p class="devolved-header">This section applies to Scotland</p>
-      <div class="devolved-body"><p>I am very devolved
+      <div class="devolved-body">
+      <p>I am very devolved
        and very scottish</p>
       </div>
       </div>
@@ -617,7 +625,8 @@ $CTA
 
   test_given_govspeak "@ Message with [a link](http://foo.bar/)@" do
     assert_html_output %{
-      <div role="note" aria-label="Important" class="advisory"><p><strong>Message with <a rel="external" href="http://foo.bar/">a link</a></strong></p>
+      <div role="note" aria-label="Important" class="advisory">
+      <p><strong>Message with <a rel="external" href="http://foo.bar/">a link</a></strong></p>
       </div>
       }
   end
@@ -627,19 +636,19 @@ $CTA
     given_govspeak "!!1", images do
       assert_html_output %Q{
           <figure class="image embedded">
-            <div class="img"><img alt="my alt" src="http://example.com/image.jpg" /></div>
+            <div class="img"><img alt="my alt" src="http://example.com/image.jpg"></div>
           </figure>
-        }
-    end
+      }
   end
+end
 
-  test "alt text of referenced images is escaped" do
-    images = [OpenStruct.new(alt_text: %Q{my alt '&"<>}, url: "http://example.com/image.jpg")]
-    given_govspeak "!!1", images do
-      assert_html_output %Q{
-          <figure class="image embedded">
-            <div class="img"><img alt="my alt &apos;&amp;&quot;&lt;&gt;" src="http://example.com/image.jpg" /></div>
-          </figure>
+test "alt text of referenced images is escaped" do
+  images = [OpenStruct.new(alt_text: %Q{my alt '&"<>}, url: "http://example.com/image.jpg")]
+  given_govspeak "!!1", images do
+    assert_html_output %Q{
+        <figure class="image embedded">
+          <div class="img"><img alt="my alt '&amp;&quot;&lt;&gt;" src="http://example.com/image.jpg"></div>
+        </figure>
         }
     end
   end
@@ -656,7 +665,7 @@ $CTA
     given_govspeak "!!1", images do
       assert_html_output %Q{
           <figure class="image embedded">
-            <div class="img"><img alt="my alt" src="http://example.com/image.jpg" /></div>
+            <div class="img"><img alt="my alt" src="http://example.com/image.jpg"></div>
             <figcaption>My Caption &amp; so on</figcaption>
           </figure>
         }
@@ -668,7 +677,7 @@ $CTA
     given_govspeak "!!1", images do
       assert_html_output %Q{
           <figure class="image embedded">
-            <div class="img"><img alt="my alt" src="http://example.com/image.jpg" /></div>
+            <div class="img"><img alt="my alt" src="http://example.com/image.jpg"></div>
           </figure>
         }
     end
@@ -824,6 +833,44 @@ $PriorityList:1
           <li>List item 4</li>
           <li>List item 5</li>
         </ul>
+      |
+    end
+  end
+
+  test "should remove quotes surrounding a blockquote" do
+    govspeak = %Q{
+He said:
+
+> "I'm not sure what you mean!"
+
+Or so we thought.}
+
+    given_govspeak(govspeak) do
+      assert_html_output %|
+        <p>He said:</p>
+
+        <blockquote>
+          <p class="last-child">I’m not sure what you mean!</p>
+        </blockquote>
+
+        <p>Or so we thought.</p>
+      |
+    end
+  end
+
+  test "should add class to last paragraph of blockquote" do
+    govspeak = "
+    > first line
+    >
+    > last line"
+
+    given_govspeak(govspeak) do
+      assert_html_output %|
+        <blockquote>
+          <p>first line</p>
+
+          <p class="last-child">last line</p>
+        </blockquote>
       |
     end
   end
