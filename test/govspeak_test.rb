@@ -837,6 +837,27 @@ $PriorityList:1
     end
   end
 
+  test "should remove quotes surrounding a blockquote" do
+    govspeak = %Q{
+He said:
+
+> "I'm not sure what you mean!"
+
+Or so we thought.}
+
+    given_govspeak(govspeak) do
+      assert_html_output %|
+        <p>He said:</p>
+
+        <blockquote>
+          <p class="last-child">I’m not sure what you mean!</p>
+        </blockquote>
+
+        <p>Or so we thought.</p>
+      |
+    end
+  end
+
   test "should add class to last paragraph of blockquote" do
     govspeak = "
     > first line

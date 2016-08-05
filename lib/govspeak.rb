@@ -87,6 +87,7 @@ module Govspeak
     end
 
     def preprocess(source)
+      source = Govspeak::BlockquoteExtraQuoteRemover.remove(source)
       @@extensions.each do |title,regexp,block|
         source.gsub!(regexp) {
           instance_exec(*Regexp.last_match.captures, &block)
