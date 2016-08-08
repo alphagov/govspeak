@@ -909,4 +909,10 @@ Or so we thought.}
     assert_match(/<span class=\"unnumbered-paper\">/, rendered)
     assert_match(/<span class=\"references\">/, rendered)
   end
+
+  test "attachment that isn't provided" do
+    govspeak = "[embed:attachments:906ac8b7-850d-45c6-98e0-9525c680f891]"
+    rendered = Govspeak::Document.new(govspeak).to_html
+    assert_match("", rendered)
+  end
 end
