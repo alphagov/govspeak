@@ -1,0 +1,42 @@
+<%
+  extra_class = []
+  extra_class << 'postal-address' if contact.has_postal_address?
+%>
+<div id="contact_<%= contact.id %>" class="<%= ['contact', extra_class].flatten.join(' ') %>">
+  <div class="content">
+    <h3><%= contact.title %></h3>
+    <div class="vcard contact-inner">
+    <% if contact.has_postal_address? %>
+      <%= render_hcard_address(contact) %>
+    <% end %>
+    <% if contact.email.present? || contact.contact_form_url.present? || contact.contact_numbers.any? %>
+      <div class="email-url-number">
+      <% if contact.email.present? %>
+        <p class="email">
+          <span class="type"><%= t('contact.email') %></span>
+          <a href="mailto:<%= contact.email %>" class="email"><%= contact.email %></a>
+        </p>
+      <% end %>
+      <% if contact.contact_form_url.present? %>
+        <p class="contact_form_url">
+          <span class="type"><%= t('contact.contact_form') %></span>
+          <a href="<%= contact.contact_form_url %>"><%= contact.contact_form_url.truncate(25) %></a>
+        </p>
+      <% end %>
+      <% contact.contact_numbers.each do |number| %>
+        <p class="tel">
+          <span class="type"><%= number.label %></span>
+          <%= number.number %>
+        </p>
+      <% end %>
+      </div>
+    <% end %>
+    <% if contact.comments.present? %>
+      <p class="comments"><%= auto_link(format_with_html_line_breaks(h(contact.comments))) %></p>
+    <% end %>
+    <% if contact.worldwide_organisation_path %>
+      <a href="<%= contact.worldwide_organisation_path %>">Access and opening times</a>
+    <% end %>
+    </div>
+  </div>
+</div>
