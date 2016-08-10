@@ -9,6 +9,7 @@ require 'govspeak/post_processor'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'htmlentities'
 require 'presenters/attachment_presenter'
+require 'presenters/h_card_presenter'
 require 'erb'
 
 module Govspeak
@@ -21,7 +22,7 @@ module Govspeak
     @@extensions = []
 
     attr_accessor :images
-    attr_reader :attachments, :links, :locale
+    attr_reader :attachments, :contacts, :links, :locale
 
     def self.to_html(source, options = {})
       new(source, options).to_html
@@ -32,6 +33,7 @@ module Govspeak
       @images = options.delete(:images) || []
       @attachments = Array(options.delete(:attachments))
       @links = Array(options.delete(:links))
+      @contacts = Array(options.delete(:contacts))
       @locale = options.fetch(:locale, "en")
       @options = {input: PARSER_CLASS_NAME}.merge(options)
       @options[:entity_output] = :symbolic
@@ -278,6 +280,18 @@ module Govspeak
       else
         encode(link.title)
       end
+    end
+
+    def render_hcard_address(contact)
+      HCardPresenter.from_contact(contact).render
+    end
+    private :render_hcard_address
+
+    extension('Contact', /\[Contact:([0-9a-f-]+)\]/) do |content_id|
+      contact = contacts.detect { |c| c.content_id.match(content_id) }
+      next "" unless contact
+      @renderer ||= ERB.new(File.read('lib/templates/contact.html.erb'))
+      @renderer.result(binding)
     end
   end
 end

@@ -20,3 +20,6 @@ en:
         format
     see_more: See more information about this %{document_type}
     heading: {}
+  contact:
+    email: Email
+    contact_form: Contact form

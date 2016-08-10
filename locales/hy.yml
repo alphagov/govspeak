@@ -18,3 +18,6 @@ hy:
     opendocument:
       help_html: 
     see_more: 
+  contact:
+    contact_form: "Կապի միջոց"
+    email: "Էլելտրոնային հասցե"
