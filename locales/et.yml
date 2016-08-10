@@ -19,3 +19,6 @@ et:
       help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
         formaadis
     see_more: 'Loe lähemalt: %{document_type}'
+  contact:
+    contact_form: Võtke ühendust
+    email: E-post

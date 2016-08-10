@@ -17,3 +17,6 @@ pt:
     opendocument:
       help_html: 
     see_more: 
+  contact:
+    contact_form: Formulário de contato
+    email: E-mail
