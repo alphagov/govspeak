@@ -1,3 +1,7 @@
+## 3.7.0
+
+* Update Addressable version from 2.3.8 to 2.4.0
+
 ## 3.6.2
 
 * Fix bug with link parsing introduced in Kramdown 1.6.0 with the "inline attribute lists" feature which clashed with our monkey patch [#75](https://github.com/alphagov/govspeak/pull/75)
