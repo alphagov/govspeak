@@ -1,3 +1,15 @@
+## 4.0.0
+
+* Drop support for Ruby 1.9.3
+* Update Ruby to 2.3.1
+* Adds support for the following items for feature parity with [whitehall](https://github.com/alphagov/whitehall):
+  * `{barchart}`
+  * `[embed:attachments:%content_id%]`
+  * `[embed:attachments:inline:%content_id%]`
+  * `[embed:link:%content_id%]`
+  * `[Contact:%content_id%]`
+* Changes blockquote rendering to match whitehall [#81](https://github.com/alphagov/govspeak/pull/81)
+
 ## 3.7.0
 
 * Update Addressable version from 2.3.8 to 2.4.0
