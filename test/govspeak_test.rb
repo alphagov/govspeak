@@ -916,6 +916,37 @@ Or so we thought.}
     assert_match("", rendered)
   end
 
+  test "specialist publisher inline attachment with url match" do
+    govspeak = "[InlineAttachment:test document.pdf]"
+    attachment = {
+      url: "http://www.example.com/attachments/test-document.pdf",
+      content_id: SecureRandom.uuid,
+      title: "Test Document",
+    }
+    rendered = Govspeak::Document.new(govspeak, {attachments: [attachment]}).to_html
+    quoted_title = Regexp.quote(attachment[:title])
+    quoted_url = Regexp.quote(attachment[:url])
+    assert_match(/<a href="#{quoted_url}">#{quoted_title}<\/a>/, rendered)
+  end
+
+  test "specialist publisher inline attachment with content_id match" do
+    content_id = SecureRandom.uuid
+    govspeak = "[InlineAttachment:#{content_id}]"
+    attachment = {
+      url: nil,
+      content_id: content_id,
+      title: "Test Document",
+    }
+    rendered = Govspeak::Document.new(govspeak, {attachments: [attachment]}).to_html
+    assert_match(/#{Regexp.quote(attachment[:title])}/, rendered)
+  end
+
+  test "specialist publisher inline attachment with no match" do
+    govspeak = "[InlineAttachment:non-existant.pdf]"
+    rendered = Govspeak::Document.new(govspeak, {attachments: []}).to_html
+    assert_match("", rendered)
+  end
+
   test "embedded link with link provided" do
     link = OpenStruct.new(
       content_id: "5572fee5-f38f-4641-8ffa-64fed9230ad4",
