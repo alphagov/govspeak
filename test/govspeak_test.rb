@@ -916,6 +916,37 @@ Or so we thought.}
     assert_match("", rendered)
   end
 
+  test "specialist publisher image inline attachment with url match" do
+    govspeak = "![InlineAttachment:test document.jpg]"
+    attachment = {
+      url: "http://www.example.com/attachments/test-document.jpg",
+      content_id: SecureRandom.uuid,
+      title: "Test Image",
+    }
+    rendered = Govspeak::Document.new(govspeak, {attachments: [attachment]}).to_html
+    quoted_title = Regexp.quote(attachment[:title])
+    quoted_url = Regexp.quote(attachment[:url])
+    assert_match(/<img src="#{quoted_url}" alt="#{quoted_title}">/, rendered)
+  end
+
+  test "specialist publisher image inline attachment with content_id match" do
+    content_id = SecureRandom.uuid
+    govspeak = "![InlineAttachment:#{content_id}]"
+    attachment = {
+      url: nil,
+      content_id: content_id,
+      title: "Test Image",
+    }
+    rendered = Govspeak::Document.new(govspeak, {attachments: [attachment]}).to_html
+    assert_match("", rendered)
+  end
+
+  test "specialist publisher image inline attachment with no match" do
+    govspeak = "[InlineAttachment:non-existant.jpg]"
+    rendered = Govspeak::Document.new(govspeak, {attachments: []}).to_html
+    assert_match("", rendered)
+  end
+
   test "specialist publisher inline attachment with url match" do
     govspeak = "[InlineAttachment:test document.pdf]"
     attachment = {
