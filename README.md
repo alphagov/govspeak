@@ -18,6 +18,15 @@ then create a new document
     doc = Govspeak::Document.new "^Test^"
     puts doc.to_html
 
+or alternatively, run it from the command line
+
+    $ govspeak "convert-me"
+    $ govspeak --file convert-me.md
+    $ echo "convert-me" | govspeak
+
+if installed via bundler prefix commands with bundle exec eg `$ bundle exec govspeak "convert-me"`
+
+
 # Extensions
 
 In addition to the [standard Markdown syntax](http://daringfireball.net/projects/markdown/syntax "Markdown syntax"), we have added our own extensions.
