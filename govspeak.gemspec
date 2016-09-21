@@ -22,6 +22,8 @@ library for use in the UK Government Single Domain project}
     'Rakefile'
   ]
   s.test_files    = Dir['test/**/*']
+  s.bindir        = "bin"
+  s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   s.add_dependency 'kramdown', '~> 1.10.0'
@@ -32,6 +34,7 @@ library for use in the UK Government Single Domain project}
   s.add_dependency 'actionview', '~> 4.1'
   s.add_dependency 'i18n', '~> 0.7'
   s.add_dependency 'money', '~> 6.7'
+  s.add_dependency 'commander', '~> 4.4'
 
   s.add_development_dependency 'rake', '~> 0.9.0'
   s.add_development_dependency 'gem_publisher', '~> 1.1.1'
