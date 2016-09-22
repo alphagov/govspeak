@@ -223,9 +223,9 @@ module Govspeak
       end
       next "" unless attachment
       if attachment[:url]
-        %Q{<a href="#{encode(attachment[:url])}">#{encode(attachment[:title])}</a>}
+        %Q{<a href="#{encode(attachment[:url])}">#{attachment[:title]}</a>}
       else
-        encode(attachment[:title])
+        attachment[:title]
       end
     end
 
