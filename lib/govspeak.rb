@@ -1,5 +1,6 @@
 require 'kramdown'
 require 'active_support/core_ext/hash'
+require 'active_support/core_ext/array'
 require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
@@ -33,9 +34,9 @@ module Govspeak
       options.deep_symbolize_keys!
       @source = source ? source.dup : ""
       @images = options.delete(:images) || []
-      @attachments = Array(options.delete(:attachments))
-      @links = Array(options.delete(:links))
-      @contacts = Array(options.delete(:contacts))
+      @attachments = Array.wrap(options.delete(:attachments))
+      @links = Array.wrap(options.delete(:links))
+      @contacts = Array.wrap(options.delete(:contacts))
       @locale = options.fetch(:locale, "en")
       @options = {input: PARSER_CLASS_NAME}.merge(options)
       @options[:entity_output] = :symbolic
