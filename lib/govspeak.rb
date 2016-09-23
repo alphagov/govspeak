@@ -1,4 +1,5 @@
 require 'kramdown'
+require 'active_support/core_ext/hash'
 require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
@@ -29,6 +30,7 @@ module Govspeak
     end
 
     def initialize(source, options = {})
+      options.deep_symbolize_keys!
       @source = source ? source.dup : ""
       @images = options.delete(:images) || []
       @attachments = Array(options.delete(:attachments))
