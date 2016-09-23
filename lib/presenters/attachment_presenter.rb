@@ -146,8 +146,8 @@ Please tell us:
     elsif attachment[:external?]
       attributes << content_tag(:span, url, class: 'url')
     else
-      attributes << content_tag(:span, humanized_content_type(file_extension), class: 'type')
-      attributes << content_tag(:span, number_to_human_size(attachment[:file_size]), class: 'file-size')
+      attributes << content_tag(:span, humanized_content_type(file_extension), class: 'type') if file_extension
+      attributes << content_tag(:span, number_to_human_size(attachment[:file_size]), class: 'file-size') if attachment[:file_size]
       attributes << content_tag(:span, pluralize(attachment[:number_of_pages], "page") , class: 'page-length') if attachment[:number_of_pages]
     end
     attributes.join(', ').html_safe
