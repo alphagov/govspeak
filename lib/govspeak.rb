@@ -202,7 +202,7 @@ module Govspeak
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
       content = File.read(__dir__ + '/govspeak/extension/inline_attachment.html.erb')
-      ERB.new(content).result(binding)
+      ERB.new(content).result(binding).gsub(/\n/, "")
     end
 
     def render_image(url, alt_text, caption = nil)
