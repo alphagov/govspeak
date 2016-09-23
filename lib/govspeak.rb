@@ -193,7 +193,7 @@ module Govspeak
       attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
-      content = File.read('lib/govspeak/extension/attachment.html.erb')
+      content = File.read(__dir__ + '/govspeak/extension/attachment.html.erb')
       ERB.new(content).result(binding)
     end
 
@@ -201,7 +201,7 @@ module Govspeak
       attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
-      content = File.read('lib/govspeak/extension/inline_attachment.html.erb')
+      content = File.read(__dir__ + '/govspeak/extension/inline_attachment.html.erb')
       ERB.new(content).result(binding)
     end
 
@@ -295,7 +295,7 @@ module Govspeak
       contact = contacts.detect { |c| c[:content_id].match(content_id) }
       next "" unless contact
       contact = ContactPresenter.new(contact)
-      @renderer ||= ERB.new(File.read('lib/templates/contact.html.erb'))
+      @renderer ||= ERB.new(File.read(__dir__ + '/templates/contact.html.erb'))
       @renderer.result(binding)
     end
   end
