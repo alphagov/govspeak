@@ -875,16 +875,6 @@ Or so we thought.}
     end
   end
 
-  test "inline attachment" do
-    attachment = {
-      content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",
-      id: 456,
-    }
-    govspeak = "[embed:attachments:inline:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]"
-    rendered = Govspeak::Document.new(govspeak, {attachments: attachment}).to_html
-    assert_match(/<span id=\"attachment_456\" class=\"attachment-inline\">/, rendered)
-  end
-
   test "attachment" do
     attachment = {
       url: "www.test.com",

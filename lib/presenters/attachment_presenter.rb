@@ -1,11 +1,13 @@
 require "action_view"
 require "money"
+require "htmlentities"
 
 class AttachmentPresenter
   attr_reader :attachment
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::AssetTagHelper
+  include ActionView::Helpers::TextHelper
 
   def initialize(attachment)
     @attachment = attachment
@@ -43,7 +45,7 @@ class AttachmentPresenter
   def thumbnail_link
     return if hide_thumbnail?
     return if previewable?
-    link(attachment_thumbnail, url, "aria-hidden=true class=#{attachment_class}")
+    link(attachment_thumbnail, url, "aria-hidden" => "true", "class" => attachment_class)
   end
 
   def help_block_toggle_id
@@ -148,7 +150,7 @@ Please tell us:
     else
       attributes << content_tag(:span, humanized_content_type(file_extension), class: 'type') if file_extension
       attributes << content_tag(:span, number_to_human_size(attachment[:file_size]), class: 'file-size') if attachment[:file_size]
-      attributes << content_tag(:span, pluralize(attachment[:number_of_pages], "page") , class: 'page-length') if attachment[:number_of_pages]
+      attributes << content_tag(:span, pluralize(attachment[:number_of_pages], "page"), class: 'page-length') if attachment[:number_of_pages]
     end
     attributes.join(', ').html_safe
   end
@@ -226,20 +228,26 @@ Please tell us:
   end
 
   def title_link_options
-    title_link_options = ''
-    title_link_options << "rel=external" if attachment[:external?]
-    title_link_options << "aria-describedby=#{help_block_id}" unless attachment[:accessible?]
+    title_link_options = {}
+    title_link_options["rel"] = "external" if attachment[:external?]
+    title_link_options["aria-describedby"] = help_block_id unless attachment[:accessible?]
+    title_link_options
   end
 
   def help_block_id
     "attachment-#{id}-accessibility-help"
   end
 
-  def link(body, url, options={})
+  def link(body, url, options = {})
+    options_str = options.map { |k, v| %{#{encode(k)}="#{encode(v)}"} }.join(" ")
     <<-END
-      <a href="#{url} #{options}">
-        #{body}
-      </a>
+      <a href="#{encode(url)}" #{options_str}>#{body}</a>
     END
+  end
+
+private
+
+  def encode(text)
+    HTMLEntities.new.encode(text)
   end
 end
