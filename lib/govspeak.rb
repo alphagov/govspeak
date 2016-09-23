@@ -189,7 +189,7 @@ module Govspeak
     end
 
     extension('attachment', /\[embed:attachments:([0-9a-f-]+)\]/) do |content_id, body|
-      attachment = attachments.detect { |a| a.content_id.match(content_id) }
+      attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
       content = File.read('lib/govspeak/extension/attachment.html.erb')
@@ -197,7 +197,7 @@ module Govspeak
     end
 
     extension('attachment inline', /\[embed:attachments:inline:([0-9a-f-]+)\]/) do |content_id, body|
-      attachment = attachments.detect { |a| a.content_id.match(content_id) }
+      attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
       content = File.read('lib/govspeak/extension/inline_attachment.html.erb')
@@ -276,12 +276,12 @@ module Govspeak
     end
 
     extension('embed link', /\[embed:link:([0-9a-f-]+)\]/) do |content_id|
-      link = links.detect { |l| l.content_id.match(content_id) }
+      link = links.detect { |l| l[:content_id].match(content_id) }
       next "" unless link
-      if link.url
-        %Q{<a href="#{encode(link.url)}">#{encode(link.title)}</a>}
+      if link[:url]
+        %Q{<a href="#{encode(link[:url])}">#{link[:title]}</a>}
       else
-        encode(link.title)
+        link[:title]
       end
     end
 

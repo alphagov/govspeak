@@ -12,32 +12,32 @@ class AttachmentPresenter
   end
 
   def id
-    attachment.id
+    attachment[:id]
   end
 
   def order_url
-    attachment.order_url
+    attachment[:order_url]
   end
 
   def opendocument?
-    attachment.opendocument?
+    attachment[:opendocument?]
   end
 
   def url
-    attachment.url
+    attachment[:url]
   end
 
   def external?
-    attachment.external?
+    attachment[:external?]
   end
 
   def price
-    return unless attachment.price
-    Money.from_amount(attachment.price, 'GBP').format
+    return unless attachment[:price]
+    Money.from_amount(attachment[:price], 'GBP').format
   end
 
   def accessible?
-    attachment.accessible?
+    attachment[:accessible?]
   end
 
   def thumbnail_link
@@ -47,11 +47,11 @@ class AttachmentPresenter
   end
 
   def help_block_toggle_id
-    "attachment-#{attachment.id}-accessibility-request"
+    "attachment-#{id}-accessibility-request"
   end
 
   def section_class
-    attachment.external? ? "hosted-externally" : "embedded"
+    attachment[:external?] ? "hosted-externally" : "embedded"
   end
 
   def mail_to(email_address, name, options = {})
@@ -60,18 +60,18 @@ class AttachmentPresenter
 
   def alternative_format_order_link
     attachment_info = []
-    attachment_info << "  Title: #{attachment.title}"
-    attachment_info << "  Original format: #{attachment.file_extension}"
-    attachment_info << "  ISBN: #{attachment.isbn}" if attachment.isbn.present?
-    attachment_info << "  Unique reference: #{attachment.unique_reference}" if attachment.unique_reference.present?
-    attachment_info << "  Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number.present?
-    if attachment.hoc_paper_number.present?
-      attachment_info << "  House of Commons paper number: #{attachment.hoc_paper_number}"
-      attachment_info << "  Parliamentary session: #{attachment.parliamentary_session}"
+    attachment_info << "  Title: #{title}"
+    attachment_info << "  Original format: #{file_extension}"
+    attachment_info << "  ISBN: #{attachment[:isbn]}" if attachment[:isbn]
+    attachment_info << "  Unique reference: #{attachment[:unique_reference]}" if attachment[:unique_reference]
+    attachment_info << "  Command paper number: #{attachment[:command_paper_number]}" if attachment[:command_paper_number]
+    if attachment[:hoc_paper_number]
+      attachment_info << "  House of Commons paper number: #{attachment[:hoc_paper_number]}"
+      attachment_info << "  Parliamentary session: #{attachment[:parliamentary_session]}"
     end
 
     options = {
-      subject: "Request for '#{attachment.title}' in an alternative format",
+      subject: "Request for '#{title}' in an alternative format",
       body: body_for_mail(attachment_info)
     }
 
@@ -96,13 +96,13 @@ Please tell us:
   end
 
   def attachment_thumbnail
-    if attachment.pdf?
+    if file_extension == "pdf"
       image_tag(attachment.file.thumbnail.url)
-    elsif attachment.html?
+    elsif file_extension == "html"
       image_tag('pub-cover-html.png')
-    elsif %w{doc docx odt}.include? attachment.file_extension
+    elsif %w{doc docx odt}.include? file_extension
       image_tag('pub-cover-doc.png')
-    elsif %w{xls xlsx ods csv}.include? attachment.file_extension
+    elsif %w{xls xlsx ods csv}.include? file_extension
       image_tag('pub-cover-spreadsheet.png')
     else
       image_tag('pub-cover.png')
@@ -111,44 +111,44 @@ Please tell us:
 
   def references
     references = []
-    references << "ISBN: #{attachment.isbn}" if attachment.isbn.present?
-    references << "Unique reference: #{attachment.unique_reference}" if attachment.unique_reference.present?
-    references << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number.present?
-    references << "HC: #{attachment.hoc_paper_number} #{attachment.parliamentary_session}" if attachment.hoc_paper_number.present?
+    references << "ISBN: #{attachment[:isbn]}" if attachment[:isbn]
+    references << "Unique reference: #{attachment[:unique_reference]}" if attachment[:unique_reference]
+    references << "Command paper number: #{attachment[:command_paper_number]}" if attachment[:command_paper_number]
+    references << "HC: #{attachment.hoc_paper_number} #{attachment[:parliamentary_session]}" if attachment[:hoc_paper_number]
     prefix = references.size == 1 ? "and its reference" : "and its references"
     references.any? ? ", #{prefix} (" + references.join(", ") + ")" : ""
   end
 
   def references?
-    !attachment.isbn.to_s.empty? || !attachment.unique_reference.to_s.empty? || !attachment.command_paper_number.to_s.empty? || !attachment.hoc_paper_number.to_s.empty?
+    !attachment[:isbn].to_s.empty? || !attachment[:unique_reference].to_s.empty? || !attachment[:command_paper_number].to_s.empty? || !attachment[:hoc_paper_number].to_s.empty?
   end
 
   def attachment_class
-    attachment.external? ? "hosted-externally" : "embedded"
+    attachment[:external?] ? "hosted-externally" : "embedded"
   end
 
   def unnumbered_paper?
-    attachment.unnumbered_command_paper? || attachment.unnumbered_hoc_paper?
+    attachment[:unnumbered_command_paper?] || attachment[:unnumbered_hoc_paper?]
   end
 
   def unnumbered_command_paper?
-    attachment.unnumbered_command_paper?
+    attachment[:unnumbered_command_paper?]
   end
 
   def download_link
-    link(attachment.preview_url, "<strong>Download #{attachment.file_extension.upcase}</strong>", number_to_human_size(attachment.file_size))
+    link(attachment[:preview_url], "<strong>Download #{file_extension.upcase}</strong>", number_to_human_size(attachment[:file_size]))
   end
 
   def attachment_attributes
     attributes = []
-    if attachment.html?
+    if file_extension == "html"
       attributes << content_tag(:span, 'HTML', class: 'type')
-    elsif attachment.external?
+    elsif attachment[:external?]
       attributes << content_tag(:span, url, class: 'url')
     else
-      attributes << content_tag(:span, humanized_content_type(attachment.file_extension), class: 'type')
-      attributes << content_tag(:span, number_to_human_size(attachment.file_size), class: 'file-size')
-      attributes << content_tag(:span, pluralize(attachment.number_of_pages, "page") , class: 'page-length') if attachment.number_of_pages.present?
+      attributes << content_tag(:span, humanized_content_type(file_extension), class: 'type')
+      attributes << content_tag(:span, number_to_human_size(attachment[:file_size]), class: 'file-size')
+      attributes << content_tag(:span, pluralize(attachment[:number_of_pages], "page") , class: 'page-length') if attachment[:number_of_pages]
     end
     attributes.join(', ').html_safe
   end
@@ -205,11 +205,15 @@ Please tell us:
   end
 
   def previewable?
-    attachment.csv?
+    file_extension == "csv"
   end
 
   def title
-    attachment.title
+    attachment[:title]
+  end
+
+  def file_extension
+    attachment[:file_extension]
   end
 
   def hide_thumbnail?
@@ -218,17 +222,17 @@ Please tell us:
 
   def attachement_details
     return if previewable?
-    link(attachment.title, url, title_link_options)
+    link(title, url, title_link_options)
   end
 
   def title_link_options
     title_link_options = ''
-    title_link_options << "rel=external" if attachment.external?
-    title_link_options << "aria-describedby=#{help_block_id}" unless attachment.accessible?
+    title_link_options << "rel=external" if attachment[:external?]
+    title_link_options << "aria-describedby=#{help_block_id}" unless attachment[:accessible?]
   end
 
   def help_block_id
-    "attachment-#{attachment.id}-accessibility-help"
+    "attachment-#{id}-accessibility-help"
   end
 
   def link(body, url, options={})

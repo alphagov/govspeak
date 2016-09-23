@@ -876,27 +876,27 @@ Or so we thought.}
   end
 
   test "inline attachment" do
-    attachment = OpenStruct.new(
+    attachment = {
       content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",
       id: 456,
-    )
+    }
     govspeak = "[embed:attachments:inline:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]"
     rendered = Govspeak::Document.new(govspeak, {attachments: attachment}).to_html
     assert_match(/<span id=\"attachment_456\" class=\"attachment-inline\">/, rendered)
   end
 
   test "attachment" do
-    attachment = OpenStruct.new(
+    attachment = {
       url: "www.test.com",
       content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",
       id: 123,
       opendocument?: true,
       order_url: "www.test.com",
       price: 12.3,
-      csv?: true,
+      file_extension: "csv",
       unnumbered_command_paper?: true,
       isbn: 'isbn-123',
-    )
+    }
     govspeak = "[embed:attachments:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]"
     rendered = Govspeak::Document.new(govspeak, {attachments: attachment}).to_html
     assert_match(/<section class=\"attachment embedded\">/, rendered)
@@ -917,22 +917,33 @@ Or so we thought.}
   end
 
   test "embedded link with link provided" do
-    link = OpenStruct.new(
+    link = {
       content_id: "5572fee5-f38f-4641-8ffa-64fed9230ad4",
       url: "https://www.example.com/",
       title: "Example website"
-    )
+    }
     govspeak = "[embed:link:5572fee5-f38f-4641-8ffa-64fed9230ad4]"
     rendered = Govspeak::Document.new(govspeak, {links: link}).to_html
     expected = %r{<a href="https://www.example.com/">Example website</a>}
     assert_match(expected, rendered)
   end
 
+  test "embedded link with markdown title" do
+    link = {
+      content_id: "5572fee5-f38f-4641-8ffa-64fed9230ad4",
+      url: "https://www.example.com/",
+      title: "**Example website**"
+    }
+    govspeak = "[embed:link:5572fee5-f38f-4641-8ffa-64fed9230ad4]"
+    rendered = Govspeak::Document.new(govspeak, {links: link}).to_html
+    expected = %r{<a href="https://www.example.com/"><strong>Example website</strong></a>}
+    assert_match(expected, rendered)
+  end
   test "embedded link with link not provided" do
-    link = OpenStruct.new(
+    link = {
       content_id: "e510f1c1-4862-4333-889c-8d3acd443fbf",
       title: "Example website",
-    )
+    }
     govspeak = "[embed:link:e510f1c1-4862-4333-889c-8d3acd443fbf]"
     rendered = Govspeak::Document.new(govspeak, {links: link}).to_html
     assert_match("Example website", rendered)
