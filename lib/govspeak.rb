@@ -11,6 +11,7 @@ require 'govspeak/post_processor'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'htmlentities'
 require 'presenters/attachment_presenter'
+require 'presenters/contact_presenter'
 require 'presenters/h_card_presenter'
 require 'erb'
 
@@ -291,8 +292,9 @@ module Govspeak
     private :render_hcard_address
 
     extension('Contact', /\[Contact:([0-9a-f-]+)\]/) do |content_id|
-      contact = contacts.detect { |c| c.content_id.match(content_id) }
+      contact = contacts.detect { |c| c[:content_id].match(content_id) }
       next "" unless contact
+      contact = ContactPresenter.new(contact)
       @renderer ||= ERB.new(File.read('lib/templates/contact.html.erb'))
       @renderer.result(binding)
     end

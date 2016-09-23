@@ -25,8 +25,8 @@
       <% end %>
       <% contact.contact_numbers.each do |number| %>
         <p class="tel">
-          <span class="type"><%= number.label %></span>
-          <%= number.number %>
+          <span class="type"><%= number[:label] %></span>
+          <%= number[:number] %>
         </p>
       <% end %>
       </div>
