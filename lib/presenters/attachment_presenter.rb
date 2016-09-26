@@ -222,7 +222,7 @@ Please tell us:
     defined?(hide_thumbnail) && hide_thumbnail
   end
 
-  def attachement_details
+  def attachment_details
     return if previewable?
     link(title, url, title_link_options)
   end
