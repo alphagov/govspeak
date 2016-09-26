@@ -874,35 +874,4 @@ Or so we thought.}
       |
     end
   end
-
-  test "attachment" do
-    attachment = {
-      url: "www.test.com",
-      content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",
-      id: 123,
-      opendocument?: true,
-      order_url: "www.test.com",
-      price: 12.3,
-      file_extension: "csv",
-      unnumbered_command_paper?: true,
-      isbn: 'isbn-123',
-    }
-    govspeak = "[embed:attachments:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]"
-    rendered = Govspeak::Document.new(govspeak, {attachments: attachment}).to_html
-    assert_match(/<section class=\"attachment embedded\">/, rendered)
-    assert_match(/<div class=\"attachment-thumb\">/, rendered)
-    assert_match(/attachment-123-accessibility-help/, rendered)
-    assert_match(/If you use assistive technology/, rendered)
-    assert_match(/<p class=\"opendocument-help\">/, rendered)
-    assert_match(/<span class=\"price\">£12.30/, rendered)
-    assert_match(/<span class=\"preview\">/, rendered)
-    assert_match(/<span class=\"unnumbered-paper\">/, rendered)
-    assert_match(/<span class=\"references\">/, rendered)
-  end
-
-  test "attachment that isn't provided" do
-    govspeak = "[embed:attachments:906ac8b7-850d-45c6-98e0-9525c680f891]"
-    rendered = Govspeak::Document.new(govspeak).to_html
-    assert_match("", rendered)
-  end
 end

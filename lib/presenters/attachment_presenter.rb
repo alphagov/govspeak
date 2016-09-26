@@ -64,11 +64,11 @@ class AttachmentPresenter
   def alternative_format_order_link
     attachment_info = []
     attachment_info << "  Title: #{title}"
-    attachment_info << "  Original format: #{file_extension}" if file_extension
-    attachment_info << "  ISBN: #{attachment[:isbn]}" if attachment[:isbn]
-    attachment_info << "  Unique reference: #{attachment[:unique_reference]}" if attachment[:unique_reference]
-    attachment_info << "  Command paper number: #{attachment[:command_paper_number]}" if attachment[:command_paper_number]
-    if attachment[:hoc_paper_number]
+    attachment_info << "  Original format: #{file_extension}" if file_extension.present?
+    attachment_info << "  ISBN: #{attachment[:isbn]}" if attachment[:isbn].present?
+    attachment_info << "  Unique reference: #{attachment[:unique_reference]}" if attachment[:unique_reference].present?
+    attachment_info << "  Command paper number: #{attachment[:command_paper_number]}" if attachment[:command_paper_number].present?
+    if attachment[:hoc_paper_number].present?
       attachment_info << "  House of Commons paper number: #{attachment[:hoc_paper_number]}"
       attachment_info << "  Parliamentary session: #{attachment[:parliamentary_session]}"
     end
@@ -98,26 +98,51 @@ Please tell us:
     "govuk-feedback@digital.cabinet-office.gov.uk"
   end
 
+  # FIXME: usage of image_tag will cause these to render at /images/ which seems
+  # very host dependent. I assume this will need links to static urls.
   def attachment_thumbnail
-    if file_extension == "pdf"
-      image_tag(attachment.file.thumbnail.url)
+    if file_extension == "pdf" && attachment[:thumbnail_url]
+      image_tag(attachment[:thumbnail_url])
     elsif file_extension == "html"
       image_tag('pub-cover-html.png')
-    elsif %w{doc docx odt}.include? file_extension
+    elsif %w{doc docx odt}.include?(file_extension)
       image_tag('pub-cover-doc.png')
-    elsif %w{xls xlsx ods csv}.include? file_extension
+    elsif %w{xls xlsx ods csv}.include?(file_extension)
       image_tag('pub-cover-spreadsheet.png')
     else
       image_tag('pub-cover.png')
     end
   end
 
-  def references
+  def reference
+    ref = []
+    if attachment[:isbn].present?
+      ref << "ISBN " + content_tag(:span, attachment[:isbn], class: "isbn")
+    end
+
+    if attachment[:unique_reference].present?
+      ref << content_tag(:span, attachment[:unique_reference], class: "unique_reference")
+    end
+
+    if attachment[:command_paper_number].present?
+      ref << content_tag(:span, attachment[:command_paper_number], class: "command_paper_number")
+    end
+
+    if attachment[:hoc_paper_number].present?
+      ref << content_tag(:span, "HC #{attachment[:hoc_paper_number]}", class: 'house_of_commons_paper_number') + ' ' +
+        content_tag(:span, attachment[:parliamentary_session], class: 'parliamentary_session')
+    end
+
+    ref.join(', ').html_safe
+  end
+
+  # FIXME this has english in it so will cause problems if the locale is not en
+  def references_for_title
     references = []
-    references << "ISBN: #{attachment[:isbn]}" if attachment[:isbn]
-    references << "Unique reference: #{attachment[:unique_reference]}" if attachment[:unique_reference]
-    references << "Command paper number: #{attachment[:command_paper_number]}" if attachment[:command_paper_number]
-    references << "HC: #{attachment.hoc_paper_number} #{attachment[:parliamentary_session]}" if attachment[:hoc_paper_number]
+    references << "ISBN: #{attachment[:isbn]}" if attachment[:isbn].present?
+    references << "Unique reference: #{attachment[:unique_reference]}" if attachment[:unique_reference].present?
+    references << "Command paper number: #{attachment[:command_paper_number]}" if attachment[:command_paper_number].present?
+    references << "HC: #{attachment[:hoc_paper_number]} #{attachment[:parliamentary_session]}" if attachment[:hoc_paper_number].present?
     prefix = references.size == 1 ? "and its reference" : "and its references"
     references.any? ? ", #{prefix} (" + references.join(", ") + ")" : ""
   end
@@ -139,7 +164,9 @@ Please tell us:
   end
 
   def download_link
-    link(attachment[:preview_url], "<strong>Download #{file_extension.upcase}</strong>", number_to_human_size(attachment[:file_size]))
+    options = {}
+    options[:title] = number_to_human_size(attachment[:file_size]) if attachment[:file_size].present?
+    link("<strong>Download #{file_extension.upcase}</strong>", attachment[:url], options)
   end
 
   def attachment_attributes
@@ -157,7 +184,7 @@ Please tell us:
   end
 
   def preview_url
-    url << '/preview'
+    url + '/preview'
   end
 
   MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document"
@@ -216,6 +243,9 @@ Please tell us:
   end
 
   def file_extension
+    # Note: this is a separate parameter rather than being calculated from the
+    # filename because at the time of writing not all apps were using the effects
+    # of this field.
     attachment[:file_extension]
   end
 
@@ -241,9 +271,7 @@ Please tell us:
 
   def link(body, url, options = {})
     options_str = options.map { |k, v| %{#{encode(k)}="#{encode(v)}"} }.join(" ")
-    <<-END
-      <a href="#{encode(url)}" #{options_str}>#{body}</a>
-    END
+    %{<a href="#{encode(url)}" #{options_str}>#{body}</a>}
   end
 
 private
