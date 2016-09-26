@@ -57,13 +57,14 @@ class AttachmentPresenter
   end
 
   def mail_to(email_address, name, options = {})
-    "<a href='mailto:#{email_address}?Subject=#{options[:subject]}&body=#{options[:body]}'>#{name}</a>"
+    query_string = options.slice(:subject, :body).map { |k, v| "#{urlencode(k)}=#{urlencode(v)}" }.join("&")
+    "<a href='mailto:#{encode(email_address)}?#{encode(query_string)}'>#{name}</a>"
   end
 
   def alternative_format_order_link
     attachment_info = []
     attachment_info << "  Title: #{title}"
-    attachment_info << "  Original format: #{file_extension}"
+    attachment_info << "  Original format: #{file_extension}" if file_extension
     attachment_info << "  ISBN: #{attachment[:isbn]}" if attachment[:isbn]
     attachment_info << "  Unique reference: #{attachment[:unique_reference]}" if attachment[:unique_reference]
     attachment_info << "  Command paper number: #{attachment[:command_paper_number]}" if attachment[:command_paper_number]
@@ -82,7 +83,7 @@ class AttachmentPresenter
 
   def body_for_mail(attachment_info)
     <<-END
-    Details of document required:
+Details of document required:
 
 #{attachment_info.join("\n")}
 
@@ -249,5 +250,9 @@ private
 
   def encode(text)
     HTMLEntities.new.encode(text)
+  end
+
+  def urlencode(text)
+    ERB::Util.url_encode(text)
   end
 end
