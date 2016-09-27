@@ -201,8 +201,11 @@ module Govspeak
       attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
-      content = File.read(__dir__ + '/templates/inline_attachment.html.erb')
-      ERB.new(content).result(binding).gsub(/\n/, "")
+      span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
+      # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
+      link = attachment.link(attachment.title.gsub("\n", " "), attachment.url)
+      attributes = attachment.attachment_attributes.empty? ? "" : " (#{attachment.attachment_attributes})"
+      %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
     def render_image(url, alt_text, caption = nil)

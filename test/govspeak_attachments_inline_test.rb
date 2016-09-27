@@ -52,6 +52,14 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
     assert_match(%r{<span id="attachment[^\n]*</span>}, rendered)
   end
 
+  test "doesn't have spaces between the span and the link" do
+    rendered = render_govspeak(
+      "[embed:attachments:inline:2bc1]",
+      [build_attachment(content_id: "2bc1", id: nil)]
+    )
+    assert_match(%r{<span class="attachment-inline"><a href=".*">.*</a></span>}, rendered)
+  end
+
   test "will show HTML type (in brackets) if file_extension is specified as html" do
     rendered = render_govspeak(
       "[embed:attachments:inline:1fe8]",
@@ -121,7 +129,7 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
     type = %{<span class="type">Plain text</span>}
     file_size = %{<span class="file-size">2 KB</span>}
     pages = %{<span class="page-length">2 pages</span>}
-    assert_match(/#{link}\s*\(#{type}, #{file_size}, #{pages}\)/, rendered)
+    assert_match(/#{link}\s+\(#{type}, #{file_size}, #{pages}\)/, rendered)
   end
 
   test "can render two inline attachments on the same line" do
