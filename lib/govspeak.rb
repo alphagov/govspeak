@@ -197,21 +197,29 @@ module Govspeak
       ERB.new(content).result(binding)
     end
 
-    extension('attachment inline', /\[embed:attachments:inline:([0-9a-f-]+)\]/) do |content_id, body|
+    extension('attachment inline', /\[embed:attachments:inline:([0-9a-f-]+)\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
       span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
       # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
-      link = attachment.link(attachment.title.gsub("\n", " "), attachment.url)
+      link = attachment.link(attachment.title.tr("\n", " "), attachment.url)
       attributes = attachment.attachment_attributes.empty? ? "" : " (#{attachment.attachment_attributes})"
       %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
-    def render_image(url, alt_text, caption = nil)
+    extension('attachment image', /\[embed:attachments:image:([0-9a-f-]+)\]/) do |content_id|
+      attachment = attachments.detect { |a| a[:content_id].match(content_id) }
+      next "" unless attachment
+      attachment = AttachmentPresenter.new(attachment)
+      render_image(attachment.url, attachment.title.tr("\n", " "), nil, attachment.id)
+    end
+
+    def render_image(url, alt_text, caption = nil, id = nil)
+      id_attr = id ? %{ id="attachment_#{id}"} : ""
       lines = []
-      lines << '<figure class="image embedded">'
-      lines << %Q{  <div class="img"><img alt="#{encode(alt_text)}" src="#{encode(url)}" /></div>}
+      lines << %{<figure#{id_attr} class="image embedded">}
+      lines << %Q{  <div class="img"><img src="#{encode(url)}" alt="#{encode(alt_text)}"></div>}
       lines << %Q{  <figcaption>#{encode(caption.strip)}</figcaption>} if caption && !caption.strip.empty?
       lines << '</figure>'
       lines.join "\n"
