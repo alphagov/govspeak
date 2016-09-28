@@ -3,12 +3,10 @@
     <%= attachment.thumbnail_link %>
   </div>
   <div class="attachment-details">
-    <h2 class="title"><%= attachment.attachement_details %></h2>
+    <h2 class="title"><%= attachment.attachment_details %></h2>
     <p class="metadata">
       <% if attachment.references? %>
-        <span class="references">
-          <%= t('attachment.headings.reference') %>: <%= attachment.references %>
-        </span>
+        <span class="references"><%= t('attachment.headings.reference') %>: <%= attachment.reference %></span>
       <% end %>
       <% if attachment.unnumbered_paper? %>
         <span class="unnumbered-paper">
@@ -21,13 +19,9 @@
       <% end %>
       <% if attachment.previewable? %>
         <span class="preview">
-          <strong>
-            <%= attachment.link("View online", attachment.preview_url) %>
-          </strong>
+          <strong><%= attachment.link("View online", attachment.preview_url) %></strong>
         </span>
-        <span class="download">
-          attachment.download_link
-        </span>
+        <span class="download"><%= attachment.download_link %></span>
       <% else %>
         <%= attachment.attachment_attributes %>
       <% end %>
@@ -35,10 +29,8 @@
     <% if attachment.order_url.present? %>
       <p>
         <%= attachment.link t('attachment.headings.order_a_copy'), attachment.order_url,
-            class: "order_url", title: t('attachment.headings.order_a_copy_full') %>
-        <% if attachment.price %>
-          (<span class="price"><%= attachment.price %></span>)
-        <% end %>
+          class: "order_url", title: t('attachment.headings.order_a_copy_full')
+        %><% if attachment.price %>(<span class="price"><%= attachment.price %></span>)<% end %>
       </p>
     <% end %>
 
@@ -57,7 +49,7 @@
           <%= t('attachment.accessibility.full_help_html',
                 email: attachment.alternative_format_order_link,
                 title: attachment.title,
-                references: attachment.references) %>
+                references: attachment.references_for_title) %>
         </p>
       </div>
     <% end %>

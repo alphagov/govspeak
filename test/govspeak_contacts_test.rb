@@ -1,13 +1,11 @@
 # encoding: UTF-8
 
 require 'test_helper'
-require 'ostruct'
 
 class GovspeakContactsTest < Minitest::Test
 
   def build_contact(attrs={})
-    OpenStruct.new(
-      has_postal_address?: attrs.fetch(:has_postal_address?, true),
+    {
       id: attrs.fetch(:id, 123456),
       content_id: attrs.fetch(:content_id, "4f3383e4-48a2-4461-a41d-f85ea8b89ba0"),
       title: attrs.fetch(:title, "Government Digital Service"),
@@ -20,10 +18,10 @@ class GovspeakContactsTest < Minitest::Test
       email: attrs.fetch(:email, "people@digital.cabinet-office.gov.uk"),
       contact_form_url: attrs.fetch(:contact_form_url, ""),
       contact_numbers: attrs.fetch(:contact_numbers,
-                                   [OpenStruct.new(label: "helpdesk", number: "+4412345 67890")]),
+                                   [{ label: "helpdesk", number: "+4412345 67890" }]),
       comments: attrs.fetch(:comments, ""),
       worldwide_organisation_path: attrs.fetch(:worldwide_organisation_path, nil),
-    )
+    }
   end
 
   def compress_html(html)
@@ -77,7 +75,13 @@ class GovspeakContactsTest < Minitest::Test
   end
 
   test "contact with no postal address omits the address info" do
-    contact = build_contact(has_postal_address?: false)
+    contact = build_contact(
+      recipient: nil,
+      street_address: nil,
+      locality: nil,
+      region: nil,
+      postal_code: nil,
+    )
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
     rendered = Govspeak::Document.new(govspeak, { contacts: [contact] }).to_html
     expected_html_output = %{

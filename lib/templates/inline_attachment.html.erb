@@ -1,0 +1,6 @@
+<span <% if attachment.id %>id="attachment_<%= attachment.id %>" <% end %>class="attachment-inline">
+  <%= attachment.link attachment.title, attachment.url %>
+  <% unless attachment.attachment_attributes.empty? %>
+    (<%= attachment.attachment_attributes %>)
+  <% end %>
+</span>

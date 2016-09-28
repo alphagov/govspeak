@@ -1,5 +1,6 @@
 require 'kramdown'
 require 'active_support/core_ext/hash'
+require 'active_support/core_ext/array'
 require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
@@ -10,6 +11,7 @@ require 'govspeak/post_processor'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'htmlentities'
 require 'presenters/attachment_presenter'
+require 'presenters/contact_presenter'
 require 'presenters/h_card_presenter'
 require 'erb'
 
@@ -33,9 +35,9 @@ module Govspeak
       options.deep_symbolize_keys!
       @source = source ? source.dup : ""
       @images = options.delete(:images) || []
-      @attachments = Array(options.delete(:attachments))
-      @links = Array(options.delete(:links))
-      @contacts = Array(options.delete(:contacts))
+      @attachments = Array.wrap(options.delete(:attachments))
+      @links = Array.wrap(options.delete(:links))
+      @contacts = Array.wrap(options.delete(:contacts))
       @locale = options.fetch(:locale, "en")
       @options = {input: PARSER_CLASS_NAME}.merge(options)
       @options[:entity_output] = :symbolic
@@ -188,19 +190,22 @@ module Govspeak
     end
 
     extension('attachment', /\[embed:attachments:([0-9a-f-]+)\]/) do |content_id, body|
-      attachment = attachments.detect { |a| a.content_id.match(content_id) }
+      attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
-      content = File.read('lib/govspeak/extension/attachment.html.erb')
+      content = File.read(__dir__ + '/templates/attachment.html.erb')
       ERB.new(content).result(binding)
     end
 
     extension('attachment inline', /\[embed:attachments:inline:([0-9a-f-]+)\]/) do |content_id, body|
-      attachment = attachments.detect { |a| a.content_id.match(content_id) }
+      attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
-      content = File.read('lib/govspeak/extension/inline_attachment.html.erb')
-      ERB.new(content).result(binding)
+      span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
+      # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
+      link = attachment.link(attachment.title.gsub("\n", " "), attachment.url)
+      attributes = attachment.attachment_attributes.empty? ? "" : " (#{attachment.attachment_attributes})"
+      %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
     def render_image(url, alt_text, caption = nil)
@@ -275,12 +280,12 @@ module Govspeak
     end
 
     extension('embed link', /\[embed:link:([0-9a-f-]+)\]/) do |content_id|
-      link = links.detect { |l| l.content_id.match(content_id) }
+      link = links.detect { |l| l[:content_id].match(content_id) }
       next "" unless link
-      if link.url
-        %Q{<a href="#{encode(link.url)}">#{encode(link.title)}</a>}
+      if link[:url]
+        %Q{<a href="#{encode(link[:url])}">#{link[:title]}</a>}
       else
-        encode(link.title)
+        link[:title]
       end
     end
 
@@ -290,9 +295,10 @@ module Govspeak
     private :render_hcard_address
 
     extension('Contact', /\[Contact:([0-9a-f-]+)\]/) do |content_id|
-      contact = contacts.detect { |c| c.content_id.match(content_id) }
+      contact = contacts.detect { |c| c[:content_id].match(content_id) }
       next "" unless contact
-      @renderer ||= ERB.new(File.read('lib/templates/contact.html.erb'))
+      contact = ContactPresenter.new(contact)
+      @renderer ||= ERB.new(File.read(__dir__ + '/templates/contact.html.erb'))
       @renderer.result(binding)
     end
   end
