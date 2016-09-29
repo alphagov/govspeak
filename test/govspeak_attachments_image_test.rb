@@ -56,6 +56,14 @@ class GovspeakAttachmentsImageTest < Minitest::Test
     assert_match(%r{<img.*alt="My Title"}, rendered)
   end
 
+  test "can render a nil image title" do
+    rendered = render_govspeak(
+      "[embed:attachments:image:1fe8]",
+      [build_attachment(id: nil, title: nil, content_id: "1fe8")]
+    )
+    assert_match(%r{<img.*alt=""}, rendered)
+  end
+
   test "a full image attachment rendering looks correct" do
     rendered = render_govspeak(
       "[embed:attachments:image:1fe8]",

@@ -44,6 +44,14 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
     assert_match(%r{<a href="http://a.b/f.pdf">My Pdf</a>}, rendered)
   end
 
+  test "renders with a nil title" do
+    rendered = render_govspeak(
+      "[embed:attachments:inline:1fe8]",
+      [build_attachment(content_id: "1fe8", url: "http://a.b/f.pdf", title: nil)]
+    )
+    assert_match(%r{<a href="http://a.b/f.pdf"></a>}, rendered)
+  end
+
   test "renders on a single line" do
     rendered = render_govspeak(
       "[embed:attachments:inline:2bc1]",

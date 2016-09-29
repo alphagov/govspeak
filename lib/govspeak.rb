@@ -203,7 +203,8 @@ module Govspeak
       attachment = AttachmentPresenter.new(attachment)
       span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
       # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
-      link = attachment.link(attachment.title.tr("\n", " "), attachment.url)
+      title = (attachment.title || "").tr("\n", " ")
+      link = attachment.link(title, attachment.url)
       attributes = attachment.attachment_attributes.empty? ? "" : " (#{attachment.attachment_attributes})"
       %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
@@ -212,7 +213,8 @@ module Govspeak
       attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
-      render_image(attachment.url, attachment.title.tr("\n", " "), nil, attachment.id)
+      title = (attachment.title || "").tr("\n", " ")
+      render_image(attachment.url, title, nil, attachment.id)
     end
 
     # As of version 1.12.0 of Kramdown the block elements (div & figcaption)
