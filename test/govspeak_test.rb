@@ -634,22 +634,22 @@ $CTA
   test "can reference attached images using !!n" do
     images = [OpenStruct.new(alt_text: 'my alt', url: "http://example.com/image.jpg")]
     given_govspeak "!!1", images do
-      assert_html_output %Q{
-          <figure class="image embedded">
-            <div class="img"><img alt="my alt" src="http://example.com/image.jpg"></div>
-          </figure>
-      }
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +
+        %{</figure>}
+      )
   end
 end
 
 test "alt text of referenced images is escaped" do
   images = [OpenStruct.new(alt_text: %Q{my alt '&"<>}, url: "http://example.com/image.jpg")]
   given_govspeak "!!1", images do
-    assert_html_output %Q{
-        <figure class="image embedded">
-          <div class="img"><img alt="my alt '&amp;&quot;&lt;&gt;" src="http://example.com/image.jpg"></div>
-        </figure>
-        }
+    assert_html_output(
+      %{<figure class="image embedded">} +
+      %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt '&amp;&quot;&lt;&gt;"></div>} +
+      %{</figure>}
+    )
     end
   end
 
@@ -663,23 +663,23 @@ test "alt text of referenced images is escaped" do
   test "adds image caption if given" do
     images = [OpenStruct.new(alt_text: "my alt", url: "http://example.com/image.jpg", caption: 'My Caption & so on')]
     given_govspeak "!!1", images do
-      assert_html_output %Q{
-          <figure class="image embedded">
-            <div class="img"><img alt="my alt" src="http://example.com/image.jpg"></div>
-            <figcaption>My Caption &amp; so on</figcaption>
-          </figure>
-        }
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
+        %{<figcaption>My Caption &amp; so on</figcaption>} +
+        %{</figure>}
+      )
     end
   end
 
   test "ignores a blank caption" do
     images = [OpenStruct.new(alt_text: "my alt", url: "http://example.com/image.jpg", caption: '  ')]
     given_govspeak "!!1", images do
-      assert_html_output %Q{
-          <figure class="image embedded">
-            <div class="img"><img alt="my alt" src="http://example.com/image.jpg"></div>
-          </figure>
-        }
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +
+        %{</figure>}
+      )
     end
   end
 

@@ -68,4 +68,15 @@ class GovspeakAttachmentsImageTest < Minitest::Test
     }
     assert_match(compress_html(expected_html_output), compress_html(rendered))
   end
+
+  # test inserted because divs can be stripped inside a table
+  test "can be rendered inside a table" do
+    rendered = render_govspeak(
+      "| [embed:attachments:image:1fe8] |",
+      [build_attachment(content_id: "1fe8", id: nil)]
+    )
+
+    regex = %r{<td><figure class="image embedded"><div class="img">(.*?)</div></figure></td>}
+    assert_match(regex, rendered)
+  end
 end
