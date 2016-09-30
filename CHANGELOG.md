@@ -1,3 +1,11 @@
+## 5.0.0
+* Update Kramdown version to 1.12.0
+* Add pry-byebug to development dependencies
+* Ability to run Govspeak as a binary from command line [#87](https://github.com/alphagov/govspeak/pull/87)
+* Uses hashes the primary interface for options to commands [#89](https://github.com/alphagov/govspeak/pull/89)
+* Adds the `[embed:attachments:image:%content_id%]` extension [#90](https://github.com/alphagov/govspeak/pull/90)
+* Renders incorrect usages of embedding content as empty strings rather than outputting markdown [91](https://github.com/alphagov/govspeak/pull/91)
+
 ## 4.0.0
 
 * Drop support for Ruby 1.9.3
