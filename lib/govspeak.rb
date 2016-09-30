@@ -189,7 +189,7 @@ module Govspeak
       end
     end
 
-    extension('attachment', /\[embed:attachments:([0-9a-f-]+)\]/) do |content_id, body|
+    extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id, body|
       attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
@@ -197,7 +197,7 @@ module Govspeak
       ERB.new(content).result(binding)
     end
 
-    extension('attachment inline', /\[embed:attachments:inline:([0-9a-f-]+)\]/) do |content_id|
+    extension('attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
@@ -209,7 +209,7 @@ module Govspeak
       %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
-    extension('attachment image', /\[embed:attachments:image:([0-9a-f-]+)\]/) do |content_id|
+    extension('attachment image', /\[embed:attachments:image:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
@@ -299,7 +299,7 @@ module Govspeak
       end
     end
 
-    extension('embed link', /\[embed:link:([0-9a-f-]+)\]/) do |content_id|
+    extension('embed link', /\[embed:link:\s*(.*?)\s*\]/) do |content_id|
       link = links.detect { |l| l[:content_id].match(content_id) }
       next "" unless link
       if link[:url]
@@ -314,7 +314,7 @@ module Govspeak
     end
     private :render_hcard_address
 
-    extension('Contact', /\[Contact:([0-9a-f-]+)\]/) do |content_id|
+    extension('Contact', /\[Contact:\s*(.*?)\s*\]/) do |content_id|
       contact = contacts.detect { |c| c[:content_id].match(content_id) }
       next "" unless contact
       contact = ContactPresenter.new(contact)
