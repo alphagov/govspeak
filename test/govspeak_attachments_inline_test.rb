@@ -25,7 +25,7 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
       "[embed:attachments:inline:1fe8]",
       [build_attachment(id: 10, content_id: "1fe8")]
     )
-    assert_match(/span id="attachment_10" class="attachment-inline">/, rendered)
+    assert_match(/<span id="attachment_10" class="attachment-inline">/, rendered)
   end
 
   test "wraps an attachment in a span without the id if the id is not present" do
@@ -33,7 +33,7 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
       "[embed:attachments:inline:1fe8]",
       [build_attachment(id: nil, content_id: "1fe8")]
     )
-    assert_match(/span class="attachment-inline">/, rendered)
+    assert_match(/<span class="attachment-inline">/, rendered)
   end
 
   test "links to the attachment file" do
@@ -42,6 +42,14 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
       [build_attachment(content_id: "1fe8", url: "http://a.b/f.pdf", title: "My Pdf")]
     )
     assert_match(%r{<a href="http://a.b/f.pdf">My Pdf</a>}, rendered)
+  end
+
+  test "renders with a nil title" do
+    rendered = render_govspeak(
+      "[embed:attachments:inline:1fe8]",
+      [build_attachment(content_id: "1fe8", url: "http://a.b/f.pdf", title: nil)]
+    )
+    assert_match(%r{<a href="http://a.b/f.pdf"></a>}, rendered)
   end
 
   test "renders on a single line" do

@@ -27,7 +27,7 @@ library for use in the UK Government Single Domain project}
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency 'kramdown', '~> 1.10.0'
+  s.add_dependency 'kramdown', '~> 1.12.0'
   s.add_dependency 'htmlentities', '~> 4'
   s.add_dependency "sanitize", "~> 2.1.0"
   s.add_dependency 'nokogiri', '~> 1.5'
@@ -42,4 +42,5 @@ library for use in the UK Government Single Domain project}
   s.add_development_dependency 'minitest', '~> 5.8.3'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'simplecov-rcov'
+  s.add_development_dependency 'pry-byebug'
 end

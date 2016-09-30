@@ -197,24 +197,44 @@ module Govspeak
       ERB.new(content).result(binding)
     end
 
-    extension('attachment inline', /\[embed:attachments:inline:([0-9a-f-]+)\]/) do |content_id, body|
+    extension('attachment inline', /\[embed:attachments:inline:([0-9a-f-]+)\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id].match(content_id) }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
       span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
       # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
-      link = attachment.link(attachment.title.gsub("\n", " "), attachment.url)
+      title = (attachment.title || "").tr("\n", " ")
+      link = attachment.link(title, attachment.url)
       attributes = attachment.attachment_attributes.empty? ? "" : " (#{attachment.attachment_attributes})"
       %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
-    def render_image(url, alt_text, caption = nil)
+    extension('attachment image', /\[embed:attachments:image:([0-9a-f-]+)\]/) do |content_id|
+      attachment = attachments.detect { |a| a[:content_id].match(content_id) }
+      next "" unless attachment
+      attachment = AttachmentPresenter.new(attachment)
+      title = (attachment.title || "").tr("\n", " ")
+      render_image(attachment.url, title, nil, attachment.id)
+    end
+
+    # As of version 1.12.0 of Kramdown the block elements (div & figcaption)
+    # inside this html block will have it's < > converted into HTML Entities
+    # when ever this code is used inside block level elements.
+    #
+    # To resolve this we have a post-processing task that will convert this
+    # back into HTML (I know - it's ugly). The way we could resolve this
+    # without ugliness would be to output only inline elements which rules
+    # out div and figcaption
+    #
+    # This issue is not considered a bug by kramdown: https://github.com/gettalong/kramdown/issues/191
+    def render_image(url, alt_text, caption = nil, id = nil)
+      id_attr = id ? %{ id="attachment_#{id}"} : ""
       lines = []
-      lines << '<figure class="image embedded">'
-      lines << %Q{  <div class="img"><img alt="#{encode(alt_text)}" src="#{encode(url)}" /></div>}
-      lines << %Q{  <figcaption>#{encode(caption.strip)}</figcaption>} if caption && !caption.strip.empty?
+      lines << %{<figure#{id_attr} class="image embedded">}
+      lines << %Q{<div class="img"><img src="#{encode(url)}" alt="#{encode(alt_text)}"></div>}
+      lines << %Q{<figcaption>#{caption.strip}</figcaption>} if caption && !caption.strip.empty?
       lines << '</figure>'
-      lines.join "\n"
+      lines.join
     end
 
     wrap_with_div('summary', '$!')
