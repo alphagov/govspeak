@@ -21,7 +21,7 @@ class GovspeakAttachmentsImageTest < Minitest::Test
   end
 
   test "renders an empty string for an image attachment not found" do
-    assert_match("", render_govspeak("[embed:attachments:image:1fe8]", [build_attachment]))
+    assert_equal("\n", render_govspeak("[embed:attachments:image:1fe8]", [build_attachment]))
   end
 
   test "wraps an attachment in a figure with the id if the id is present" do
@@ -38,6 +38,14 @@ class GovspeakAttachmentsImageTest < Minitest::Test
       [build_attachment(id: nil, content_id: "1fe8")]
     )
     assert_match(/<figure class="image embedded">/, rendered)
+  end
+
+  test "renders an attachment if there are spaces around the content_id" do
+    rendered = render_govspeak(
+      "[embed:attachments:image: 1fe8 ]",
+      [build_attachment(id: 10, content_id: "1fe8")]
+    )
+    assert_match(/<figure id="attachment_10" class="image embedded">/, rendered)
   end
 
   test "has an image element to the file" do
@@ -86,5 +94,15 @@ class GovspeakAttachmentsImageTest < Minitest::Test
 
     regex = %r{<td><figure class="image embedded"><div class="img">(.*?)</div></figure></td>}
     assert_match(regex, rendered)
+  end
+
+  test "renders an empty string for no match" do
+    rendered = render_govspeak("[embed:attachments:image:1fe8]")
+    assert_equal("\n", rendered)
+  end
+
+  test "renders an empty string for a filename instead of a content id" do
+    rendered = render_govspeak("[embed:attachments:image: path/to/file.jpg ]")
+    assert_equal("\n", rendered)
   end
 end

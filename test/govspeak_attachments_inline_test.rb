@@ -17,7 +17,7 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
   end
 
   test "renders an empty string for an inline attachment not found" do
-    assert_match("", render_govspeak("[embed:attachments:inline:1fe8]", [build_attachment]))
+    assert_equal("\n", render_govspeak("[embed:attachments:inline:1fe8]", [build_attachment]))
   end
 
   test "wraps an attachment in a span with the id if the id is present" do
@@ -31,6 +31,14 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
   test "wraps an attachment in a span without the id if the id is not present" do
     rendered = render_govspeak(
       "[embed:attachments:inline:1fe8]",
+      [build_attachment(id: nil, content_id: "1fe8")]
+    )
+    assert_match(/<span class="attachment-inline">/, rendered)
+  end
+
+  test "renders an attachment where the content id has spaces" do
+    rendered = render_govspeak(
+      "[embed:attachments:inline:  1fe8  ]",
       [build_attachment(id: nil, content_id: "1fe8")]
     )
     assert_match(/<span class="attachment-inline">/, rendered)
@@ -150,5 +158,15 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
     )
     assert_match(%r{<a href="http://a.b/test.txt">Text File</a>}, rendered)
     assert_match(%r{<a href="http://a.b/test.pdf">PDF File</a>}, rendered)
+  end
+
+  test "will render a not found attachment as an empty string" do
+    rendered = render_govspeak("[embed:attachments:inline:1fe8]")
+    assert_equal("\n", rendered)
+  end
+
+  test "will render a file name used as a content id as an empty string" do
+    rendered = render_govspeak("[embed:attachments:inline: path/to/file name.jpg ]")
+    assert_equal("\n", rendered)
   end
 end

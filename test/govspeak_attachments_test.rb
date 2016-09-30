@@ -21,7 +21,7 @@ class GovspeakAttachmentTest < Minitest::Test
     Govspeak::Document.new(govspeak, options).to_html
   end
 
-  test "Wraps an attachment in a section.attachment.embedded" do
+  test "wraps an attachment in a section.attachment.embedded" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2")]
@@ -29,7 +29,15 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(/<section class="attachment embedded">/, rendered)
   end
 
-  test "Wraps an external attachment in a section.attachment.hosted-externally" do
+  test "can convert an attachment with spaces" do
+    rendered = render_govspeak(
+      "[embed:attachments: 3ed2 ]",
+      [build_attachment(content_id: "3ed2")]
+    )
+    assert_match(/<section class="attachment embedded">/, rendered)
+  end
+
+  test "wraps an external attachment in a section.attachment.hosted-externally" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", external?: true)]
@@ -37,7 +45,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(/<section class="attachment hosted-externally">/, rendered)
   end
 
-  test "Outputs a pub-cover.png thumbnail by default" do
+  test "outputs a pub-cover.png thumbnail by default" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2")]
@@ -45,7 +53,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<img src="/images/pub-cover.png"}, rendered)
   end
 
-  test "Outputs a specified thumbnail for a pdf with a thumbnail_url" do
+  test "outputs a specified thumbnail for a pdf with a thumbnail_url" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", file_extension: "pdf", thumbnail_url: "http://a.b/custom.png")]
@@ -53,7 +61,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<img src="http://a.b/custom.png"}, rendered)
   end
 
-  test "Outputs pub-cover.png for a pdf without thumbnail_url" do
+  test "outputs pub-cover.png for a pdf without thumbnail_url" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", file_extension: "pdf", thumbnail_url: nil)]
@@ -61,7 +69,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<img src="/images/pub-cover.png"}, rendered)
   end
 
-  test "Outputs pub-cover-html.png for a file with html file_extension" do
+  test "outputs pub-cover-html.png for a file with html file_extension" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", file_extension: "html")]
@@ -69,7 +77,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<img src="/images/pub-cover-html.png"}, rendered)
   end
 
-  test "Outputs pub-cover-doc.png for a file with docx file_extension" do
+  test "outputs pub-cover-doc.png for a file with docx file_extension" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", file_extension: "docx")]
@@ -77,7 +85,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<img src="/images/pub-cover-doc.png"}, rendered)
   end
 
-  test "Outputs pub-cover-spreadsheet.png for a file with xls file_extension" do
+  test "outputs pub-cover-spreadsheet.png for a file with xls file_extension" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", file_extension: "xls")]
@@ -85,7 +93,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<img src="/images/pub-cover-spreadsheet.png"}, rendered)
   end
 
-  test "Outputs no thumbnail for a previewable file" do
+  test "outputs no thumbnail for a previewable file" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", file_extension: "csv")]
@@ -93,7 +101,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<div class="attachment-thumb"></div>}, compress_html(rendered))
   end
 
-  test "Outputs a title link within a h2" do
+  test "outputs a title link within a h2" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", id: 1, url: "http://a.b/c.pdf", title: "Attachment Title")]
@@ -101,7 +109,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<h2 class="title">\s*<a href="http://a.b/c.pdf" aria-describedby="attachment-1-accessibility-help">Attachment Title</a></h2>}, compress_html(rendered))
   end
 
-  test "Title link has rel='external' for an external link" do
+  test "title link has rel='external' for an external link" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", id: 1, url: "http://a.b/c.pdf", external?: true)]
@@ -109,7 +117,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<a href="http://a.b/c.pdf" rel="external" aria-describedby="attachment-1-accessibility-help">}, rendered)
   end
 
-  test "Accessible attachment doesn't have the aria-describedby attribute" do
+  test "accessible attachment doesn't have the aria-describedby attribute" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", url: "http://a.b/c.pdf", accessible?: true)]
@@ -117,7 +125,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<a href="http://a.b/c.pdf">}, rendered)
   end
 
-  test "Outputs reference if isbn is present" do
+  test "outputs reference if isbn is present" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", isbn: "123")]
@@ -125,7 +133,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<span class="references">Ref: ISBN <span class="isbn">123</span></span>}, rendered)
   end
 
-  test "Outputs reference if uniuque_reference is present" do
+  test "outputs reference if uniuque_reference is present" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", unique_reference: "123")]
@@ -133,7 +141,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<span class="references">Ref: <span class="unique_reference">123</span></span>}, rendered)
   end
 
-  test "Outputs reference if command_paper_number is present" do
+  test "outputs reference if command_paper_number is present" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", command_paper_number: "11")]
@@ -141,7 +149,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<span class="references">Ref: <span class="command_paper_number">11</span></span>}, rendered)
   end
 
-  test "Outputs reference if hoc_paper_number is present" do
+  test "outputs reference if hoc_paper_number is present" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", hoc_paper_number: "15", parliamentary_session: "1")]
@@ -149,7 +157,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<span class="references">Ref: <span class="house_of_commons_paper_number">HC 15</span> <span class="parliamentary_session">1</span></span>}, rendered)
   end
 
-  test "Can have multiple references" do
+  test "can have multiple references" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", isbn: "123", unique_reference: "55")]
@@ -173,7 +181,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<span class="unnumbered-paper">\s*Unnumbered act paper\s*</span>}, compress_html(rendered))
   end
 
-  test "Unnumbered command paper takes precedence to unnumbered act paper" do
+  test "unnumbered command paper takes precedence to unnumbered act paper" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", unnumbered_command_paper?: true, unnumbered_hoc_paper?: true)]
@@ -181,7 +189,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(%r{<span class="unnumbered-paper">\s*Unnumbered command paper\s*</span>}, compress_html(rendered))
   end
 
-  test "Shows a preview link for a previewable format" do
+  test "shows a preview link for a previewable format" do
     rendered = render_govspeak(
       "[embed:attachments:3ed2]",
       [build_attachment(content_id: "3ed2", file_extension: "csv", url: "http://a.b/c.csv")]
@@ -392,6 +400,12 @@ class GovspeakAttachmentTest < Minitest::Test
   test "attachment that isn't provided" do
     govspeak = "[embed:attachments:906ac8b7-850d-45c6-98e0-9525c680f891]"
     rendered = Govspeak::Document.new(govspeak).to_html
-    assert_match("", rendered)
+    assert_equal("\n", rendered)
+  end
+
+  test "attachment where filename is provided, rather than a content_id" do
+    govspeak = "[embed:attachments:/path/to/file%20name.pdf]"
+    rendered = Govspeak::Document.new(govspeak).to_html
+    assert_equal("\n", rendered)
   end
 end
