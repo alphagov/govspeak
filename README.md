@@ -43,7 +43,7 @@ In addition to the [standard Markdown syntax](http://daringfireball.net/projects
 creates a callout with an info (i) icon.
 
     <div role="note" aria-label="Information" class="application-notice info-notice">
-    	<p>This is an information callout</p>
+      <p>This is an information callout</p>
     </div>
 
 ### Warning callouts
@@ -53,7 +53,7 @@ creates a callout with an info (i) icon.
 creates a callout with a warning or alert (!) icon
 
     <div role="note" aria-label="Help" class="application-notice help-notice">
-    	<p>This is a warning callout</p>
+      <p>This is a warning callout</p>
     </div>
 
 ### Example callout
@@ -158,6 +158,74 @@ creates a file download box
     <p><a href="http://example.com/" title="Example form" rel="external">An example form download link.</a></p>
     </div>
 
+## Place
+
+    $P
+    This is a place
+    $P
+
+creates a place box
+
+    <div class="place">
+    <p>This is a place</p>
+    </div>
+
+## Information
+
+    $I
+    This is information
+    $I
+
+creates an information box
+
+    <div class="information">
+    <p>This is information</p>
+    </div>
+
+## Additional Information
+
+    $AI
+    This is additional information
+    $AI
+
+creates an additional information box
+
+    <div class="additional-information">
+    <p>This is additional information</p>
+    </div>
+
+## Call to Action
+
+    $CTA
+    This is a call to action
+    $CTA
+
+creates an additional information box
+
+    <div class="call-to-action">
+    <p>This is a call to action</p>
+    </div>
+
+## Summary
+
+    $!
+    This is a summary
+    $!
+
+creates a summary box
+
+    <div class="summary">
+    <p>This is a summary</p>
+    </div>
+
+## External Link
+
+    x[External Report](https://example.com/report)x
+
+creates a link specified as external
+
+    <a href="https://example.com/report" rel="external">External Report</a>
+
 ## Steps
 
 Steps can be created similar to an ordered list:
@@ -183,17 +251,26 @@ For lists where you want to specify the numbering and have multiple indent level
     $EndLegislativeList
     (to indent, add 2 spaces)
 
-## Abbreviations
+## Priority Lists
 
-Abbreviations can be defined at the end of the document, and any occurrences elswhere in the document will wrapped in an `<abbr>` tag. They are parsed in the order in which they are defined, so `PCSOs` should be defined before `PCSO`, for example.
+For lists where you want to specify a number of items to be highlighted as priority.
 
-    Special rules apply if you’re exporting a vehicle outside the EU.
+    $PriorityList:3
+    - Item 1
+    - Item 2
+    - Item 3
+    - Item 4
+    - Item 5
 
-    *[EU]:European Union
+creates a list with priority items flagged with a class
 
-becomes
-
-    <p>Special rules apply if you’re exporting a vehicle outside the <abbr title="European Union">EU</abbr>.</p>
+    <ul>
+      <li class="primary-item">Item 1</li>
+      <li class="primary-item">Item 2</li>
+      <li class="primary-item">Item 3</li>
+      <li>Item 4</li>
+      <li>Item 5</li>
+    </ul>
 
 ## Devolved content
 
@@ -203,3 +280,190 @@ becomes
     :wales:content goes here:wales:
     :northern-ireland:content goes here:northern-ireland:
     :england-wales:content goes here:england-wales:
+
+will create a box for the specified locality
+
+    <div class="devolved-content england">
+      <p class="devolved-header">This section applies to England</p>
+      <div class="devolved-body">
+        <p>content goes here</p>
+      </div>
+    </div>
+
+## Barcharts
+
+For when you want a table to be progressively enhanced by Javascript to be
+rendered as a bar chart.
+
+    |col|
+    |---|
+    |val|
+    {barchart}
+
+will be rendered as
+    <table class="js-barchart-table mc-auto-outdent">
+      <thead>
+        <tr>
+          <th>col</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>val</td>
+        </tr>
+      </tbody>
+    </table>
+
+## Embedded Content
+
+Embedded content allows authors to reference a supporting item of a document by
+referencing an id. The details of this content is passed to the publishing
+application to govspeak at the time of rendering.
+
+### Attachments
+
+To create an attachment callout
+
+    [embed:attachment:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]
+
+with options provided
+
+    {
+      attachments: [
+        {
+          id: 123,
+          content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",
+          title: "Attachment Title",
+          url: "http://example.com/test.pdf",
+          order_url: "http://example.com/order",
+          price: 12.3,
+          isbn: "isbn-123",
+          attachment?: true,
+        }
+      ]
+    }
+
+will output an attachment box
+
+    <section class="attachment embedded">
+      <div class="attachment-thumb">
+        <a href="http://example.com/test.pdf" aria-hidden="true" class="embedded"><img src="/images/pub-cover.png" alt="Pub cover"></a>
+      </div>
+      <div class="attachment-details">
+        <h2 class="title">
+          <a href="http://example.com/test.pdf" aria-describedby="attachment-123-accessibility-help">Attachment Title</a>
+        </h2>
+        <p class="metadata">
+          <span class="references">Ref: ISBN <span class="isbn">isbn-123</span></span>
+        </p>
+        <p>
+          <a href="http://example.com/order" class="order_url" title="Order a copy of the publication">Order a copy</a>(<span class="price">£12.30</span>)
+        </p>
+      </div>
+    </section>
+
+### Inline Attachment
+
+Attachments can be linked to inline as well
+
+    Details referenced in [embed:attachments:inline:34f6dda0-21b1-4e78-8120-3ff4dcea522d]
+
+with options provided
+
+    {
+      attachments: [
+        {
+          content_id: "34f6dda0-21b1-4e78-8120-3ff4dcea522d",
+          title: "My Thorough Study",
+          url: "http://example.com/my-thorough-study.pdf",
+        }
+      ]
+    }
+
+will output an attachment within a block of text
+
+    <p>Details referenced in <span class="attachment-inline"><a href="http://example.com/my-thorough-study.pdf">My Thorough Study</a></span>
+
+### Image Attachments
+
+Attachments can be used to embed an image within the document
+
+    [embed:attachments:image:45ee0eea-bc53-4f14-81eb-9e75d33c4d5e]
+
+with options provided
+
+    {
+      attachments: [
+        {
+          content_id: "45ee0eea-bc53-4f14-81eb-9e75d33c4d5e",
+          title: "A lovely landscape",
+          url: "http://example.com/lovely-landscape.jpg",
+        }
+      ]
+    }
+
+will output a image section
+
+    <figure class="image embedded"><div class="img"><img src="http://example.com/lovely-landscape.jpg" alt="A Lovely Landscape"></div></figure>
+
+### Link
+
+Links to different documents can be embedded so they change when the documents
+they reference change.
+
+    A link to [embed:link:c636b433-1e5c-46d4-96b0-b5a168fac26c]
+
+with options provided
+
+    {
+      links: [
+        {
+          url: "http://example.com",
+          title: "An excellent website",
+        }
+      ]
+    }
+
+will output
+
+    <p>A link to <a href="http://example.com">An excellent website</a></p>
+
+### Contact
+
+    [Contact:df62690f-34a0-4840-a7fa-4ef5acc18666]
+
+with options provided
+
+    {
+      contacts: [
+        {
+          id: 123,
+          content_id: "df62690f-34a0-4840-a7fa-4ef5acc18666",
+          title: "Government Digital Service",
+          email: "people@digital.cabinet-office.gov.uk",
+          contact_numbers: [
+            { label: "helpdesk", number: "+4412345 67890"}
+          ]
+        }
+      ]
+    }
+
+will output
+
+    <div id="contact_123" class="contact">
+      <div class="content">
+        <h3>Government Digital Service</h3>
+        <div class="vcard contact-inner">
+          <div class="email-url-number">
+            <p class="email">
+              <span class="type">Email</span>
+              <a href="mailto:people@digital.cabinet-office.gov.uk" class="email">people@digital.cabinet-office.gov.uk</a>
+            </p>
+            <p class="tel">
+              <span class="type">helpdesk</span>
+              +4412345 67890
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
