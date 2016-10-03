@@ -32,7 +32,7 @@ module Govspeak
     end
 
     def initialize(source, options = {})
-      options.deep_symbolize_keys!
+      options = options.dup.deep_symbolize_keys
       @source = source ? source.dup : ""
       @images = options.delete(:images) || []
       @attachments = Array.wrap(options.delete(:attachments))
