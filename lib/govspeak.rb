@@ -303,7 +303,7 @@ module Govspeak
       link = links.detect { |l| l[:content_id].match(content_id) }
       next "" unless link
       if link[:url]
-        %Q{<a href="#{encode(link[:url])}">#{link[:title]}</a>}
+        "[#{link[:title]}](#{link[:url]})"
       else
         link[:title]
       end
