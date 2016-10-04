@@ -1,3 +1,7 @@
+## 5.0.1
+* Move presenters into the Govspeak namespace [#93](https://github.com/alphagov/govspeak/pull/93)
+* Embedded links now will automatically be marked with `rel="external"` [#96](https://github.com/alphagov/govspeak/pull/96)
+
 ## 5.0.0
 * Update Kramdown version to 1.12.0
 * Add pry-byebug to development dependencies
