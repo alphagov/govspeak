@@ -32,7 +32,7 @@ library for use in the UK Government Single Domain project}
   s.add_dependency "sanitize", "~> 2.1.0"
   s.add_dependency 'nokogiri', '~> 1.5'
   s.add_dependency 'addressable', '>= 2.3.8', '< 3'
-  s.add_dependency 'actionview', '~> 4.1'
+  s.add_dependency 'actionview', '>= 4.1', '< 6'
   s.add_dependency 'i18n', '~> 0.7'
   s.add_dependency 'money', '~> 6.7'
   s.add_dependency 'commander', '~> 4.4'
