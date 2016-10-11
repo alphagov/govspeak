@@ -1,3 +1,7 @@
+## 5.0.2
+* Loosen ActionView dependency to allow use with Rails
+5 [#99](https://github.com/alphagov/govspeak/pull/99)
+
 ## 5.0.1
 * Move presenters into the Govspeak namespace [#93](https://github.com/alphagov/govspeak/pull/93)
 * Embedded links now will automatically be marked with `rel="external"` [#96](https://github.com/alphagov/govspeak/pull/96)
