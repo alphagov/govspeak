@@ -603,6 +603,24 @@ $CTA
     }
   end
 
+  test_given_govspeak "This bit of text\r\n\r\n$LegislativeList\r\n* 1. has a footnote[^1]\r\n$EndLegislativeList\r\n[^1]: This is a footnote." do
+    assert_html_output %{
+      <p>This bit of text</p>
+
+      <ol class="legislative-list">
+        <li>1. has a footnote<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></li>
+      </ol>
+
+      <div class="footnotes">
+        <ol>
+          <li id="fn:1">
+            <p>This is a footnote. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+          </li>
+        </ol>
+      </div>
+    }
+  end
+
   test_given_govspeak "
     Zippy, Bungle and George did not qualify for the tax exemption in s428. They filled in their tax return accordingly.
     " do
