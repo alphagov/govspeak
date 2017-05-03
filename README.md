@@ -42,9 +42,12 @@ In addition to the [standard Markdown syntax](http://daringfireball.net/projects
 
 creates a callout with an info (i) icon.
 
-    <div role="note" aria-label="Information" class="application-notice info-notice">
-      <p>This is an information callout</p>
-    </div>
+```html
+<div role="note" aria-label="Information" class="application-notice info-notice">
+  <p>This is an information callout</p>
+</div>
+```
+
 
 ### Warning callouts
 
@@ -52,9 +55,11 @@ creates a callout with an info (i) icon.
 
 creates a callout with a warning or alert (!) icon
 
-    <div role="note" aria-label="Help" class="application-notice help-notice">
-      <p>This is a warning callout</p>
-    </div>
+```html
+<div role="note" aria-label="Help" class="application-notice help-notice">
+  <p>This is a warning callout</p>
+</div>
+```
 
 ### Example callout
 
@@ -64,9 +69,11 @@ creates a callout with a warning or alert (!) icon
 
 creates an example box
 
-    <div class="example">
-    <p><strong>Example:</strong> Open the pod bay doors</p>
-    </div>
+```html
+<div class="example">
+  <p><strong>Example:</strong> Open the pod bay doors</p>
+</div>
+```
 
 ## Highlights
 
@@ -76,9 +83,11 @@ creates an example box
 
 highlights the enclosed text in yellow
 
-    <h3 role="note" aria-label="Important" class="advisory">
-    	<span>This is a very important message or warning</span>
-    </h3>
+```html
+<h3 role="note" aria-label="Important" class="advisory">
+  <span>This is a very important message or warning</span>
+</h3>
+```
 
 ### Answer
 
@@ -88,9 +97,11 @@ highlights the enclosed text in yellow
 
 creates a large highlight box with optional preamble text and giant text denoted with `**`
 
-    <div class="highlight-answer">
-    <p>The VAT rate is <em>20%</em></p>
-    </div>
+```html
+<div class="highlight-answer">
+  <p>The VAT rate is <em>20%</em></p>
+</div>
+```
 
 ### Statistic headline
 
@@ -124,9 +135,11 @@ Creates the following:
 
 creates a contact box
 
-    <div class="contact">
-    <p><strong>Student Finance England</strong><br><strong>Telephone:</strong> 0845 300 50 90<br><strong>Minicom:</strong> 0845 604 44 34</p>
-    </div>
+```html
+<div class="contact">
+  <p><strong>Student Finance England</strong><br><strong>Telephone:</strong> 0845 300 50 90<br><strong>Minicom:</strong> 0845 604 44 34</p>
+</div>
+```
 
 ### Address
 
@@ -138,11 +151,18 @@ creates a contact box
 
 creates an address box
 
-    <div class="address"><div class="adr org fn"><p>
-    Hercules House
-    <br>Hercules Road
-    <br>London SE1 7DU
-    <br></p></div></div>
+```html
+<div class="address">
+  <div class="adr org fn">
+    <p>
+      Hercules House
+      <br>Hercules Road
+      <br>London SE1 7DU
+      <br>
+    </p>
+  </div>
+</div>
+```
 
 ## Downloads
 
@@ -154,9 +174,11 @@ creates an address box
 
 creates a file download box
 
-    <div class="form-download">
-    <p><a href="http://example.com/" title="Example form" rel="external">An example form download link.</a></p>
-    </div>
+```html
+<div class="form-download">
+  <p><a href="http://example.com/" title="Example form" rel="external">An example form download link.</a></p>
+</div>
+```
 
 ## Place
 
@@ -166,9 +188,11 @@ creates a file download box
 
 creates a place box
 
-    <div class="place">
-    <p>This is a place</p>
-    </div>
+```html
+<div class="place">
+  <p>This is a place</p>
+</div>
+```
 
 ## Information
 
@@ -178,9 +202,11 @@ creates a place box
 
 creates an information box
 
-    <div class="information">
-    <p>This is information</p>
-    </div>
+```html
+<div class="information">
+  <p>This is information</p>
+</div>
+```
 
 ## Additional Information
 
@@ -190,9 +216,11 @@ creates an information box
 
 creates an additional information box
 
-    <div class="additional-information">
-    <p>This is additional information</p>
-    </div>
+```html
+<div class="additional-information">
+  <p>This is additional information</p>
+</div>
+```
 
 ## Call to Action
 
@@ -202,9 +230,11 @@ creates an additional information box
 
 creates an additional information box
 
-    <div class="call-to-action">
-    <p>This is a call to action</p>
-    </div>
+```html
+<div class="call-to-action">
+  <p>This is a call to action</p>
+</div>
+```
 
 ## Summary
 
@@ -214,9 +244,11 @@ creates an additional information box
 
 creates a summary box
 
-    <div class="summary">
-    <p>This is a summary</p>
-    </div>
+```html
+<div class="summary">
+  <p>This is a summary</p>
+</div>
+```
 
 ## External Link
 
@@ -224,7 +256,9 @@ creates a summary box
 
 creates a link specified as external
 
-    <a href="https://example.com/report" rel="external">External Report</a>
+```html
+<a href="https://example.com/report" rel="external">External Report</a>
+```
 
 ## Steps
 
@@ -264,13 +298,15 @@ For lists where you want to specify a number of items to be highlighted as prior
 
 creates a list with priority items flagged with a class
 
-    <ul>
-      <li class="primary-item">Item 1</li>
-      <li class="primary-item">Item 2</li>
-      <li class="primary-item">Item 3</li>
-      <li>Item 4</li>
-      <li>Item 5</li>
-    </ul>
+```html
+<ul>
+  <li class="primary-item">Item 1</li>
+  <li class="primary-item">Item 2</li>
+  <li class="primary-item">Item 3</li>
+  <li>Item 4</li>
+  <li>Item 5</li>
+</ul>
+```
 
 ## Devolved content
 
@@ -283,12 +319,14 @@ creates a list with priority items flagged with a class
 
 will create a box for the specified locality
 
-    <div class="devolved-content england">
-      <p class="devolved-header">This section applies to England</p>
-      <div class="devolved-body">
-        <p>content goes here</p>
-      </div>
-    </div>
+```html
+<div class="devolved-content england">
+  <p class="devolved-header">This section applies to England</p>
+  <div class="devolved-body">
+    <p>content goes here</p>
+  </div>
+</div>
+```
 
 ## Barcharts
 
@@ -301,18 +339,21 @@ rendered as a bar chart.
     {barchart}
 
 will be rendered as
-    <table class="js-barchart-table mc-auto-outdent">
-      <thead>
-        <tr>
-          <th>col</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>val</td>
-        </tr>
-      </tbody>
-    </table>
+
+```html
+<table class="js-barchart-table mc-auto-outdent">
+  <thead>
+    <tr>
+      <th>col</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>val</td>
+    </tr>
+  </tbody>
+</table>
+```
 
 ## Embedded Content
 
@@ -345,22 +386,24 @@ with options provided
 
 will output an attachment box
 
-    <section class="attachment embedded">
-      <div class="attachment-thumb">
-        <a href="http://example.com/test.pdf" aria-hidden="true" class="embedded"><img src="/images/pub-cover.png" alt="Pub cover"></a>
-      </div>
-      <div class="attachment-details">
-        <h2 class="title">
-          <a href="http://example.com/test.pdf" aria-describedby="attachment-123-accessibility-help">Attachment Title</a>
-        </h2>
-        <p class="metadata">
-          <span class="references">Ref: ISBN <span class="isbn">isbn-123</span></span>
-        </p>
-        <p>
-          <a href="http://example.com/order" class="order_url" title="Order a copy of the publication">Order a copy</a>(<span class="price">£12.30</span>)
-        </p>
-      </div>
-    </section>
+```html
+<section class="attachment embedded">
+  <div class="attachment-thumb">
+    <a href="http://example.com/test.pdf" aria-hidden="true" class="embedded"><img src="/images/pub-cover.png" alt="Pub cover"></a>
+  </div>
+  <div class="attachment-details">
+    <h2 class="title">
+      <a href="http://example.com/test.pdf" aria-describedby="attachment-123-accessibility-help">Attachment Title</a>
+    </h2>
+    <p class="metadata">
+      <span class="references">Ref: ISBN <span class="isbn">isbn-123</span></span>
+    </p>
+    <p>
+      <a href="http://example.com/order" class="order_url" title="Order a copy of the publication">Order a copy</a>(<span class="price">£12.30</span>)
+    </p>
+  </div>
+</section>
+```
 
 ### Inline Attachment
 
@@ -382,7 +425,9 @@ with options provided
 
 will output an attachment within a block of text
 
-    <p>Details referenced in <span class="attachment-inline"><a href="http://example.com/my-thorough-study.pdf">My Thorough Study</a></span>
+```html
+<p>Details referenced in <span class="attachment-inline"><a href="http://example.com/my-thorough-study.pdf">My Thorough Study</a></span></p>
+```
 
 ### Image Attachments
 
@@ -404,7 +449,13 @@ with options provided
 
 will output a image section
 
-    <figure class="image embedded"><div class="img"><img src="http://example.com/lovely-landscape.jpg" alt="A Lovely Landscape"></div></figure>
+```html
+<figure class="image embedded">
+  <div class="img">
+    <img src="http://example.com/lovely-landscape.jpg" alt="A Lovely Landscape">
+  </div>
+</figure>
+```
 
 ### Link
 
@@ -426,7 +477,9 @@ with options provided
 
 will output
 
-    <p>A link to <a href="http://example.com">An excellent website</a></p>
+```html
+<p>A link to <a href="http://example.com">An excellent website</a></p>
+```
 
 ### Contact
 
@@ -450,20 +503,22 @@ with options provided
 
 will output
 
-    <div id="contact_123" class="contact">
-      <div class="content">
-        <h3>Government Digital Service</h3>
-        <div class="vcard contact-inner">
-          <div class="email-url-number">
-            <p class="email">
-              <span class="type">Email</span>
-              <a href="mailto:people@digital.cabinet-office.gov.uk" class="email">people@digital.cabinet-office.gov.uk</a>
-            </p>
-            <p class="tel">
-              <span class="type">helpdesk</span>
-              +4412345 67890
-            </p>
-          </div>
-        </div>
+```html
+<div id="contact_123" class="contact">
+  <div class="content">
+    <h3>Government Digital Service</h3>
+    <div class="vcard contact-inner">
+      <div class="email-url-number">
+        <p class="email">
+          <span class="type">Email</span>
+          <a href="mailto:people@digital.cabinet-office.gov.uk" class="email">people@digital.cabinet-office.gov.uk</a>
+        </p>
+        <p class="tel">
+          <span class="type">helpdesk</span>
+          +4412345 67890
+        </p>
       </div>
     </div>
+  </div>
+</div>
+```
