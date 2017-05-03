@@ -190,7 +190,7 @@ module Govspeak
     end
 
     extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id, body|
-      attachment = attachments.detect { |a| a[:content_id].match(content_id) }
+      attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
       content = File.read(__dir__ + '/templates/attachment.html.erb')
@@ -198,7 +198,7 @@ module Govspeak
     end
 
     extension('attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
-      attachment = attachments.detect { |a| a[:content_id].match(content_id) }
+      attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
       span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
@@ -210,7 +210,7 @@ module Govspeak
     end
 
     extension('attachment image', /\[embed:attachments:image:\s*(.*?)\s*\]/) do |content_id|
-      attachment = attachments.detect { |a| a[:content_id].match(content_id) }
+      attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
       attachment = AttachmentPresenter.new(attachment)
       title = (attachment.title || "").tr("\n", " ")
@@ -300,7 +300,7 @@ module Govspeak
     end
 
     extension('embed link', /\[embed:link:\s*(.*?)\s*\]/) do |content_id|
-      link = links.detect { |l| l[:content_id].match(content_id) }
+      link = links.detect { |l| l[:content_id] == content_id }
       next "" unless link
       if link[:url]
         "[#{link[:title]}](#{link[:url]})"
@@ -315,7 +315,7 @@ module Govspeak
     private :render_hcard_address
 
     extension('Contact', /\[Contact:\s*(.*?)\s*\]/) do |content_id|
-      contact = contacts.detect { |c| c[:content_id].match(content_id) }
+      contact = contacts.detect { |c| c[:content_id] == content_id }
       next "" unless contact
       contact = ContactPresenter.new(contact)
       @renderer ||= ERB.new(File.read(__dir__ + '/templates/contact.html.erb'))

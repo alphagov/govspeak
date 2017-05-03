@@ -1,3 +1,7 @@
+## Unreleased
+
+* Fix matching links/attachments/contacts by regex to use equality
+
 ## 5.0.2
 * Loosen ActionView dependency to allow use with Rails
 5 [#99](https://github.com/alphagov/govspeak/pull/99)
