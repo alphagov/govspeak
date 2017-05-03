@@ -137,7 +137,11 @@ creates a contact box
 
 ```html
 <div class="contact">
-  <p><strong>Student Finance England</strong><br><strong>Telephone:</strong> 0845 300 50 90<br><strong>Minicom:</strong> 0845 604 44 34</p>
+  <p>
+    <strong>Student Finance England</strong><br>
+    <strong>Telephone:</strong> 0845 300 50 90<br>
+    <strong>Minicom:</strong> 0845 604 44 34
+  </p>
 </div>
 ```
 
@@ -155,10 +159,9 @@ creates an address box
 <div class="address">
   <div class="adr org fn">
     <p>
-      Hercules House
-      <br>Hercules Road
-      <br>London SE1 7DU
-      <br>
+      Hercules House<br>
+      Hercules Road<br>
+      London SE1 7DU<br>
     </p>
   </div>
 </div>
