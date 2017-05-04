@@ -43,4 +43,5 @@ library for use in the UK Government Single Domain project}
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'simplecov-rcov'
   s.add_development_dependency 'pry-byebug'
+  s.add_development_dependency 'govuk-lint'
 end
