@@ -1,3 +1,6 @@
+## 5.1.0
+* Update Kramdown version to 1.15.0
+
 ## 5.0.3
 
 * Fix matching links/attachments/contacts by regex to use equality [#105](https://github.com/alphagov/govspeak/pull/105)
