@@ -135,6 +135,33 @@ module Govspeak
       parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/,"<p><strong>\\1</strong></p>")
     end
 
+    extension('button', %r{
+      {button(.*?)} # match opening bracket and capture attributes
+        \s* # any whitespace between opening bracket and link
+        \[ # match start of link markdown
+          ([^\]]+) # capture inside of link markdown
+        \] # match end of link markdown
+        \( # match start of link text markdown
+          ([^)]+)  # capture inside of link text markdown
+        \) # match end of link text markdown
+        \s*  # any whitespace between opening bracket and link
+      {\/button} # match ending bracket
+    }x) { |attributes, text, href|
+      button_classes = "button"
+      button_classes << " button-start" if attributes =~ /start/
+      /cross-domain-tracking:(?<cross_domain_tracking>.[^\s*]+)/ =~ attributes
+      data_attribute = ""
+      if cross_domain_tracking
+        data_attribute << " data-module='cross-domain-tracking'"
+        data_attribute << " data-tracking-code='#{cross_domain_tracking.strip}'"
+        data_attribute << " data-tracking-name='govspeakButtonTracker'"
+      end
+      text = text.strip
+      href = href.strip
+
+      %{\n<a role="button" class="#{button_classes}" href="#{href}" #{data_attribute}>#{text}</a>\n}
+    }
+
     extension('highlight-answer') { |body|
       %{\n\n<div class="highlight-answer">
 #{Govspeak::Document.new(body.strip).to_html}</div>\n}
