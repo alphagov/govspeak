@@ -528,7 +528,7 @@ will output
 
 ### Button
 
-An accessible way to add button links into content, that can also be tracked.
+An accessible way to add button links into content, that can also allow cross domain tracking with [Google Analytics](https://support.google.com/analytics/answer/7372977?hl=en)
 
 This button component is [extended from static](http://govuk-static.herokuapp.com/component-guide/button) for [use in govspeak](http://govuk-static.herokuapp.com/component-guide/govspeak/button)
 Note: Ideally we'd use the original component directly but this currently isnt possible
