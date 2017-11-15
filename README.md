@@ -525,3 +525,65 @@ will output
   </div>
 </div>
 ```
+
+### Button
+
+An accessible way to add button links into content, that can also allow cross domain tracking with [Google Analytics](https://support.google.com/analytics/answer/7372977?hl=en)
+
+This button component is [extended from static](http://govuk-static.herokuapp.com/component-guide/button) for [use in govspeak](http://govuk-static.herokuapp.com/component-guide/govspeak/button)
+Note: Ideally we'd use the original component directly but this currently isnt possible
+
+You must use the [link](https://daringfireball.net/projects/markdown/syntax#link) syntax within the button tags.
+
+#### Examples
+
+To get the most basic button.
+
+```
+{button}[Continue](https://gov.uk/random){/button}
+```
+
+which outputs
+
+```html
+<a role="button" class="button" href="https://gov.uk/random">
+  Continue
+</a>
+```
+
+To turn a button into a ['Start now' button](https://www.gov.uk/service-manual/design/start-pages#start-page-elements), you can pass `start` to the button tag.
+
+```
+{button start}[Start Now](https://gov.uk/random){/button}
+```
+
+which outputs
+
+```html
+<a role="button" class="button button-start" href="https://gov.uk/random">
+  Start Now
+</a>
+```
+
+You can pass a Google Analytics [tracking id](https://support.google.com/analytics/answer/7372977?hl=en) which will send page views to another domain, this is used to help services understand the start of their users journeys.
+
+```
+{button start cross-domain-tracking:UA-XXXXXX-Y}
+  [Start Now](https://example.com/external-service/start-now)
+{/button}
+```
+
+which outputs
+
+```html
+<a
+  role="button"
+  class="button button-start"
+  href="https://example.com/external-service/start-now"
+  data-module="cross-domain-tracking"
+  data-tracking-code="UA-XXXXXX-Y"
+  data-tracking-name="govspeakButtonTracker"
+>
+  Start Now
+</a>
+```

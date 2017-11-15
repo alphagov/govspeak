@@ -57,11 +57,19 @@ class Govspeak::HtmlSanitizer
     Sanitize.clean(@dirty_html, config)
   end
 
+  def button_sanitize_config
+    [
+      "data-module='cross-domain-tracking'",
+      "data-tracking-code",
+      "data-tracking-name"
+    ]
+  end
+
   def sanitize_config
     deep_merge(Sanitize::Config::RELAXED, {
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + [ "id", "class", "role", "aria-label" ],
-        "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + [ "rel" ],
+        "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + ["rel"] + button_sanitize_config,
         "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + [ "style" ],
         "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + [ "style" ],
       },
