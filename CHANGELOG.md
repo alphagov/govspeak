@@ -1,3 +1,6 @@
+## 5.2.0
+* Add button component for govspeak [#114](https://github.com/alphagov/govspeak/pull/114) see README for usage
+
 ## 5.1.0
 * Update Kramdown version to 1.15.0
 
