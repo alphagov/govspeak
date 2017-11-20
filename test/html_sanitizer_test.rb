@@ -28,6 +28,14 @@ class HtmlSanitizerTest < Minitest::Test
     assert_equal "Fortnum &amp; Mason", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
+  test "allow govspeak button markup" do
+    html = "<a href='#' data-module='cross-domain-tracking' data-tracking-code='UA-XXXXXX-Y' data-tracking-name='govspeakButtonTracker'></a>"
+    assert_equal(
+      "<a href=\"#\" data-module=\"cross-domain-tracking\" data-tracking-code=\"UA-XXXXXX-Y\" data-tracking-name=\"govspeakButtonTracker\"></a>",
+      Govspeak::HtmlSanitizer.new(html).sanitize
+    )
+  end
+
   test "allows images on whitelisted domains" do
     html = "<img src='http://allowed.com/image.jgp'>"
     sanitized_html = Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ['allowed.com']).sanitize
