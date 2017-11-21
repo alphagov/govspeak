@@ -59,7 +59,7 @@ class Govspeak::HtmlSanitizer
 
   def button_sanitize_config
     [
-      "data-module='cross-domain-tracking'",
+      "data-module",
       "data-tracking-code",
       "data-tracking-name"
     ]

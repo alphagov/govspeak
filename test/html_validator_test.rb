@@ -95,4 +95,10 @@ class HtmlValidatorTest < Minitest::Test
     html = "<div class=\"govspeak\"><h2 id=\"some-title\">\n<span class=\"number\">1. </span> Some title</h2>\n\n<p>Some text</p>\n</div>"
     assert Govspeak::HtmlValidator.new(html).valid?
   end
+
+  test "allow govspeak button" do
+    assert Govspeak::HtmlValidator.new("{button}[Start now](https://gov.uk){/button}").valid?
+    assert Govspeak::HtmlValidator.new("{button start}[Start now](https://gov.uk){/button}").valid?
+    assert Govspeak::HtmlValidator.new("{button start cross-domain-tracking:UA-XXXXXX-Y}[Start now](https://gov.uk){/button}").valid?
+  end
 end
