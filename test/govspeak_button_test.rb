@@ -45,17 +45,6 @@ class GovspeakTest < Minitest::Test
     assert_html_output '<p>{button}I shouldn’t render a button{/button}</p>'
   end
 
-  test_given_govspeak "Text before the button {button}[Start Now](http://www.gov.uk){/button} test after the button" do
-    # rubocop:disable Layout/TrailingWhitespace
-    assert_html_output %{
-      <p>Text before the button 
-      <a role="button" class="button" href="http://www.gov.uk">Start Now</a>
-       test after the button</p>
-    }
-    # rubocop:enable Layout/TrailingWhitespace
-    assert_text_output "Text before the button Start Now test after the button"
-  end
-
   test_given_govspeak "Text before the button with line breaks \n\n\n{button}[Start Now](http://www.gov.uk){/button}\n\n\n test after the button" do
     assert_html_output %{
       <p>Text before the button with line breaks</p>
@@ -81,5 +70,13 @@ class GovspeakTest < Minitest::Test
   test_given_govspeak "{button start cross-domain-tracking:UA-XXXXXX-Y}[Start Now](https://example.com/external-service/start-now){/button}" do
     assert_html_output '<p><a role="button" class="button button-start" href="https://example.com/external-service/start-now" data-module="cross-domain-tracking" data-tracking-code="UA-XXXXXX-Y" data-tracking-name="govspeakButtonTracker">Start Now</a></p>'
     assert_text_output "Start Now"
+  end
+
+  # Test indenting button govspeak results in no render, useful in guides
+  test_given_govspeak "    {button start cross-domain-tracking:UA-XXXXXX-Y}[Example](https://example.com/external-service/start-now){/button}" do
+    assert_html_output %{
+      <pre><code>{button start cross-domain-tracking:UA-XXXXXX-Y}[Example](https://example.com/external-service/start-now){/button}
+      </code></pre>
+    }
   end
 end
