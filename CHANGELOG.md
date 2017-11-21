@@ -1,3 +1,6 @@
+## 5.2.2
+* Fix rendering buttons with inconsistent linebreaks seen in publishing [#118](https://github.com/alphagov/govspeak/pull/118)
+
 ## 5.2.1
 * Fix validation to make sure buttons are considered valid
 * Only allow buttons to be used on new lines, not when indented or inline within text (useful for guides) [#116](https://github.com/alphagov/govspeak/pull/116)
