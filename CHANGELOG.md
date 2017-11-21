@@ -1,3 +1,7 @@
+## 5.2.1
+* Fix validation to make sure buttons are considered valid
+* Only allow buttons to be used on new lines, not when indented or inline within text (useful for guides) [#116](https://github.com/alphagov/govspeak/pull/116)
+
 ## 5.2.0
 * Add button component for govspeak [#114](https://github.com/alphagov/govspeak/pull/114) see README for usage
 
