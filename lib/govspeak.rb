@@ -136,7 +136,7 @@ module Govspeak
     end
 
     extension('button', %r{
-      ^ # Match start of line only, allows for indenting code examples
+      (?:\r|\n|^) # non-capturing match to make sure start of line and linebreak
       {button(.*?)} # match opening bracket and capture attributes
         \s* # any whitespace between opening bracket and link
         \[ # match start of link markdown
@@ -147,7 +147,7 @@ module Govspeak
         \) # match end of link text markdown
         \s*  # any whitespace between opening bracket and link
       {\/button} # match ending bracket
-      $ # Match end of line only, allows for indenting code examples
+      (?:\r|\n|$) # non-capturing match to make sure end of line and linebreak
     }x) { |attributes, text, href|
       button_classes = "button"
       button_classes << " button-start" if attributes =~ /start/
