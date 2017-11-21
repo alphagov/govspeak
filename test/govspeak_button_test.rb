@@ -79,4 +79,53 @@ class GovspeakTest < Minitest::Test
       </code></pre>
     }
   end
+
+  # Make sure button renders when typical linebreaks are before it, seen in publishing applications
+  test_given_govspeak "{button}[Line breaks](https://gov.uk/random){/button}\r\n\r\n{button}[Continue](https://gov.uk/random){/button}\r\n\r\n{button}[Continue](https://gov.uk/random){/button}" do
+    assert_html_output %{
+      <p><a role="button" class="button" href="https://gov.uk/random">Line breaks</a></p>
+
+      <p><a role="button" class="button" href="https://gov.uk/random">Continue</a></p>
+
+      <p><a role="button" class="button" href="https://gov.uk/random">Continue</a></p>
+    }
+  end
+
+  test_given_govspeak "{button}[More line breaks](https://gov.uk/random){/button}\n\n{button}[Continue](https://gov.uk/random){/button}\n\n{button}[Continue](https://gov.uk/random){/button}" do
+    assert_html_output %{
+      <p><a role="button" class="button" href="https://gov.uk/random">More line breaks</a></p>
+
+      <p><a role="button" class="button" href="https://gov.uk/random">Continue</a></p>
+
+      <p><a role="button" class="button" href="https://gov.uk/random">Continue</a></p>
+    }
+  end
+
+  test_given_govspeak %{
+    ## Register to vote
+
+    Introduction text about the service.
+
+    lorem lorem lorem
+    lorem lorem lorem
+
+    {button start}[Start Now](https://gov.uk/random){/button}
+
+    lorem lorem lorem
+    lorem lorem lorem
+  } do
+    assert_html_output %{
+      <h2 id="register-to-vote">Register to vote</h2>
+
+      <p>Introduction text about the service.</p>
+
+      <p>lorem lorem lorem
+      lorem lorem lorem</p>
+
+      <p><a role="button" class="button button-start" href="https://gov.uk/random">Start Now</a></p>
+
+      <p>lorem lorem lorem
+      lorem lorem lorem</p>
+    }
+  end
 end
