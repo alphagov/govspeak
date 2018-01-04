@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.name          = "govspeak"
   s.version       = Govspeak::VERSION
   s.platform      = Gem::Platform::RUBY
-  s.authors       = ["Ben Griffiths", "James Stewart"]
-  s.email         = ["ben@alphagov.co.uk", "james.stewart@digital.cabinet-office.gov.uk"]
+  s.authors       = ["GOV.UK Dev"]
+  s.email         = ["govuk-dev@digital.cabinet-office.gov.uk"]
   s.homepage      = "http://github.com/alphagov/govspeak"
   s.summary       = %q{Markup language for single domain}
   s.description   = %q{A set of extensions to markdown layered on top of the kramdown
