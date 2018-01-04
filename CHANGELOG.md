@@ -1,3 +1,6 @@
+## Unreleased
+* Add a link extraction class for finding links in documents [#120](https://github.com/alphagov/govspeak/pull/120)
+
 ## 5.2.2
 * Fix rendering buttons with inconsistent linebreaks seen in publishing [#118](https://github.com/alphagov/govspeak/pull/118)
 

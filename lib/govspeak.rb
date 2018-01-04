@@ -11,6 +11,7 @@ require 'govspeak/html_sanitizer'
 require 'govspeak/kramdown_overrides'
 require 'govspeak/blockquote_extra_quote_remover'
 require 'govspeak/post_processor'
+require 'govspeak/link_extractor'
 require 'govspeak/presenters/attachment_presenter'
 require 'govspeak/presenters/contact_presenter'
 require 'govspeak/presenters/h_card_presenter'
@@ -92,6 +93,10 @@ module Govspeak
 
     def structured_headers
       Govspeak::StructuredHeaderExtractor.new(self).call
+    end
+
+    def extracted_links
+      Govspeak::LinkExtractor.new(self).call
     end
 
     def preprocess(source)
