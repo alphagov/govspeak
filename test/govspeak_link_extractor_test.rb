@@ -12,6 +12,8 @@ class GovspeakLinkExtractorTest < Minitest::Test
 [not_a_link](#somepage)
 
 [mailto:](mailto:someone@www.example.com)
+
+[absolute_path](/cais-trwydded-yrru-dros-dro)
     }
   end
 
@@ -24,7 +26,7 @@ class GovspeakLinkExtractorTest < Minitest::Test
   end
 
   test "Links are extracted from the body" do
-    expected_links = ["http://www.example.com", "http://www.gov.com"]
+    expected_links = %w{http://www.example.com http://www.gov.com /cais-trwydded-yrru-dros-dro}
     assert_equal expected_links, links
   end
 
@@ -38,5 +40,10 @@ class GovspeakLinkExtractorTest < Minitest::Test
 
   test "Links are not extracted if they begin with mailto:" do
     refute_includes ["mailto:someone@www.example.com"], links
+  end
+
+  test "Absolute links are transformed to a url when website_root passed in" do
+    urls = doc.extracted_links(website_root: "http://www.example.com")
+    assert urls.include?("http://www.example.com/cais-trwydded-yrru-dros-dro")
   end
 end

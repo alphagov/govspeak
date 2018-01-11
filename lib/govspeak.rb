@@ -95,8 +95,8 @@ module Govspeak
       Govspeak::StructuredHeaderExtractor.new(self).call
     end
 
-    def extracted_links
-      Govspeak::LinkExtractor.new(self).call
+    def extracted_links(website_root: nil)
+      Govspeak::LinkExtractor.new(self, website_root: website_root).call
     end
 
     def preprocess(source)
