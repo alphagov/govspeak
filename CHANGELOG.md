@@ -1,3 +1,7 @@
+## Unreleased changes
+
+* Add an optional `website_root` argument to `Govspeak::Document#extracted_links` in order to get all links as fully qualified URLs [#122](https://github.com/alphagov/govspeak/pull/122)
+
 ## 5.3.0
 * Add a link extraction class for finding links in documents [#120](https://github.com/alphagov/govspeak/pull/120)
 

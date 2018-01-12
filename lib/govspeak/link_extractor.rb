@@ -1,7 +1,8 @@
 module Govspeak
   class LinkExtractor
-    def initialize(document)
+    def initialize(document, website_root: nil)
       @document = document
+      @website_root = website_root
     end
 
     def call
@@ -10,8 +11,16 @@ module Govspeak
 
   private
 
+    attr_reader :document, :website_root
+
     def extract_links
-      document_anchors.map { |link| link['href'] }
+      document_anchors.map do |link|
+        if website_root && link['href'].start_with?('/')
+          "#{website_root}#{link['href']}"
+        else
+          link['href']
+        end
+      end
     end
 
     def document_anchors
@@ -22,7 +31,7 @@ module Govspeak
       doc = Nokogiri::HTML::Document.new
       doc.encoding = "UTF-8"
 
-      doc.fragment(@document.to_html)
+      doc.fragment(document.to_html)
     end
   end
 end
