@@ -14,17 +14,22 @@ module Govspeak
     attr_reader :document, :website_root
 
     def extract_links
-      document_anchors.map do |link|
-        if website_root && link['href'].start_with?('/')
-          "#{website_root}#{link['href']}"
-        else
-          link['href']
-        end
+      document_anchors.
+        map { |link| extract_href_from_link(link) }.
+        reject(&:blank?)
+    end
+
+    def extract_href_from_link(link)
+      href = link['href'] || ''
+      if website_root && href.start_with?('/')
+        "#{website_root}#{href}"
+      else
+        href
       end
     end
 
     def document_anchors
-      processed_govspeak.css('a:not([href^="mailto"])').css('a:not([href^="#"])')
+      processed_govspeak.css('a[href]').css('a:not([href^="mailto"])').css('a:not([href^="#"])')
     end
 
     def processed_govspeak
