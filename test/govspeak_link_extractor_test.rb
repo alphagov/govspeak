@@ -14,6 +14,20 @@ class GovspeakLinkExtractorTest < Minitest::Test
 [mailto:](mailto:someone@www.example.com)
 
 [absolute_path](/cais-trwydded-yrru-dros-dro)
+
+<a href="http://www.example.com/from/html">raw_html_link</a>
+
+[empty_markdown_link]()
+
+[a_different_empty_markdown_link]( )
+
+<a>empty_raw_html_link</a>
+
+<a href="">a_second_empty_raw_link</a>
+
+<a href=" ">a_third_empty_raw_link</a>
+
+<a href>a_fourth_empty_raw_link</a>
     }
   end
 
@@ -26,7 +40,7 @@ class GovspeakLinkExtractorTest < Minitest::Test
   end
 
   test "Links are extracted from the body" do
-    expected_links = %w{http://www.example.com http://www.gov.com /cais-trwydded-yrru-dros-dro}
+    expected_links = %w{http://www.example.com http://www.gov.com /cais-trwydded-yrru-dros-dro http://www.example.com/from/html}
     assert_equal expected_links, links
   end
 
@@ -40,6 +54,11 @@ class GovspeakLinkExtractorTest < Minitest::Test
 
   test "Links are not extracted if they begin with mailto:" do
     refute_includes ["mailto:someone@www.example.com"], links
+  end
+
+  test "Links are not extracted if they are blank" do
+    refute_includes [""], links
+    refute_includes [nil], links
   end
 
   test "Absolute links are transformed to a url when website_root passed in" do
