@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+library("govuk")
+
 REPOSITORY = "govspeak"
 
 def rubyVersions = [
@@ -9,7 +11,6 @@ def rubyVersions = [
 ]
 
 node {
-  def govuk = load("/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy")
 
   try {
     stage("Checkout") {
