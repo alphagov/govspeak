@@ -29,7 +29,7 @@ library for use in the UK Government Single Domain project}
 
   s.add_dependency 'kramdown', '~> 1.15.0'
   s.add_dependency 'htmlentities', '~> 4'
-  s.add_dependency "sanitize", "~> 2.1.0"
+  s.add_dependency "sanitize", "~> 4.6"
   s.add_dependency 'nokogiri', '~> 1.5'
   s.add_dependency 'addressable', '>= 2.3.8', '< 3'
   s.add_dependency 'actionview', '>= 4.1', '< 6'
