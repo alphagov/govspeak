@@ -1,9 +1,7 @@
 require 'addressable/uri'
 require 'sanitize'
-require 'with_deep_merge'
 
 class Govspeak::HtmlSanitizer
-  include WithDeepMerge
 
   class ImageSourceWhitelister
     def initialize(allowed_image_hosts)
@@ -48,13 +46,12 @@ class Govspeak::HtmlSanitizer
     if @allowed_image_hosts && @allowed_image_hosts.any?
       transformers << ImageSourceWhitelister.new(@allowed_image_hosts)
     end
-    Sanitize.clean(@dirty_html, sanitize_config.merge(transformers: transformers))
+    Sanitize.clean(@dirty_html, Sanitize::Config.merge(sanitize_config, transformers: transformers))
   end
 
   def sanitize_without_images
     config = sanitize_config
-    config[:elements].delete('img')
-    Sanitize.clean(@dirty_html, config)
+    Sanitize.clean(@dirty_html, Sanitize::Config.merge(config, elements: config[:elements] - ["img"]))
   end
 
   def button_sanitize_config
@@ -66,14 +63,14 @@ class Govspeak::HtmlSanitizer
   end
 
   def sanitize_config
-    deep_merge(Sanitize::Config::RELAXED, {
+    Sanitize::Config.merge(
+      Sanitize::Config::RELAXED,
       attributes: {
-        :all => Sanitize::Config::RELAXED[:attributes][:all] + [ "id", "class", "role", "aria-label" ],
-        "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + ["rel"] + button_sanitize_config,
-        "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + [ "style" ],
-        "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + [ "style" ],
-      },
-      elements: Sanitize::Config::RELAXED[:elements] + [ "div", "span", "aside" ],
-    })
+        :all => Sanitize::Config::RELAXED[:attributes][:all] + ["role", "aria-label"],
+        "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + button_sanitize_config,
+        "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + ["style"],
+        "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + ["style"],
+      }
+    )
   end
 end
