@@ -53,13 +53,24 @@ class HtmlSanitizerTest < Minitest::Test
   end
 
   test "allows table cells and table headings without a style attribute" do
-    html = "<th>thing</th><td>thing</td>"
+    html = "<table><thead><tr><th>thing</th></tr></thead><tbody><tr><td>thing</td></tr></tbody></table>"
     assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
+  test "strips table cells and headings that appear outside a table" do
+    html = "<th>thing</th></tr><tr><td>thing</td>"
+    assert_equal 'thingthing', Govspeak::HtmlSanitizer.new(html).sanitize
+  end
+
+  test "normalizes table tags to inject missing rows and bodies like a browser does" do
+    html = "<table><th>thing</th><td>thing</td></table>"
+    assert_equal '<table><tbody><tr><th>thing</th><td>thing</td></tr></tbody></table>', Govspeak::HtmlSanitizer.new(html).sanitize
+  end
+
+
   test "allows valid text-align properties on the style attribute for table cells and table headings" do
     ["left", "right", "center"].each do |alignment|
-      html = "<th style=\"text-align: #{alignment}\">thing</th><td style=\"text-align: #{alignment}\">thing</td>"
+      html = "<table><thead><tr><th style=\"text-align: #{alignment}\">thing</th></tr></thead><tbody><tr><td style=\"text-align: #{alignment}\">thing</td></tr></tbody></table>"
       assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize
     end
 
@@ -70,8 +81,8 @@ class HtmlSanitizerTest < Minitest::Test
       "background-image: url(javascript:alert('XSS'))",
       "expression(alert('XSS'));"
     ].each do |style|
-      html = "<th style=\"#{style}\">thing</th><td style=\"#{style}\">thing</td>"
-      assert_equal '<th>thing</th><td>thing</td>', Govspeak::HtmlSanitizer.new(html).sanitize
+      html = "<table><thead><tr><th style=\"#{style}\">thing</th></tr></thead><tbody><tr><td style=\"#{style}\">thing</td></tr></tbody></table>"
+      assert_equal '<table><thead><tr><th>thing</th></tr></thead><tbody><tr><td>thing</td></tr></tbody></table>', Govspeak::HtmlSanitizer.new(html).sanitize
     end
   end
 end

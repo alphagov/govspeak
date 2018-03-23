@@ -1,3 +1,7 @@
+## Unreleased
+
+* Update sanitize version to 4.6.x [#127](https://github.com/alphagov/govspeak/issues/127)
+
 ## 5.5.0
 * Ignore links with blank or missing `href`s when extracting links from a document with `Govspeak::Document#extracted_links` [#124](https://github.com/alphagov/govspeak/pull/124)
 
