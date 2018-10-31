@@ -4,6 +4,7 @@ require 'erb'
 require 'htmlentities'
 require 'kramdown'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
+require 'rinku'
 require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
@@ -20,6 +21,7 @@ module Govspeak
   class Document
     Parser = Kramdown::Parser::KramdownWithAutomaticExternalLinks
     PARSER_CLASS_NAME = Parser.name.split("::").last
+    UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.freeze
 
     @extensions = []
 
@@ -61,6 +63,10 @@ module Govspeak
       I18n.t(key, options.merge(locale: locale))
     end
 
+    def format_with_html_line_breaks(string)
+      ERB::Util.html_escape(string || "").strip.gsub(/(?:\r?\n)/, "<br/>").html_safe
+    end
+
     def to_sanitized_html
       HtmlSanitizer.new(to_html).sanitize
     end
@@ -87,6 +93,13 @@ module Govspeak
 
     def extracted_links(website_root: nil)
       Govspeak::LinkExtractor.new(self, website_root: website_root).call
+    end
+
+    def extract_contact_content_ids
+      _, regex = self.class.extensions.find { |(title)| title == "Contact" }
+      return [] unless regex
+
+      @source.scan(regex).map(&:first).uniq.select { |id| id.match(UUID_REGEX) }
     end
 
     def preprocess(source)
