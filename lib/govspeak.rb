@@ -17,6 +17,11 @@ require 'govspeak/presenters/attachment_presenter'
 require 'govspeak/presenters/contact_presenter'
 require 'govspeak/presenters/h_card_presenter'
 
+locale_files = Dir.glob(
+  File.expand_path(File.join(%w[.. locales *.yml]), File.dirname(__FILE__))
+)
+I18n.load_path.unshift(*locale_files)
+
 module Govspeak
   class Document
     Parser = Kramdown::Parser::KramdownWithAutomaticExternalLinks
@@ -46,7 +51,6 @@ module Govspeak
       @locale = options.fetch(:locale, "en")
       @options = { input: PARSER_CLASS_NAME }.merge(options)
       @options[:entity_output] = :symbolic
-      i18n_load_paths
     end
 
     def to_html
@@ -356,12 +360,6 @@ module Govspeak
     end
 
   private
-
-    def i18n_load_paths
-      Dir.glob('locales/*.yml') do |f|
-        I18n.load_path << f
-      end
-    end
 
     def kramdown_doc
       @kramdown_doc ||= Kramdown::Document.new(preprocess(@source), @options)
