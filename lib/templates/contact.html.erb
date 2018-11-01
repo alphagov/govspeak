@@ -13,13 +13,13 @@
       <div class="email-url-number">
       <% contact.email_addresses.each do |email| %>
         <p class="email">
-          <span class="type"><%= t('contact.email') %></span>
+          <span class="type"><%= t('govspeak.contact.email') %></span>
           <a href="mailto:<%= email[:email] %>" class="email"><%= email[:title].present? ? email[:title] : email[:email] %></a>
         </p>
       <% end %>
       <% contact.contact_form_links.each do |form_link| %>
         <p class="contact_form_url">
-          <span class="type"><%= t('contact.contact_form') %></span>
+          <span class="type"><%= t('govspeak.contact.contact_form') %></span>
           <a href="<%= form_link[:link] %>"><%= form_link[:link].truncate(25) %></a>
         </p>
       <% end %>
