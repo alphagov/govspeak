@@ -5,21 +5,43 @@ require 'test_helper'
 class GovspeakContactsTest < Minitest::Test
   def build_contact(attrs = {})
     {
-      id: attrs.fetch(:id, 123456),
       content_id: attrs.fetch(:content_id, "4f3383e4-48a2-4461-a41d-f85ea8b89ba0"),
       title: attrs.fetch(:title, "Government Digital Service"),
-      recipient: attrs.fetch(:recipient, ""),
-      street_address: attrs.fetch(:street_address, "125 Kingsway"),
-      postal_code: attrs.fetch(:postal_code, "WC2B 6NH"),
-      locality: attrs.fetch(:locality, "Holborn"),
-      region: attrs.fetch(:region, "London"),
-      country_code: attrs.fetch(:country_code, "gb"),
-      email: attrs.fetch(:email, "people@digital.cabinet-office.gov.uk"),
-      contact_form_url: attrs.fetch(:contact_form_url, ""),
-      contact_numbers: attrs.fetch(:contact_numbers,
-                                   [{ label: "helpdesk", number: "+4412345 67890" }]),
-      comments: attrs.fetch(:comments, ""),
-      worldwide_organisation_path: attrs.fetch(:worldwide_organisation_path, nil),
+      description: attrs.fetch(:description, ""),
+      details: {
+        post_addresses: attrs.fetch(
+          :post_addresses,
+          [
+            {
+              title: "",
+              street_address: "125 Kingsway",
+              locality: "Holborn",
+              region: "London",
+              postal_code: "WC2B 6NH",
+              world_location: "United Kingdom",
+            }
+          ]
+        ),
+        email_addresses: attrs.fetch(
+          :email_addresses,
+          [
+            {
+              title: "",
+              email: "people@digital.cabinet-office.gov.uk",
+            }
+          ]
+        ),
+        phone_numbers: attrs.fetch(
+          :phone_numbers,
+          [
+            {
+              title: "helpdesk",
+              number: "+4412345 67890",
+            }
+          ]
+        ),
+        contact_form_links: attrs.fetch(:contact_form_links, [])
+      }
     }
   end
 
@@ -33,7 +55,7 @@ class GovspeakContactsTest < Minitest::Test
 
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
     expected_html_output = %{
-      <div id="contact_123456" class="contact postal-address">
+      <div id="contact_4f3383e4-48a2-4461-a41d-f85ea8b89ba0" class="contact postal-address">
         <div class="content">
           <h3>Government Digital Service</h3>
           <div class="vcard contact-inner">
@@ -74,17 +96,11 @@ class GovspeakContactsTest < Minitest::Test
   end
 
   test "contact with no postal address omits the address info" do
-    contact = build_contact(
-      recipient: nil,
-      street_address: nil,
-      locality: nil,
-      region: nil,
-      postal_code: nil,
-    )
+    contact = build_contact(post_addresses: [])
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
     expected_html_output = %{
-      <div id="contact_123456" class="contact">
+      <div id="contact_4f3383e4-48a2-4461-a41d-f85ea8b89ba0" class="contact">
         <div class="content">
           <h3>Government Digital Service</h3>
           <div class="vcard contact-inner">
@@ -103,13 +119,5 @@ class GovspeakContactsTest < Minitest::Test
       </div>
     }
     assert_equal(compress_html(expected_html_output), compress_html(rendered))
-  end
-
-  test "worldwide office contact renders worldwide organisation link" do
-    contact = build_contact(worldwide_organisation_path: "/government/world/organisations/british-antarctic-territory")
-    govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
-    rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
-    organisation_link = %(<a href="/government/world/organisations/british-antarctic-territory">Access and opening times</a>)
-    assert_match(organisation_link, rendered)
   end
 end

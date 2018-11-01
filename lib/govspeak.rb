@@ -371,8 +371,8 @@ module Govspeak
       HTMLEntities.new.encode(text)
     end
 
-    def render_hcard_address(contact)
-      HCardPresenter.from_contact(contact).render
+    def render_hcard_address(contact_address)
+      HCardPresenter.new(contact_address).render
     end
   end
 end
