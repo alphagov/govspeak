@@ -1,5 +1,4 @@
 module Govspeak
-
   StructuredHeader = Struct.new(:text, :level, :id, :headers) do
     def top_level
       2

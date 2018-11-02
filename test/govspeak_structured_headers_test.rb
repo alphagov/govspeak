@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class GovspeakStructuredHeadersTest < Minitest::Test
-
   def document_body
     %{
 ## Heading 1
@@ -46,7 +45,7 @@ class GovspeakStructuredHeadersTest < Minitest::Test
   end
 
   test "h2s are extracted as top level headings" do
-    expected_headings =  ["Heading 1", "Heading 2", "Heading 3", "Heading 4", "Heading 5"]
+    expected_headings = ["Heading 1", "Heading 2", "Heading 3", "Heading 4", "Heading 5"]
 
     assert_equal expected_headings, structured_headers.map(&:text)
   end
@@ -72,33 +71,33 @@ class GovspeakStructuredHeadersTest < Minitest::Test
     serialized_headers = structured_headers[1].to_h
 
     expected_serialized_headers = {
-      :text => "Heading 2",
-      :level => 2,
-      :id => "heading-2",
-      :headers =>  [
+      text: "Heading 2",
+      level: 2,
+      id: "heading-2",
+      headers: [
         {
-          :text => "Sub heading 2.1",
-          :level => 3,
-          :id => "sub-heading-21",
-          :headers => [],
+          text: "Sub heading 2.1",
+          level: 3,
+          id: "sub-heading-21",
+          headers: [],
         },
         {
-          :text => "Sub heading 2.2",
-          :level => 3,
-          :id => "sub-heading-22",
-          :headers =>  [
+          text: "Sub heading 2.2",
+          level: 3,
+          id: "sub-heading-22",
+          headers: [
             {
-              :text => "Sub sub heading 2.2.1",
-              :level => 4,
-              :id => "sub-sub-heading-221",
-              :headers => []
+              text: "Sub sub heading 2.2.1",
+              level: 4,
+              id: "sub-sub-heading-221",
+              headers: []
             },
           ],
         },
         {
-          :text => "Sub heading 2.3",
-          :level => 3, :id=>"sub-heading-23",
-          :headers => []
+          text: "Sub heading 2.3",
+          level: 3, id: "sub-heading-23",
+          headers: []
         },
       ],
     }

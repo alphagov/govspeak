@@ -18,6 +18,7 @@ module Govspeak
     end
 
   private
+
     def id(el)
       el.attr.fetch('id', generate_id(el.options[:raw_text]))
     end
@@ -35,7 +36,7 @@ module Govspeak
         parent.children.each do |child|
           if child.type == :header
             headers << build_header(child)
-          elsif child.children.size > 0
+          elsif !child.children.empty?
             headers << find_headers(child)
           end
         end

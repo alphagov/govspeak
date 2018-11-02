@@ -13,9 +13,9 @@ Rake::TestTask.new("test") { |t|
 }
 
 require "gem_publisher"
-task :publish_gem do |t|
+task :publish_gem do |_t|
   gem = GemPublisher.publish_if_updated("govspeak.gemspec", :rubygems)
   puts "Published #{gem}" if gem
 end
 
-task :default => [:test]
+task default: [:test]

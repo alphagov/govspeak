@@ -9,27 +9,27 @@ class GovspeakTest < Minitest::Test
   include GovspeakTestHelper
 
   test "simple smoke-test" do
-    rendered =  Govspeak::Document.new("*this is markdown*").to_html
+    rendered = Govspeak::Document.new("*this is markdown*").to_html
     assert_equal "<p><em>this is markdown</em></p>\n", rendered
   end
 
   test "simple smoke-test for simplified API" do
-    rendered =  Govspeak::Document.to_html("*this is markdown*")
+    rendered = Govspeak::Document.to_html("*this is markdown*")
     assert_equal "<p><em>this is markdown</em></p>\n", rendered
   end
 
   test "highlight-answer block extension" do
-    rendered =  Govspeak::Document.new("this \n{::highlight-answer}Lead in to *BIG TEXT*\n{:/highlight-answer}").to_html
-    assert_equal %Q{<p>this</p>\n\n<div class="highlight-answer">\n<p>Lead in to <em>BIG TEXT</em></p>\n</div>\n}, rendered
+    rendered = Govspeak::Document.new("this \n{::highlight-answer}Lead in to *BIG TEXT*\n{:/highlight-answer}").to_html
+    assert_equal %{<p>this</p>\n\n<div class="highlight-answer">\n<p>Lead in to <em>BIG TEXT</em></p>\n</div>\n}, rendered
   end
 
   test "stat-headline block extension" do
-    rendered =  Govspeak::Document.new("this \n{stat-headline}*13.8bn* Age of the universe in years{/stat-headline}").to_html
-    assert_equal %Q{<p>this</p>\n\n<aside class="stat-headline">\n<p><em>13.8bn</em> Age of the universe in years</p>\n</aside>\n}, rendered
+    rendered = Govspeak::Document.new("this \n{stat-headline}*13.8bn* Age of the universe in years{/stat-headline}").to_html
+    assert_equal %{<p>this</p>\n\n<aside class="stat-headline">\n<p><em>13.8bn</em> Age of the universe in years</p>\n</aside>\n}, rendered
   end
 
   test "extracts headers with text, level and generated id" do
-    document =  Govspeak::Document.new %{
+    document = Govspeak::Document.new %{
 # Big title
 
 ### Small subtitle
@@ -44,7 +44,7 @@ class GovspeakTest < Minitest::Test
   end
 
   test "extracts different ids for duplicate headers" do
-    document =  Govspeak::Document.new("## Duplicate header\n\n## Duplicate header")
+    document = Govspeak::Document.new("## Duplicate header\n\n## Duplicate header")
     assert_equal [
       Govspeak::Header.new('Duplicate header', 2, 'duplicate-header'),
       Govspeak::Header.new('Duplicate header', 2, 'duplicate-header-1')
@@ -52,7 +52,7 @@ class GovspeakTest < Minitest::Test
   end
 
   test "extracts headers when nested inside blocks" do
-    document =  Govspeak::Document.new %{
+    document = Govspeak::Document.new %{
 # First title
 
 <div markdown="1">
@@ -77,7 +77,7 @@ class GovspeakTest < Minitest::Test
   end
 
   test "extracts headers with explicitly specified ids" do
-    document =  Govspeak::Document.new %{
+    document = Govspeak::Document.new %{
 # First title
 
 ## Second title {#special}
@@ -105,22 +105,22 @@ Teston
   end
 
   test "should convert barchart" do
-    input = <<-END
-|col|
-|---|
-|val|
-{barchart}
+    input = <<~END
+      |col|
+      |---|
+      |val|
+      {barchart}
     END
     html = Govspeak::Document.new(input).to_html
     assert_equal %{<table class=\"js-barchart-table mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th>col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
   end
 
   test "should convert barchart with stacked compact and negative" do
-    input = <<-END
-|col|
-|---|
-|val|
-{barchart stacked compact negative}
+    input = <<~END
+      |col|
+      |---|
+      |val|
+      {barchart stacked compact negative}
     END
     html = Govspeak::Document.new(input).to_html
     assert_equal %{<table class=\"js-barchart-table mc-stacked compact mc-negative mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th>col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
@@ -331,17 +331,17 @@ Teston
   test "should treat a mailto as internal" do
     html = Govspeak::Document.new("[link](mailto:a@b.com)").to_html
     refute html.include?('rel="external"')
-    assert_equal %Q{<p><a href="mailto:a@b.com">link</a></p>\n}, deobfuscate_mailto(html)
+    assert_equal %{<p><a href="mailto:a@b.com">link</a></p>\n}, deobfuscate_mailto(html)
   end
 
   test "permits mailto:// URI" do
     html = Govspeak::Document.new("[link](mailto://a@b.com)").to_html
-    assert_equal %Q{<p><a rel="external" href="mailto://a@b.com">link</a></p>\n}, deobfuscate_mailto(html)
+    assert_equal %{<p><a rel="external" href="mailto://a@b.com">link</a></p>\n}, deobfuscate_mailto(html)
   end
 
   test "permits dud mailto: URI" do
     html = Govspeak::Document.new("[link](mailto:)").to_html
-    assert_equal %Q{<p><a href="mailto:">link</a></p>\n}, deobfuscate_mailto(html)
+    assert_equal %{<p><a href="mailto:">link</a></p>\n}, deobfuscate_mailto(html)
   end
 
   test "permits trailing whitespace in an URI" do
@@ -421,7 +421,6 @@ Teston
   end
 
   test_given_govspeak "Here is some text
-
 $CTA
 Click here to start the tool
 $CTA
@@ -639,17 +638,17 @@ $CTA
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +
         %{</figure>}
       )
+    end
   end
-end
 
-test "alt text of referenced images is escaped" do
-  images = [OpenStruct.new(alt_text: %Q{my alt '&"<>}, url: "http://example.com/image.jpg")]
-  given_govspeak "!!1", images do
-    assert_html_output(
-      %{<figure class="image embedded">} +
-      %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt '&amp;&quot;&lt;&gt;"></div>} +
-      %{</figure>}
-    )
+  test "alt text of referenced images is escaped" do
+    images = [OpenStruct.new(alt_text: %{my alt '&"<>}, url: "http://example.com/image.jpg")]
+    given_govspeak "!!1", images do
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt '&amp;&quot;&lt;&gt;"></div>} +
+        %{</figure>}
+      )
     end
   end
 
@@ -657,7 +656,7 @@ test "alt text of referenced images is escaped" do
     doc = Govspeak::Document.new("!!1")
     doc.images = []
 
-    assert_equal %Q{\n}, doc.to_html
+    assert_equal %{\n}, doc.to_html
   end
 
   test "adds image caption if given" do
@@ -838,7 +837,7 @@ $PriorityList:1
   end
 
   test "should remove quotes surrounding a blockquote" do
-    govspeak = %Q{
+    govspeak = %{
 He said:
 
 > "I'm not sure what you mean!"

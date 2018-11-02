@@ -4,7 +4,6 @@ require 'test_helper'
 require 'ostruct'
 
 class HCardPresenterTest < Minitest::Test
-
   def unindent(html)
     html.gsub(/^\s+/, '')
   end
@@ -88,8 +87,7 @@ class HCardPresenterTest < Minitest::Test
       'postal-code' => 'Postcode',
       'locality' => 'Locality',
       'region' => 'Region',
-      'country-name' => 'Country'
-    }
+      'country-name' => 'Country' }
   end
 
   def gb_addr

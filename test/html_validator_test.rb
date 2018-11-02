@@ -63,13 +63,13 @@ class HtmlValidatorTest < Minitest::Test
   end
 
   test "disallow a javascript protocol in an attribute" do
-    html = %q{<a href="javascript:alert(document.location);"
-              title="Title">an example</a>}
+    html = '<a href="javascript:alert(document.location);"
+              title="Title">an example</a>'
     assert Govspeak::HtmlValidator.new(html).invalid?
   end
 
   test "disallow a javascript protocol in a Markdown link" do
-    html = %q{This is [an example](javascript:alert(""); "Title") inline link.}
+    html = 'This is [an example](javascript:alert(""); "Title") inline link.'
     assert Govspeak::HtmlValidator.new(html).invalid?
   end
 

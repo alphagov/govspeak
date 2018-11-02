@@ -45,7 +45,7 @@ class GovspeakLinkExtractorTest < Minitest::Test
   end
 
   test "Other content is not extracted from the body" do
-    refute_includes ["Heading"], links
+    refute_includes %w[Heading], links
   end
 
   test "Links are not extracted if they begin with #" do

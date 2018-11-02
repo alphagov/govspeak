@@ -15,7 +15,7 @@ module Govspeak
       doc.encoding = "UTF-8"
       doc.fragment(input)
     end
-    private :nokogiri_document
+  private :nokogiri_document
 
     def self.process(html)
       new(html).output
@@ -53,6 +53,7 @@ module Govspeak
       document.css("figure.image").map do |el|
         xml = el.children.to_s
         next unless xml =~ /&lt;div class="img"&gt;|&lt;figcaption&gt;/
+
         el.children = xml
           .gsub(
             %r{&lt;(div class="img")&gt;(.*?)&lt;(/div)&gt;},

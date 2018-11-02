@@ -1,5 +1,4 @@
 module GovspeakTestHelper
-
   def self.included(base)
     base.extend(ClassMethods)
   end
@@ -13,7 +12,7 @@ module GovspeakTestHelper
     end
 
     def document
-      Govspeak::Document.new(@govspeak, @options.merge(:images => @images))
+      Govspeak::Document.new(@govspeak, @options.merge(images: @images))
     end
 
     def assert_text_output(raw_expected)
@@ -53,12 +52,12 @@ module GovspeakTestHelper
       lines = text.split "\n"
       digits = Math.log10(lines.size + 2).ceil
       lines.map.with_index do |line, i|
-        "%#{digits}d: %s" % [i+1, line]
+        "%#{digits}d: %s" % [i + 1, line]
       end.join "\n"
     end
   end
 
-  def given_govspeak(govspeak, images=[], options = {}, &block)
+  def given_govspeak(govspeak, images = [], options = {}, &block)
     asserter = GovspeakAsserter.new(self, govspeak, images, options)
     asserter.instance_eval(&block)
   end
@@ -72,7 +71,7 @@ module GovspeakTestHelper
   end
 
   module ClassMethods
-    def test_given_govspeak(govspeak, images=[], options = {}, &block)
+    def test_given_govspeak(govspeak, images = [], options = {}, &block)
       test "Given #{govspeak}" do
         given_govspeak(govspeak, images, options, &block)
       end

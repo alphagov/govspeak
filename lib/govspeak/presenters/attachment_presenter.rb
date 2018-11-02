@@ -36,6 +36,7 @@ module Govspeak
 
     def price
       return unless attachment[:price]
+
       Money.from_amount(attachment[:price], 'GBP').format
     end
 
@@ -46,6 +47,7 @@ module Govspeak
     def thumbnail_link
       return if hide_thumbnail?
       return if previewable?
+
       link(attachment_thumbnail, url, "aria-hidden" => "true", "class" => attachment_class)
     end
 
@@ -83,16 +85,16 @@ module Govspeak
     end
 
     def body_for_mail(attachment_info)
-      <<-END
-Details of document required:
+      <<~END
+        Details of document required:
 
-#{attachment_info.join("\n")}
+        #{attachment_info.join("\n")}
 
-Please tell us:
+        Please tell us:
 
-  1. What makes this format unsuitable for you?
-  2. What format you would prefer?
-END
+          1. What makes this format unsuitable for you?
+          2. What format you would prefer?
+      END
     end
 
     def alternative_format_contact_email
@@ -256,6 +258,7 @@ END
 
     def attachment_details
       return if previewable?
+
       link(title, url, title_link_options)
     end
 
