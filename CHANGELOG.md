@@ -1,6 +1,8 @@
 ## Unreleased
 
 * Update ActionView to 5.x
+* Fix translation files not loading when gem is used in an app
+* Change the data inputted into Contacts to match contacts schema [#130](https://github.com/alphagov/govspeak/pull/130)
 
 ## 5.6.0
 
