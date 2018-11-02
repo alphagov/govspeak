@@ -120,4 +120,32 @@ class GovspeakContactsTest < Minitest::Test
     }
     assert_equal(compress_html(expected_html_output), compress_html(rendered))
   end
+
+  test "contact with United Kingdom country address doesn't show the country" do
+    contact = build_contact(post_addresses: [
+      {
+        street_address: "125 Kingsway",
+        country_name: "United Kingdom",
+      }
+    ])
+    govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
+    rendered = Govspeak::Document.new(govspeak, { contacts: [contact] }).to_html
+    expected = %{
+      <p class="adr">
+        <span class="street-address">125 Kingsway</span>
+      </p>
+    }
+    assert_match(compress_html(expected), compress_html(rendered))
+  end
+
+  test "contact with an empty postal address is not rendered" do
+    contact = build_contact(post_addresses: [
+      {
+        street_address: "",
+      }
+    ])
+    govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
+    rendered = Govspeak::Document.new(govspeak, { contacts: [contact] }).to_html
+    refute_match(%{<p class="adr">}, compress_html(rendered))
+  end
 end

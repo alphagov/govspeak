@@ -37,7 +37,7 @@ module Govspeak
         locality: "locality",
         region: "region",
         postal_code: "postal-code",
-        country_name: "country-name",
+        world_location: "country-name",
       }
 
       properties.each do |our_name, hcard_name|
