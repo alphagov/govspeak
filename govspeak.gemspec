@@ -38,7 +38,6 @@ library for use in the UK Government Single Domain project'
   s.add_dependency 'nokogiri', '~> 1.5'
   s.add_dependency "sanitize", "~> 4.6"
 
-  s.add_development_dependency 'gem_publisher', '~> 1.1.1'
   s.add_development_dependency 'govuk-lint'
   s.add_development_dependency 'minitest', '~> 5.8.3'
   s.add_development_dependency 'pry-byebug'
