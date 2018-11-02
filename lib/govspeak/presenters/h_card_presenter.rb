@@ -1,7 +1,9 @@
 module Govspeak
   class HCardPresenter
     def self.address_formats
-      @address_formats ||= YAML.load_file('config/address_formats.yml')
+      @address_formats ||= YAML.load_file(
+        File.expand_path('config/address_formats.yml', Govspeak.root)
+      )
     end
 
     attr_reader :contact_address

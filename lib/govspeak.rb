@@ -17,12 +17,12 @@ require 'govspeak/presenters/attachment_presenter'
 require 'govspeak/presenters/contact_presenter'
 require 'govspeak/presenters/h_card_presenter'
 
-locale_files = Dir.glob(
-  File.expand_path(File.join(%w[.. locales *.yml]), File.dirname(__FILE__))
-)
-I18n.load_path.unshift(*locale_files)
 
 module Govspeak
+  def self.root
+    File.expand_path('..', File.dirname(__FILE__))
+  end
+
   class Document
     Parser = Kramdown::Parser::KramdownWithAutomaticExternalLinks
     PARSER_CLASS_NAME = Parser.name.split("::").last
@@ -374,3 +374,7 @@ module Govspeak
     end
   end
 end
+
+I18n.load_path.unshift(
+  *Dir.glob(File.expand_path('locales/*.yml', Govspeak.root))
+)
