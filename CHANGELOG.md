@@ -1,3 +1,7 @@
+## Unreleased
+
+* Update ActionView to 5.x
+
 ## 5.6.0
 
 * Update sanitize version to 4.6.x [#127](https://github.com/alphagov/govspeak/issues/127)
