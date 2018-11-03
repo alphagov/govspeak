@@ -2,3 +2,5 @@ Metrics/BlockLength:
   Exclude:
     - '*.gemspec'
     - 'test/**/*'
+Style/TrivialAccessors:
+  IgnoreClassMethods: true

@@ -91,7 +91,7 @@ class HCardPresenterTest < Minitest::Test
   end
 
   def gb_addr
-    <<-EOF
+    <<-HTML
     <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
@@ -100,33 +100,33 @@ class HCardPresenterTest < Minitest::Test
     <span class="postal-code">Postcode</span><br />
     <span class="country-name">Country</span>
     </p>
-    EOF
+    HTML
   end
 
   def es_addr
-    <<-EOF
+    <<-HTML
     <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
     <span class="postal-code">Postcode</span> <span class="locality">Locality</span> <span class="region">Region</span><br />
     <span class="country-name">Country</span>
     </p>
-    EOF
+    HTML
   end
 
   def jp_addr
-    <<-EOF
+    <<-HTML
     <p class="adr">
     〒<span class="postal-code">Postcode</span><br />
     <span class="region">Region</span><span class="locality">Locality</span><span class="street-address">Street</span><br />
     <span class="fn">Recipient</span><br />
     <span class="country-name">Country</span>
     </p>
-    EOF
+    HTML
   end
 
   def addr_without_region
-    <<-EOF
+    <<-HTML
     <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
@@ -134,11 +134,11 @@ class HCardPresenterTest < Minitest::Test
     <span class="postal-code">Postcode</span><br />
     <span class="country-name">Country</span>
     </p>
-    EOF
+    HTML
   end
 
   def addr_without_country
-    <<-EOF
+    <<-HTML
     <p class="adr">
     <span class="fn">Recipient</span><br />
     <span class="street-address">Street</span><br />
@@ -146,6 +146,6 @@ class HCardPresenterTest < Minitest::Test
     <span class="region">Region</span><br />
     <span class="postal-code">Postcode</span>
     </p>
-    EOF
+    HTML
   end
 end

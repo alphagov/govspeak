@@ -85,7 +85,7 @@ module Govspeak
     end
 
     def body_for_mail(attachment_info)
-      <<~END
+      <<~TEXT
         Details of document required:
 
         #{attachment_info.join("\n")}
@@ -94,7 +94,7 @@ module Govspeak
 
           1. What makes this format unsuitable for you?
           2. What format you would prefer?
-      END
+      TEXT
     end
 
     def alternative_format_contact_email

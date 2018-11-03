@@ -105,23 +105,23 @@ Teston
   end
 
   test "should convert barchart" do
-    input = <<~END
+    input = <<~GOVSPEAK
       |col|
       |---|
       |val|
       {barchart}
-    END
+    GOVSPEAK
     html = Govspeak::Document.new(input).to_html
     assert_equal %{<table class=\"js-barchart-table mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th>col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
   end
 
   test "should convert barchart with stacked compact and negative" do
-    input = <<~END
+    input = <<~GOVSPEAK
       |col|
       |---|
       |val|
       {barchart stacked compact negative}
-    END
+    GOVSPEAK
     html = Govspeak::Document.new(input).to_html
     assert_equal %{<table class=\"js-barchart-table mc-stacked compact mc-negative mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th>col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
   end
@@ -420,10 +420,12 @@ Teston
     assert_text_output "Click here to start the tool"
   end
 
-  test_given_govspeak "Here is some text
-$CTA
-Click here to start the tool
-$CTA
+  test_given_govspeak "
+    Here is some text
+
+    $CTA
+    Click here to start the tool
+    $CTA
     " do
     assert_html_output %{
       <p>Here is some text</p>

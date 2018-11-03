@@ -32,9 +32,7 @@ module GovspeakTestHelper
       if lines.first.empty?
         lines.delete_at(0)
         nonblanks = lines.reject { |l| l.match(/^ *$/) }
-        indentation = nonblanks.map do |line|
-          line.match(/^ */)[0].size
-        end.min
+        indentation = nonblanks.map { |line| line.match(/^ */)[0].size }.min
         unindented = lines.map do |line|
           line[indentation..-1]
         end
@@ -51,9 +49,9 @@ module GovspeakTestHelper
     def show_linenumbers(text)
       lines = text.split "\n"
       digits = Math.log10(lines.size + 2).ceil
-      lines.map.with_index do |line, i|
-        "%#{digits}d: %s" % [i + 1, line]
-      end.join "\n"
+      lines.map
+        .with_index { |line, i| "%<number>#{digits}d: %<line>s" % { number: i + 1, line: line } }
+        .join("\n")
     end
   end
 

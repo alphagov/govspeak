@@ -18,8 +18,6 @@ module Govspeak
       kramdown_parsers[:list] = list_parser
     end
 
-  private
-
     def self.list_start
       Kramdown::Parser::Kramdown::LIST_START
     end

@@ -6,7 +6,7 @@ module Govspeak
     end
 
     def call
-      @links ||= extract_links
+      @call ||= extract_links
     end
 
   private

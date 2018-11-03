@@ -11,11 +11,11 @@ class HtmlValidatorTest < Minitest::Test
       "+ another bullet",
       "1. Numbered list",
       "s2. Step",
-      """
+      "
       Table | Header
       - | -
       Build | cells
-      """,
+      ",
       "This is [an example](/an-inline-link \"Title\") inline link.",
       "<http://example.com/>",
       "<address@example.com>",
@@ -34,7 +34,7 @@ class HtmlValidatorTest < Minitest::Test
       "{:/highlight-answer}",
       "---",
       "*[GDS]: Government Digital Service",
-      """
+      "
       $P
 
       $I
@@ -49,7 +49,7 @@ class HtmlValidatorTest < Minitest::Test
       $AI
       $I
       $P
-      """,
+      ",
       ":england:content goes here:england:",
       ":scotland:content goes here:scotland:"
     ]

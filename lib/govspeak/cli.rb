@@ -47,7 +47,7 @@ module Govspeak
                else
                  command_options.options
                end
-      string ? JSON.load(string) : {}
+      string ? JSON.parse(string) : {}
     end
   end
 end
