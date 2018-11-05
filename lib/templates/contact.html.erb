@@ -32,7 +32,7 @@
       </div>
     <% end %>
     <% if contact.description.present? %>
-      <p class="comments"><%= auto_link(format_with_html_line_breaks(h(contact.description))) %></p>
+      <p class="comments"><%= Rinku.auto_link(format_with_html_line_breaks(contact.description)) %></p>
     <% end %>
     </div>
   </div>
