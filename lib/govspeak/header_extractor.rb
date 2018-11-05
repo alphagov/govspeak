@@ -18,12 +18,13 @@ module Govspeak
     end
 
   private
-    def id(el)
-      el.attr.fetch('id', generate_id(el.options[:raw_text]))
+
+    def id(element)
+      element.attr.fetch('id', generate_id(element.options[:raw_text]))
     end
 
-    def build_header(el)
-      Header.new(el.options[:raw_text], el.options[:level], id(el))
+    def build_header(element)
+      Header.new(element.options[:raw_text], element.options[:level], id(element))
     end
 
     def find_headers(parent)
@@ -35,7 +36,7 @@ module Govspeak
         parent.children.each do |child|
           if child.type == :header
             headers << build_header(child)
-          elsif child.children.size > 0
+          elsif !child.children.empty?
             headers << find_headers(child)
           end
         end

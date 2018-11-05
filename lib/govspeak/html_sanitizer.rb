@@ -2,7 +2,6 @@ require 'addressable/uri'
 require 'sanitize'
 
 class Govspeak::HtmlSanitizer
-
   class ImageSourceWhitelister
     def initialize(allowed_image_hosts)
       @allowed_image_hosts = allowed_image_hosts
@@ -21,7 +20,8 @@ class Govspeak::HtmlSanitizer
 
   class TableCellTextAlignWhitelister
     def call(sanitize_context)
-      return unless ["td", "th"].include?(sanitize_context[:node_name])
+      return unless %w[td th].include?(sanitize_context[:node_name])
+
       node = sanitize_context[:node]
 
       # Kramdown uses text-align to allow table cells to be aligned
@@ -51,7 +51,7 @@ class Govspeak::HtmlSanitizer
 
   def sanitize_without_images
     config = sanitize_config
-    Sanitize.clean(@dirty_html, Sanitize::Config.merge(config, elements: config[:elements] - ["img"]))
+    Sanitize.clean(@dirty_html, Sanitize::Config.merge(config, elements: config[:elements] - %w[img]))
   end
 
   def button_sanitize_config
@@ -68,8 +68,8 @@ class Govspeak::HtmlSanitizer
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + ["role", "aria-label"],
         "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + button_sanitize_config,
-        "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + ["style"],
-        "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + ["style"],
+        "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
+        "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
       }
     )
   end

@@ -2,35 +2,18 @@ require 'nokogiri'
 
 module Govspeak
   class PostProcessor
-    attr_reader :input
+    @extensions = []
 
-    @@extensions = []
-
-    def initialize(html)
-      @input = html
+    def self.extensions
+      @extensions
     end
-
-    def nokogiri_document
-      doc = Nokogiri::HTML::Document.new
-      doc.encoding = "UTF-8"
-      doc.fragment(input)
-    end
-    private :nokogiri_document
 
     def self.process(html)
       new(html).output
     end
 
     def self.extension(title, &block)
-      @@extensions << [title, block]
-    end
-
-    def output
-      document = nokogiri_document
-      @@extensions.each do |_, block|
-        instance_exec(document, &block)
-      end
-      document.to_html
+      @extensions << [title, block]
     end
 
     extension("add class to last p of blockquote") do |document|
@@ -53,6 +36,7 @@ module Govspeak
       document.css("figure.image").map do |el|
         xml = el.children.to_s
         next unless xml =~ /&lt;div class="img"&gt;|&lt;figcaption&gt;/
+
         el.children = xml
           .gsub(
             %r{&lt;(div class="img")&gt;(.*?)&lt;(/div)&gt;},
@@ -63,6 +47,29 @@ module Govspeak
             "<\\1>\\2<\\3>"
           )
       end
+    end
+
+    attr_reader :input
+
+    def initialize(html)
+      @input = html
+    end
+
+    def output
+      document = nokogiri_document
+      self.class.extensions.each do |_, block|
+        instance_exec(document, &block)
+      end
+      document.to_html
+    end
+
+
+  private
+
+    def nokogiri_document
+      doc = Nokogiri::HTML::Document.new
+      doc.encoding = "UTF-8"
+      doc.fragment(input)
     end
   end
 end

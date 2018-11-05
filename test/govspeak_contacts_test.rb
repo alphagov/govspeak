@@ -3,8 +3,7 @@
 require 'test_helper'
 
 class GovspeakContactsTest < Minitest::Test
-
-  def build_contact(attrs={})
+  def build_contact(attrs = {})
     {
       id: attrs.fetch(:id, 123456),
       content_id: attrs.fetch(:content_id, "4f3383e4-48a2-4461-a41d-f85ea8b89ba0"),
@@ -25,14 +24,14 @@ class GovspeakContactsTest < Minitest::Test
   end
 
   def compress_html(html)
-    html.gsub(/[\n\r]+[\s]*/,'')
+    html.gsub(/[\n\r]+[\s]*/, '')
   end
 
   test "contact is rendered when present in options[:contacts]" do
     contact = build_contact
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
 
-    rendered = Govspeak::Document.new(govspeak, { contacts: [contact] }).to_html
+    rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
     expected_html_output = %{
       <div id="contact_123456" class="contact postal-address">
         <div class="content">
@@ -65,7 +64,7 @@ class GovspeakContactsTest < Minitest::Test
   test "no contact is rendered when contact not present in options[:contacts]" do
     contact = build_contact(content_id: "19f06142-1b4a-47ce-b257-964badd0a5e2")
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
-    rendered = Govspeak::Document.new(govspeak, { contacts: [contact]}).to_html
+    rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
     assert_match("", rendered)
   end
 
@@ -83,7 +82,7 @@ class GovspeakContactsTest < Minitest::Test
       postal_code: nil,
     )
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
-    rendered = Govspeak::Document.new(govspeak, { contacts: [contact] }).to_html
+    rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
     expected_html_output = %{
       <div id="contact_123456" class="contact">
         <div class="content">
@@ -109,8 +108,8 @@ class GovspeakContactsTest < Minitest::Test
   test "worldwide office contact renders worldwide organisation link" do
     contact = build_contact(worldwide_organisation_path: "/government/world/organisations/british-antarctic-territory")
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
-    rendered = Govspeak::Document.new(govspeak, { contacts: [contact] }).to_html
-    organisation_link = %Q(<a href="/government/world/organisations/british-antarctic-territory">Access and opening times</a>)
+    rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
+    organisation_link = %(<a href="/government/world/organisations/british-antarctic-territory">Access and opening times</a>)
     assert_match(organisation_link, rendered)
   end
 end

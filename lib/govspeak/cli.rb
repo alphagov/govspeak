@@ -20,6 +20,7 @@ module Govspeak
         command.action do |args, options|
           input = get_input($stdin, args, options)
           raise "Nothing to render. Use --help for assistance" unless input
+
           puts Govspeak::Document.new(input, govspeak_options(options)).to_html
         end
       end
@@ -31,6 +32,7 @@ module Govspeak
     def get_input(stdin, args, options)
       return stdin.read unless stdin.tty?
       return read_file(options.file) if options.file
+
       args.empty? ? nil : args.join(" ")
     end
 
@@ -41,11 +43,11 @@ module Govspeak
 
     def govspeak_options(command_options)
       string = if command_options.options_file
-                read_file(command_options.options_file)
+                 read_file(command_options.options_file)
                else
-                command_options.options
+                 command_options.options
                end
-      string ? JSON.load(string) : {}
+      string ? JSON.parse(string) : {}
     end
   end
 end

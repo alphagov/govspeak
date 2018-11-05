@@ -7,7 +7,7 @@ module Govspeak
     # match Kramdown's internals.
 
     def self.with_kramdown_ordered_lists_disabled
-      original_list_start = list_start 
+      original_list_start = list_start
       redefine_kramdown_const(:LIST_START, list_start_ul)
       list_parser = kramdown_parsers.delete(:list)
       Kramdown::Parser::Kramdown.define_parser(:list, list_start_ul)
@@ -18,7 +18,6 @@ module Govspeak
       kramdown_parsers[:list] = list_parser
     end
 
-  private
     def self.list_start
       Kramdown::Parser::Kramdown::LIST_START
     end

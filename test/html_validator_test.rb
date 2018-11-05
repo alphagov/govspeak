@@ -11,11 +11,11 @@ class HtmlValidatorTest < Minitest::Test
       "+ another bullet",
       "1. Numbered list",
       "s2. Step",
-      """
+      "
       Table | Header
       - | -
       Build | cells
-      """,
+      ",
       "This is [an example](/an-inline-link \"Title\") inline link.",
       "<http://example.com/>",
       "<address@example.com>",
@@ -34,7 +34,7 @@ class HtmlValidatorTest < Minitest::Test
       "{:/highlight-answer}",
       "---",
       "*[GDS]: Government Digital Service",
-      """
+      "
       $P
 
       $I
@@ -49,7 +49,7 @@ class HtmlValidatorTest < Minitest::Test
       $AI
       $I
       $P
-      """,
+      ",
       ":england:content goes here:england:",
       ":scotland:content goes here:scotland:"
     ]
@@ -63,13 +63,13 @@ class HtmlValidatorTest < Minitest::Test
   end
 
   test "disallow a javascript protocol in an attribute" do
-    html = %q{<a href="javascript:alert(document.location);"
-              title="Title">an example</a>}
+    html = '<a href="javascript:alert(document.location);"
+              title="Title">an example</a>'
     assert Govspeak::HtmlValidator.new(html).invalid?
   end
 
   test "disallow a javascript protocol in a Markdown link" do
-    html = %q{This is [an example](javascript:alert(""); "Title") inline link.}
+    html = 'This is [an example](javascript:alert(""); "Title") inline link.'
     assert Govspeak::HtmlValidator.new(html).invalid?
   end
 

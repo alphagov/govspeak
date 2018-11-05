@@ -17,19 +17,21 @@ require 'govspeak/presenters/contact_presenter'
 require 'govspeak/presenters/h_card_presenter'
 
 module Govspeak
-
   class Document
-
     Parser = Kramdown::Parser::KramdownWithAutomaticExternalLinks
     PARSER_CLASS_NAME = Parser.name.split("::").last
 
-    @@extensions = []
+    @extensions = []
 
     attr_accessor :images
     attr_reader :attachments, :contacts, :links, :locale
 
     def self.to_html(source, options = {})
       new(source, options).to_html
+    end
+
+    def self.extensions
+      @extensions
     end
 
     def initialize(source, options = {})
@@ -40,25 +42,13 @@ module Govspeak
       @links = Array.wrap(options.delete(:links))
       @contacts = Array.wrap(options.delete(:contacts))
       @locale = options.fetch(:locale, "en")
-      @options = {input: PARSER_CLASS_NAME}.merge(options)
+      @options = { input: PARSER_CLASS_NAME }.merge(options)
       @options[:entity_output] = :symbolic
       i18n_load_paths
     end
 
-    def i18n_load_paths
-      Dir.glob('locales/*.yml') do |f|
-        I18n.load_path << f
-      end
-    end
-    private :i18n_load_paths
-
-    def kramdown_doc
-      @kramdown_doc ||= Kramdown::Document.new(preprocess(@source), @options)
-    end
-    private :kramdown_doc
-
     def to_html
-      @html ||= Govspeak::PostProcessor.process(kramdown_doc.to_html)
+      @to_html ||= Govspeak::PostProcessor.process(kramdown_doc.to_html)
     end
 
     def to_liquid
@@ -101,7 +91,7 @@ module Govspeak
 
     def preprocess(source)
       source = Govspeak::BlockquoteExtraQuoteRemover.remove(source)
-      @@extensions.each do |title,regexp,block|
+      self.class.extensions.each do |_, regexp, block|
         source.gsub!(regexp) {
           instance_exec(*Regexp.last_match.captures, &block)
         }
@@ -109,17 +99,12 @@ module Govspeak
       source
     end
 
-    def encode(text)
-      HTMLEntities.new.encode(text)
-    end
-    private :encode
-
     def self.extension(title, regexp = nil, &block)
       regexp ||= %r${::#{title}}(.*?){:/#{title}}$m
-      @@extensions << [title, regexp, block]
+      @extensions << [title, regexp, block]
     end
 
-    def self.surrounded_by(open, close=nil)
+    def self.surrounded_by(open, close = nil)
       open = Regexp::escape(open)
       if close
         close = Regexp::escape(close)
@@ -129,15 +114,15 @@ module Govspeak
       end
     end
 
-    def self.wrap_with_div(class_name, character, parser=Kramdown::Document)
+    def self.wrap_with_div(class_name, character, parser = Kramdown::Document)
       extension(class_name, surrounded_by(character)) { |body|
         content = parser ? parser.new("#{body.strip}\n").to_html : body.strip
         %{\n<div class="#{class_name}">\n#{content}</div>\n}
       }
     end
 
-    def insert_strong_inside_p(body, parser=Govspeak::Document)
-      parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/,"<p><strong>\\1</strong></p>")
+    def insert_strong_inside_p(body, parser = Govspeak::Document)
+      parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/, "<p><strong>\\1</strong></p>")
     end
 
     extension('button', %r{
@@ -197,7 +182,7 @@ module Govspeak
       %{\n\n<div role="note" aria-label="Help" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
-    extension('barchart', /{barchart(.*?)}/) do |captures, body|
+    extension('barchart', /{barchart(.*?)}/) do |captures|
       stacked = '.mc-stacked' if captures.include? 'stacked'
       compact = '.compact' if captures.include? 'compact'
       negative = '.mc-negative' if captures.include? 'negative'
@@ -226,6 +211,7 @@ module Govspeak
     extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id, body|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
+
       attachment = AttachmentPresenter.new(attachment)
       content = File.read(__dir__ + '/templates/attachment.html.erb')
       ERB.new(content).result(binding)
@@ -234,6 +220,7 @@ module Govspeak
     extension('attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
+
       attachment = AttachmentPresenter.new(attachment)
       span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
       # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
@@ -246,6 +233,7 @@ module Govspeak
     extension('attachment image', /\[embed:attachments:image:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
+
       attachment = AttachmentPresenter.new(attachment)
       title = (attachment.title || "").tr("\n", " ")
       render_image(attachment.url, title, nil, attachment.id)
@@ -265,8 +253,8 @@ module Govspeak
       id_attr = id ? %{ id="attachment_#{id}"} : ""
       lines = []
       lines << %{<figure#{id_attr} class="image embedded">}
-      lines << %Q{<div class="img"><img src="#{encode(url)}" alt="#{encode(alt_text)}"></div>}
-      lines << %Q{<figcaption>#{caption.strip}</figcaption>} if caption && !caption.strip.empty?
+      lines << %{<div class="img"><img src="#{encode(url)}" alt="#{encode(alt_text)}"></div>}
+      lines << %{<figcaption>#{caption.strip}</figcaption>} if caption && !caption.strip.empty?
       lines << '</figure>'
       lines.join
     end
@@ -281,7 +269,7 @@ module Govspeak
     wrap_with_div('call-to-action', '$CTA', Govspeak::Document)
 
     extension('address', surrounded_by("$A")) { |body|
-      %{\n<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", "").gsub("\n", "<br />")}\n</p></div></div>\n}
+      %{\n<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", '').gsub("\n", '<br />')}\n</p></div></div>\n}
     }
 
     extension("legislative list", /(?<=\A|\n\n|\r\n\r\n)^\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
@@ -295,28 +283,29 @@ module Govspeak
     end
 
     extension("numbered list", /^[ \t]*((s\d+\.\s.*(?:\n|$))+)/) do |body|
-      steps ||= 0
-      body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do |b|
-          "<li>#{Govspeak::Document.new($2.strip).to_html}</li>\n"
+      body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do
+        "<li>#{Govspeak::Document.new($2.strip).to_html}</li>\n"
       end
       %{<ol class="steps">\n#{body}</ol>}
     end
 
     def self.devolved_options
-     { 'scotland' => 'Scotland',
-       'england' => 'England',
-       'england-wales' => 'England and Wales',
-       'northern-ireland' => 'Northern Ireland',
-       'wales' => 'Wales',
-       'london' => 'London' }
+      { 'scotland' => 'Scotland',
+        'england' => 'England',
+        'england-wales' => 'England and Wales',
+        'northern-ireland' => 'Northern Ireland',
+        'wales' => 'Wales',
+        'london' => 'London' }
     end
 
-    devolved_options.each do |k,v|
-      extension("devolved-#{k}",/:#{k}:(.*?):#{k}:/m) do |body|
-%{<div class="devolved-content #{k}">
-<p class="devolved-header">This section applies to #{v}</p>
-<div class="devolved-body">#{Govspeak::Document.new(body.strip).to_html}</div>
-</div>\n}
+    devolved_options.each do |k, v|
+      extension("devolved-#{k}", /:#{k}:(.*?):#{k}:/m) do |body|
+        <<~HTML
+          <div class="devolved-content #{k}">
+          <p class="devolved-header">This section applies to #{v}</p>
+          <div class="devolved-body">#{Govspeak::Document.new(body.strip).to_html}</div>
+          </div>
+        HTML
       end
     end
 
@@ -336,6 +325,7 @@ module Govspeak
     extension('embed link', /\[embed:link:\s*(.*?)\s*\]/) do |content_id|
       link = links.detect { |l| l[:content_id] == content_id }
       next "" unless link
+
       if link[:url]
         "[#{link[:title]}](#{link[:url]})"
       else
@@ -343,17 +333,33 @@ module Govspeak
       end
     end
 
-    def render_hcard_address(contact)
-      HCardPresenter.from_contact(contact).render
-    end
-    private :render_hcard_address
-
     extension('Contact', /\[Contact:\s*(.*?)\s*\]/) do |content_id|
       contact = contacts.detect { |c| c[:content_id] == content_id }
       next "" unless contact
+
       contact = ContactPresenter.new(contact)
       @renderer ||= ERB.new(File.read(__dir__ + '/templates/contact.html.erb'))
       @renderer.result(binding)
+    end
+
+  private
+
+    def i18n_load_paths
+      Dir.glob('locales/*.yml') do |f|
+        I18n.load_path << f
+      end
+    end
+
+    def kramdown_doc
+      @kramdown_doc ||= Kramdown::Document.new(preprocess(@source), @options)
+    end
+
+    def encode(text)
+      HTMLEntities.new.encode(text)
+    end
+
+    def render_hcard_address(contact)
+      HCardPresenter.from_contact(contact).render
     end
   end
 end

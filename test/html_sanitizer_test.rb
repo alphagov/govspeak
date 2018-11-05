@@ -1,15 +1,14 @@
 require "test_helper"
 
 class HtmlSanitizerTest < Minitest::Test
-
   test "disallow a script tag" do
     html = "<script>alert('XSS')</script>"
     assert_equal "alert('XSS')", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
   test "disallow a javascript protocol in an attribute" do
-    html = %q{<a href="javascript:alert(document.location);"
-              title="Title">an example</a>}
+    html = '<a href="javascript:alert(document.location);"
+              title="Title">an example</a>'
     assert_equal "<a title=\"Title\">an example</a>", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
@@ -69,7 +68,7 @@ class HtmlSanitizerTest < Minitest::Test
 
 
   test "allows valid text-align properties on the style attribute for table cells and table headings" do
-    ["left", "right", "center"].each do |alignment|
+    %w[left right center].each do |alignment|
       html = "<table><thead><tr><th style=\"text-align: #{alignment}\">thing</th></tr></thead><tbody><tr><td style=\"text-align: #{alignment}\">thing</td></tr></tbody></table>"
       assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize
     end

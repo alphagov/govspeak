@@ -344,59 +344,6 @@ class GovspeakAttachmentTest < Minitest::Test
     end
   end
 
-  test "a full attachment rendering looks correct" do
-    attachment = {
-      id: 123,
-      content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",
-      title: "Attachment Title",
-      url: "http://example.com/test.pdf",
-      opendocument?: true,
-      order_url: "http://example.com/order",
-      price: 12.3,
-      isbn: "isbn-123",
-      unnumbered_command_paper?: true,
-    }
-    rendered = render_govspeak(
-      "[embed:attachments:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]",
-      [build_attachment(attachment)]
-    )
-    expected_html_output = %{
-      <section class="attachment embedded">
-        <div class="attachment-thumb">
-          <a href="http://example.com/test.pdf" aria-hidden="true" class="embedded"><img src="/images/pub-cover.png" alt="Pub cover"></a>
-        </div>
-        <div class="attachment-details">
-          <h2 class="title">
-            <a href="http://example.com/test.pdf" aria-describedby="attachment-123-accessibility-help">Attachment Title</a>
-          </h2>
-          <p class="metadata">
-            <span class="references">Ref: ISBN <span class="isbn">isbn-123</span></span>
-            <span class="unnumbered-paper">
-              Unnumbered command paper
-            </span>
-          </p>
-          <p>
-            <a href="http://example.com/order" class="order_url" title="Order a copy of the publication">Order a copy</a>(<span class="price">£12.30</span>)
-          </p>
-          <p class="opendocument-help">
-            This file is in an <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> format
-          </p>
-          <div data-module="toggle" class="accessibility-warning" id="attachment-123-accessibility-help">
-            <h2>This file may not be suitable for users of assistive technology.
-              <a class="toggler" href="#attachment-123-accessibility-request" data-controls="attachment-123-accessibility-request" data-expanded="false">Request an accessible format.</a>
-            </h2>
-            <p id="attachment-123-accessibility-request" class="js-hidden">
-              If you use assistive technology (eg a screen reader) and need a
-              version of this document in a more accessible format, please email <a href="mailto:govuk-feedback@digital.cabinet-office.gov.uk?subject=Request%20for%20%27Attachment%20Title%27%20in%20an%20alternative%20format&amp;body=Details%20of%20document%20required%3A%0A%0A%20%20Title%3A%20Attachment%20Title%0A%20%20ISBN%3A%20isbn-123%0A%0APlease%20tell%20us%3A%0A%0A%20%201.%20What%20makes%20this%20format%20unsuitable%20for%20you%3F%0A%20%202.%20What%20format%20you%20would%20prefer%3F%0A">govuk-feedback@digital.cabinet-office.gov.uk</a>.
-              Please tell us what format you need. It will help us if you say what assistive technology you use.
-            </p>
-          </div>
-        </div>
-      </section>
-    }
-    assert_equal(compress_html(expected_html_output), compress_html(rendered))
-  end
-
   test "attachment that isn't provided" do
     govspeak = "[embed:attachments:906ac8b7-850d-45c6-98e0-9525c680f891]"
     rendered = Govspeak::Document.new(govspeak).to_html
