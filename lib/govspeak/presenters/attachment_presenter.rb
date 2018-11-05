@@ -2,6 +2,8 @@ require "action_view"
 require "money"
 require "htmlentities"
 
+Money.locale_backend = :currency
+
 module Govspeak
   class AttachmentPresenter
     attr_reader :attachment
