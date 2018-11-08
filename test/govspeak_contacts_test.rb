@@ -40,7 +40,14 @@ class GovspeakContactsTest < Minitest::Test
             }
           ]
         ),
-        contact_form_links: attrs.fetch(:contact_form_links, [])
+        contact_form_links: attrs.fetch(
+          :contact_form_links,
+          [
+            {
+              link: "https://www.gov.uk/contact"
+            }
+          ]
+        )
       }
     }
   end
@@ -69,6 +76,10 @@ class GovspeakContactsTest < Minitest::Test
               <p class="email">
                 <span class="type">Email</span>
                 <a href="mailto:people@digital.cabinet-office.gov.uk" class="email">people@digital.cabinet-office.gov.uk</a>
+              </p>
+              <p class="contact_form_url">
+                <span class="type">Contact form</span>
+                <a href="https://www.gov.uk/contact">https://www.gov.uk/con...</a>
               </p>
               <p class="tel">
                 <span class="type">helpdesk</span>
@@ -103,6 +114,10 @@ class GovspeakContactsTest < Minitest::Test
               <p class="email">
                 <span class="type">Email</span>
                 <a href="mailto:people@digital.cabinet-office.gov.uk" class="email">people@digital.cabinet-office.gov.uk</a>
+              </p>
+              <p class="contact_form_url">
+                <span class="type">Contact form</span>
+                <a href="https://www.gov.uk/contact">https://www.gov.uk/con...</a>
               </p>
               <p class="tel">
                 <span class="type">helpdesk</span>
