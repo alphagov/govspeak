@@ -6,14 +6,14 @@
     <h2 class="title"><%= attachment.attachment_details %></h2>
     <p class="metadata">
       <% if attachment.references? %>
-        <span class="references"><%= t('attachment.headings.reference') %>: <%= attachment.reference %></span>
+        <span class="references"><%= t('govspeak.attachment.headings.reference') %>: <%= attachment.reference %></span>
       <% end %>
       <% if attachment.unnumbered_paper? %>
         <span class="unnumbered-paper">
           <% if attachment.unnumbered_command_paper? %>
-            <%= t('attachment.headings.unnumbered_command_paper') %>
+            <%= t('govspeak.attachment.headings.unnumbered_command_paper') %>
           <% else %>
-            <%= t('attachment.headings.unnumbered_hoc_paper') %>
+            <%= t('govspeak.attachment.headings.unnumbered_hoc_paper') %>
           <% end %>
         </span>
       <% end %>
@@ -28,25 +28,25 @@
     </p>
     <% if attachment.order_url.present? %>
       <p>
-        <%= attachment.link t('attachment.headings.order_a_copy'), attachment.order_url,
-          class: "order_url", title: t('attachment.headings.order_a_copy_full')
+        <%= attachment.link t('govspeak.attachment.headings.order_a_copy'), attachment.order_url,
+          class: "order_url", title: t('govspeak.attachment.headings.order_a_copy_full')
         %><% if attachment.price %>(<span class="price"><%= attachment.price %></span>)<% end %>
       </p>
     <% end %>
 
     <% if attachment.opendocument? %>
       <p class="opendocument-help">
-        <%= t('attachment.opendocument.help_html') %>
+        <%= t('govspeak.attachment.opendocument.help_html') %>
       </p>
     <% end %>
 
     <% unless attachment.accessible? %>
       <div data-module="toggle" class="accessibility-warning" id="<%= attachment.help_block_id %>">
-        <h2><%= t('attachment.accessibility.heading') %>
-          <a class="toggler" href="#<%= attachment.help_block_toggle_id %>" data-controls="<%= attachment.help_block_toggle_id %>" data-expanded="false"><%= t('attachment.accessibility.request_a_different_format') %></a>
+        <h2><%= t('govspeak.attachment.accessibility.heading') %>
+          <a class="toggler" href="#<%= attachment.help_block_toggle_id %>" data-controls="<%= attachment.help_block_toggle_id %>" data-expanded="false"><%= t('govspeak.attachment.accessibility.request_a_different_format') %></a>
         </h2>
         <p id="<%= attachment.help_block_toggle_id %>" class="js-hidden">
-          <%= t('attachment.accessibility.full_help_html',
+          <%= t('govspeak.attachment.accessibility.full_help_html',
                 email: attachment.alternative_format_order_link,
                 title: attachment.title,
                 references: attachment.references_for_title) %>

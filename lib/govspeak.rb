@@ -4,6 +4,7 @@ require 'erb'
 require 'htmlentities'
 require 'kramdown'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
+require 'rinku'
 require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
@@ -16,10 +17,16 @@ require 'govspeak/presenters/attachment_presenter'
 require 'govspeak/presenters/contact_presenter'
 require 'govspeak/presenters/h_card_presenter'
 
+
 module Govspeak
+  def self.root
+    File.expand_path('..', File.dirname(__FILE__))
+  end
+
   class Document
     Parser = Kramdown::Parser::KramdownWithAutomaticExternalLinks
     PARSER_CLASS_NAME = Parser.name.split("::").last
+    UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.freeze
 
     @extensions = []
 
@@ -44,7 +51,6 @@ module Govspeak
       @locale = options.fetch(:locale, "en")
       @options = { input: PARSER_CLASS_NAME }.merge(options)
       @options[:entity_output] = :symbolic
-      i18n_load_paths
     end
 
     def to_html
@@ -58,7 +64,11 @@ module Govspeak
     def t(*args)
       options = args.last.is_a?(Hash) ? args.last.dup : {}
       key = args.shift
-      I18n.t(key, options.merge(locale: locale))
+      I18n.t!(key, options.merge(locale: locale))
+    end
+
+    def format_with_html_line_breaks(string)
+      ERB::Util.html_escape(string || "").strip.gsub(/(?:\r?\n)/, "<br/>").html_safe
     end
 
     def to_sanitized_html
@@ -87,6 +97,13 @@ module Govspeak
 
     def extracted_links(website_root: nil)
       Govspeak::LinkExtractor.new(self, website_root: website_root).call
+    end
+
+    def extract_contact_content_ids
+      _, regex = self.class.extensions.find { |(title)| title == "Contact" }
+      return [] unless regex
+
+      @source.scan(regex).map(&:first).uniq.select { |id| id.match(UUID_REGEX) }
     end
 
     def preprocess(source)
@@ -344,12 +361,6 @@ module Govspeak
 
   private
 
-    def i18n_load_paths
-      Dir.glob('locales/*.yml') do |f|
-        I18n.load_path << f
-      end
-    end
-
     def kramdown_doc
       @kramdown_doc ||= Kramdown::Document.new(preprocess(@source), @options)
     end
@@ -358,8 +369,12 @@ module Govspeak
       HTMLEntities.new.encode(text)
     end
 
-    def render_hcard_address(contact)
-      HCardPresenter.from_contact(contact).render
+    def render_hcard_address(contact_address)
+      HCardPresenter.new(contact_address).render
     end
   end
 end
+
+I18n.load_path.unshift(
+  *Dir.glob(File.expand_path('locales/*.yml', Govspeak.root))
+)

@@ -1,22 +1,23 @@
 ---
 id:
-  attachment:
-    accessibility:
-      full_help_html: Untuk mendapatkan dokumen ini dalam format lain seperti braille,
-        audio atau format lainnya silahkan kirimkan email %{email} yang berisi alamat
-        Anda, nomor telepon dan judul dokumen yang diinginkan ("%{title}")%{references}.
-      heading: File ini tidak sesuai dengan pengguna teknologi bantu.
-      request_a_different_format: Meminta format lain.
-    headings:
-      order_a_copy: Memesan salinan
-      order_a_copy_full: Memesan salinan dokumen
-      published: Diterbitkan
-      reference: Ref
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
-    opendocument:
-      help_html: 
-    see_more: 
-  contact:
-    contact_form: Formulir kontak
-    email: Email
+  govspeak:
+    attachment:
+      accessibility:
+        full_help_html: Untuk mendapatkan dokumen ini dalam format lain seperti braille,
+          audio atau format lainnya silahkan kirimkan email %{email} yang berisi alamat
+          Anda, nomor telepon dan judul dokumen yang diinginkan ("%{title}")%{references}.
+        heading: File ini tidak sesuai dengan pengguna teknologi bantu.
+        request_a_different_format: Meminta format lain.
+      headings:
+        order_a_copy: Memesan salinan
+        order_a_copy_full: Memesan salinan dokumen
+        published: Diterbitkan
+        reference: Ref
+        unnumbered_command_paper:
+        unnumbered_hoc_paper:
+      opendocument:
+        help_html:
+      see_more:
+    contact:
+      contact_form: Formulir kontak
+      email: Email

@@ -1,24 +1,25 @@
 ---
 pl:
-  attachment:
-    accessibility:
-      full_help_html: Aby otrzymać ten dokument w innym formacie, np. w alfabecie
-        Braille'a. w formacie audio lub w innym rodzaju pliku prosimy wysłać email
-        na adres %{email}, podając swój adres, numer telefonu oraz tytuł interesującej
-        Państwa publikacji ("%{title}")%{references}
-      heading: Ten plik może nie być odpowiedni dla osób korzystających z technologii
-        asystujących.
-      request_a_different_format: Poproś o inny format
-    headings:
-      order_a_copy: Zamów kopię
-      order_a_copy_full: Zamów kopię publikacji
-      published: Opublikowano
-      reference: Odsyłacz
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
-    opendocument:
-      help_html: 
-    see_more: 
-  contact:
-    contact_form: Formularz kontaktowy
-    email: Email
+  govspeak:
+    attachment:
+      accessibility:
+        full_help_html: Aby otrzymać ten dokument w innym formacie, np. w alfabecie
+          Braille'a. w formacie audio lub w innym rodzaju pliku prosimy wysłać email
+          na adres %{email}, podając swój adres, numer telefonu oraz tytuł interesującej
+          Państwa publikacji ("%{title}")%{references}
+        heading: Ten plik może nie być odpowiedni dla osób korzystających z technologii
+          asystujących.
+        request_a_different_format: Poproś o inny format
+      headings:
+        order_a_copy: Zamów kopię
+        order_a_copy_full: Zamów kopię publikacji
+        published: Opublikowano
+        reference: Odsyłacz
+        unnumbered_command_paper:
+        unnumbered_hoc_paper:
+      opendocument:
+        help_html:
+      see_more:
+    contact:
+      contact_form: Formularz kontaktowy
+      email: Email

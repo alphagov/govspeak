@@ -1,23 +1,24 @@
 ---
 cy:
-  attachment:
-    accessibility:
-      full_help_html: I ofyn am y ddogfen hon  mewn fformat arall, fel braille, sain
-        neu fath arall o ffeil anfonwch e-bost at %{email} gan roi eich cyfeiriad,
-        eich rhif ffôn a theitl y cyhoeddiad ("%{title}")%{references}.
-      heading: Efallai na fydd y ffeil hon yn addas ar gyfer defnyddwyr technoleg
-        gynorthwyol
-      request_a_different_format: Gwneud cais am fformat gwahanol.
-    headings:
-      order_a_copy: Archebu copi
-      order_a_copy_full: Archebu copi o'r cyhoeddiad
-      published: Cyhoeddwyd
-      reference: Cyf
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
-    opendocument:
-      help_html: 
-    see_more: 
-  contact:
-    contact_form: Ffurflen cysylltu
-    email: E-bost
+  govspeak:
+    attachment:
+      accessibility:
+        full_help_html: I ofyn am y ddogfen hon  mewn fformat arall, fel braille, sain
+          neu fath arall o ffeil anfonwch e-bost at %{email} gan roi eich cyfeiriad,
+          eich rhif ffôn a theitl y cyhoeddiad ("%{title}")%{references}.
+        heading: Efallai na fydd y ffeil hon yn addas ar gyfer defnyddwyr technoleg
+          gynorthwyol
+        request_a_different_format: Gwneud cais am fformat gwahanol.
+      headings:
+        order_a_copy: Archebu copi
+        order_a_copy_full: Archebu copi o'r cyhoeddiad
+        published: Cyhoeddwyd
+        reference: Cyf
+        unnumbered_command_paper:
+        unnumbered_hoc_paper:
+      opendocument:
+        help_html:
+      see_more:
+    contact:
+      contact_form: Ffurflen cysylltu
+      email: E-bost

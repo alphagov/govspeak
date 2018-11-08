@@ -1,22 +1,23 @@
 ---
 uz:
-  attachment:
-    accessibility:
-      full_help_html: Bu hujjatni brayl,audio yoki boshqa formatda olish uchun quyidagi
-        elektron manzilga %{email} jismoniy manzilingiz, telefon raqamingiz va nashr
-        sarlavhasinini ("%{title}")%{references} kiritib xabar yuboring.
-      heading: Bu hujjat boshqa formatlarda mavjud emas.
-      request_a_different_format: Boshqa formatdagi hujjatni so'rash.
-    headings:
-      order_a_copy: Nusxa buyurtirish
-      order_a_copy_full: Nashrning nusxasini buyurtirish
-      published: Nashr qilindi
-      reference: Ishora
-      unnumbered_command_paper: 
-      unnumbered_hoc_paper: 
-    opendocument:
-      help_html: 
-    see_more: 
-  contact:
-    contact_form: Aloqa uchun
-    email: Elektron manzil
+  govspeak:
+    attachment:
+      accessibility:
+        full_help_html: Bu hujjatni brayl,audio yoki boshqa formatda olish uchun quyidagi
+          elektron manzilga %{email} jismoniy manzilingiz, telefon raqamingiz va nashr
+          sarlavhasinini ("%{title}")%{references} kiritib xabar yuboring.
+        heading: Bu hujjat boshqa formatlarda mavjud emas.
+        request_a_different_format: Boshqa formatdagi hujjatni so'rash.
+      headings:
+        order_a_copy: Nusxa buyurtirish
+        order_a_copy_full: Nashrning nusxasini buyurtirish
+        published: Nashr qilindi
+        reference: Ishora
+        unnumbered_command_paper:
+        unnumbered_hoc_paper:
+      opendocument:
+        help_html:
+      see_more:
+    contact:
+      contact_form: Aloqa uchun
+      email: Elektron manzil
