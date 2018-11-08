@@ -90,11 +90,6 @@ class GovspeakContactsTest < Minitest::Test
     assert_match("", rendered)
   end
 
-  test "no contact is rendered when no contacts are supplied" do
-    rendered = Govspeak::Document.new("[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]").to_html
-    assert_match("", rendered)
-  end
-
   test "contact with no postal address omits the address info" do
     contact = build_contact(post_addresses: [])
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
