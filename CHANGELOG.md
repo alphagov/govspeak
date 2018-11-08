@@ -1,4 +1,4 @@
-## Unreleased
+## 5.7.0
 
 * Update ActionView to 5.x
 * Fix translation files not loading when gem is used in an app
