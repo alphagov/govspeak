@@ -29,15 +29,24 @@ module Govspeak
     end
 
     def email_addresses
-      contact.dig(:details, :email_addresses) || []
+      @email_addresses ||= begin
+                             emails = contact.dig(:details, :email_addresses) || []
+                             emails.select { |e| e[:email].present? }
+                           end
     end
 
     def phone_numbers
-      contact.dig(:details, :phone_numbers) || []
+      @phone_numbers ||= begin
+                           phone_numbers = contact.dig(:details, :phone_numbers) || []
+                           phone_numbers.select { |p| p[:number].present? }
+                         end
     end
 
     def contact_form_links
-      contact.dig(:details, :contact_form_links) || []
+      @contact_form_links ||= begin
+                                contact_form_links = contact.dig(:details, :contact_form_links) || []
+                                contact_form_links.select { |c| c[:link].present? }
+                              end
     end
 
   private

@@ -159,6 +159,39 @@ class GovspeakContactsTest < Minitest::Test
     refute_match(%{<p class="adr">}, compress_html(rendered))
   end
 
+  test "contact with an empty email address is not rendered" do
+    contact = build_contact(email_addresses: [
+      {
+        email: "",
+      }
+    ])
+    govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
+    rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
+    refute_match(%{<p class="email">}, compress_html(rendered))
+  end
+
+  test "contact with an empty contact form is not rendered" do
+    contact = build_contact(contact_form_links: [
+      {
+        link: "",
+      }
+    ])
+    govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
+    rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
+    refute_match(%{<p class="contact_form_url">}, compress_html(rendered))
+  end
+
+  test "contact with an empty phone number is not rendered" do
+    contact = build_contact(phone_numbers: [
+      {
+        number: "",
+      }
+    ])
+    govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
+    rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
+    refute_match(%{<p class="tel">}, compress_html(rendered))
+  end
+
   test "it auto links text in the description" do
     contact = build_contact(description: "My description about https://www.gov.uk")
 
