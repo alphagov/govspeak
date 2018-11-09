@@ -1,3 +1,7 @@
+## 5.7.1
+
+* Include locale, config and asset files in the gem distribution
+
 ## 5.7.0
 
 * Update ActionView to 5.x
