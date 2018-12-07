@@ -354,6 +354,12 @@ module Govspeak
       @renderer.result(binding)
     end
 
+    extension('Image', /\[Image:\s*(.*?)\s*\]/) do |image_id|
+      image = images.detect { |c| c[:id] == image_id }
+      next "" unless image
+      render_image(ImagePresenter.new(image))
+    end
+
   private
 
     def kramdown_doc

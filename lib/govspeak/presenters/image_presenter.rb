@@ -7,15 +7,15 @@ module Govspeak
     end
 
     def url
-      image.url
+      image[:url]
     end
 
     def alt_text
-      image.alt_text
+      image[:alt_text]
     end
 
     def caption
-      image.caption.strip.presence rescue nil
+      image[:caption].to_s.strip.presence
     end
 
     def id
