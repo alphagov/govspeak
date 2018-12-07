@@ -3,13 +3,12 @@
 require 'test_helper'
 require 'govspeak_test_helper'
 
-class GovspeakImages!!Test < Minitest::Test
+class GovspeakImagesBangTest < Minitest::Test
   include GovspeakTestHelper
 
   def build_image(attrs = {})
     attrs[:alt_text] ||= "my alt"
     attrs[:url] ||= "http://example.com/image.jpg"
-    attrs[:caption] ||= "   "
     OpenStruct.new(attrs)
   end
 
