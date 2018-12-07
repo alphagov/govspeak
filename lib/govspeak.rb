@@ -355,7 +355,7 @@ module Govspeak
     end
 
     extension('Image', /\[Image:\s*(.*?)\s*\]/) do |image_id|
-      image = images.detect { |c| c[:id] == image_id }
+      image = images.detect { |c| c.is_a?(Hash) && c[:id] == image_id }
       next "" unless image
       render_image(ImagePresenter.new(image))
     end
