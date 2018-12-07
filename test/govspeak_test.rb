@@ -440,7 +440,7 @@ Teston
 
     $CTA
     Click here to start the tool
-    $CTA", [], document_domains: %w(www.not-external.com) do
+    $CTA", document_domains: %w(www.not-external.com) do
     assert_html_output %{
       <p><a href="http://www.not-external.com">internal link</a></p>
 

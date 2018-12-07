@@ -6,9 +6,15 @@ require 'govspeak_test_helper'
 class GovspeakImagesTest < Minitest::Test
   include GovspeakTestHelper
 
-  test "can reference attached images using !!n" do
-    images = [OpenStruct.new(alt_text: 'my alt', url: "http://example.com/image.jpg")]
-    given_govspeak "!!1", images do
+  def build_image(attrs = {})
+    attrs[:alt_text] ||= "my alt"
+    attrs[:url] ||= "http://example.com/image.jpg"
+    attrs[:caption] ||= "   "
+    OpenStruct.new(attrs)
+  end
+
+  test "!!n syntax renders an image in options[:images]" do
+    given_govspeak "!!1", images: [build_image] do
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +
@@ -17,9 +23,8 @@ class GovspeakImagesTest < Minitest::Test
     end
   end
 
-  test "alt text of referenced images is escaped" do
-    images = [OpenStruct.new(alt_text: %{my alt '&"<>}, url: "http://example.com/image.jpg")]
-    given_govspeak "!!1", images do
+  test "!!n syntax escapes alt text" do
+    given_govspeak "!!1", images: [build_image(alt_text: %{my alt '&"<>})] do
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt '&amp;&quot;&lt;&gt;"></div>} +
@@ -28,16 +33,13 @@ class GovspeakImagesTest < Minitest::Test
     end
   end
 
-  test "silently ignores an image attachment if the referenced image is missing" do
+  test "!!n syntax renders nothing if not found" do
     doc = Govspeak::Document.new("!!1")
-    doc.images = []
-
     assert_equal %{\n}, doc.to_html
   end
 
-  test "adds image caption if given" do
-    images = [OpenStruct.new(alt_text: "my alt", url: "http://example.com/image.jpg", caption: 'My Caption & so on')]
-    given_govspeak "!!1", images do
+  test "!!n syntax adds image caption if given" do
+    given_govspeak "!!1", images: [build_image(caption: 'My Caption & so on')] do
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
@@ -47,9 +49,8 @@ class GovspeakImagesTest < Minitest::Test
     end
   end
 
-  test "ignores a blank caption" do
-    images = [OpenStruct.new(alt_text: "my alt", url: "http://example.com/image.jpg", caption: '  ')]
-    given_govspeak "!!1", images do
+  test "!!n syntax ignores a blank caption" do
+    given_govspeak "!!1", images: [build_image(caption: '  ')] do
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +

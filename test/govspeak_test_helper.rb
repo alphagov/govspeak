@@ -4,15 +4,14 @@ module GovspeakTestHelper
   end
 
   class GovspeakAsserter
-    def initialize(testcase, govspeak, images = [], options = {})
+    def initialize(testcase, govspeak, options = {})
       @testcase = testcase
       @govspeak = remove_indentation(govspeak)
-      @images = images
       @options = options
     end
 
     def document
-      Govspeak::Document.new(@govspeak, @options.merge(images: @images))
+      Govspeak::Document.new(@govspeak, @options)
     end
 
     def assert_text_output(raw_expected)
@@ -55,8 +54,8 @@ module GovspeakTestHelper
     end
   end
 
-  def given_govspeak(govspeak, images = [], options = {}, &block)
-    asserter = GovspeakAsserter.new(self, govspeak, images, options)
+  def given_govspeak(govspeak, options = {}, &block)
+    asserter = GovspeakAsserter.new(self, govspeak, options)
     asserter.instance_eval(&block)
   end
 
@@ -69,9 +68,9 @@ module GovspeakTestHelper
   end
 
   module ClassMethods
-    def test_given_govspeak(govspeak, images = [], options = {}, &block)
+    def test_given_govspeak(govspeak, options = {}, &block)
       test "Given #{govspeak}" do
-        given_govspeak(govspeak, images, options, &block)
+        given_govspeak(govspeak, options, &block)
       end
     end
   end
