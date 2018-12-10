@@ -266,7 +266,7 @@ module Govspeak
       lines = []
       lines << %{<figure#{id_attr} class="image embedded">}
       lines << %{<div class="img"><img src="#{encode(image.url)}" alt="#{encode(image.alt_text)}"></div>}
-      lines << %{<figcaption>#{image.caption}</figcaption>} if image.caption
+      lines << %{<figcaption>#{encode(image.caption)}</figcaption>} if image.caption
       lines << '</figure>'
       lines.join
     end
