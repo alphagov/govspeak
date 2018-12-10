@@ -220,6 +220,7 @@ module Govspeak
     extension('attached-image', /^!!([0-9]+)/) do |image_number|
       image = images[image_number.to_i - 1]
       next "" unless image
+
       render_image(ImagePresenter.new(image))
     end
 
@@ -248,6 +249,7 @@ module Govspeak
     extension('attachment image', /\[embed:attachments:image:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
+
       render_image(AttachmentImagePresenter.new(attachment))
     end
 
@@ -357,6 +359,7 @@ module Govspeak
     extension('Image', /\[Image:\s*(.*?)\s*\]/) do |image_id|
       image = images.detect { |c| c.is_a?(Hash) && c[:id] == image_id }
       next "" unless image
+
       render_image(ImagePresenter.new(image))
     end
 
