@@ -1,3 +1,7 @@
+## 5.8.0
+
+* Add new `Image:image-id` extension and deprecate `embed:attachments:image:content-id`
+
 ## 5.7.1
 
 * Include locale, config and asset files in the gem distribution
