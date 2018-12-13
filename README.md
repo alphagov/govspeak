@@ -432,7 +432,7 @@ will output an attachment within a block of text
 <p>Details referenced in <span class="attachment-inline"><a href="http://example.com/my-thorough-study.pdf">My Thorough Study</a></span></p>
 ```
 
-### Image Attachments
+### Image Attachments (DEPRECATED: use `Image:image-id` instead)
 
 Attachments can be used to embed an image within the document
 
@@ -456,6 +456,36 @@ will output a image section
 <figure class="image embedded">
   <div class="img">
     <img src="http://example.com/lovely-landscape.jpg" alt="A Lovely Landscape">
+  </div>
+</figure>
+```
+
+### Images
+
+Images can be embedded as a figure with optional caption.
+
+    [Image:filename.png]
+
+with options provided
+
+    {
+      images: [
+        {
+          alt_text: "Some alt text",
+          caption: "An optional caption",
+          url: "http://example.com/lovely-landscape.jpg",
+          id: "filename.png",
+        }
+      ]
+    }
+
+will output a image section
+
+```html
+<figure class="image embedded">
+  <div class="img">
+    <img src="http://example.com/lovely-landscape.jpg" alt="Some alt text">
+    <figcaption>An optional caption</figcaption>
   </div>
 </figure>
 ```

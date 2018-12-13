@@ -16,6 +16,8 @@ require 'govspeak/link_extractor'
 require 'govspeak/presenters/attachment_presenter'
 require 'govspeak/presenters/contact_presenter'
 require 'govspeak/presenters/h_card_presenter'
+require 'govspeak/presenters/image_presenter'
+require 'govspeak/presenters/attachment_image_presenter'
 
 
 module Govspeak
@@ -217,12 +219,9 @@ module Govspeak
 
     extension('attached-image', /^!!([0-9]+)/) do |image_number|
       image = images[image_number.to_i - 1]
-      if image
-        caption = image.caption rescue nil
-        render_image(image.url, image.alt_text, caption)
-      else
-        ""
-      end
+      next "" unless image
+
+      render_image(ImagePresenter.new(image))
     end
 
     extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id, body|
@@ -247,13 +246,12 @@ module Govspeak
       %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
+    # DEPRECATED: use 'Image:image-id' instead
     extension('attachment image', /\[embed:attachments:image:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
 
-      attachment = AttachmentPresenter.new(attachment)
-      title = (attachment.title || "").tr("\n", " ")
-      render_image(attachment.url, title, nil, attachment.id)
+      render_image(AttachmentImagePresenter.new(attachment))
     end
 
     # As of version 1.12.0 of Kramdown the block elements (div & figcaption)
@@ -266,12 +264,12 @@ module Govspeak
     # out div and figcaption
     #
     # This issue is not considered a bug by kramdown: https://github.com/gettalong/kramdown/issues/191
-    def render_image(url, alt_text, caption = nil, id = nil)
-      id_attr = id ? %{ id="attachment_#{id}"} : ""
+    def render_image(image)
+      id_attr = image.id ? %{ id="attachment_#{image.id}"} : ""
       lines = []
       lines << %{<figure#{id_attr} class="image embedded">}
-      lines << %{<div class="img"><img src="#{encode(url)}" alt="#{encode(alt_text)}"></div>}
-      lines << %{<figcaption>#{caption.strip}</figcaption>} if caption && !caption.strip.empty?
+      lines << %{<div class="img"><img src="#{encode(image.url)}" alt="#{encode(image.alt_text)}"></div>}
+      lines << %{<figcaption>#{encode(image.caption)}</figcaption>} if image.caption
       lines << '</figure>'
       lines.join
     end
@@ -357,6 +355,13 @@ module Govspeak
       contact = ContactPresenter.new(contact)
       @renderer ||= ERB.new(File.read(__dir__ + '/templates/contact.html.erb'))
       @renderer.result(binding)
+    end
+
+    extension('Image', /\[Image:\s*(.*?)\s*\]/) do |image_id|
+      image = images.detect { |c| c.is_a?(Hash) && c[:id] == image_id }
+      next "" unless image
+
+      render_image(ImagePresenter.new(image))
     end
 
   private
