@@ -246,6 +246,7 @@ module Govspeak
       %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
+    # DEPRECATED: use 'Image:image-id' instead
     extension('attachment image', /\[embed:attachments:image:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment

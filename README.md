@@ -432,7 +432,7 @@ will output an attachment within a block of text
 <p>Details referenced in <span class="attachment-inline"><a href="http://example.com/my-thorough-study.pdf">My Thorough Study</a></span></p>
 ```
 
-### Image Attachments
+### Image Attachments (DEPRECATED: use `Image:image-id` instead)
 
 Attachments can be used to embed an image within the document
 
