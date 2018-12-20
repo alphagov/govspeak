@@ -21,5 +21,9 @@ module Govspeak
     def id
       attachment.id
     end
+
+    def figcaption?
+      false
+    end
   end
 end

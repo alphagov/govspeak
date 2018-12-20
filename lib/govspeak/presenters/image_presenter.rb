@@ -21,5 +21,9 @@ module Govspeak
     def id
       nil
     end
+
+    def figcaption?
+      caption.present?
+    end
   end
 end
