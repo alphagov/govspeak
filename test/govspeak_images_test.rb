@@ -58,4 +58,39 @@ class GovspeakImagesTest < Minitest::Test
       )
     end
   end
+
+  test "Image:image-id syntax adds image credit if given" do
+    given_govspeak "[Image:image-id]", images: [build_image(credit: 'My Credit & so on')] do
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
+        %{<figcaption>My Credit &amp; so on</figcaption>} +
+        %{</figure>}
+      )
+    end
+  end
+
+  test "Image:image-id syntax ignores a blank credit" do
+    given_govspeak "[Image:image-id]", images: [build_image(credit: '  ')] do
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +
+        %{</figure>}
+      )
+    end
+  end
+
+  test "Image:image-id syntax adds image caption and credit if given" do
+    given_govspeak "[Image:image-id]", images: [build_image(caption: 'My Caption & so on', credit: 'My Credit & so on')] do
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
+        %{<figcaption>
+            My Caption &amp; so on
+            My Credit & so on
+          </figcaption>} +
+        %{</figure>}
+      )
+    end
+  end
 end
