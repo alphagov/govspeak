@@ -18,12 +18,16 @@ module Govspeak
       (image.respond_to?(:caption) ? image.caption : image[:caption]).to_s.strip.presence
     end
 
+    def credit
+      (image.respond_to?(:credit) ? image.credit : image[:credit]).to_s.strip.presence
+    end
+
     def id
       nil
     end
 
     def figcaption?
-      caption.present?
+      caption.present? || credit.present?
     end
   end
 end

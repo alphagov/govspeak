@@ -7,12 +7,13 @@ class GovspeakImagesBangTest < Minitest::Test
   include GovspeakTestHelper
 
   class Image
-    attr_reader :alt_text, :url, :caption
+    attr_reader :alt_text, :url, :caption, :credit
 
     def initialize(attrs = {})
       @alt_text = attrs[:alt_text] || "my alt"
       @url = attrs[:url] || "http://example.com/image.jpg"
       @caption = attrs[:caption]
+      @credit = attrs[:credit]
     end
   end
 
@@ -59,6 +60,27 @@ class GovspeakImagesBangTest < Minitest::Test
 
   test "!!n syntax ignores a blank caption" do
     given_govspeak "!!1", images: [Image.new(caption: '  ')] do
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +
+        %{</figure>}
+      )
+    end
+  end
+
+  test "¡¡n syntax adds image credit if given" do
+    given_govspeak "!!1", images: [Image.new(credit: 'My Credit & so on')] do
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
+        %{<figcaption>My Credit &amp; so on</figcaption>} +
+        %{</figure>}
+      )
+    end
+  end
+
+  test "!!n syntax ignores a blank credit" do
+    given_govspeak "!!1", images: [Image.new(credit: '  ')] do
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +

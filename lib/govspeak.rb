@@ -271,6 +271,7 @@ module Govspeak
       lines << %{<div class="img"><img src="#{encode(image.url)}" alt="#{encode(image.alt_text)}"></div>}
       lines << '<figcaption>' if image.figcaption?
       lines << %{#{encode(image.caption)}} if image.caption.present?
+      lines << %{#{encode(image.credit)}} if image.credit.present?
       lines << '</figcaption>' if image.figcaption?
       lines << '</figure>'
       lines.join
