@@ -18,6 +18,10 @@ module Govspeak
       nil
     end
 
+    def credit
+      nil
+    end
+
     def id
       attachment.id
     end
