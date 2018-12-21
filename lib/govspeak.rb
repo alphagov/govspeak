@@ -272,7 +272,7 @@ module Govspeak
       lines << '<figcaption>' if figcaption?(image)
       lines << %{#{encode(image.caption)}} if image.caption
       lines << %{<br>} if image.caption && image.credit
-      lines << %{#{encode(image.credit)}} if image.credit
+      lines << %{#{encode(t("govspeak.image.figure.credit", credit: image.credit))}} if image.credit
       lines << '</figcaption>' if figcaption?(image)
       lines << '</figure>'
       lines.join

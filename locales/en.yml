@@ -24,3 +24,6 @@ en:
     contact:
       email: Email
       contact_form: Contact form
+    image:
+      figure:
+        credit: "Image credit: %{credit}"
