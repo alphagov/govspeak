@@ -7,12 +7,13 @@ class GovspeakImagesBangTest < Minitest::Test
   include GovspeakTestHelper
 
   class Image
-    attr_reader :alt_text, :url, :caption
+    attr_reader :alt_text, :url, :caption, :credit
 
     def initialize(attrs = {})
       @alt_text = attrs[:alt_text] || "my alt"
       @url = attrs[:url] || "http://example.com/image.jpg"
       @caption = attrs[:caption]
+      @credit = attrs[:credit]
     end
   end
 
@@ -72,7 +73,7 @@ class GovspeakImagesBangTest < Minitest::Test
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
-        %{<figcaption>My credit &amp; so on</figcaption>} +
+        %{<figcaption>My Credit &amp; so on</figcaption>} +
         %{</figure>}
       )
     end
