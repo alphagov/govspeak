@@ -473,6 +473,7 @@ with options provided
         {
           alt_text: "Some alt text",
           caption: "An optional caption",
+          credit: "An optional credit",
           url: "http://example.com/lovely-landscape.jpg",
           id: "filename.png",
         }
@@ -485,7 +486,10 @@ will output a image section
 <figure class="image embedded">
   <div class="img">
     <img src="http://example.com/lovely-landscape.jpg" alt="Some alt text">
-    <figcaption>An optional caption</figcaption>
+    <figcaption>
+      <p>An optional caption</p>
+      <p>Image credit: An optional credit</p>
+    </figcaption>
   </div>
 </figure>
 ```

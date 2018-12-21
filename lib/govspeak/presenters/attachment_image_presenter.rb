@@ -18,8 +18,20 @@ module Govspeak
       nil
     end
 
+    def credit
+      nil
+    end
+
     def id
       attachment.id
+    end
+
+    def figcaption?
+      false
+    end
+
+    def figcaption_html
+      nil
     end
   end
 end

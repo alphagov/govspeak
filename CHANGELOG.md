@@ -1,3 +1,7 @@
+## Unreleased
+
+* Add image credits to embedded images
+
 ## 5.8.0
 
 * Add new `Image:image-id` extension and deprecate `embed:attachments:image:content-id`
