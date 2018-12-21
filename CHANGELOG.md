@@ -1,4 +1,4 @@
-## Unreleased
+## 5.9.0
 
 * Add image credits to embedded images
 
