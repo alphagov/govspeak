@@ -52,7 +52,7 @@ class GovspeakImagesBangTest < Minitest::Test
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
-        %{<figcaption>My Caption &amp; so on</figcaption>} +
+        %{<figcaption><p>My Caption &amp; so on</p></figcaption>} +
         %{</figure>}
       )
     end
@@ -73,7 +73,7 @@ class GovspeakImagesBangTest < Minitest::Test
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
-        %{<figcaption>My Credit &amp; so on</figcaption>} +
+        %{<figcaption><p>My Credit &amp; so on</p></figcaption>} +
         %{</figure>}
       )
     end
@@ -84,6 +84,20 @@ class GovspeakImagesBangTest < Minitest::Test
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +
+        %{</figure>}
+      )
+    end
+  end
+
+  test "!!n syntax adds image caption and credit if given" do
+    given_govspeak "!!1", images: [Image.new(caption: 'My Caption & so on', credit: 'My Credit & so on')] do
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
+        %{<figcaption>} +
+          %{<p>My Caption &amp; so on</p>\n} +
+          %{<p>My Credit &amp; so on</p>} +
+        %{</figcaption>} +
         %{</figure>}
       )
     end
