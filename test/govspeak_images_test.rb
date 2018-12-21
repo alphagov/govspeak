@@ -85,10 +85,11 @@ class GovspeakImagesTest < Minitest::Test
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
-        %{<figcaption>
-            My Caption &amp; so on
-            My Credit & so on
-          </figcaption>} +
+        %{<figcaption>} +
+            %{My Caption &amp; so on} +
+            %{<br>} +
+            %{My Credit &amp; so on} +
+          %{</figcaption>} +
         %{</figure>}
       )
     end
