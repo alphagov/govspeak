@@ -487,9 +487,8 @@ will output a image section
   <div class="img">
     <img src="http://example.com/lovely-landscape.jpg" alt="Some alt text">
     <figcaption>
-      An optional caption
-      <br>
-      An optional credit
+      <p>An optional caption</p>
+      <p>An optional credit</p>
     </figcaption>
   </div>
 </figure>
