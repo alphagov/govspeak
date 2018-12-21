@@ -29,5 +29,9 @@ module Govspeak
     def figcaption?
       false
     end
+
+    def figcaption_html
+      nil
+    end
   end
 end
