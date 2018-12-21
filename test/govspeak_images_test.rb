@@ -43,7 +43,7 @@ class GovspeakImagesTest < Minitest::Test
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
-        %{<figcaption>My Caption &amp; so on</figcaption>} +
+        %{<figcaption><p>My Caption &amp; so on</p></figcaption>} +
         %{</figure>}
       )
     end
@@ -64,7 +64,7 @@ class GovspeakImagesTest < Minitest::Test
       assert_html_output(
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
-        %{<figcaption>Image credit: My Credit &amp; so on</figcaption>} +
+        %{<figcaption><p>Image credit: My Credit &amp; so on</p></figcaption>} +
         %{</figure>}
       )
     end
@@ -86,9 +86,8 @@ class GovspeakImagesTest < Minitest::Test
         %{<figure class="image embedded">} +
         %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n} +
         %{<figcaption>} +
-            %{My Caption &amp; so on} +
-            %{<br>} +
-            %{Image credit: My Credit &amp; so on} +
+            %{<p>My Caption &amp; so on</p>\n} +
+            %{<p>Image credit: My Credit &amp; so on</p>} +
           %{</figcaption>} +
         %{</figure>}
       )
