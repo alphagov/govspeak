@@ -19,6 +19,7 @@ require 'govspeak/post_processor'
 require 'govspeak/link_extractor'
 require 'govspeak/template_renderer'
 require 'govspeak/presenters/attachment_presenter'
+require 'govspeak/presenters/canned_content_presenter'
 require 'govspeak/presenters/contact_presenter'
 require 'govspeak/presenters/h_card_presenter'
 require 'govspeak/presenters/image_presenter'
@@ -369,6 +370,12 @@ module Govspeak
       next "" if attachments.none? { |a| a[:id] == attachment_id }
 
       %{<govspeak-embed-attachment-link id="#{attachment_id}"></govspeak-embed-attachment-link>}
+    end
+
+    extension('CannedContent', /\[CannedContent:\s*(.*?)\s*\]/) do |content_id|
+      canned_content = CannedContentPresenter.new(content_id)
+      @renderer ||= ERB.new(File.read(__dir__ + '/templates/canned-content.html.erb'))
+      @renderer.result(binding)
     end
 
   private
