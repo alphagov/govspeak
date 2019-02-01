@@ -15,7 +15,7 @@ class GovspeakCannedContentTest < Minitest::Test
 
     expected_html_output = (
         %{<p>} +
-        %{This is a canned content.} +
+        %{This is a test canned content} +
         %{</p>}
       )
 
