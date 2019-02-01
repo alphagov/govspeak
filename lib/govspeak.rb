@@ -378,7 +378,7 @@ module Govspeak
       canned_content_items = JSON.parse response.body
       canned_content = nil
 
-      canned_content_items.each do | content |
+      canned_content_items.each do |content|
         if content_id === content["id"]
           canned_content = content
           break
