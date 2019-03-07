@@ -1,3 +1,7 @@
+## 5.9.1
+
+* Don't render `[Image: {file-name}]` within a paragraph to avoid invalid HTML
+
 ## 5.9.0
 
 * Add image credits to embedded images
