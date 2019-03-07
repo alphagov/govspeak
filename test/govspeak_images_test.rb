@@ -93,4 +93,27 @@ class GovspeakImagesTest < Minitest::Test
       )
     end
   end
+
+  test "Image is not inserted when it does not start on a new line" do
+    given_govspeak "some text [Image:image-id]", images: [build_image] do
+      assert_html_output("<p>some text [Image:image-id]</p>")
+    end
+
+    given_govspeak "[Image:image-id]", images: [build_image] do
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +
+        %{</figure>}
+      )
+    end
+
+    given_govspeak "[Image:image-id] some text", images: [build_image] do
+      assert_html_output(
+        %{<figure class="image embedded">} +
+        %{<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>} +
+        %{</figure>\n} +
+        %{<p>some text</p>}
+      )
+    end
+  end
 end
