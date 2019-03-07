@@ -29,6 +29,7 @@ module Govspeak
     Parser = Kramdown::Parser::KramdownWithAutomaticExternalLinks
     PARSER_CLASS_NAME = Parser.name.split("::").last
     UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.freeze
+    NEW_PARAGRAPH_LOOKBEHIND = %q{(?<=\A|\n\n|\r\n\r\n)}.freeze
 
     @extensions = []
 
@@ -287,7 +288,7 @@ module Govspeak
       %{\n<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", '').gsub("\n", '<br />')}\n</p></div></div>\n}
     }
 
-    extension("legislative list", /(?<=\A|\n\n|\r\n\r\n)^\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
+    extension("legislative list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
       Govspeak::KramdownOverrides.with_kramdown_ordered_lists_disabled do
         Kramdown::Document.new(body.strip).to_html.tap do |doc|
           doc.gsub!('<ul>', '<ol>')
@@ -324,7 +325,7 @@ module Govspeak
       end
     end
 
-    extension("Priority list", /(?<=\A|\n\n|\r\n\r\n)^\$PriorityList:(\d+)\s*$(.*?)(?:^\s*$|\Z)/m) do |number_to_show, body|
+    extension("Priority list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$PriorityList:(\d+)\s*$(.*?)(?:^\s*$|\Z)/m) do |number_to_show, body|
       number_to_show = number_to_show.to_i
       tagged = 0
       Govspeak::Document.new(body.strip).to_html.gsub(/<li>/) do |match|
