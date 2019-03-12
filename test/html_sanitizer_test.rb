@@ -46,11 +46,6 @@ class HtmlSanitizerTest < Minitest::Test
     assert_equal "", Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ['allowed.com']).sanitize
   end
 
-  test "can strip images" do
-    html = "<img src='http://example.com/image.jgp'>"
-    assert_equal "", Govspeak::HtmlSanitizer.new(html).sanitize_without_images
-  end
-
   test "allows table cells and table headings without a style attribute" do
     html = "<table><thead><tr><th>thing</th></tr></thead><tbody><tr><td>thing</td></tr></tbody></table>"
     assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize

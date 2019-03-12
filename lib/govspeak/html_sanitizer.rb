@@ -49,11 +49,6 @@ class Govspeak::HtmlSanitizer
     Sanitize.clean(@dirty_html, Sanitize::Config.merge(sanitize_config, transformers: transformers))
   end
 
-  def sanitize_without_images
-    config = sanitize_config
-    Sanitize.clean(@dirty_html, Sanitize::Config.merge(config, elements: config[:elements] - %w[img]))
-  end
-
   def button_sanitize_config
     [
       "data-module",
