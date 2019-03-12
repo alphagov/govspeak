@@ -46,7 +46,14 @@ module Govspeak
 
     def initialize(source, options = {})
       options = options.dup.deep_symbolize_keys
-      @source = source ? source.dup : ""
+      unsanitized_source = source ? source.dup : ""
+
+      @source = if options[:sanitize]
+                  HtmlSanitizer.new(unsanitized_source).sanitize
+                else
+                  unsanitized_source
+                end
+
       @images = options.delete(:images) || []
       @attachments = Array.wrap(options.delete(:attachments))
       @links = Array.wrap(options.delete(:links))

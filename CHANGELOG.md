@@ -1,3 +1,7 @@
+## Unreleased
+
+* Allow sanitize option on remove invalid HTML from source input
+
 ## 5.9.1
 
 * Don't render `[Image: {file-name}]` within a paragraph to avoid invalid HTML
