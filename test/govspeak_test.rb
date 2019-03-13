@@ -632,9 +632,14 @@ Teston
       }
   end
 
-  test 'can sanitize source input' do
-    document = Govspeak::Document.new("<script>doBadThings();</script>", sanitize: true)
+  test 'sanitize source input by default' do
+    document = Govspeak::Document.new("<script>doBadThings();</script>")
     assert_equal "", document.to_html.strip
+  end
+
+  test 'it can have sanitizing disabled' do
+    document = Govspeak::Document.new("<script>doGoodThings();</script>", sanitize: false)
+    assert_equal "<script>doGoodThings();</script>", document.to_html.strip
   end
 
   test "identifies a Govspeak document containing malicious HTML as invalid" do

@@ -47,25 +47,27 @@ module Govspeak
 
     def initialize(source, options = {})
       options = options.dup.deep_symbolize_keys
-      unsanitized_source = source ? source.dup : ""
-
-      @source = if options[:sanitize]
-                  HtmlSanitizer.new(unsanitized_source).sanitize
-                else
-                  unsanitized_source
-                end
+      @source = source ? source.dup : ""
 
       @images = options.delete(:images) || []
       @attachments = Array.wrap(options.delete(:attachments))
       @links = Array.wrap(options.delete(:links))
       @contacts = Array.wrap(options.delete(:contacts))
       @locale = options.fetch(:locale, "en")
-      @options = { input: PARSER_CLASS_NAME }.merge(options)
+      @options = { input: PARSER_CLASS_NAME, sanitize: true }.merge(options)
       @options[:entity_output] = :symbolic
     end
 
     def to_html
-      @to_html ||= Govspeak::PostProcessor.process(kramdown_doc.to_html, self)
+      @to_html ||= begin
+                     html = if @options[:sanitize]
+                              HtmlSanitizer.new(kramdown_doc.to_html).sanitize
+                            else
+                              kramdown_doc.to_html
+                            end
+
+                     Govspeak::PostProcessor.process(html, self)
+                   end
     end
 
     def to_liquid

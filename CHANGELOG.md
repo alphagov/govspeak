@@ -1,5 +1,6 @@
 ## Unreleased
 
+* BREAKING CHANGE: Input is sanitized by default, to use unsafe HTML initialize with a sanitize option of false
 * Allow sanitize option on remove invalid HTML from source input
 * BREAKING CHANGE: Remove `to_sanitized_html` method in favour of `sanitize` option on initialize
 * BREAKING CHANGE: Remove `to_sanitized_html_without_images` as no apps use this anymore
