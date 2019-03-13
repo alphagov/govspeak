@@ -7,7 +7,7 @@
     <h3><%= contact.title %></h3>
     <div class="vcard contact-inner">
     <% contact.post_addresses.each do |address| %>
-      <%= render_hcard_address(address) %>
+      <%= Govspeak::HCardPresenter.new(address).render %>
     <% end %>
     <% if contact.email_addresses.any? || contact.phone_numbers.any? || contact.contact_form_links.any? %>
       <div class="email-url-number">

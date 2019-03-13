@@ -13,6 +13,7 @@ require 'govspeak/kramdown_overrides'
 require 'govspeak/blockquote_extra_quote_remover'
 require 'govspeak/post_processor'
 require 'govspeak/link_extractor'
+require 'govspeak/template_renderer'
 require 'govspeak/presenters/attachment_presenter'
 require 'govspeak/presenters/contact_presenter'
 require 'govspeak/presenters/h_card_presenter'
@@ -69,16 +70,6 @@ module Govspeak
 
     def to_liquid
       to_html
-    end
-
-    def t(*args)
-      options = args.last.is_a?(Hash) ? args.last.dup : {}
-      key = args.shift
-      I18n.t!(key, options.merge(locale: locale))
-    end
-
-    def format_with_html_line_breaks(string)
-      ERB::Util.html_escape(string || "").strip.gsub(/(?:\r?\n)/, "<br/>").html_safe
     end
 
     def to_text
@@ -228,9 +219,8 @@ module Govspeak
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
 
-      attachment = AttachmentPresenter.new(attachment)
-      content = File.read(__dir__ + '/templates/attachment.html.erb')
-      ERB.new(content).result(binding)
+      renderer = TemplateRenderer.new('attachment.html.erb', locale)
+      renderer.render(attachment: AttachmentPresenter.new(attachment))
     end
 
     extension('attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
@@ -352,9 +342,8 @@ module Govspeak
       contact = contacts.detect { |c| c[:content_id] == content_id }
       next "" unless contact
 
-      contact = ContactPresenter.new(contact)
-      @renderer ||= ERB.new(File.read(__dir__ + '/templates/contact.html.erb'))
-      @renderer.result(binding)
+      renderer = TemplateRenderer.new('contact.html.erb', locale)
+      renderer.render(contact: ContactPresenter.new(contact))
     end
 
     extension('Image', /#{NEW_PARAGRAPH_LOOKBEHIND}\[Image:\s*(.*?)\s*\]/) do |image_id|
@@ -372,10 +361,6 @@ module Govspeak
 
     def encode(text)
       HTMLEntities.new.encode(text)
-    end
-
-    def render_hcard_address(contact_address)
-      HCardPresenter.new(contact_address).render
     end
   end
 end
