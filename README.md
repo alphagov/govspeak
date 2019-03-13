@@ -18,18 +18,6 @@ then create a new document
     doc = Govspeak::Document.new "^Test^"
     puts doc.to_html
 
-or alternatively, run it from the command line
-
-    $ govspeak "render-me"
-    $ govspeak --file render-me.md
-    $ echo "render-me" | govspeak
-
-options can be passed in through `--options` as a string of JSON or a file
-of JSON can be passed in as `--options-file options.json`.
-
-if installed via bundler prefix commands with bundle exec eg `$ bundle exec govspeak "render-me"`
-
-
 # Extensions
 
 In addition to the [standard Markdown syntax](http://daringfireball.net/projects/markdown/syntax "Markdown syntax"), we have added our own extensions.
