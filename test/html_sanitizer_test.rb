@@ -3,7 +3,7 @@ require "test_helper"
 class HtmlSanitizerTest < Minitest::Test
   test "disallow a script tag" do
     html = "<script>alert('XSS')</script>"
-    assert_equal "alert('XSS')", Govspeak::HtmlSanitizer.new(html).sanitize
+    assert_equal "", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
   test "disallow a javascript protocol in an attribute" do
