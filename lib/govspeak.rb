@@ -65,7 +65,7 @@ module Govspeak
     end
 
     def to_html
-      @to_html ||= Govspeak::PostProcessor.process(kramdown_doc.to_html)
+      @to_html ||= Govspeak::PostProcessor.process(kramdown_doc.to_html, self)
     end
 
     def to_liquid
@@ -215,12 +215,11 @@ module Govspeak
       render_image(ImagePresenter.new(image))
     end
 
-    extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id, body|
-      attachment = attachments.detect { |a| a[:content_id] == content_id }
-      next "" unless attachment
-
-      renderer = TemplateRenderer.new('attachment.html.erb', locale)
-      renderer.render(attachment: AttachmentPresenter.new(attachment))
+    extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id|
+      # not treating this as a self closing tag seems to avoid some oddities
+      # such as an extra new line being inserted when explicitly closed or
+      # swallowing subsequent elements when not closed
+      %{<govspeak-embed-attachment content-id="#{content_id}"></govspeak-embed-attachment>}
     end
 
     extension('attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|

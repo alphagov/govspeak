@@ -8,8 +8,8 @@ module Govspeak
       @extensions
     end
 
-    def self.process(html)
-      new(html).output
+    def self.process(html, govspeak_document)
+      new(html, govspeak_document).output
     end
 
     def self.extension(title, &block)
@@ -49,10 +49,25 @@ module Govspeak
       end
     end
 
-    attr_reader :input
+    extension("embed attachment HTML") do |document|
+      document.css("govspeak-embed-attachment").map do |el|
+        attachment = govspeak_document.attachments.detect { |a| a[:content_id] == el["content-id"] }
+        unless attachment
+          el.remove
+          next
+        end
 
-    def initialize(html)
+        renderer = TemplateRenderer.new('attachment.html.erb', govspeak_document.locale)
+        attachment_html = renderer.render(attachment: AttachmentPresenter.new(attachment))
+        el.swap(attachment_html)
+      end
+    end
+
+    attr_reader :input, :govspeak_document
+
+    def initialize(html, govspeak_document)
       @input = html
+      @govspeak_document = govspeak_document
     end
 
     def output
@@ -62,7 +77,6 @@ module Govspeak
       end
       document.to_html
     end
-
 
   private
 
