@@ -40,7 +40,7 @@ library for use in the UK Government Single Domain project'
   s.add_dependency 'money', '~> 6.7'
   s.add_dependency 'nokogiri', '~> 1.5'
   s.add_dependency 'rinku', '~> 2.0'
-  s.add_dependency "sanitize", "~> 4.6"
+  s.add_dependency "sanitize", "~> 5"
 
   s.add_development_dependency 'govuk-lint'
   s.add_development_dependency 'minitest', '~> 5.8.3'

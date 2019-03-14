@@ -13,6 +13,7 @@ require 'govspeak/kramdown_overrides'
 require 'govspeak/blockquote_extra_quote_remover'
 require 'govspeak/post_processor'
 require 'govspeak/link_extractor'
+require 'govspeak/template_renderer'
 require 'govspeak/presenters/attachment_presenter'
 require 'govspeak/presenters/contact_presenter'
 require 'govspeak/presenters/h_card_presenter'
@@ -47,39 +48,30 @@ module Govspeak
     def initialize(source, options = {})
       options = options.dup.deep_symbolize_keys
       @source = source ? source.dup : ""
+
       @images = options.delete(:images) || []
       @attachments = Array.wrap(options.delete(:attachments))
       @links = Array.wrap(options.delete(:links))
       @contacts = Array.wrap(options.delete(:contacts))
       @locale = options.fetch(:locale, "en")
-      @options = { input: PARSER_CLASS_NAME }.merge(options)
+      @options = { input: PARSER_CLASS_NAME, sanitize: true }.merge(options)
       @options[:entity_output] = :symbolic
     end
 
     def to_html
-      @to_html ||= Govspeak::PostProcessor.process(kramdown_doc.to_html)
+      @to_html ||= begin
+                     html = if @options[:sanitize]
+                              HtmlSanitizer.new(kramdown_doc.to_html).sanitize
+                            else
+                              kramdown_doc.to_html
+                            end
+
+                     Govspeak::PostProcessor.process(html, self)
+                   end
     end
 
     def to_liquid
       to_html
-    end
-
-    def t(*args)
-      options = args.last.is_a?(Hash) ? args.last.dup : {}
-      key = args.shift
-      I18n.t!(key, options.merge(locale: locale))
-    end
-
-    def format_with_html_line_breaks(string)
-      ERB::Util.html_escape(string || "").strip.gsub(/(?:\r?\n)/, "<br/>").html_safe
-    end
-
-    def to_sanitized_html
-      HtmlSanitizer.new(to_html).sanitize
-    end
-
-    def to_sanitized_html_without_images
-      HtmlSanitizer.new(to_html).sanitize_without_images
     end
 
     def to_text
@@ -225,13 +217,11 @@ module Govspeak
       render_image(ImagePresenter.new(image))
     end
 
-    extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id, body|
-      attachment = attachments.detect { |a| a[:content_id] == content_id }
-      next "" unless attachment
-
-      attachment = AttachmentPresenter.new(attachment)
-      content = File.read(__dir__ + '/templates/attachment.html.erb')
-      ERB.new(content).result(binding)
+    extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id|
+      # not treating this as a self closing tag seems to avoid some oddities
+      # such as an extra new line being inserted when explicitly closed or
+      # swallowing subsequent elements when not closed
+      %{<govspeak-embed-attachment content-id="#{content_id}"></govspeak-embed-attachment>}
     end
 
     extension('attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
@@ -353,9 +343,8 @@ module Govspeak
       contact = contacts.detect { |c| c[:content_id] == content_id }
       next "" unless contact
 
-      contact = ContactPresenter.new(contact)
-      @renderer ||= ERB.new(File.read(__dir__ + '/templates/contact.html.erb'))
-      @renderer.result(binding)
+      renderer = TemplateRenderer.new('contact.html.erb', locale)
+      renderer.render(contact: ContactPresenter.new(contact))
     end
 
     extension('Image', /#{NEW_PARAGRAPH_LOOKBEHIND}\[Image:\s*(.*?)\s*\]/) do |image_id|
@@ -373,10 +362,6 @@ module Govspeak
 
     def encode(text)
       HTMLEntities.new.encode(text)
-    end
-
-    def render_hcard_address(contact_address)
-      HCardPresenter.new(contact_address).render
     end
   end
 end

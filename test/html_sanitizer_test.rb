@@ -3,7 +3,7 @@ require "test_helper"
 class HtmlSanitizerTest < Minitest::Test
   test "disallow a script tag" do
     html = "<script>alert('XSS')</script>"
-    assert_equal "alert('XSS')", Govspeak::HtmlSanitizer.new(html).sanitize
+    assert_equal "", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
   test "disallow a javascript protocol in an attribute" do
@@ -44,11 +44,6 @@ class HtmlSanitizerTest < Minitest::Test
   test "removes images not on whitelisted domains" do
     html = "<img src='http://evil.com/image.jgp'>"
     assert_equal "", Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ['allowed.com']).sanitize
-  end
-
-  test "can strip images" do
-    html = "<img src='http://example.com/image.jgp'>"
-    assert_equal "", Govspeak::HtmlSanitizer.new(html).sanitize_without_images
   end
 
   test "allows table cells and table headings without a style attribute" do

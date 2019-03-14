@@ -49,11 +49,6 @@ class Govspeak::HtmlSanitizer
     Sanitize.clean(@dirty_html, Sanitize::Config.merge(sanitize_config, transformers: transformers))
   end
 
-  def sanitize_without_images
-    config = sanitize_config
-    Sanitize.clean(@dirty_html, Sanitize::Config.merge(config, elements: config[:elements] - %w[img]))
-  end
-
   def button_sanitize_config
     [
       "data-module",
@@ -65,11 +60,13 @@ class Govspeak::HtmlSanitizer
   def sanitize_config
     Sanitize::Config.merge(
       Sanitize::Config::RELAXED,
+      elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment],
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + ["role", "aria-label"],
         "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + button_sanitize_config,
         "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
         "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
+        "govspeak-embed-attachment" => %w[content-id],
       }
     )
   end

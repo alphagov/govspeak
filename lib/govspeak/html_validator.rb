@@ -22,6 +22,6 @@ class Govspeak::HtmlValidator
   end
 
   def govspeak_to_html
-    Govspeak::Document.new(govspeak_string).to_html
+    Govspeak::Document.new(govspeak_string, sanitize: false).to_html
   end
 end
