@@ -1,4 +1,4 @@
-## Unreleased
+## 6.0.0
 
 * BREAKING CHANGE: Input is sanitized by default, to use unsafe HTML initialize with a sanitize option of false
 * Allow sanitize option on remove invalid HTML from source input
