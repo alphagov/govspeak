@@ -4,6 +4,7 @@
 * Allow sanitize option on remove invalid HTML from source input
 * BREAKING CHANGE: Remove `to_sanitized_html` method in favour of `sanitize` option on initialize
 * BREAKING CHANGE: Remove `to_sanitized_html_without_images` as no apps use this anymore
+* BREAKING CHANGE: Remove CLI usage
 
 ## 5.9.1
 
