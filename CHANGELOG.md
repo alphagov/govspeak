@@ -1,3 +1,7 @@
+## Unreleased
+
+* Blockquote quote remover is now more forgiving to spaces before or after quote characters
+
 ## 6.0.0
 
 * BREAKING CHANGE: Input is sanitized by default, to use unsafe HTML initialize with a sanitize option of false
