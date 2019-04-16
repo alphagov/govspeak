@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Add new `AttachementLink:attachment-id` extension and mark as experimental
 * Add new `Attachement:attachment-id` extension and mark as experimental
 * Blockquote quote remover is now more forgiving to spaces before or after quote characters
 
