@@ -6,7 +6,7 @@ class GovspeakAttachmentTest < Minitest::Test
   def build_attachment(args = {})
     {
       content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",
-      id: 456,
+      id: 'attachment-id',
       url: "http://example.com/attachment.pdf",
       title: "Attachment Title",
     }.merge(args)
@@ -354,5 +354,34 @@ class GovspeakAttachmentTest < Minitest::Test
     govspeak = "[embed:attachments:/path/to/file%20name.pdf]"
     rendered = Govspeak::Document.new(govspeak).to_html
     assert_equal("\n", rendered)
+  end
+
+  test "attachment using [Attachment:id] syntax" do
+    rendered = render_govspeak(
+      "[Attachment:file.png]",
+      [build_attachment(id: "file.png", content_id: nil)]
+    )
+    assert_match(/<section class="attachment embedded">/, rendered)
+  end
+
+  test "attachment using [Attachment:id] syntax is not inserted when it does not start on a new line" do
+    rendered = render_govspeak(
+      "some text [Attachment:file.png]",
+      [build_attachment(id: "file.png")]
+    )
+    assert_equal("<p>some text [Attachment:file.png]</p>\n", rendered)
+
+    rendered = render_govspeak(
+      "[Attachment:file.png]",
+      [build_attachment(id: "file.png")]
+    )
+    assert_match(/<section class="attachment embedded">/, rendered)
+
+    rendered = render_govspeak(
+      "[Attachment:file.png] some text",
+      [build_attachment(id: "file.png")]
+    )
+    assert_match(/<section class="attachment embedded">/, rendered)
+    assert_match(/<p>some text<\/p>/, rendered)
   end
 end
