@@ -217,14 +217,14 @@ module Govspeak
       render_image(ImagePresenter.new(image))
     end
 
-    extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id|
+    extension('embed attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id|
       # not treating this as a self closing tag seems to avoid some oddities
       # such as an extra new line being inserted when explicitly closed or
       # swallowing subsequent elements when not closed
       %{<govspeak-embed-attachment content-id="#{content_id}"></govspeak-embed-attachment>}
     end
 
-    extension('attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
+    extension('embed attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
 
