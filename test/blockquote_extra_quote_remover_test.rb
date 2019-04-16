@@ -60,6 +60,13 @@ class BlockquoteExtraQuoteRemoverTest < Minitest::Test
     )
   end
 
+  test "handles space after a quote" do
+    assert_remover_transforms(
+      %{>" Test"} =>
+      %{> Test}
+    )
+  end
+
   test "remove double double quotes" do
     assert_remover_transforms(
       %{We heard it said:\n\n> ""Today the coalition is remedying those deficiencies by putting in place a new fast track process where the people's elected representatives have responsibility for the final decisions about Britain's future instead of unelected commissioners.""} =>
