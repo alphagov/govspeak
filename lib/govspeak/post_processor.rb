@@ -51,7 +51,14 @@ module Govspeak
 
     extension("embed attachment HTML") do |document|
       document.css("govspeak-embed-attachment").map do |el|
-        attachment = govspeak_document.attachments.detect { |a| a[:content_id] == el["content-id"] }
+        attachment = govspeak_document.attachments.detect do |a|
+          if el["id"].present?
+            a[:id] == el["id"]
+          else
+            a[:content_id] == el["content-id"]
+          end
+        end
+
         unless attachment
           el.remove
           next

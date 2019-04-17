@@ -217,24 +217,18 @@ module Govspeak
       render_image(ImagePresenter.new(image))
     end
 
-    extension('attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id|
+    extension('embed attachment', /\[embed:attachments:(?!inline:|image:)\s*(.*?)\s*\]/) do |content_id|
       # not treating this as a self closing tag seems to avoid some oddities
       # such as an extra new line being inserted when explicitly closed or
       # swallowing subsequent elements when not closed
       %{<govspeak-embed-attachment content-id="#{content_id}"></govspeak-embed-attachment>}
     end
 
-    extension('attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
+    extension('embed attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
 
-      attachment = AttachmentPresenter.new(attachment)
-      span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
-      # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
-      title = (attachment.title || "").tr("\n", " ")
-      link = attachment.link(title, attachment.url)
-      attributes = attachment.attachment_attributes.empty? ? "" : " (#{attachment.attachment_attributes})"
-      %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
+      render_attachment_link(AttachmentPresenter.new(attachment))
     end
 
     # DEPRECATED: use 'Image:image-id' instead
@@ -263,6 +257,15 @@ module Govspeak
       lines << image.figcaption_html if image.figcaption?
       lines << '</figure>'
       lines.join
+    end
+
+    def render_attachment_link(attachment)
+      span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
+      # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
+      title = (attachment.title || "").tr("\n", " ")
+      link = attachment.link(title, attachment.url)
+      attributes = attachment.attachment_attributes.empty? ? "" : " (#{attachment.attachment_attributes})"
+      %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
     wrap_with_div('summary', '$!')
@@ -352,6 +355,24 @@ module Govspeak
       next "" unless image
 
       render_image(ImagePresenter.new(image))
+    end
+
+    # This is an alternative syntax for embedding attachments using a readable id (expected
+    # to be a unique variation of a filename). This syntax is being used by
+    # Content Publisher and should be considered experimental as it is likely
+    # to be iterated in the short term.
+    extension('Attachment', /#{NEW_PARAGRAPH_LOOKBEHIND}\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|
+      %{<govspeak-embed-attachment id="#{attachment_id}"></govspeak-embed-attachment>}
+    end
+
+    # This is an alternative syntax for embedding attachments as links. This
+    # syntax is being used by Content Publisher and should be considered
+    # experimental
+    extension('AttachmentLink', /#{NEW_PARAGRAPH_LOOKBEHIND}\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
+      attachment = attachments.detect { |a| a[:id] == attachment_id }
+      next "" unless attachment
+
+      render_attachment_link(AttachmentPresenter.new(attachment))
     end
 
   private
