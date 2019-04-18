@@ -368,7 +368,7 @@ module Govspeak
     # This is an alternative syntax for embedding attachments as links. This
     # syntax is being used by Content Publisher and should be considered
     # experimental
-    extension('AttachmentLink', /#{NEW_PARAGRAPH_LOOKBEHIND}\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
+    extension('AttachmentLink', /\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
       attachment = attachments.detect { |a| a[:id] == attachment_id }
       next "" unless attachment
 
