@@ -60,7 +60,7 @@ class Govspeak::HtmlSanitizer
   def sanitize_config
     Sanitize::Config.merge(
       Sanitize::Config::RELAXED,
-      elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment],
+      elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment govspeak-embed-attachment-link],
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + ["role", "aria-label"],
         "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + button_sanitize_config,

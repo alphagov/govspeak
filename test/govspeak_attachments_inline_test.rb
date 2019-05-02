@@ -169,12 +169,4 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
     rendered = render_govspeak("[embed:attachments:inline: path/to/file name.jpg ]")
     assert_equal("\n", rendered)
   end
-
-  test "supports alternative syntax for attachment links" do
-    rendered = render_govspeak(
-      "[AttachmentLink:f.pdf]",
-      [build_attachment(content_id: nil, id: "f.pdf", url: "http://a.b/f.pdf", title: "My Pdf")]
-    )
-    assert_match(%r{<a href="http://a.b/f.pdf">My Pdf</a>}, rendered)
-  end
 end
