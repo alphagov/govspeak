@@ -51,21 +51,18 @@ module Govspeak
 
     extension("embed attachment HTML") do |document|
       document.css("govspeak-embed-attachment").map do |el|
-        attachment = govspeak_document.attachments.detect do |a|
-          if el["id"].present?
-            a[:id] == el["id"]
-          else
-            a[:content_id] == el["content-id"]
-          end
-        end
+        attachment = govspeak_document.attachments.detect { |a| a[:id] == el["id"] }
 
         unless attachment
           el.remove
           next
         end
 
-        renderer = TemplateRenderer.new('attachment.html.erb', govspeak_document.locale)
-        attachment_html = renderer.render(attachment: AttachmentPresenter.new(attachment))
+        attachment_html = GovukPublishingComponents.render(
+          "govuk_publishing_components/components/attachment",
+          attachment: attachment,
+          locale: govspeak_document.locale
+        )
         el.swap(attachment_html)
       end
     end
