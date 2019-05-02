@@ -1,25 +1,6 @@
 ---
 el:
   govspeak:
-    attachment:
-      accessibility:
-        full_help_html: Για να ζητήσετε το παρόν έγγραφο σε εναλακτική μορφή, όπως σε
-          μπρέιλ, ηχητική μορφή ή άλλο τύπο αρχείου παρακαλούμε συμπληρώστε το email
-          σας %{email} τη διευθυνσή σας, το τηλέφωνό σας και τον τίτλο του εγγράφου
-          ("%{title}")%{references}.
-        heading: Το αρχείο μπορεί να μην είναι συμβατό με προγράμματα υποστηρικτικής
-          τεχνολογίας.
-        request_a_different_format: Εναλλακτικός τύπος αρχείου
-      headings:
-        order_a_copy: Ζητήστε αντίτυπο
-        order_a_copy_full: Ζητήστε αντιτυπο της έκδοσης
-        published: Δημοσιεύτηκε
-        reference: Σχετικά
-        unnumbered_command_paper:
-        unnumbered_hoc_paper:
-      opendocument:
-        help_html:
-      see_more:
     contact:
       contact_form: "Φόρμα επικοινωνίας"
       email: Email

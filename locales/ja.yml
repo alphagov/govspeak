@@ -1,22 +1,6 @@
 ---
 ja:
   govspeak:
-    attachment:
-      accessibility:
-        full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル
-          ("%{title}")%{references}.をお送り下さい。
-        heading: このファイルは支援技術のユーザーには利用できない場合があります
-        request_a_different_format: 異なるフォーマットを要求
-      headings:
-        order_a_copy: コピーを注文
-        order_a_copy_full: コピーを注文
-        published: 掲載日
-        reference: Ref
-        unnumbered_command_paper:
-        unnumbered_hoc_paper:
-      opendocument:
-        help_html:
-      see_more:
     contact:
       contact_form: "連絡フォーム"
       email: Email
