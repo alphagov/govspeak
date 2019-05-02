@@ -5,6 +5,7 @@ require 'htmlentities'
 require 'kramdown'
 require 'kramdown/parser/kramdown_with_automatic_external_links'
 require 'rinku'
+require 'govuk_publishing_components'
 require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
@@ -228,7 +229,14 @@ module Govspeak
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
 
-      render_attachment_link(AttachmentPresenter.new(attachment))
+      attachment = AttachmentPresenter.new(attachment)
+
+      span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
+      # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
+      title = (attachment.title || "").tr("\n", " ")
+      link = attachment.link(title, attachment.url)
+      attributes = attachment.attachment_attributes.empty? ? "" : " (#{attachment.attachment_attributes})"
+      %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
     # DEPRECATED: use 'Image:image-id' instead
@@ -257,15 +265,6 @@ module Govspeak
       lines << image.figcaption_html if image.figcaption?
       lines << '</figure>'
       lines.join
-    end
-
-    def render_attachment_link(attachment)
-      span_id = attachment.id ? %{ id="attachment_#{attachment.id}"} : ""
-      # new lines inside our title cause problems with govspeak rendering as this is expected to be on one line.
-      title = (attachment.title || "").tr("\n", " ")
-      link = attachment.link(title, attachment.url)
-      attributes = attachment.attachment_attributes.empty? ? "" : " (#{attachment.attachment_attributes})"
-      %{<span#{span_id} class="attachment-inline">#{link}#{attributes}</span>}
     end
 
     wrap_with_div('summary', '$!')
@@ -369,10 +368,7 @@ module Govspeak
     # syntax is being used by Content Publisher and should be considered
     # experimental
     extension('AttachmentLink', /\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
-      attachment = attachments.detect { |a| a[:id] == attachment_id }
-      next "" unless attachment
-
-      render_attachment_link(AttachmentPresenter.new(attachment))
+      %{<govspeak-embed-attachment-link id="#{attachment_id}"></govspeak-embed-attachment-link>}
     end
 
   private

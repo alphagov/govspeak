@@ -70,6 +70,24 @@ module Govspeak
       end
     end
 
+    extension("embed attachment link HTML") do |document|
+      document.css("govspeak-embed-attachment-link").map do |el|
+        attachment = govspeak_document.attachments.detect { |a| a[:id] == el["id"] }
+
+        unless attachment
+          el.remove
+          next
+        end
+
+        attachment_html = GovukPublishingComponents.render(
+          "govuk_publishing_components/components/attachment_link",
+          attachment: attachment,
+          locale: govspeak_document.locale
+        )
+        el.swap(attachment_html)
+      end
+    end
+
     attr_reader :input, :govspeak_document
 
     def initialize(html, govspeak_document)
