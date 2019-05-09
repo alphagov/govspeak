@@ -18,12 +18,8 @@ class GovspeakAttachmentLinkTest < Minitest::Test
       title: "Attachment Title",
     }
 
-    html = GovukPublishingComponents.render(
-      "govuk_publishing_components/components/attachment_link",
-      attachment: attachment
-    )
     rendered = render_govspeak("[AttachmentLink:attachment.pdf]", [attachment])
-    assert_equal(html + "\n", rendered)
+    assert_match(/<span class="gem-c-attachment-link">/, rendered)
     assert_match(%r{href="http://example.com/attachment.pdf"}, rendered)
   end
 end

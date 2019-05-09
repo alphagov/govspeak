@@ -352,53 +352,9 @@ Embedded content allows authors to reference a supporting item of a document by
 referencing an id. The details of this content is passed to the publishing
 application to govspeak at the time of rendering.
 
-### Attachments
-
-To create an attachment callout
-
-    [embed:attachment:2b4d92f3-f8cd-4284-aaaa-25b3a640d26c]
-
-with options provided
-
-    {
-      attachments: [
-        {
-          id: 123,
-          content_id: "2b4d92f3-f8cd-4284-aaaa-25b3a640d26c",
-          title: "Attachment Title",
-          url: "http://example.com/test.pdf",
-          order_url: "http://example.com/order",
-          price: 12.3,
-          isbn: "isbn-123",
-          attachment?: true,
-        }
-      ]
-    }
-
-will output an attachment box
-
-```html
-<section class="attachment embedded">
-  <div class="attachment-thumb">
-    <a href="http://example.com/test.pdf" aria-hidden="true" class="embedded"><img src="/images/pub-cover.png" alt="Pub cover"></a>
-  </div>
-  <div class="attachment-details">
-    <h2 class="title">
-      <a href="http://example.com/test.pdf" aria-describedby="attachment-123-accessibility-help">Attachment Title</a>
-    </h2>
-    <p class="metadata">
-      <span class="references">Ref: ISBN <span class="isbn">isbn-123</span></span>
-    </p>
-    <p>
-      <a href="http://example.com/order" class="order_url" title="Order a copy of the publication">Order a copy</a>(<span class="price">£12.30</span>)
-    </p>
-  </div>
-</section>
-```
-
 ### Inline Attachment
 
-Attachments can be linked to inline as well
+Attachments can be linked to inline
 
     Details referenced in [embed:attachments:inline:34f6dda0-21b1-4e78-8120-3ff4dcea522d]
 

@@ -1,23 +1,6 @@
 ---
 be:
   govspeak:
-    attachment:
-      accessibility:
-        full_help_html: Каб зарасіць гэты дакумент у іншым фармаце, такім як шрыфт Брайля,
-          аўдыё і інш. калі ласка, адпраўце электроннае паведамленне на %{email} з вашай
-          адрэсай, тэлефонным нумарам і назвай дакумента ("%{title}")%{references}.
-        heading: Гэты файл можа быць непрыдатным для карыстальнікаў дапаможных тэхналогій.
-        request_a_different_format: Запрасіць файл у іншым фармаце.
-      headings:
-        order_a_copy: Замовіць копію
-        order_a_copy_full: Замовіць копію гэтай публікацыі
-        published: Апублікаваны
-        reference: Спасылка
-        unnumbered_command_paper:
-        unnumbered_hoc_paper:
-      opendocument:
-        help_html:
-      see_more:
     contact:
       contact_form: "Кантактная форма"
       email: "Электронная пошта"
