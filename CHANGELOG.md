@@ -1,4 +1,4 @@
-## Unreleased
+## 6.1.0
 
 * Remove `[embed:attachments:content-id]` this isn't used by any apps and has never worked
 * Add dependency on govuk_publishing_components
