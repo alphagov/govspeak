@@ -353,6 +353,8 @@ module Govspeak
     # Content Publisher and should be considered experimental as it is likely
     # to be iterated in the short term.
     extension('Attachment', /#{NEW_PARAGRAPH_LOOKBEHIND}\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|
+      next "" if attachments.none? { |a| a[:id] == attachment_id }
+
       %{<govspeak-embed-attachment id="#{attachment_id}"></govspeak-embed-attachment>}
     end
 
@@ -360,6 +362,8 @@ module Govspeak
     # syntax is being used by Content Publisher and should be considered
     # experimental
     extension('AttachmentLink', /\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
+      next "" if attachments.none? { |a| a[:id] == attachment_id }
+
       %{<govspeak-embed-attachment-link id="#{attachment_id}"></govspeak-embed-attachment-link>}
     end
 
