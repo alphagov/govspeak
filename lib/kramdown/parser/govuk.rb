@@ -20,7 +20,7 @@ module Kramdown
   end
 
   module Parser
-    class KramdownWithAutomaticExternalLinks < Kramdown::Parser::Kramdown
+    class Govuk < Kramdown::Parser::Kramdown
       def initialize(source, options)
         @document_domains = options[:document_domains] || %w(www.gov.uk)
         super
