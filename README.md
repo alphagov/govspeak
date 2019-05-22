@@ -44,7 +44,7 @@ creates a callout with an info (i) icon.
 creates a callout with a warning or alert (!) icon
 
 ```html
-<div role="note" aria-label="Help" class="application-notice help-notice">
+<div role="note" aria-label="Warning" class="application-notice help-notice">
   <p>This is a warning callout</p>
 </div>
 ```
