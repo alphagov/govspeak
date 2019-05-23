@@ -3,7 +3,7 @@ require 'active_support/core_ext/array'
 require 'erb'
 require 'htmlentities'
 require 'kramdown'
-require 'kramdown/parser/kramdown_with_automatic_external_links'
+require 'kramdown/parser/govuk'
 require 'rinku'
 require 'govuk_publishing_components'
 require 'govspeak/header_extractor'
@@ -21,14 +21,13 @@ require 'govspeak/presenters/h_card_presenter'
 require 'govspeak/presenters/image_presenter'
 require 'govspeak/presenters/attachment_image_presenter'
 
-
 module Govspeak
   def self.root
     File.expand_path('..', File.dirname(__FILE__))
   end
 
   class Document
-    Parser = Kramdown::Parser::KramdownWithAutomaticExternalLinks
+    Parser = Kramdown::Parser::Govuk
     PARSER_CLASS_NAME = Parser.name.split("::").last
     UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.freeze
     NEW_PARAGRAPH_LOOKBEHIND = %q{(?<=\A|\n\n|\r\n\r\n)}.freeze
@@ -354,6 +353,8 @@ module Govspeak
     # Content Publisher and should be considered experimental as it is likely
     # to be iterated in the short term.
     extension('Attachment', /#{NEW_PARAGRAPH_LOOKBEHIND}\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|
+      next "" if attachments.none? { |a| a[:id] == attachment_id }
+
       %{<govspeak-embed-attachment id="#{attachment_id}"></govspeak-embed-attachment>}
     end
 
@@ -361,6 +362,8 @@ module Govspeak
     # syntax is being used by Content Publisher and should be considered
     # experimental
     extension('AttachmentLink', /\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
+      next "" if attachments.none? { |a| a[:id] == attachment_id }
+
       %{<govspeak-embed-attachment-link id="#{attachment_id}"></govspeak-embed-attachment-link>}
     end
 

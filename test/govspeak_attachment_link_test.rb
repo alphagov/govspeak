@@ -22,4 +22,19 @@ class GovspeakAttachmentLinkTest < Minitest::Test
     assert_match(/<span class="gem-c-attachment-link">/, rendered)
     assert_match(%r{href="http://example.com/attachment.pdf"}, rendered)
   end
+
+  test "renders an attachment link inside a paragraph" do
+    attachment = {
+      id: "attachment.pdf",
+      url: "http://example.com/attachment.pdf",
+      title: "Attachment Title",
+    }
+
+    rendered = render_govspeak("[AttachmentLink:attachment.pdf] test", [attachment])
+    root = Nokogiri::HTML.fragment(rendered).css(":root").first
+
+    assert(root.name, "p")
+    assert(root.css("p").size, 0)
+    assert_match(/Attachment Title\s*test/, root.text)
+  end
 end

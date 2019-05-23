@@ -20,7 +20,9 @@ module Kramdown
   end
 
   module Parser
-    class KramdownWithAutomaticExternalLinks < Kramdown::Parser::Kramdown
+    class Govuk < Kramdown::Parser::Kramdown
+      CUSTOM_INLINE_ELEMENTS = %w(govspeak-embed-attachment-link).freeze
+
       def initialize(source, options)
         @document_domains = options[:document_domains] || %w(www.gov.uk)
         super
@@ -39,6 +41,12 @@ module Kramdown
           end
           # rubocop:enable Lint/HandleExceptions
         end
+        super
+      end
+
+      def parse_block_html
+        return false if CUSTOM_INLINE_ELEMENTS.include?(@src[1].downcase)
+
         super
       end
     end
