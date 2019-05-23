@@ -1,4 +1,4 @@
-## Unreleased
+## 6.1.1
 
 * Fix wrapping `AttachmentLink:attachment-id` in a paragraph when used inline
 
