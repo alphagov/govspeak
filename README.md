@@ -352,7 +352,83 @@ Embedded content allows authors to reference a supporting item of a document by
 referencing an id. The details of this content is passed to the publishing
 application to govspeak at the time of rendering.
 
-### Inline Attachment
+### Attachments
+
+Attachments can be be rendered as blocks
+
+    [Attachment:file.txt]
+
+with options provided
+
+    {
+      attachments: [
+        {
+          id: "file.txt",
+          title: "My attached file",
+          url: "http://example.com/file.txt",
+          filename: "file.txt",
+          content_type: "text/plain",
+          file_size: 1024,
+        }
+      ]
+    }
+
+will output an attachment block
+
+```html
+<section class="gem-c-attachment">
+  <div class="gem-c-attachment__thumbnail">
+    <a class="govuk-link" target="_self" tabindex="-1" aria-hidden="true" href="http://example.com/file.txt">
+        <svg class="gem-c-attachment__thumbnail-image" version="1.1" viewbox="0 0 84 120" width="84" height="120" aria-hidden="true">
+  <path d="M74.85 5v106H5" fill="none" stroke-miterlimit="10" stroke-width="2"></path>
+  <path d="M79.85 10v106H10" fill="none" stroke-miterlimit="10" stroke-width="2"></path>
+</svg>
+
+</a>
+</div>
+  <div class="gem-c-attachment__details">
+    <h2 class="gem-c-attachment__title">
+      <a class="govuk-link" target="_self" href="http://example.com/file.txt">My attached file</a>
+</h2>
+      <p class="gem-c-attachment__metadata"><span class="gem-c-attachment__attribute">Plain Text</span>, <span class="gem-c-attachment__attribute">1 KB</span></p>
+
+
+</div></section>
+```
+
+### Attachment Links
+
+Attachments can be be rendered inline as links
+
+    Some information about [AttachmentLink:file.pdf]
+
+with options provided
+
+    {
+      attachments: [
+        {
+          id: "file.pdf",
+          title: "My PDF",
+          url: "http://example.com/file.pdf",
+          filename: "file.pdf",
+          content_type: "application/pdf",
+          file_size: 32768,
+          number_of_pages: 2,
+        }
+      ]
+    }
+
+will output an attachment link within a paragraph of text
+
+```html
+<p>Some information about <span class="gem-c-attachment-link">
+  <a class="govuk-link" href="http://example.com/file.pdf">My PDF</a>
+
+  (<span class="gem-c-attachment-link__attribute"><abbr title="Portable Document Format" class="gem-c-attachment-link__abbr">PDF</abbr></span>, <span class="gem-c-attachment-link__attribute">32 KB</span>, <span class="gem-c-attachment-link__attribute">2 pages</span>)
+</span></p>
+```
+
+### Inline Attachments (DEPRECATED: use `AttachmentLink:attachment-id` instead)
 
 Attachments can be linked to inline
 
