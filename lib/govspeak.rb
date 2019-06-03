@@ -217,6 +217,7 @@ module Govspeak
       render_image(ImagePresenter.new(image))
     end
 
+    # DEPRECATED: use 'AttachmentLink:attachment-id' instead
     extension('embed attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
@@ -348,19 +349,12 @@ module Govspeak
       render_image(ImagePresenter.new(image))
     end
 
-    # This is an alternative syntax for embedding attachments using a readable id (expected
-    # to be a unique variation of a filename). This syntax is being used by
-    # Content Publisher and should be considered experimental as it is likely
-    # to be iterated in the short term.
     extension('Attachment', /#{NEW_PARAGRAPH_LOOKBEHIND}\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|
       next "" if attachments.none? { |a| a[:id] == attachment_id }
 
       %{<govspeak-embed-attachment id="#{attachment_id}"></govspeak-embed-attachment>}
     end
 
-    # This is an alternative syntax for embedding attachments as links. This
-    # syntax is being used by Content Publisher and should be considered
-    # experimental
     extension('AttachmentLink', /\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
       next "" if attachments.none? { |a| a[:id] == attachment_id }
 

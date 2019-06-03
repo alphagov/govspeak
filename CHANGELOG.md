@@ -1,3 +1,8 @@
+# Unreleased
+
+* Remove experimental status on `AttachementLink:attachment-id` and `Attachement:attachment-id`
+* Deprecate `embed:attachments:inline:content-id`
+
 ## 6.1.1
 
 * Fix wrapping `AttachmentLink:attachment-id` in a paragraph when used inline
