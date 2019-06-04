@@ -191,7 +191,7 @@ module Govspeak
     }
 
     extension('helpful', surrounded_by("%")) { |body|
-      %{\n\n<div role="note" aria-label="Help" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n}
+      %{\n\n<div role="note" aria-label="Warning" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
     extension('barchart', /{barchart(.*?)}/) do |captures|

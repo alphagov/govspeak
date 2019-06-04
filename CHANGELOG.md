@@ -1,3 +1,7 @@
+## Unreleased
+
+* Update warning callout label text from 'Help' to 'Warning'
+
 # 6.2.0
 
 * Remove experimental status on `AttachementLink:attachment-id` and `Attachement:attachment-id`
