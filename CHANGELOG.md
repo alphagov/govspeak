@@ -1,4 +1,4 @@
-## Unreleased
+## 6.2.1
 
 * Update warning callout label text from 'Help' to 'Warning'
 
