@@ -2,5 +2,9 @@ Metrics/BlockLength:
   Exclude:
     - '*.gemspec'
     - 'test/**/*'
+Rails/RefuteMethods:
+  Enabled: false
+Rails/OutputSafety:
+  Enabled: false
 Style/TrivialAccessors:
   IgnoreClassMethods: true
