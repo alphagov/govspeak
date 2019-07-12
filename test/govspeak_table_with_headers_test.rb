@@ -2,7 +2,7 @@ require 'test_helper'
 
 class GovspeakTableWithHeadersTest < Minitest::Test
   def expected_outcome
-%{
+    %{
 <table>
   <thead>
     <tr>
@@ -28,7 +28,7 @@ class GovspeakTableWithHeadersTest < Minitest::Test
   end
 
   def expected_outcome_with_hashes_in_cell_contents
-%{
+    %{
 <table>
   <thead>
     <tr>
@@ -77,7 +77,6 @@ class GovspeakTableWithHeadersTest < Minitest::Test
   </tbody>
 </table>
 }
-
   end
 
   def document_body_with_hashes_for_all_headers
@@ -87,7 +86,7 @@ class GovspeakTableWithHeadersTest < Minitest::Test
 |# First row      | Cell            | Cell                |
 |# Second row     | Cell            | Cell                |
 })
-end
+  end
 
   def document_body_with_hashes_for_row_headers
     @document_body_with_hashes_for_row_headers ||= Govspeak::Document.new(%{

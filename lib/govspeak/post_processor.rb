@@ -83,6 +83,22 @@ module Govspeak
       end
     end
 
+    extension("Add table headers and row / column scopes") do |document|
+      document.css("thead th").map do |el|
+        el.content = el.content.gsub(/^# /, '')
+        el.content = el.content.gsub(/[[:space:]]/, '') if el.content.blank? # Removes a strange whitespace in the cell if the cell is already blank
+        el[:scope] = "col" if el.content.present?
+      end
+
+      document.css(":not(thead) td").map do |el|
+        if el.content.match?(/^#.*$/)
+          el.name = 'th'
+          el[:scope] = 'row'
+          el.content = el.content.gsub(/^# /, '')
+        end
+      end
+    end
+
     attr_reader :input, :govspeak_document
 
     def initialize(html, govspeak_document)
