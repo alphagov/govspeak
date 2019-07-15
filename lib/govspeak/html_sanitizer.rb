@@ -50,11 +50,7 @@ class Govspeak::HtmlSanitizer
   end
 
   def button_sanitize_config
-    [
-      "data-module",
-      "data-tracking-code",
-      "data-tracking-name"
-    ]
+    %w[data-module data-tracking-code data-tracking-name]
   end
 
   def sanitize_config
@@ -62,7 +58,7 @@ class Govspeak::HtmlSanitizer
       Sanitize::Config::RELAXED,
       elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment govspeak-embed-attachment-link],
       attributes: {
-        :all => Sanitize::Config::RELAXED[:attributes][:all] + ["role", "aria-label"],
+        :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label],
         "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + button_sanitize_config,
         "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
         "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],

@@ -40,7 +40,7 @@ library for use in the UK Government Single Domain project'
   s.add_dependency 'rinku', '~> 2.0'
   s.add_dependency "sanitize", "~> 5"
 
-  s.add_development_dependency 'govuk-lint'
+  s.add_development_dependency 'govuk-lint', '~> 3.11.5'
   s.add_development_dependency 'minitest', '~> 5.8.3'
   s.add_development_dependency 'pry-byebug'
   s.add_development_dependency 'rake', '~> 0.9.0'
