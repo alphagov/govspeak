@@ -102,43 +102,10 @@ class HtmlValidatorTest < Minitest::Test
     assert Govspeak::HtmlValidator.new("{button start cross-domain-tracking:UA-XXXXXX-Y}[Start now](https://gov.uk){/button}").valid?
   end
 
-  test "allow a table without a tbody" do
-    # The publication https://whitehall-admin.integration.publishing.service.gov.uk/government/admin/publications/889052
-    # with the HTML attachment "What Works Network membership requirements (HTML)"
-    # has a table without a tbody
+  test "allow HTML tables with and without tbody elements" do
+    # An upgrade of govspeak broke HTML table entries as tbody elements were inserted.
+    # An example of one of these is: https://www.gov.uk/government/publications/what-works-network-membership-requirements/what-works-network
     assert Govspeak::HtmlValidator.new("<table><tr><td>Hello</td></tr></table>").valid?, "No <tbody> is valid"
-  end
-
-  test "allow a table with a tbody" do
-    # If the above test is made to pass, there is a chance this will break
     assert Govspeak::HtmlValidator.new("<table><tbody><tr><td>Hello</td></tr></tbody></table>").valid?, "<tbody> is valid"
-  end
-
-  test "allow a table with a quotes spanning table elements" do
-    # The publication https://whitehall-admin.integration.publishing.service.gov.uk/government/admin/publications/964161
-    # with the HTML attachment "Upper Tribunal (Tax and Chancery) financial services hearings and register 2014 to date"
-    # has quotes spanning table elements
-    assert Govspeak::HtmlValidator.new("<table><tbody><tr><td>\"Hello</td><td>World\"</td></tr></tbody></table>").valid?
-  end
-
-  test "allow a govspeak table" do
-    # This ensures that tables created with Markdown are still valid
-    # https://whitehall-admin.integration.publishing.service.gov.uk/government/admin/detailed-guides/968711/edit
-    govspeak = "
-      Table | Header
-      - | -
-      Build | cells"
-    assert Govspeak::HtmlValidator.new(govspeak).valid?, "Markdown tables are OK"
-  end
-
-  test "allow a document with 2 tables: one with a tbody and one without" do
-    # The guidance https://whitehall-admin.integration.publishing.service.gov.uk/government/admin/publications/938674
-    # with the HTML attachment "2018 to 2019: Student Loan deduction tables" has tables with and without tbody tags
-    html = "
-    <table><tr><td>Hello</td></tr></table>
-
-    <table><tbody><tr><td>Hello</td></tr></tbody></table>
-    "
-    assert Govspeak::HtmlValidator.new(html).valid?, "All tables are valid"
   end
 end
