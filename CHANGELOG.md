@@ -1,3 +1,8 @@
+## Unreleased
+
+* Unicode characters forbidden in HTML are stripped from input
+* Validation is now more lenient for HTML input
+
 ## 6.2.1
 
 * Update warning callout label text from 'Help' to 'Warning'
