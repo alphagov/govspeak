@@ -1,13 +1,14 @@
 require 'active_support/core_ext/hash'
 require 'active_support/core_ext/array'
 require 'erb'
+require 'govuk_publishing_components'
 require 'htmlentities'
 require 'kramdown'
 require 'kramdown/parser/govuk'
 require 'nokogiri'
 require 'nokogumbo'
 require 'rinku'
-require 'govuk_publishing_components'
+require 'sanitize'
 require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
@@ -105,12 +106,19 @@ module Govspeak
 
     def preprocess(source)
       source = Govspeak::BlockquoteExtraQuoteRemover.remove(source)
+      source = remove_forbidden_characters(source)
       self.class.extensions.each do |_, regexp, block|
         source.gsub!(regexp) {
           instance_exec(*Regexp.last_match.captures, &block)
         }
       end
       source
+    end
+
+    def remove_forbidden_characters(source)
+      # These are characters that are not deemed not suitable for
+      # markup: https://www.w3.org/TR/unicode-xml/#Charlist
+      source.gsub(Sanitize::REGEX_UNSUITABLE_CHARS, '')
     end
 
     def self.extension(title, regexp = nil, &block)
