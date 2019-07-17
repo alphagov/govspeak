@@ -1,4 +1,4 @@
-## Unreleased
+## 6.3.0
 
 * Unicode characters forbidden in HTML are stripped from input
 * Validation is now more lenient for HTML input
