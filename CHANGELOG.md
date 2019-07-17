@@ -1,8 +1,13 @@
+## Unreleased
+
+* Unicode characters forbidden in HTML are stripped from input
+* Validation is now more lenient for HTML input
+
 ## 6.2.1
 
 * Update warning callout label text from 'Help' to 'Warning'
 
-# 6.2.0
+## 6.2.0
 
 * Remove experimental status on `AttachementLink:attachment-id` and `Attachement:attachment-id`
 * Deprecate `embed:attachments:inline:content-id`
@@ -54,25 +59,32 @@
 * Update sanitize version to 4.6.x [#127](https://github.com/alphagov/govspeak/issues/127)
 
 ## 5.5.0
+
 * Ignore links with blank or missing `href`s when extracting links from a document with `Govspeak::Document#extracted_links` [#124](https://github.com/alphagov/govspeak/pull/124)
 
 ## 5.4.0
+
 * Add an optional `website_root` argument to `Govspeak::Document#extracted_links` in order to get all links as fully qualified URLs [#122](https://github.com/alphagov/govspeak/pull/122)
 
 ## 5.3.0
+
 * Add a link extraction class for finding links in documents [#120](https://github.com/alphagov/govspeak/pull/120)
 
 ## 5.2.2
+
 * Fix rendering buttons with inconsistent linebreaks seen in publishing [#118](https://github.com/alphagov/govspeak/pull/118)
 
 ## 5.2.1
+
 * Fix validation to make sure buttons are considered valid
 * Only allow buttons to be used on new lines, not when indented or inline within text (useful for guides) [#116](https://github.com/alphagov/govspeak/pull/116)
 
 ## 5.2.0
+
 * Add button component for govspeak [#114](https://github.com/alphagov/govspeak/pull/114) see README for usage
 
 ## 5.1.0
+
 * Update Kramdown version to 1.15.0
 
 ## 5.0.3
@@ -80,14 +92,17 @@
 * Fix matching links/attachments/contacts by regex to use equality [#105](https://github.com/alphagov/govspeak/pull/105)
 
 ## 5.0.2
+
 * Loosen ActionView dependency to allow use with Rails
 5 [#99](https://github.com/alphagov/govspeak/pull/99)
 
 ## 5.0.1
+
 * Move presenters into the Govspeak namespace [#93](https://github.com/alphagov/govspeak/pull/93)
 * Embedded links now will automatically be marked with `rel="external"` [#96](https://github.com/alphagov/govspeak/pull/96)
 
 ## 5.0.0
+
 * Update Kramdown version to 1.12.0
 * Add pry-byebug to development dependencies
 * Ability to run Govspeak as a binary from command line [#87](https://github.com/alphagov/govspeak/pull/87)

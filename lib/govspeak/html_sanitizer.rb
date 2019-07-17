@@ -1,5 +1,4 @@
 require 'addressable/uri'
-require 'sanitize'
 
 class Govspeak::HtmlSanitizer
   class ImageSourceWhitelister

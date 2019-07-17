@@ -18,6 +18,13 @@ class GovspeakTest < Minitest::Test
     assert_equal "<p><em>this is markdown</em></p>\n", rendered
   end
 
+  test "strips forbidden unicode characters" do
+    rendered = Govspeak::Document.new(
+      "this is text with forbidden characters \ufffc\u2028\ufeff\u202c\u202a"
+    ).to_html
+    assert_equal "<p>this is text with forbidden characters</p>\n", rendered
+  end
+
   test "highlight-answer block extension" do
     rendered = Govspeak::Document.new("this \n{::highlight-answer}Lead in to *BIG TEXT*\n{:/highlight-answer}").to_html
     assert_equal %{<p>this</p>\n\n<div class="highlight-answer">\n<p>Lead in to <em>BIG TEXT</em></p>\n</div>\n}, rendered
