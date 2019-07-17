@@ -101,4 +101,11 @@ class HtmlValidatorTest < Minitest::Test
     assert Govspeak::HtmlValidator.new("{button start}[Start now](https://gov.uk){/button}").valid?
     assert Govspeak::HtmlValidator.new("{button start cross-domain-tracking:UA-XXXXXX-Y}[Start now](https://gov.uk){/button}").valid?
   end
+
+  test "allow HTML tables with and without tbody elements" do
+    # An upgrade of govspeak broke HTML table entries as tbody elements were inserted.
+    # An example of one of these is: https://www.gov.uk/government/publications/what-works-network-membership-requirements/what-works-network
+    assert Govspeak::HtmlValidator.new("<table><tr><td>Hello</td></tr></table>").valid?, "No <tbody> is valid"
+    assert Govspeak::HtmlValidator.new("<table><tbody><tr><td>Hello</td></tr></tbody></table>").valid?, "<tbody> is valid"
+  end
 end

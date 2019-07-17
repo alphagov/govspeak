@@ -18,7 +18,7 @@ class Govspeak::HtmlValidator
 
   # Make whitespace in html tags consistent
   def normalise_html(html)
-    Nokogiri::HTML.parse(html).to_s
+    Nokogiri::HTML5.fragment(html).to_s
   end
 
   def govspeak_to_html

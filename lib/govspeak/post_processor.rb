@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 module Govspeak
   class PostProcessor
     @extensions = []
