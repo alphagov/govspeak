@@ -119,7 +119,7 @@ Teston
       {barchart}
     GOVSPEAK
     html = Govspeak::Document.new(input).to_html
-    assert_equal %{<table class=\"js-barchart-table mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th>col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
+    assert_equal %{<table class=\"js-barchart-table mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th scope="col">col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
   end
 
   test "should convert barchart with stacked compact and negative" do
@@ -130,7 +130,7 @@ Teston
       {barchart stacked compact negative}
     GOVSPEAK
     html = Govspeak::Document.new(input).to_html
-    assert_equal %{<table class=\"js-barchart-table mc-stacked compact mc-negative mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th>col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
+    assert_equal %{<table class=\"js-barchart-table mc-stacked compact mc-negative mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th scope="col">col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
   end
 
   test "address div is separated from paragraph text by a couple of line-breaks" do

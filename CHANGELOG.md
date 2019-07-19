@@ -1,4 +1,8 @@
-## 6.3.0
+## Unreleased
+
+ * Add table heading syntax that allows a table cell outside of `thead` to be marked as a table heading with a scope of row.
+
+ ## 6.3.0
 
 * Unicode characters forbidden in HTML are stripped from input
 * Validation is now more lenient for HTML input
