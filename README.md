@@ -319,6 +319,41 @@ will create a box for the specified locality
 </div>
 ```
 
+## Tables
+
+Tables follow the [Kramdown syntax for tables](https://kramdown.gettalong.org/syntax.html#tables) with one addition - table headers can be specified by adding a `#` at the start of the cell. A table header inside the table head will be given a `scope` of `col`; a table header outside will be given a `scope` of `row`.
+
+```markdown
+|               |# Column header one |# Column header two |
+|---------------|--------------------|--------------------|
+|# Row header 1 | Content #1         | Content #2         |
+|# Row header 1 | Content #3         | Content #4         |
+```
+
+```html
+<table>
+  <thead>
+    <tr>
+      <td></td>
+      <th scope="col">Column header one</th>
+      <th scope="col">Column header two</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Row header 1</th>
+      <td>Content #1</td>
+      <td>Content #2</td>
+    </tr>
+    <tr>
+      <th scope="row">Row header 2</th>
+      <td>Content #3</td>
+      <td>Content #4</td>
+    </tr>
+  </tbody>
+</table>
+```
+
 ## Barcharts
 
 For when you want a table to be progressively enhanced by Javascript to be
