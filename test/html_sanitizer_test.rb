@@ -35,6 +35,15 @@ class HtmlSanitizerTest < Minitest::Test
     )
   end
 
+  test "allow data attributes on links" do
+    html = "<a href='/' data-module='track-click' data-ecommerce-path='/' data-track-category='linkClicked'>Test Link</a>"
+
+    assert_equal(
+      "<a href=\"/\" data-module=\"track-click\" data-ecommerce-path=\"/\" data-track-category=\"linkClicked\">Test Link</a>",
+      Govspeak::HtmlSanitizer.new(html).sanitize
+    )
+  end
+
   test "allows images on whitelisted domains" do
     html = "<img src='http://allowed.com/image.jgp'>"
     sanitized_html = Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ['allowed.com']).sanitize
