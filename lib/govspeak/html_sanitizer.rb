@@ -48,21 +48,13 @@ class Govspeak::HtmlSanitizer
     Sanitize.clean(@dirty_html, Sanitize::Config.merge(sanitize_config, transformers: transformers))
   end
 
-  def button_sanitize_config
-    %w[
-      data-module
-      data-tracking-code
-      data-tracking-name
-    ]
-  end
-
   def sanitize_config
     Sanitize::Config.merge(
       Sanitize::Config::RELAXED,
       elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment govspeak-embed-attachment-link],
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label],
-        "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + button_sanitize_config,
+        "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + [:data],
         "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
         "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
         "govspeak-embed-attachment" => %w[content-id],

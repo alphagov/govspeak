@@ -1,3 +1,7 @@
+## Unreleased
+
+* Allow data attributes on links
+
 ## 6.4.0
 
  * Add table heading syntax that allows a table cell outside of `thead` to be marked as a table heading with a scope of row. (PR#161)
