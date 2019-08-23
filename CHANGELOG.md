@@ -1,4 +1,4 @@
-## Unreleased
+## 6.5.0
 
 * Allow data attributes on links
 
