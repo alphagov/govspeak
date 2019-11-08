@@ -9,6 +9,7 @@ require 'nokogiri'
 require 'nokogumbo'
 require 'rinku'
 require 'sanitize'
+require 'net/http'
 require 'govspeak/header_extractor'
 require 'govspeak/structured_header_extractor'
 require 'govspeak/html_validator'
@@ -369,6 +370,23 @@ module Govspeak
       next "" if attachments.none? { |a| a[:id] == attachment_id }
 
       %{<govspeak-embed-attachment-link id="#{attachment_id}"></govspeak-embed-attachment-link>}
+    end
+
+    extension('CannedContent', /\[CannedContent:\s*(.*?)\s*\]/) do |content_id|
+      uri = URI('http://csv-to-json.herokuapp.com/?csv=https://docs.google.com/spreadsheets/d/e/2PACX-1vRCwCbkGEFJJDbb2M_NN3-ryhWLbw6yJJ87Ry1UvxfdUEijknlY7bNWet_hGmAnTpOBDQHfr4uUGozN/pub?output=csv')
+      response = Net::HTTP.get_response(uri)
+      canned_content_items = JSON.parse response.body
+      canned_content = nil
+
+      canned_content_items.each do |content|
+        if content_id === content["id"]
+          canned_content = content
+          break
+        end
+      end
+
+      %{#{canned_content["value"]}}
+      #next canned_content ? canned_content["value"] : ""
     end
 
   private
