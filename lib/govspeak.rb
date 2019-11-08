@@ -385,7 +385,8 @@ module Govspeak
         end
       end
 
-      next canned_content ? canned_content["value"] : ""
+      %{#{canned_content["value"]}}
+      #next canned_content ? canned_content["value"] : ""
     end
 
   private
