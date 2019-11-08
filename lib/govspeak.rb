@@ -374,6 +374,7 @@ module Govspeak
   private
 
     def kramdown_doc
+      puts 'test'
       @kramdown_doc ||= Kramdown::Document.new(preprocess(@source), @options)
     end
 
