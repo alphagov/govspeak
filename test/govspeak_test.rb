@@ -20,7 +20,7 @@ class GovspeakTest < Minitest::Test
 
   test "strips forbidden unicode characters" do
     rendered = Govspeak::Document.new(
-      "this is text with forbidden characters \ufffc\u2028\ufeff\u202c\u202a"
+      "this is text with forbidden characters \u0008\u000b\ufffe\u{2ffff}\u{5fffe}"
     ).to_html
     assert_equal "<p>this is text with forbidden characters</p>\n", rendered
   end
