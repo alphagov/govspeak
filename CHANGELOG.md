@@ -1,3 +1,7 @@
+## 6.6.0
+
+* Add `$BrexitCTA` extension
+
 ## 6.5.0
 
 * Allow data attributes on links
@@ -6,7 +10,7 @@
 
  * Add table heading syntax that allows a table cell outside of `thead` to be marked as a table heading with a scope of row. (PR#161)
 
- ## 6.3.0
+## 6.3.0
 
 * Unicode characters forbidden in HTML are stripped from input
 * Validation is now more lenient for HTML input
