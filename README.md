@@ -63,6 +63,24 @@ creates an example box
 </div>
 ```
 
+### Brexit callout
+
+This is for use in Brexit content to display current Brexit messaging, which is hardcoded in this gem. It cannot be customised with different messaging.
+
+    $BrexitCTA
+
+Creates the following:
+
+```html
+<div class="brexit-call-to-action">
+  <h2 id="stay-up-to-date">Stay up to date</h2>
+
+  <p>The <abbr title="United Kingdom">UK</abbr> is leaving the <abbr title="European Union">EU</abbr>. This page tells you how to prepare for Brexit and will be updated if anything changes.</p>
+
+  <p><a href="https://www.gov.uk/email-signup?topic=%2Fbrexit">Sign up for email alerts</a> to get the latest information.</p>
+</div>
+```
+
 ## Highlights
 
 ### Advisory
