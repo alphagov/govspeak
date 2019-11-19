@@ -31,7 +31,7 @@ class HtmlSanitizerTest < Minitest::Test
     html = "<a href='#' data-module='cross-domain-tracking' data-tracking-code='UA-XXXXXX-Y' data-tracking-name='govspeakButtonTracker'></a>"
     assert_equal(
       "<a href=\"#\" data-module=\"cross-domain-tracking\" data-tracking-code=\"UA-XXXXXX-Y\" data-tracking-name=\"govspeakButtonTracker\"></a>",
-      Govspeak::HtmlSanitizer.new(html).sanitize
+      Govspeak::HtmlSanitizer.new(html).sanitize,
     )
   end
 
@@ -40,19 +40,19 @@ class HtmlSanitizerTest < Minitest::Test
 
     assert_equal(
       "<a href=\"/\" data-module=\"track-click\" data-ecommerce-path=\"/\" data-track-category=\"linkClicked\">Test Link</a>",
-      Govspeak::HtmlSanitizer.new(html).sanitize
+      Govspeak::HtmlSanitizer.new(html).sanitize,
     )
   end
 
   test "allows images on whitelisted domains" do
     html = "<img src='http://allowed.com/image.jgp'>"
-    sanitized_html = Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ['allowed.com']).sanitize
+    sanitized_html = Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ["allowed.com"]).sanitize
     assert_equal "<img src=\"http://allowed.com/image.jgp\">", sanitized_html
   end
 
   test "removes images not on whitelisted domains" do
     html = "<img src='http://evil.com/image.jgp'>"
-    assert_equal "", Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ['allowed.com']).sanitize
+    assert_equal "", Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ["allowed.com"]).sanitize
   end
 
   test "allows table cells and table headings without a style attribute" do
@@ -62,12 +62,12 @@ class HtmlSanitizerTest < Minitest::Test
 
   test "strips table cells and headings that appear outside a table" do
     html = "<th>thing</th></tr><tr><td>thing</td>"
-    assert_equal 'thingthing', Govspeak::HtmlSanitizer.new(html).sanitize
+    assert_equal "thingthing", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
   test "normalizes table tags to inject missing rows and bodies like a browser does" do
     html = "<table><th>thing</th><td>thing</td></table>"
-    assert_equal '<table><tbody><tr><th>thing</th><td>thing</td></tr></tbody></table>', Govspeak::HtmlSanitizer.new(html).sanitize
+    assert_equal "<table><tbody><tr><th>thing</th><td>thing</td></tr></tbody></table>", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
 
@@ -82,10 +82,10 @@ class HtmlSanitizerTest < Minitest::Test
       "text-align: middle",
       "text-align: left; width: 10px",
       "background-image: url(javascript:alert('XSS'))",
-      "expression(alert('XSS'));"
+      "expression(alert('XSS'));",
     ].each do |style|
       html = "<table><thead><tr><th style=\"#{style}\">thing</th></tr></thead><tbody><tr><td style=\"#{style}\">thing</td></tr></tbody></table>"
-      assert_equal '<table><thead><tr><th>thing</th></tr></thead><tbody><tr><td>thing</td></tr></tbody></table>', Govspeak::HtmlSanitizer.new(html).sanitize
+      assert_equal "<table><thead><tr><th>thing</th></tr></thead><tbody><tr><td>thing</td></tr></tbody></table>", Govspeak::HtmlSanitizer.new(html).sanitize
     end
   end
 end

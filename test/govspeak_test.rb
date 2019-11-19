@@ -1,9 +1,9 @@
 # encoding: UTF-8
 
-require 'test_helper'
-require 'govspeak_test_helper'
+require "test_helper"
+require "govspeak_test_helper"
 
-require 'ostruct'
+require "ostruct"
 
 class GovspeakTest < Minitest::Test
   include GovspeakTestHelper
@@ -20,7 +20,7 @@ class GovspeakTest < Minitest::Test
 
   test "strips forbidden unicode characters" do
     rendered = Govspeak::Document.new(
-      "this is text with forbidden characters \u0008\u000b\ufffe\u{2ffff}\u{5fffe}"
+      "this is text with forbidden characters \u0008\u000b\ufffe\u{2ffff}\u{5fffe}",
     ).to_html
     assert_equal "<p>this is text with forbidden characters</p>\n", rendered
   end
@@ -44,17 +44,17 @@ class GovspeakTest < Minitest::Test
 ## Medium title
 }
     assert_equal [
-      Govspeak::Header.new('Big title', 1, 'big-title'),
-      Govspeak::Header.new('Small subtitle', 3, 'small-subtitle'),
-      Govspeak::Header.new('Medium title', 2, 'medium-title')
+      Govspeak::Header.new("Big title", 1, "big-title"),
+      Govspeak::Header.new("Small subtitle", 3, "small-subtitle"),
+      Govspeak::Header.new("Medium title", 2, "medium-title"),
     ], document.headers
   end
 
   test "extracts different ids for duplicate headers" do
     document = Govspeak::Document.new("## Duplicate header\n\n## Duplicate header")
     assert_equal [
-      Govspeak::Header.new('Duplicate header', 2, 'duplicate-header'),
-      Govspeak::Header.new('Duplicate header', 2, 'duplicate-header-1')
+      Govspeak::Header.new("Duplicate header", 2, "duplicate-header"),
+      Govspeak::Header.new("Duplicate header", 2, "duplicate-header-1"),
     ], document.headers
   end
 
@@ -76,10 +76,10 @@ class GovspeakTest < Minitest::Test
 </div>
 }
     assert_equal [
-      Govspeak::Header.new('First title', 1, 'first-title'),
-      Govspeak::Header.new('Nested subtitle', 2, 'nested-subtitle'),
-      Govspeak::Header.new('Double nested subtitle', 3, 'double-nested-subtitle'),
-      Govspeak::Header.new('Second double subtitle', 3, 'second-double-subtitle')
+      Govspeak::Header.new("First title", 1, "first-title"),
+      Govspeak::Header.new("Nested subtitle", 2, "nested-subtitle"),
+      Govspeak::Header.new("Double nested subtitle", 3, "double-nested-subtitle"),
+      Govspeak::Header.new("Second double subtitle", 3, "second-double-subtitle"),
     ], document.headers
   end
 
@@ -90,8 +90,8 @@ class GovspeakTest < Minitest::Test
 ## Second title {#special}
 }
     assert_equal [
-      Govspeak::Header.new('First title', 1, 'first-title'),
-      Govspeak::Header.new('Second title', 2, 'special'),
+      Govspeak::Header.new("First title", 1, "first-title"),
+      Govspeak::Header.new("Second title", 2, "special"),
     ], document.headers
   end
 
@@ -360,7 +360,7 @@ Teston
   # TODO: review whether we should require closing symbols for these extensions
   #       need to check all existing content.
   test_given_govspeak "xaa" do
-    assert_html_output '<p>xaa</p>'
+    assert_html_output "<p>xaa</p>"
     assert_text_output "xaa"
   end
 
@@ -639,12 +639,12 @@ Teston
       }
   end
 
-  test 'sanitize source input by default' do
+  test "sanitize source input by default" do
     document = Govspeak::Document.new("<script>doBadThings();</script>")
     assert_equal "", document.to_html.strip
   end
 
-  test 'it can have sanitizing disabled' do
+  test "it can have sanitizing disabled" do
     document = Govspeak::Document.new("<script>doGoodThings();</script>", sanitize: false)
     assert_equal "<script>doGoodThings();</script>", document.to_html.strip
   end

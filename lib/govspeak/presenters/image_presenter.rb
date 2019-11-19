@@ -32,10 +32,10 @@ module Govspeak
 
     def figcaption_html
       lines = []
-      lines << '<figcaption>'
+      lines << "<figcaption>"
       lines << %{<p>#{caption}</p>} if caption.present?
       lines << %{<p>#{I18n.t('govspeak.image.figure.credit', credit: credit)}</p>} if credit.present?
-      lines << '</figcaption>'
+      lines << "</figcaption>"
       lines.join
     end
   end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class GovspeakStructuredHeadersTest < Minitest::Test
   def document_body
@@ -90,7 +90,7 @@ class GovspeakStructuredHeadersTest < Minitest::Test
               text: "Sub sub heading 2.2.1",
               level: 4,
               id: "sub-sub-heading-221",
-              headers: []
+              headers: [],
             },
           ],
         },

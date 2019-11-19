@@ -2,7 +2,7 @@ module Govspeak
   class HCardPresenter
     def self.address_formats
       @address_formats ||= YAML.load_file(
-        File.expand_path('config/address_formats.yml', Govspeak.root)
+        File.expand_path("config/address_formats.yml", Govspeak.root),
       )
     end
 
@@ -44,7 +44,7 @@ module Govspeak
         address.gsub!(/\{\{#{hcard_name}\}\}/, interpolate_address_property(our_name, hcard_name))
       end
 
-      address.gsub(/^\n/, '')         # get  rid of blank lines
+      address.gsub(/^\n/, "")         # get  rid of blank lines
              .strip                   # get rid of any trailing whitespace
              .gsub(/\n/, "<br />\n")  # add break tags where appropriate
     end
@@ -55,7 +55,7 @@ module Govspeak
     end
 
     def default_format_string
-      self.class.address_formats['gb']
+      self.class.address_formats["gb"]
     end
   end
 end

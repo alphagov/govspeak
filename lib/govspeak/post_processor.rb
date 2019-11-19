@@ -2,8 +2,8 @@ module Govspeak
   class PostProcessor
     @extensions = []
 
-    def self.extensions
-      @extensions
+    class << self
+      attr_reader :extensions
     end
 
     def self.process(html, govspeak_document)
@@ -38,11 +38,11 @@ module Govspeak
         el.children = xml
           .gsub(
             %r{&lt;(div class="img")&gt;(.*?)&lt;(/div)&gt;},
-            "<\\1>\\2<\\3>"
+            "<\\1>\\2<\\3>",
           )
           .gsub(
             %r{&lt;(figcaption)&gt;(.*?)&lt;(/figcaption&)gt;},
-            "<\\1>\\2<\\3>"
+            "<\\1>\\2<\\3>",
           )
       end
     end
@@ -59,7 +59,7 @@ module Govspeak
         attachment_html = GovukPublishingComponents.render(
           "govuk_publishing_components/components/attachment",
           attachment: attachment,
-          locale: govspeak_document.locale
+          locale: govspeak_document.locale,
         )
         el.swap(attachment_html)
       end
@@ -77,7 +77,7 @@ module Govspeak
         attachment_html = GovukPublishingComponents.render(
           "govuk_publishing_components/components/attachment_link",
           attachment: attachment,
-          locale: govspeak_document.locale
+          locale: govspeak_document.locale,
         )
         el.swap(attachment_html)
       end
@@ -85,17 +85,17 @@ module Govspeak
 
     extension("Add table headers and row / column scopes") do |document|
       document.css("thead th").map do |el|
-        el.content = el.content.gsub(/^# /, '')
-        el.content = el.content.gsub(/[[:space:]]/, '') if el.content.blank? # Removes a strange whitespace in the cell if the cell is already blank.
-        el.name = 'td' if el.content.blank? # This prevents a `th` with nothing inside it; a `td` is preferable.
+        el.content = el.content.gsub(/^# /, "")
+        el.content = el.content.gsub(/[[:space:]]/, "") if el.content.blank? # Removes a strange whitespace in the cell if the cell is already blank.
+        el.name = "td" if el.content.blank? # This prevents a `th` with nothing inside it; a `td` is preferable.
         el[:scope] = "col" if el.content.present? # `scope` shouldn't be used if there's nothing in the table heading.
       end
 
       document.css(":not(thead) tr td:first-child").map do |el|
         if el.content.match?(/^#($|\s.*$)/)
-          el.content = el.content.gsub(/^#($|\s)/, '') # Replace '# ' and '#', but not '#Word'.
-          el.name = 'th' if el.content.present? # This also prevents a `th` with nothing inside it; a `td` is preferable.
-          el[:scope] = 'row' if el.content.present? # `scope` shouldn't be used if there's nothing in the table heading.
+          el.content = el.content.gsub(/^#($|\s)/, "") # Replace '# ' and '#', but not '#Word'.
+          el.name = "th" if el.content.present? # This also prevents a `th` with nothing inside it; a `td` is preferable.
+          el[:scope] = "row" if el.content.present? # `scope` shouldn't be used if there's nothing in the table heading.
         end
       end
     end

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-require 'test_helper'
+require "test_helper"
 
 class GovspeakExtractContactContentIdsTest < Minitest::Test
   test "contact content ids can be extracted from govspeak" do

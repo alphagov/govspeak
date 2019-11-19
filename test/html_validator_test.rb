@@ -51,7 +51,7 @@ class HtmlValidatorTest < Minitest::Test
       $P
       ",
       ":england:content goes here:england:",
-      ":scotland:content goes here:scotland:"
+      ":scotland:content goes here:scotland:",
     ]
     values.each do |value|
       assert Govspeak::HtmlValidator.new(value).valid?
@@ -88,7 +88,7 @@ class HtmlValidatorTest < Minitest::Test
 
   test "optionally disallow images not on a whitelisted domain" do
     html = "<img src='http://evil.com/image.jgp'>"
-    assert Govspeak::HtmlValidator.new(html, allowed_image_hosts: ['allowed.com']).invalid?
+    assert Govspeak::HtmlValidator.new(html, allowed_image_hosts: ["allowed.com"]).invalid?
   end
 
   test "allow <div> and <span> HTML elements" do
