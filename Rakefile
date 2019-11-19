@@ -7,7 +7,7 @@ Bundler::GemHelper.install_tasks
 desc "Run basic tests"
 Rake::TestTask.new("test") { |t|
   t.libs << "test"
-  t.pattern = 'test/*_test.rb'
+  t.pattern = "test/*_test.rb"
   t.verbose = true
   t.warning = true
 }

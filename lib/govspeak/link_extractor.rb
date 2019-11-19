@@ -20,8 +20,8 @@ module Govspeak
     end
 
     def extract_href_from_link(link)
-      href = link['href'] || ''
-      if website_root && href.start_with?('/')
+      href = link["href"] || ""
+      if website_root && href.start_with?("/")
         "#{website_root}#{href}"
       else
         href
@@ -29,7 +29,7 @@ module Govspeak
     end
 
     def document_anchors
-      processed_govspeak.css('a[href]').css('a:not([href^="mailto"])').css('a:not([href^="#"])')
+      processed_govspeak.css("a[href]").css('a:not([href^="mailto"])').css('a:not([href^="#"])')
     end
 
     def processed_govspeak

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-require 'test_helper'
+require "test_helper"
 
 class GovspeakLinkTest < Minitest::Test
   test "embedded link with link provided" do

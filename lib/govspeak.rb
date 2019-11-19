@@ -1,32 +1,32 @@
-require 'active_support/core_ext/hash'
-require 'active_support/core_ext/array'
-require 'erb'
-require 'govuk_publishing_components'
-require 'htmlentities'
-require 'kramdown'
-require 'kramdown/parser/govuk'
-require 'nokogiri'
-require 'nokogumbo'
-require 'rinku'
-require 'sanitize'
-require 'govspeak/header_extractor'
-require 'govspeak/structured_header_extractor'
-require 'govspeak/html_validator'
-require 'govspeak/html_sanitizer'
-require 'govspeak/kramdown_overrides'
-require 'govspeak/blockquote_extra_quote_remover'
-require 'govspeak/post_processor'
-require 'govspeak/link_extractor'
-require 'govspeak/template_renderer'
-require 'govspeak/presenters/attachment_presenter'
-require 'govspeak/presenters/contact_presenter'
-require 'govspeak/presenters/h_card_presenter'
-require 'govspeak/presenters/image_presenter'
-require 'govspeak/presenters/attachment_image_presenter'
+require "active_support/core_ext/hash"
+require "active_support/core_ext/array"
+require "erb"
+require "govuk_publishing_components"
+require "htmlentities"
+require "kramdown"
+require "kramdown/parser/govuk"
+require "nokogiri"
+require "nokogumbo"
+require "rinku"
+require "sanitize"
+require "govspeak/header_extractor"
+require "govspeak/structured_header_extractor"
+require "govspeak/html_validator"
+require "govspeak/html_sanitizer"
+require "govspeak/kramdown_overrides"
+require "govspeak/blockquote_extra_quote_remover"
+require "govspeak/post_processor"
+require "govspeak/link_extractor"
+require "govspeak/template_renderer"
+require "govspeak/presenters/attachment_presenter"
+require "govspeak/presenters/contact_presenter"
+require "govspeak/presenters/h_card_presenter"
+require "govspeak/presenters/image_presenter"
+require "govspeak/presenters/attachment_image_presenter"
 
 module Govspeak
   def self.root
-    File.expand_path('..', File.dirname(__FILE__))
+    File.expand_path("..", File.dirname(__FILE__))
   end
 
   class Document
@@ -44,8 +44,8 @@ module Govspeak
       new(source, options).to_html
     end
 
-    def self.extensions
-      @extensions
+    class << self
+      attr_reader :extensions
     end
 
     def initialize(source, options = {})
@@ -118,7 +118,7 @@ module Govspeak
     def remove_forbidden_characters(source)
       # These are characters that are not deemed not suitable for
       # markup: https://www.w3.org/TR/unicode-xml/#Charlist
-      source.gsub(Sanitize::REGEX_UNSUITABLE_CHARS, '')
+      source.gsub(Sanitize::REGEX_UNSUITABLE_CHARS, "")
     end
 
     def self.extension(title, regexp = nil, &block)
@@ -147,7 +147,7 @@ module Govspeak
       parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/, "<p><strong>\\1</strong></p>")
     end
 
-    extension('button', %r{
+    extension("button", %r{
       (?:\r|\n|^) # non-capturing match to make sure start of line and linebreak
       {button(.*?)} # match opening bracket and capture attributes
         \s* # any whitespace between opening bracket and link
@@ -176,51 +176,51 @@ module Govspeak
       %{\n<a role="button" class="#{button_classes}" href="#{href}" #{data_attribute}>#{text}</a>\n}
     }
 
-    extension('highlight-answer') { |body|
+    extension("highlight-answer") { |body|
       %{\n\n<div class="highlight-answer">
 #{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
-    extension('stat-headline', %r${stat-headline}(.*?){/stat-headline}$m) { |body|
+    extension("stat-headline", %r${stat-headline}(.*?){/stat-headline}$m) { |body|
       %{\n\n<aside class="stat-headline">
 #{Govspeak::Document.new(body.strip).to_html}</aside>\n}
     }
 
     # FIXME: these surrounded_by arguments look dodgy
-    extension('external', surrounded_by("x[", ")x")) { |body|
+    extension("external", surrounded_by("x[", ")x")) { |body|
       Kramdown::Document.new("[#{body.strip}){:rel='external'}").to_html
     }
 
-    extension('informational', surrounded_by("^")) { |body|
+    extension("informational", surrounded_by("^")) { |body|
       %{\n\n<div role="note" aria-label="Information" class="application-notice info-notice">
 #{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
-    extension('important', surrounded_by("@")) { |body|
+    extension("important", surrounded_by("@")) { |body|
       %{\n\n<div role="note" aria-label="Important" class="advisory">#{insert_strong_inside_p(body)}</div>\n}
     }
 
-    extension('helpful', surrounded_by("%")) { |body|
+    extension("helpful", surrounded_by("%")) { |body|
       %{\n\n<div role="note" aria-label="Warning" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n}
     }
 
-    extension('barchart', /{barchart(.*?)}/) do |captures|
-      stacked = '.mc-stacked' if captures.include? 'stacked'
-      compact = '.compact' if captures.include? 'compact'
-      negative = '.mc-negative' if captures.include? 'negative'
+    extension("barchart", /{barchart(.*?)}/) do |captures|
+      stacked = ".mc-stacked" if captures.include? "stacked"
+      compact = ".compact" if captures.include? "compact"
+      negative = ".mc-negative" if captures.include? "negative"
 
       [
-       '{:',
-       '.js-barchart-table',
+       "{:",
+       ".js-barchart-table",
        stacked,
        compact,
        negative,
-       '.mc-auto-outdent',
-       '}'
-      ].join(' ')
+       ".mc-auto-outdent",
+       "}",
+      ].join(" ")
     end
 
-    extension('attached-image', /^!!([0-9]+)/) do |image_number|
+    extension("attached-image", /^!!([0-9]+)/) do |image_number|
       image = images[image_number.to_i - 1]
       next "" unless image
 
@@ -228,7 +228,7 @@ module Govspeak
     end
 
     # DEPRECATED: use 'AttachmentLink:attachment-id' instead
-    extension('embed attachment inline', /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
+    extension("embed attachment inline", /\[embed:attachments:inline:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
 
@@ -243,7 +243,7 @@ module Govspeak
     end
 
     # DEPRECATED: use 'Image:image-id' instead
-    extension('attachment image', /\[embed:attachments:image:\s*(.*?)\s*\]/) do |content_id|
+    extension("attachment image", /\[embed:attachments:image:\s*(.*?)\s*\]/) do |content_id|
       attachment = attachments.detect { |a| a[:content_id] == content_id }
       next "" unless attachment
 
@@ -266,29 +266,29 @@ module Govspeak
       lines << %{<figure#{id_attr} class="image embedded">}
       lines << %{<div class="img"><img src="#{encode(image.url)}" alt="#{encode(image.alt_text)}"></div>}
       lines << image.figcaption_html if image.figcaption?
-      lines << '</figure>'
+      lines << "</figure>"
       lines.join
     end
 
-    wrap_with_div('summary', '$!')
-    wrap_with_div('form-download', '$D')
-    wrap_with_div('contact', '$C')
-    wrap_with_div('place', '$P', Govspeak::Document)
-    wrap_with_div('information', '$I', Govspeak::Document)
-    wrap_with_div('additional-information', '$AI')
-    wrap_with_div('example', '$E', Govspeak::Document)
-    wrap_with_div('call-to-action', '$CTA', Govspeak::Document)
+    wrap_with_div("summary", "$!")
+    wrap_with_div("form-download", "$D")
+    wrap_with_div("contact", "$C")
+    wrap_with_div("place", "$P", Govspeak::Document)
+    wrap_with_div("information", "$I", Govspeak::Document)
+    wrap_with_div("additional-information", "$AI")
+    wrap_with_div("example", "$E", Govspeak::Document)
+    wrap_with_div("call-to-action", "$CTA", Govspeak::Document)
 
-    extension('address', surrounded_by("$A")) { |body|
+    extension("address", surrounded_by("$A")) { |body|
       %{\n<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", '').gsub("\n", '<br />')}\n</p></div></div>\n}
     }
 
     extension("legislative list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
       Govspeak::KramdownOverrides.with_kramdown_ordered_lists_disabled do
         Kramdown::Document.new(body.strip).to_html.tap do |doc|
-          doc.gsub!('<ul>', '<ol>')
-          doc.gsub!('</ul>', '</ol>')
-          doc.sub!('<ol>', '<ol class="legislative-list">')
+          doc.gsub!("<ul>", "<ol>")
+          doc.gsub!("</ul>", "</ol>")
+          doc.sub!("<ol>", '<ol class="legislative-list">')
         end
       end
     end
@@ -301,12 +301,12 @@ module Govspeak
     end
 
     def self.devolved_options
-      { 'scotland' => 'Scotland',
-        'england' => 'England',
-        'england-wales' => 'England and Wales',
-        'northern-ireland' => 'Northern Ireland',
-        'wales' => 'Wales',
-        'london' => 'London' }
+      { "scotland" => "Scotland",
+        "england" => "England",
+        "england-wales" => "England and Wales",
+        "northern-ireland" => "Northern Ireland",
+        "wales" => "Wales",
+        "london" => "London" }
     end
 
     devolved_options.each do |k, v|
@@ -333,7 +333,7 @@ module Govspeak
       end
     end
 
-    extension('embed link', /\[embed:link:\s*(.*?)\s*\]/) do |content_id|
+    extension("embed link", /\[embed:link:\s*(.*?)\s*\]/) do |content_id|
       link = links.detect { |l| l[:content_id] == content_id }
       next "" unless link
 
@@ -344,28 +344,28 @@ module Govspeak
       end
     end
 
-    extension('Contact', /\[Contact:\s*(.*?)\s*\]/) do |content_id|
+    extension("Contact", /\[Contact:\s*(.*?)\s*\]/) do |content_id|
       contact = contacts.detect { |c| c[:content_id] == content_id }
       next "" unless contact
 
-      renderer = TemplateRenderer.new('contact.html.erb', locale)
+      renderer = TemplateRenderer.new("contact.html.erb", locale)
       renderer.render(contact: ContactPresenter.new(contact))
     end
 
-    extension('Image', /#{NEW_PARAGRAPH_LOOKBEHIND}\[Image:\s*(.*?)\s*\]/) do |image_id|
+    extension("Image", /#{NEW_PARAGRAPH_LOOKBEHIND}\[Image:\s*(.*?)\s*\]/) do |image_id|
       image = images.detect { |c| c.is_a?(Hash) && c[:id] == image_id }
       next "" unless image
 
       render_image(ImagePresenter.new(image))
     end
 
-    extension('Attachment', /#{NEW_PARAGRAPH_LOOKBEHIND}\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|
+    extension("Attachment", /#{NEW_PARAGRAPH_LOOKBEHIND}\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|
       next "" if attachments.none? { |a| a[:id] == attachment_id }
 
       %{<govspeak-embed-attachment id="#{attachment_id}"></govspeak-embed-attachment>}
     end
 
-    extension('AttachmentLink', /\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
+    extension("AttachmentLink", /\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
       next "" if attachments.none? { |a| a[:id] == attachment_id }
 
       %{<govspeak-embed-attachment-link id="#{attachment_id}"></govspeak-embed-attachment-link>}
@@ -384,5 +384,5 @@ module Govspeak
 end
 
 I18n.load_path.unshift(
-  *Dir.glob(File.expand_path('locales/*.yml', Govspeak.root))
+  *Dir.glob(File.expand_path("locales/*.yml", Govspeak.root)),
 )

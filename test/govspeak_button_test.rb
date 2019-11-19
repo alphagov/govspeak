@@ -1,9 +1,9 @@
 # encoding: UTF-8
 
-require 'test_helper'
-require 'govspeak_test_helper'
+require "test_helper"
+require "govspeak_test_helper"
 
-require 'ostruct'
+require "ostruct"
 
 class GovspeakTest < Minitest::Test
   include GovspeakTestHelper
@@ -42,7 +42,7 @@ class GovspeakTest < Minitest::Test
 
   # Test that nothing renders when not given a link
   test_given_govspeak "{button}I shouldn't render a button{/button}" do
-    assert_html_output '<p>{button}I shouldn’t render a button{/button}</p>'
+    assert_html_output "<p>{button}I shouldn’t render a button{/button}</p>"
   end
 
   test_given_govspeak "Text before the button with line breaks \n\n\n{button}[Start Now](http://www.gov.uk){/button}\n\n\n test after the button" do

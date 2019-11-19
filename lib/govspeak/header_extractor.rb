@@ -20,7 +20,7 @@ module Govspeak
   private
 
     def id(element)
-      element.attr.fetch('id', generate_id(element.options[:raw_text]))
+      element.attr.fetch("id", generate_id(element.options[:raw_text]))
     end
 
     def build_header(element)

@@ -1,4 +1,4 @@
-require 'addressable/uri'
+require "addressable/uri"
 
 class Govspeak::HtmlSanitizer
   class ImageSourceWhitelister
@@ -10,7 +10,7 @@ class Govspeak::HtmlSanitizer
       return unless sanitize_context[:node_name] == "img"
 
       node = sanitize_context[:node]
-      image_uri = Addressable::URI.parse(node['src'])
+      image_uri = Addressable::URI.parse(node["src"])
       unless image_uri.relative? || @allowed_image_hosts.include?(image_uri.host)
         node.unlink # the node isn't sanitary. Remove it from the document.
       end
@@ -25,8 +25,8 @@ class Govspeak::HtmlSanitizer
 
       # Kramdown uses text-align to allow table cells to be aligned
       # http://kramdown.gettalong.org/quickref.html#tables
-      if invalid_style_attribute?(node['style'])
-        node.remove_attribute('style')
+      if invalid_style_attribute?(node["style"])
+        node.remove_attribute("style")
       end
     end
 
@@ -58,7 +58,7 @@ class Govspeak::HtmlSanitizer
         "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
         "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
         "govspeak-embed-attachment" => %w[content-id],
-      }
+      },
     )
   end
 end

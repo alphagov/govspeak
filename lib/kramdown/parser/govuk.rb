@@ -33,7 +33,7 @@ module Kramdown
           begin
             host = Addressable::URI.parse(href).host
             unless host.nil? || @document_domains.compact.include?(host)
-              element.attr['rel'] = 'external'
+              element.attr["rel"] = "external"
             end
           # rubocop:disable Lint/HandleExceptions
           rescue Addressable::URI::InvalidURIError
