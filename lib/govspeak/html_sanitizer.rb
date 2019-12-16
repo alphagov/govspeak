@@ -55,6 +55,7 @@ class Govspeak::HtmlSanitizer
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label],
         "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + [:data],
+        "div" => [:data],
         "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
         "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
         "govspeak-embed-attachment" => %w[content-id],
