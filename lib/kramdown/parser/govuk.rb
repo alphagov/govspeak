@@ -35,11 +35,11 @@ module Kramdown
             unless host.nil? || @document_domains.compact.include?(host)
               element.attr["rel"] = "external"
             end
-          # rubocop:disable Lint/HandleExceptions
+          # rubocop:disable Lint/SuppressedException
           rescue Addressable::URI::InvalidURIError
             # it's safe to ignore these very *specific* exceptions
           end
-          # rubocop:enable Lint/HandleExceptions
+          # rubocop:enable Lint/SuppressedException
         end
         super
       end
