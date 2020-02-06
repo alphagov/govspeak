@@ -1,8 +1,13 @@
+## 6.5.3
+
+* Use button component for buttons (PR#176)
+
 ## 6.5.2
 
 * Allow `data` attributes on `div` tags (PR#173)
 
 ## 6.5.1
+
 * Change unicode testing characters after external gem change
 * Move from govuk-lint to rubocop-govuk
 * Allow version 6 of actionview
