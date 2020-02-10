@@ -619,8 +619,7 @@ will output
 
 An accessible way to add button links into content, that can also allow cross domain tracking with [Google Analytics](https://support.google.com/analytics/answer/7372977?hl=en)
 
-This button component is [extended from static](http://govuk-static.herokuapp.com/component-guide/button) for [use in govspeak](http://govuk-static.herokuapp.com/component-guide/govspeak/button)
-Note: Ideally we'd use the original component directly but this currently isnt possible
+This button component uses the component from the [components gem](https://components.publishing.service.gov.uk/component-guide/button) for use in govspeak.
 
 You must use the [link](https://daringfireball.net/projects/markdown/syntax#link) syntax within the button tags.
 
@@ -635,7 +634,7 @@ To get the most basic button.
 which outputs
 
 ```html
-<a role="button" class="button" href="https://gov.uk/random">
+<a role="button" class="gem-c-button govuk-button" href="https://gov.uk/random">
   Continue
 </a>
 ```
@@ -649,8 +648,9 @@ To turn a button into a ['Start now' button](https://www.gov.uk/service-manual/d
 which outputs
 
 ```html
-<a role="button" class="button button-start" href="https://gov.uk/random">
+<a role="button" class="gem-c-button govuk-button govuk-button--start" href="https://gov.uk/random">
   Start Now
+  <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg>
 </a>
 ```
 
@@ -667,12 +667,13 @@ which outputs
 ```html
 <a
   role="button"
-  class="button button-start"
+  class="gem-c-button govuk-button govuk-button--start"
   href="https://example.com/external-service/start-now"
   data-module="cross-domain-tracking"
   data-tracking-code="UA-XXXXXX-Y"
   data-tracking-name="govspeakButtonTracker"
 >
   Start Now
+  <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg>
 </a>
 ```

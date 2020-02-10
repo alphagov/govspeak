@@ -161,10 +161,10 @@ module Govspeak
       {\/button} # match ending bracket
       (?:\r|\n|$) # non-capturing match to make sure end of line and linebreak
     }x) { |attributes, text, href|
-      button_classes = "button"
-      button_classes << " button-start" if attributes =~ /start/
+      button_classes = "govuk-button"
       /cross-domain-tracking:(?<cross_domain_tracking>.[^\s*]+)/ =~ attributes
       data_attribute = ""
+      data_attribute << " data-start='true'" if attributes =~ /start/
       if cross_domain_tracking
         data_attribute << " data-module='cross-domain-tracking'"
         data_attribute << " data-tracking-code='#{cross_domain_tracking.strip}'"

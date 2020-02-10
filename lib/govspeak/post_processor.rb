@@ -100,6 +100,24 @@ module Govspeak
       end
     end
 
+    extension("use gem component for buttons") do |document|
+      document.css(".govuk-button").map do |el|
+        button_html = GovukPublishingComponents.render(
+          "govuk_publishing_components/components/button",
+          text: el.content,
+          href: el["href"],
+          start: el["data-start"],
+          data_attributes: {
+            module: el["data-module"],
+            "tracking-code": el["data-tracking-code"],
+            "tracking-name": el["data-tracking-name"],
+          },
+        ).squish.gsub("> <", "><").gsub!(/\s+/, " ")
+
+        el.swap(button_html)
+      end
+    end
+
     attr_reader :input, :govspeak_document
 
     def initialize(html, govspeak_document)
