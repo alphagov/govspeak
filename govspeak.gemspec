@@ -32,7 +32,7 @@ library for use in the UK Government Single Domain project'
 
   s.add_dependency "actionview", ">= 5.0", "< 7"
   s.add_dependency "addressable", ">= 2.3.8", "< 3"
-  s.add_dependency "govuk_publishing_components", ">= 16.16"
+  s.add_dependency "govuk_publishing_components", "~> 21.4"
   s.add_dependency "htmlentities", "~> 4"
   s.add_dependency "i18n", "~> 0.7"
   s.add_dependency "kramdown", "~> 1.15.0"
@@ -44,7 +44,7 @@ library for use in the UK Government Single Domain project'
   s.add_development_dependency "minitest", "~> 5.8.3"
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "rake", "~> 0.9.0"
-  s.add_development_dependency "rubocop-govuk", "~> 2"
+  s.add_development_dependency "rubocop-govuk", "~> 3.3.2"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "simplecov-rcov"
 end
