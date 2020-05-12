@@ -4,6 +4,11 @@ require "bundler"
 
 Bundler::GemHelper.install_tasks
 
+desc "Lint Ruby"
+task lint: :environment do
+  sh "bundle exec rubocop"
+end
+
 desc "Run basic tests"
 Rake::TestTask.new("test") { |t|
   t.libs << "test"
@@ -12,4 +17,4 @@ Rake::TestTask.new("test") { |t|
   t.warning = true
 }
 
-task default: [:test]
+task default: %i[test lint]
