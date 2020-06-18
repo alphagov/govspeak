@@ -1,3 +1,7 @@
+## Unreleased
+
+* Require Sanitize to be at least 5.2.1 due to https://nvd.nist.gov/vuln/detail/CVE-2020-4054
+
 ## 6.5.3
 
 * Use button component for buttons (PR#176)
