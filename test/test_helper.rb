@@ -4,7 +4,7 @@ require "simplecov-rcov"
 SimpleCov.start
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 
-$:.unshift(File.expand_path("../lib")) unless $:.include?(File.expand_path("../lib"))
+$LOAD_PATH.unshift(File.expand_path("../lib")) unless $LOAD_PATH.include?(File.expand_path("../lib"))
 
 require "bundler"
 Bundler.setup :default, :development, :test
