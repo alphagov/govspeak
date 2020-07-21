@@ -1,8 +1,11 @@
 require "rake"
 require "rake/testtask"
+require "rubocop/rake_task"
 require "bundler"
 
 Bundler::GemHelper.install_tasks
+
+RuboCop::RakeTask.new
 
 desc "Run basic tests"
 Rake::TestTask.new("test") { |t|
@@ -12,4 +15,4 @@ Rake::TestTask.new("test") { |t|
   t.warning = true
 }
 
-task default: [:test]
+task default: %i[test rubocop]
