@@ -79,7 +79,6 @@ class HtmlSanitizerTest < Minitest::Test
     assert_equal "<table><tbody><tr><th>thing</th><td>thing</td></tr></tbody></table>", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
-
   test "allows valid text-align properties on the style attribute for table cells and table headings" do
     %w[left right center].each do |alignment|
       html = "<table><thead><tr><th style=\"text-align: #{alignment}\">thing</th></tr></thead><tbody><tr><td style=\"text-align: #{alignment}\">thing</td></tr></tbody></table>"

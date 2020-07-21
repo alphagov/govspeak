@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require "test_helper"
 
 class GovspeakAttachmentsInlineTest < Minitest::Test
@@ -141,10 +139,10 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
         number_of_pages: 2,
       )],
     )
-    link = %{<a href="#{Regexp.quote('http://a.b/test.txt')}">My Attached Text File</a>}
-    type = %{<span class="type">Plain text</span>}
-    file_size = %{<span class="file-size">2 KB</span>}
-    pages = %{<span class="page-length">2 pages</span>}
+    link = %(<a href="#{Regexp.quote('http://a.b/test.txt')}">My Attached Text File</a>)
+    type = %(<span class="type">Plain text</span>)
+    file_size = %(<span class="file-size">2 KB</span>)
+    pages = %(<span class="page-length">2 pages</span>)
     assert_match(/#{link}\s+\(#{type}, #{file_size}, #{pages}\)/, rendered)
   end
 

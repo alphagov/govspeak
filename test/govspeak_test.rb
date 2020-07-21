@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require "test_helper"
 require "govspeak_test_helper"
 
@@ -27,22 +25,22 @@ class GovspeakTest < Minitest::Test
 
   test "highlight-answer block extension" do
     rendered = Govspeak::Document.new("this \n{::highlight-answer}Lead in to *BIG TEXT*\n{:/highlight-answer}").to_html
-    assert_equal %{<p>this</p>\n\n<div class="highlight-answer">\n<p>Lead in to <em>BIG TEXT</em></p>\n</div>\n}, rendered
+    assert_equal %(<p>this</p>\n\n<div class="highlight-answer">\n<p>Lead in to <em>BIG TEXT</em></p>\n</div>\n), rendered
   end
 
   test "stat-headline block extension" do
     rendered = Govspeak::Document.new("this \n{stat-headline}*13.8bn* Age of the universe in years{/stat-headline}").to_html
-    assert_equal %{<p>this</p>\n\n<aside class="stat-headline">\n<p><em>13.8bn</em> Age of the universe in years</p>\n</aside>\n}, rendered
+    assert_equal %(<p>this</p>\n\n<aside class="stat-headline">\n<p><em>13.8bn</em> Age of the universe in years</p>\n</aside>\n), rendered
   end
 
   test "extracts headers with text, level and generated id" do
-    document = Govspeak::Document.new %{
+    document = Govspeak::Document.new %(
 # Big title
 
 ### Small subtitle
 
 ## Medium title
-}
+)
     assert_equal [
       Govspeak::Header.new("Big title", 1, "big-title"),
       Govspeak::Header.new("Small subtitle", 3, "small-subtitle"),
@@ -59,7 +57,7 @@ class GovspeakTest < Minitest::Test
   end
 
   test "extracts headers when nested inside blocks" do
-    document = Govspeak::Document.new %{
+    document = Govspeak::Document.new %(
 # First title
 
 <div markdown="1">
@@ -74,7 +72,7 @@ class GovspeakTest < Minitest::Test
 ### Second double subtitle
 </div>
 </div>
-}
+)
     assert_equal [
       Govspeak::Header.new("First title", 1, "first-title"),
       Govspeak::Header.new("Nested subtitle", 2, "nested-subtitle"),
@@ -84,11 +82,11 @@ class GovspeakTest < Minitest::Test
   end
 
   test "extracts headers with explicitly specified ids" do
-    document = Govspeak::Document.new %{
+    document = Govspeak::Document.new %(
 # First title
 
 ## Second title {#special}
-}
+)
     assert_equal [
       Govspeak::Header.new("First title", 1, "first-title"),
       Govspeak::Header.new("Second title", 2, "special"),
@@ -102,13 +100,13 @@ class GovspeakTest < Minitest::Test
   end
 
   test "trailing space after the address should not prevent parsing" do
-    input = %{$A
+    input = %($A
 123 Test Street
 Testcase Cliffs
 Teston
-0123 456 7890 $A    }
+0123 456 7890 $A    )
     doc = Govspeak::Document.new(input)
-    assert_equal %{\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n}, doc.to_html
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n), doc.to_html
   end
 
   test "should convert barchart" do
@@ -119,7 +117,7 @@ Teston
       {barchart}
     GOVSPEAK
     html = Govspeak::Document.new(input).to_html
-    assert_equal %{<table class=\"js-barchart-table mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th scope="col">col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
+    assert_equal %(<table class=\"js-barchart-table mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th scope="col">col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n), html
   end
 
   test "should convert barchart with stacked compact and negative" do
@@ -130,27 +128,27 @@ Teston
       {barchart stacked compact negative}
     GOVSPEAK
     html = Govspeak::Document.new(input).to_html
-    assert_equal %{<table class=\"js-barchart-table mc-stacked compact mc-negative mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th scope="col">col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n}, html
+    assert_equal %(<table class=\"js-barchart-table mc-stacked compact mc-negative mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th scope="col">col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n), html
   end
 
   test "address div is separated from paragraph text by a couple of line-breaks" do
     # else kramdown processes address div as part of paragraph text and escapes HTML
-    input = %{Paragraph1
+    input = %(Paragraph1
 
 $A
 123 Test Street
 Testcase Cliffs
 Teston
-0123 456 7890 $A}
+0123 456 7890 $A)
     doc = Govspeak::Document.new(input)
-    assert_equal %{<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n}, doc.to_html
+    assert_equal %(<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n), doc.to_html
   end
 
   test_given_govspeak("^ I am very informational ^") do
-    assert_html_output %{
+    assert_html_output %(
       <div role="note" aria-label="Information" class="application-notice info-notice">
       <p>I am very informational</p>
-      </div>}
+      </div>)
     assert_text_output "I am very informational"
   end
 
@@ -161,28 +159,28 @@ Teston
   end
 
   test_given_govspeak "The following is very informational\n^ I am very informational ^" do
-    assert_html_output %{
+    assert_html_output %(
       <p>The following is very informational</p>
 
       <div role="note" aria-label="Information" class="application-notice info-notice">
       <p>I am very informational</p>
-      </div>}
+      </div>)
     assert_text_output "The following is very informational I am very informational"
   end
 
   test_given_govspeak "^ I am very informational" do
-    assert_html_output %{
+    assert_html_output %(
       <div role="note" aria-label="Information" class="application-notice info-notice">
       <p>I am very informational</p>
-      </div>}
+      </div>)
     assert_text_output "I am very informational"
   end
 
   test_given_govspeak "@ I am very important @" do
-    assert_html_output %{
+    assert_html_output %(
       <div role="note" aria-label="Important" class="advisory">
       <p><strong>I am very important</strong></p>
-      </div>}
+      </div>)
     assert_text_output "I am very important"
   end
 
@@ -190,50 +188,50 @@ Teston
     The following is very important
     @ I am very important @
     " do
-    assert_html_output %{
+    assert_html_output %(
       <p>The following is very important</p>
 
       <div role="note" aria-label="Important" class="advisory">
       <p><strong>I am very important</strong></p>
-      </div>}
+      </div>)
     assert_text_output "The following is very important I am very important"
   end
 
   test_given_govspeak "% I am very helpful %" do
-    assert_html_output %{
+    assert_html_output %(
       <div role="note" aria-label="Warning" class="application-notice help-notice">
       <p>I am very helpful</p>
-      </div>}
+      </div>)
     assert_text_output "I am very helpful"
   end
 
   test_given_govspeak "The following is very helpful\n% I am very helpful %" do
-    assert_html_output %{
+    assert_html_output %(
       <p>The following is very helpful</p>
 
       <div role="note" aria-label="Warning" class="application-notice help-notice">
       <p>I am very helpful</p>
-      </div>}
+      </div>)
     assert_text_output "The following is very helpful I am very helpful"
   end
 
   test_given_govspeak "## Hello ##\n\n% I am very helpful %\r\n### Young Workers ###\n\n" do
-    assert_html_output %{
+    assert_html_output %(
       <h2 id="hello">Hello</h2>
 
       <div role="note" aria-label="Warning" class="application-notice help-notice">
       <p>I am very helpful</p>
       </div>
 
-      <h3 id="young-workers">Young Workers</h3>}
+      <h3 id="young-workers">Young Workers</h3>)
     assert_text_output "Hello I am very helpful Young Workers"
   end
 
   test_given_govspeak "% I am very helpful" do
-    assert_html_output %{
+    assert_html_output %(
       <div role="note" aria-label="Warning" class="application-notice help-notice">
       <p>I am very helpful</p>
-      </div>}
+      </div>)
     assert_text_output "I am very helpful"
   end
 
@@ -251,7 +249,7 @@ Teston
     HTML
 
     *[HTML]: Hyper Text Markup Language" do
-    assert_html_output %{<p><abbr title="Hyper Text Markup Language">HTML</abbr></p>}
+    assert_html_output %(<p><abbr title="Hyper Text Markup Language">HTML</abbr></p>)
     assert_text_output "HTML"
   end
 
@@ -311,12 +309,12 @@ Teston
   end
 
   test "should be able to override default 'document_domains' option" do
-    html = Govspeak::Document.new("[internal link](http://www.not-external.com)", document_domains: %w(www.not-external.com)).to_html
+    html = Govspeak::Document.new("[internal link](http://www.not-external.com)", document_domains: %w[www.not-external.com]).to_html
     refute html.include?('rel="external"'), "should not consider www.not-external.com as an external url"
   end
 
   test "should be able to supply multiple domains for 'document_domains' option" do
-    html = Govspeak::Document.new("[internal link](http://www.not-external-either.com)", document_domains: %w(www.not-external.com www.not-external-either.com)).to_html
+    html = Govspeak::Document.new("[internal link](http://www.not-external-either.com)", document_domains: %w[www.not-external.com www.not-external-either.com]).to_html
     refute html.include?('rel="external"'), "should not consider www.not-external-either.com as an external url"
   end
 
@@ -338,17 +336,17 @@ Teston
   test "should treat a mailto as internal" do
     html = Govspeak::Document.new("[link](mailto:a@b.com)").to_html
     refute html.include?('rel="external"')
-    assert_equal %{<p><a href="mailto:a@b.com">link</a></p>\n}, deobfuscate_mailto(html)
+    assert_equal %(<p><a href="mailto:a@b.com">link</a></p>\n), deobfuscate_mailto(html)
   end
 
   test "permits mailto:// URI" do
     html = Govspeak::Document.new("[link](mailto://a@b.com)").to_html
-    assert_equal %{<p><a rel="external" href="mailto://a@b.com">link</a></p>\n}, deobfuscate_mailto(html)
+    assert_equal %(<p><a rel="external" href="mailto://a@b.com">link</a></p>\n), deobfuscate_mailto(html)
   end
 
   test "permits dud mailto: URI" do
     html = Govspeak::Document.new("[link](mailto:)").to_html
-    assert_equal %{<p><a href="mailto:">link</a></p>\n}, deobfuscate_mailto(html)
+    assert_equal %(<p><a href="mailto:">link</a></p>\n), deobfuscate_mailto(html)
   end
 
   test "permits trailing whitespace in an URI" do
@@ -368,18 +366,18 @@ Teston
     $!
     rainbow
     $!" do
-    assert_html_output %{
+    assert_html_output %(
       <div class="summary">
       <p>rainbow</p>
-      </div>}
+      </div>)
     assert_text_output "rainbow"
   end
 
   test_given_govspeak "$C help, send cake $C" do
-    assert_html_output %{
+    assert_html_output %(
       <div class="contact">
       <p>help, send cake</p>
-      </div>}
+      </div>)
     assert_text_output "help, send cake"
   end
 
@@ -388,10 +386,10 @@ Teston
     street
     road
     $A" do
-    assert_html_output %{
+    assert_html_output %(
       <div class="address"><div class="adr org fn"><p>
       street<br>road<br>
-      </p></div></div>}
+      </p></div></div>)
     assert_text_output "street road"
   end
 
@@ -401,7 +399,7 @@ Teston
     help
     $I
     $P" do
-    assert_html_output %{<div class="place">\n\n<div class="information">\n<p>help</p>\n</div>\n</div>}
+    assert_html_output %(<div class="place">\n\n<div class="information">\n<p>help</p>\n</div>\n</div>)
     assert_text_output "help"
   end
 
@@ -409,10 +407,10 @@ Teston
     $D
     can you tell me how to get to...
     $D" do
-    assert_html_output %{
+    assert_html_output %(
       <div class="form-download">
       <p>can you tell me how to get to…</p>
-      </div>}
+      </div>)
     assert_text_output "can you tell me how to get to…"
   end
 
@@ -420,10 +418,10 @@ Teston
     $CTA
     Click here to start the tool
     $CTA" do
-    assert_html_output %{
+    assert_html_output %(
       <div class="call-to-action">
       <p>Click here to start the tool</p>
-      </div>}
+      </div>)
     assert_text_output "Click here to start the tool"
   end
 
@@ -434,12 +432,12 @@ Teston
     Click here to start the tool
     $CTA
     " do
-    assert_html_output %{
+    assert_html_output %(
       <p>Here is some text</p>
 
       <div class="call-to-action">
       <p>Click here to start the tool</p>
-      </div>}
+      </div>)
   end
 
   test_given_govspeak "
@@ -447,13 +445,13 @@ Teston
 
     $CTA
     Click here to start the tool
-    $CTA", document_domains: %w(www.not-external.com) do
-    assert_html_output %{
+    $CTA", document_domains: %w[www.not-external.com] do
+    assert_html_output %(
       <p><a href="http://www.not-external.com">internal link</a></p>
 
       <div class="call-to-action">
       <p>Click here to start the tool</p>
-      </div>}
+      </div>)
   end
 
   test_given_govspeak "
@@ -469,7 +467,7 @@ Teston
     s2. bungle
     s3. george
     " do
-    assert_html_output %{
+    assert_html_output %(
       <ol class="steps">
       <li>
       <p>zippy</p>
@@ -480,7 +478,7 @@ Teston
       <li>
       <p>george</p>
       </li>
-      </ol>}
+      </ol>)
     assert_text_output "zippy bungle george"
   end
 
@@ -491,7 +489,7 @@ Teston
     s1. step
     s2. list
     " do
-    assert_html_output %{
+    assert_html_output %(
       <ul>
         <li>unordered</li>
         <li>list</li>
@@ -504,7 +502,7 @@ Teston
       <li>
       <p>list</p>
       </li>
-      </ol>}
+      </ol>)
     assert_text_output "unordered list step list"
   end
 
@@ -592,31 +590,31 @@ Teston
     * 1. jumps over the lazy dog
     $EndLegislativeList
   " do
-    assert_html_output %{
+    assert_html_output %(
       <p>The quick brown fox</p>
 
       <ol class="legislative-list">
         <li>1. jumps over the lazy dog</li>
       </ol>
-    }
+    )
   end
 
   test_given_govspeak "This bit of text\r\n\r\n$LegislativeList\r\n* 1. should be turned into a list\r\n$EndLegislativeList" do
-    assert_html_output %{
+    assert_html_output %(
       <p>This bit of text</p>
 
       <ol class="legislative-list">
         <li>1. should be turned into a list</li>
       </ol>
-    }
+    )
   end
 
   test_given_govspeak "
     Zippy, Bungle and George did not qualify for the tax exemption in s428. They filled in their tax return accordingly.
     " do
-    assert_html_output %{
+    assert_html_output %(
       <p>Zippy, Bungle and George did not qualify for the tax exemption in s428. They filled in their tax return accordingly.</p>
-    }
+    )
   end
 
   test_given_govspeak ":scotland: I am very devolved\n and very scottish \n:scotland:" do
@@ -632,11 +630,11 @@ Teston
   end
 
   test_given_govspeak "@ Message with [a link](http://foo.bar/)@" do
-    assert_html_output %{
+    assert_html_output %(
       <div role="note" aria-label="Important" class="advisory">
       <p><strong>Message with <a rel="external" href="http://foo.bar/">a link</a></strong></p>
       </div>
-      }
+      )
   end
 
   test "sanitize source input by default" do
@@ -659,7 +657,7 @@ Teston
     assert document.valid?
   end
 
-  expected_priority_list_output = %|
+  expected_priority_list_output = %(
     <ul>
       <li class="primary-item">List item 1</li>
       <li class="primary-item">List item 2</li>
@@ -667,7 +665,7 @@ Teston
       <li>List item 4</li>
       <li>List item 5</li>
     </ul>
-  |
+  )
 
   test "Single priority list ending with EOF" do
     govspeak = "$PriorityList:3
@@ -713,7 +711,6 @@ Teston
     end
   end
 
-
   test "Multiple priority lists" do
     govspeak = "
 $PriorityList:3
@@ -728,7 +725,7 @@ $PriorityList:1
 * List item 2"
 
     given_govspeak(govspeak) do
-      assert_html_output %|
+      assert_html_output %(
         <ul>
           <li class="primary-item">List item 1</li>
           <li class="primary-item">List item 2</li>
@@ -741,7 +738,7 @@ $PriorityList:1
           <li class="primary-item">List item 1</li>
           <li>List item 2</li>
         </ul>
-      |
+      )
     end
   end
 
@@ -779,7 +776,7 @@ $PriorityList:1
     * List item 5"
 
     given_govspeak(govspeak) do
-      assert_html_output %|
+      assert_html_output %(
         <p>This is a paragraph</p>
 
         <ul>
@@ -789,20 +786,20 @@ $PriorityList:1
           <li>List item 4</li>
           <li>List item 5</li>
         </ul>
-      |
+      )
     end
   end
 
   test "should remove quotes surrounding a blockquote" do
-    govspeak = %{
+    govspeak = %(
 He said:
 
 > "I'm not sure what you mean!"
 
-Or so we thought.}
+Or so we thought.)
 
     given_govspeak(govspeak) do
-      assert_html_output %|
+      assert_html_output %(
         <p>He said:</p>
 
         <blockquote>
@@ -810,7 +807,7 @@ Or so we thought.}
         </blockquote>
 
         <p>Or so we thought.</p>
-      |
+      )
     end
   end
 
@@ -821,13 +818,13 @@ Or so we thought.}
     > last line"
 
     given_govspeak(govspeak) do
-      assert_html_output %|
+      assert_html_output %(
         <blockquote>
           <p>first line</p>
 
           <p class="last-child">last line</p>
         </blockquote>
-      |
+      )
     end
   end
 end

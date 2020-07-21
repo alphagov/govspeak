@@ -1,9 +1,9 @@
 module Govspeak
   module KramdownOverrides
-    # This depends on two internal parts of Kramdown.
+    #  This depends on two internal parts of Kramdown.
     # 1. Parser registry (kramdown/parser/kramdown.rb#define_parser)
     # 2. Kramdown list regexes (kramdown/parser/kramdown/list.rb)
-    # Updating the Kramdown gem therefore also means updating this file to to
+    #  Updating the Kramdown gem therefore also means updating this file to to
     # match Kramdown's internals.
 
     def self.with_kramdown_ordered_lists_disabled

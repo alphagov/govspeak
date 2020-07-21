@@ -9,7 +9,7 @@ module Kramdown
       end
     end
 
-    define(:document_domains, Object, %w{www.gov.uk}, <<~DESCRIPTION) do |val|
+    define(:document_domains, Object, %w[www.gov.uk], <<~DESCRIPTION) do |val|
       Defines the domains which are considered local to the document
 
       Default: www.gov.uk
@@ -21,10 +21,10 @@ module Kramdown
 
   module Parser
     class Govuk < Kramdown::Parser::Kramdown
-      CUSTOM_INLINE_ELEMENTS = %w(govspeak-embed-attachment-link).freeze
+      CUSTOM_INLINE_ELEMENTS = %w[govspeak-embed-attachment-link].freeze
 
       def initialize(source, options)
-        @document_domains = options[:document_domains] || %w(www.gov.uk)
+        @document_domains = options[:document_domains] || %w[www.gov.uk]
         super
       end
 
@@ -35,11 +35,10 @@ module Kramdown
             unless host.nil? || @document_domains.compact.include?(host)
               element.attr["rel"] = "external"
             end
-          # rubocop:disable Lint/SuppressedException
           rescue Addressable::URI::InvalidURIError
             # it's safe to ignore these very *specific* exceptions
           end
-          # rubocop:enable Lint/SuppressedException
+
         end
         super
       end

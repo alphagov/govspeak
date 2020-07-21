@@ -54,12 +54,12 @@ class Govspeak::HtmlSanitizer
       elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment govspeak-embed-attachment-link svg path],
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label],
-        "a"  => Sanitize::Config::RELAXED[:attributes]["a"] + [:data],
+        "a" => Sanitize::Config::RELAXED[:attributes]["a"] + [:data],
         "svg" => Sanitize::Config::RELAXED[:attributes][:all] + %w[xmlns width height viewbox focusable],
         "path" => Sanitize::Config::RELAXED[:attributes][:all] + %w[fill d],
         "div" => [:data],
-        "th"  => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
-        "td"  => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
+        "th" => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
+        "td" => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
         "govspeak-embed-attachment" => %w[content-id],
       },
     )
