@@ -2,7 +2,7 @@ require "test_helper"
 
 class GovspeakStructuredHeadersTest < Minitest::Test
   def document_body
-    %{
+    %(
 ## Heading 1
 
 ## Heading 2
@@ -29,7 +29,7 @@ class GovspeakStructuredHeadersTest < Minitest::Test
 
 ## Heading 5
 
-    }
+    )
   end
 
   def doc
@@ -96,8 +96,9 @@ class GovspeakStructuredHeadersTest < Minitest::Test
         },
         {
           text: "Sub heading 2.3",
-          level: 3, id: "sub-heading-23",
-          headers: []
+          level: 3,
+          id: "sub-heading-23",
+          headers: [],
         },
       ],
     }

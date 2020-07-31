@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require "test_helper"
 
 class GovspeakContactsTest < Minitest::Test
@@ -61,7 +59,7 @@ class GovspeakContactsTest < Minitest::Test
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
 
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
-    expected_html_output = %{
+    expected_html_output = %(
       <div id="contact_4f3383e4-48a2-4461-a41d-f85ea8b89ba0" class="contact postal-address">
         <div class="content">
           <h3>Government Digital Service</h3>
@@ -89,7 +87,7 @@ class GovspeakContactsTest < Minitest::Test
           </div>
         </div>
       </div>
-    }
+    )
 
     assert_equal(compress_html(expected_html_output), compress_html(rendered))
   end
@@ -105,7 +103,7 @@ class GovspeakContactsTest < Minitest::Test
     contact = build_contact(post_addresses: [])
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
-    expected_html_output = %{
+    expected_html_output = %(
       <div id="contact_4f3383e4-48a2-4461-a41d-f85ea8b89ba0" class="contact">
         <div class="content">
           <h3>Government Digital Service</h3>
@@ -127,7 +125,7 @@ class GovspeakContactsTest < Minitest::Test
           </div>
         </div>
       </div>
-    }
+    )
     assert_equal(compress_html(expected_html_output), compress_html(rendered))
   end
 
@@ -140,11 +138,11 @@ class GovspeakContactsTest < Minitest::Test
     ])
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
-    expected = %{
+    expected = %(
       <p class="adr">
         <span class="street-address">125 Kingsway</span>
       </p>
-    }
+    )
     assert_match(compress_html(expected), compress_html(rendered))
   end
 
@@ -156,7 +154,7 @@ class GovspeakContactsTest < Minitest::Test
     ])
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
-    refute_match(%{<p class="adr">}, compress_html(rendered))
+    refute_match(%(<p class="adr">), compress_html(rendered))
   end
 
   test "contact with an empty email address is not rendered" do
@@ -167,7 +165,7 @@ class GovspeakContactsTest < Minitest::Test
     ])
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
-    refute_match(%{<p class="email">}, compress_html(rendered))
+    refute_match(%(<p class="email">), compress_html(rendered))
   end
 
   test "contact with an empty contact form is not rendered" do
@@ -178,7 +176,7 @@ class GovspeakContactsTest < Minitest::Test
     ])
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
-    refute_match(%{<p class="contact_form_url">}, compress_html(rendered))
+    refute_match(%(<p class="contact_form_url">), compress_html(rendered))
   end
 
   test "contact with an empty phone number is not rendered" do
@@ -189,7 +187,7 @@ class GovspeakContactsTest < Minitest::Test
     ])
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
-    refute_match(%{<p class="tel">}, compress_html(rendered))
+    refute_match(%(<p class="tel">), compress_html(rendered))
   end
 
   test "it auto links text in the description" do
@@ -197,7 +195,7 @@ class GovspeakContactsTest < Minitest::Test
 
     govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
     rendered = Govspeak::Document.new(govspeak, contacts: [contact]).to_html
-    assert_match(%{<p class="comments">My description about <a href="https://www.gov.uk">https://www.gov.uk</a></p>},
+    assert_match(%(<p class="comments">My description about <a href="https://www.gov.uk">https://www.gov.uk</a></p>),
                  compress_html(rendered))
   end
 end

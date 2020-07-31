@@ -49,7 +49,7 @@ module GovspeakTestHelper
       lines = text.split "\n"
       digits = Math.log10(lines.size + 2).ceil
       lines.map
-        .with_index { |line, i| "%<number>#{digits}d: %<line>s" % { number: i + 1, line: line } }
+        .with_index { |line, i| sprintf("%<number>#{digits}d: %<line>s", number: i + 1, line: line) }
         .join("\n")
     end
   end

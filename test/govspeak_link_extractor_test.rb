@@ -40,7 +40,7 @@ class GovspeakLinkExtractorTest < Minitest::Test
   end
 
   test "Links are extracted from the body" do
-    expected_links = %w{http://www.example.com http://www.gov.com /cais-trwydded-yrru-dros-dro http://www.example.com/from/html}
+    expected_links = %w[http://www.example.com http://www.gov.com /cais-trwydded-yrru-dros-dro http://www.example.com/from/html]
     assert_equal expected_links, links
   end
 

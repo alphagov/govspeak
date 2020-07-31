@@ -2,7 +2,7 @@ require "test_helper"
 
 class GovspeakTableWithHeadersTest < Minitest::Test
   def expected_outcome
-    %{
+    %(
 <table>
   <thead>
     <tr>
@@ -24,11 +24,11 @@ class GovspeakTableWithHeadersTest < Minitest::Test
     </tr>
   </tbody>
 </table>
-}
+)
   end
 
   def expected_outcome_with_hashes_in_cell_contents
-    %{
+    %(
 <table>
   <thead>
     <tr>
@@ -50,11 +50,11 @@ class GovspeakTableWithHeadersTest < Minitest::Test
     </tr>
   </tbody>
 </table>
-}
+)
   end
 
   def expected_outcome_for_table_with_alignments
-    %{
+    %(
 <table>
   <thead>
     <tr>
@@ -76,11 +76,11 @@ class GovspeakTableWithHeadersTest < Minitest::Test
     </tr>
   </tbody>
 </table>
-}
+)
   end
 
   def expected_outcome_for_table_headers_in_the_wrong_place
-    %{
+    %(
 <table>
   <thead>
     <tr>
@@ -102,11 +102,11 @@ class GovspeakTableWithHeadersTest < Minitest::Test
     </tr>
   </tbody>
 </table>
-}
+)
   end
 
   def expected_outcome_for_table_with_blank_table_headers
-    %{
+    %(
 <table>
   <thead>
     <tr>
@@ -128,52 +128,52 @@ class GovspeakTableWithHeadersTest < Minitest::Test
     </tr>
   </tbody>
 </table>
-}
+)
   end
 
   def document_body_with_hashes_for_all_headers
-    @document_body_with_hashes_for_all_headers ||= Govspeak::Document.new(%{
+    @document_body_with_hashes_for_all_headers ||= Govspeak::Document.new(%(
 |                 |# Second Column  |# Third Column       |
 | --------------- | --------------- | ------------------- |
 |# First row      | Cell            | Cell                |
 |# Second row     | Cell            | Cell                |
-})
+))
   end
 
   def document_body_with_hashes_for_row_headers
-    @document_body_with_hashes_for_row_headers ||= Govspeak::Document.new(%{
+    @document_body_with_hashes_for_row_headers ||= Govspeak::Document.new(%(
 |                 | Second Column   | Third Column        |
 | --------------- | --------------- | ------------------- |
 |# First row      | Cell            | Cell                |
 |# Second row     | Cell            | Cell                |
-})
+))
   end
 
   def document_body_with_alignments
-    @document_body_with_alignments ||= Govspeak::Document.new(%{
+    @document_body_with_alignments ||= Govspeak::Document.new(%(
 |                 | Second Column   | Third Column        |
 | :-------------- | :-------------: | ------------------: |
 |# First row      | Cell            | Cell                |
 |# Second row     | Cell            | Cell                |
-})
+))
   end
 
   def document_body_with_table_headers_in_the_wrong_place
-    @document_body_with_table_headers_in_the_wrong_place ||= Govspeak::Document.new(%{
+    @document_body_with_table_headers_in_the_wrong_place ||= Govspeak::Document.new(%(
 |                 | Second Column   | Third Column        |
 | --------------- | --------------- | ------------------- |
 |# First row      |# Cell           | Cell                |
 |# Second row     | Cell            |# Cell               |
-})
+))
   end
 
   def document_body_with_blank_table_headers
-    @document_body_with_blank_table_headers ||= Govspeak::Document.new(%{
+    @document_body_with_blank_table_headers ||= Govspeak::Document.new(%(
 |                 | Second Column   | Third Column        |
 | --------------- | --------------- | ------------------- |
 |#                | Cell            | Cell                |
 |# Second row     | Cell            | Cell                |
-})
+))
   end
 
   test "Cells with |# are headers" do

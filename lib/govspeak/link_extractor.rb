@@ -14,9 +14,9 @@ module Govspeak
     attr_reader :document, :website_root
 
     def extract_links
-      document_anchors.
-        map { |link| extract_href_from_link(link) }.
-        reject(&:blank?)
+      document_anchors
+        .map { |link| extract_href_from_link(link) }
+        .reject(&:blank?)
     end
 
     def extract_href_from_link(link)

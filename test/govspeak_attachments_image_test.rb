@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require "test_helper"
 
 class GovspeakAttachmentsImageTest < Minitest::Test
@@ -77,11 +75,11 @@ class GovspeakAttachmentsImageTest < Minitest::Test
       "[embed:attachments:image:1fe8]",
       [build_attachment(id: 10, url: "http://a.b/c.jpg", title: "My Title", content_id: "1fe8")],
     )
-    expected_html_output = %{
+    expected_html_output = %(
       <figure id="attachment_10" class="image embedded">
         <div class="img"><img src="http://a.b/c.jpg" alt="My Title"></div>
       </figure>
-    }
+    )
     assert_match(compress_html(expected_html_output), compress_html(rendered))
   end
 

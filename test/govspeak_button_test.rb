@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require "test_helper"
 require "govspeak_test_helper"
 
@@ -46,13 +44,13 @@ class GovspeakTest < Minitest::Test
   end
 
   test_given_govspeak "Text before the button with line breaks \n\n\n{button}[Start Now](http://www.gov.uk){/button}\n\n\n test after the button" do
-    assert_html_output %{
+    assert_html_output %(
       <p>Text before the button with line breaks</p>
 
       <p><a class="gem-c-button govuk-button" role="button" href="http://www.gov.uk">Start Now</a></p>
 
       <p>test after the button</p>
-    }
+    )
     assert_text_output "Text before the button with line breaks Start Now test after the button"
   end
 
@@ -82,23 +80,23 @@ class GovspeakTest < Minitest::Test
 
   # Make sure button renders when typical linebreaks are before it, seen in publishing applications
   test_given_govspeak "{button}[Line breaks](https://gov.uk/random){/button}\r\n\r\n{button}[Continue](https://gov.uk/random){/button}\r\n\r\n{button}[Continue](https://gov.uk/random){/button}" do
-    assert_html_output %{
+    assert_html_output %(
       <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Line breaks</a></p>
 
       <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Continue</a></p>
 
       <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Continue</a></p>
-    }
+    )
   end
 
   test_given_govspeak "{button}[More line breaks](https://gov.uk/random){/button}\n\n{button}[Continue](https://gov.uk/random){/button}\n\n{button}[Continue](https://gov.uk/random){/button}" do
-    assert_html_output %{
+    assert_html_output %(
       <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">More line breaks</a></p>
 
       <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Continue</a></p>
 
       <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Continue</a></p>
-    }
+    )
   end
 
   test_given_govspeak %{
@@ -114,7 +112,7 @@ class GovspeakTest < Minitest::Test
     lorem lorem lorem
     lorem lorem lorem
   } do
-    assert_html_output %{
+    assert_html_output %(
       <h2 id="register-to-vote">Register to vote</h2>
 
       <p>Introduction text about the service.</p>
@@ -126,6 +124,6 @@ class GovspeakTest < Minitest::Test
 
       <p>lorem lorem lorem
       lorem lorem lorem</p>
-    }
+    )
   end
 end
