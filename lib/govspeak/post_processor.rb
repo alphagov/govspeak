@@ -94,7 +94,9 @@ module Govspeak
       document.css(":not(thead) tr td:first-child").map do |el|
         next unless el.content.match?(/^#($|\s.*$)/)
 
-        el.content = el.content.gsub(/^#($|\s)/, "") # Replace '# ' and '#', but not '#Word'.
+        # Replace '# ' and '#', but not '#Word'.
+        # This runs on the first child of the element to preserve any links
+        el.children.first.content = el.children.first.content.gsub(/^#($|\s)/, "")
         el.name = "th" if el.content.present? # This also prevents a `th` with nothing inside it; a `td` is preferable.
         el[:scope] = "row" if el.content.present? # `scope` shouldn't be used if there's nothing in the table heading.
       end
