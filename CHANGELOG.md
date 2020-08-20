@@ -1,3 +1,7 @@
+## Unreleased
+
+* Prevent links in table headers being stripped (PR#187)
+
 ## 6.5.4
 
 * Require Sanitize to be at least 5.2.1 due to https://nvd.nist.gov/vuln/detail/CVE-2020-4054
