@@ -1,4 +1,4 @@
-## Unreleased
+## 6.5.5
 
 * Prevent links in table headers being stripped (PR#187)
 
