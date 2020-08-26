@@ -12,7 +12,7 @@ class BlockquoteExtraQuoteRemoverTest < Minitest::Test
   end
 
   test "ignores nil" do
-    assert_leaves_untouched nil
+    assert_nil Govspeak::BlockquoteExtraQuoteRemover.remove(nil)
   end
 
   test "ignores text without double quotes" do
