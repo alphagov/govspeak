@@ -1,4 +1,4 @@
-## Unreleased
+## 6.5.6
 
 * Update Kramdown version to 2.3.0 or greater
 
