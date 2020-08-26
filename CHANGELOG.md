@@ -1,3 +1,7 @@
+## Unreleased
+
+* Update Kramdown version to 2.3.0 or greater
+
 ## 6.5.5
 
 * Prevent links in table headers being stripped (PR#187)
