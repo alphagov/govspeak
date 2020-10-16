@@ -42,7 +42,7 @@ library for use in the UK Government Single Domain project'
   s.add_development_dependency "minitest", "~> 5.14.1"
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "rake"
-  s.add_development_dependency "rubocop-govuk", "~> 3.3.2"
+  s.add_development_dependency "rubocop-govuk", "~> 3.17.1"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "simplecov-rcov"
 end
