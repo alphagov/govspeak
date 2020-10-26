@@ -120,6 +120,16 @@ module Govspeak
       end
     end
 
+    extension("use custom footnotes") do |document|
+      document.css("a.footnote").map do |el|
+        footnote_number = el[:href].gsub(/\D/, "")
+        el.content = "[footnote #{footnote_number}]"
+      end
+      document.css("[role='doc-backlink']").map do |el|
+        el.content = "[go to where this is referenced]"
+      end
+    end
+
     attr_reader :input, :govspeak_document
 
     def initialize(html, govspeak_document)
