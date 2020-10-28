@@ -1,3 +1,7 @@
+## 6.5.7
+
+* Update GOV.UK Publishing components to version to 23.0.0 or greater
+
 ## 6.5.6
 
 * Update Kramdown version to 2.3.0 or greater
