@@ -65,7 +65,7 @@ creates an example box
 
 ## Highlights
 
-### Advisory
+### Advisory (DEPRECATED: marked for removal. Use 'Information callouts' instead.)
 
     @This is a very important message or warning@
 
@@ -77,7 +77,7 @@ highlights the enclosed text in yellow
 </h3>
 ```
 
-### Answer
+### Answer (DEPRECATED: marked for removal)
 
     {::highlight-answer}
     The VAT rate is *20%*
