@@ -1,3 +1,7 @@
+## 6.5.8
+
+* Customise footnote markup for accessibility (PR#192)
+
 ## 6.5.7
 
 * Update GOV.UK Publishing components to version to 23.0.0 or greater
