@@ -126,7 +126,8 @@ module Govspeak
         el.content = "[footnote #{footnote_number}]"
       end
       document.css("[role='doc-backlink']").map do |el|
-        el.content = "[go to where this is referenced]"
+        backlink_number = " " + el.css("sup")[0].content if el.css("sup")[0].present?
+        el["aria-label"] = "go to where this is referenced#{backlink_number}"
       end
     end
 
