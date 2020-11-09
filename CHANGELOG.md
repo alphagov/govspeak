@@ -1,3 +1,7 @@
+## 6.5.9
+
+* Adjust footnote markup to accommodate multiple references (PR#198)
+
 ## 6.5.8
 
 * Customise footnote markup for accessibility (PR#192)
