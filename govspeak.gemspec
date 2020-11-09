@@ -39,7 +39,7 @@ library for use in the UK Government Single Domain project'
   s.add_dependency "rinku", "~> 2.0"
   s.add_dependency "sanitize", ">= 5.2.1", "< 6"
 
-  s.add_development_dependency "minitest", "~> 5.14.1"
+  s.add_development_dependency "minitest", "~> 5.14"
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "rake"
   s.add_development_dependency "rubocop-govuk", "~> 3.17.1"
