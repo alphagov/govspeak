@@ -1,3 +1,7 @@
+## 6.5.10
+
+* Be optimistic in versions of govuk_publishing_components and i18n allowed (PR#200)
+
 ## 6.5.9
 
 * Adjust footnote markup to accommodate multiple references (PR#198)
