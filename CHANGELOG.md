@@ -1,3 +1,7 @@
+## 6.5.11
+
+* Fix issue rendering $CTA blocks before $C (PR#202)
+
 ## 6.5.10
 
 * Be optimistic in versions of govuk_publishing_components and i18n allowed (PR#200)

@@ -272,6 +272,10 @@ module Govspeak
       lines.join
     end
 
+    # More specific tags must be defined first. Those defined earlier have a
+    # higher precedence for being matched. For example $CTA must be defined
+    # before $C otherwise the first ($C)TA fill be matched to a contact tag.
+    wrap_with_div("call-to-action", "$CTA", Govspeak::Document)
     wrap_with_div("summary", "$!")
     wrap_with_div("form-download", "$D")
     wrap_with_div("contact", "$C")
@@ -279,7 +283,6 @@ module Govspeak
     wrap_with_div("information", "$I", Govspeak::Document)
     wrap_with_div("additional-information", "$AI")
     wrap_with_div("example", "$E", Govspeak::Document)
-    wrap_with_div("call-to-action", "$CTA", Govspeak::Document)
 
     extension("address", surrounded_by("$A")) do |body|
       %(\n<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", '').gsub("\n", '<br />')}\n</p></div></div>\n)
