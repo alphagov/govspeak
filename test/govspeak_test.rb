@@ -441,6 +441,25 @@ Teston
   end
 
   test_given_govspeak "
+    $CTA
+    Click here to start the tool
+    $CTA
+
+    $C
+    Here is some text
+    $C
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+      <p>Click here to start the tool</p>
+      </div>
+
+      <div class="contact">
+      <p>Here is some text</p>
+      </div>)
+  end
+
+  test_given_govspeak "
     [internal link](http://www.not-external.com)
 
     $CTA
