@@ -1,3 +1,3 @@
 module Govspeak
-  VERSION = "6.5.11".freeze
+  VERSION = "6.6.0".freeze
 end

@@ -1,3 +1,7 @@
+## 6.6.0
+
+* Allow passed elements to be relaxed from sanitization [#203](https://github.com/alphagov/govspeak/pull/203)
+
 ## 6.5.11
 
 * Fix issue rendering $CTA blocks before $C (PR#202)
