@@ -53,6 +53,7 @@ module Govspeak
       @source = source ? source.dup : ""
 
       @images = options.delete(:images) || []
+      @allowed_elements = options.delete(:allowed_elements) || []
       @attachments = Array.wrap(options.delete(:attachments))
       @links = Array.wrap(options.delete(:links))
       @contacts = Array.wrap(options.delete(:contacts))
@@ -66,7 +67,7 @@ module Govspeak
     def to_html
       @to_html ||= begin
                      html = if @options[:sanitize]
-                              HtmlSanitizer.new(kramdown_doc.to_html).sanitize
+                              HtmlSanitizer.new(kramdown_doc.to_html).sanitize(allowed_elements: @allowed_elements)
                             else
                               kramdown_doc.to_html
                             end

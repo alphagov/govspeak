@@ -666,6 +666,11 @@ Teston
     assert_equal "<script>doGoodThings();</script>", document.to_html.strip
   end
 
+  test "it can exclude stipulated elements from sanitization" do
+    document = Govspeak::Document.new("<uncommon-element>some content</uncommon-element>", allowed_elements: %w[uncommon-element])
+    assert_equal "<uncommon-element>some content</uncommon-element>", document.to_html.strip
+  end
+
   test "identifies a Govspeak document containing malicious HTML as invalid" do
     document = Govspeak::Document.new("<script>doBadThings();</script>")
     refute document.valid?

@@ -40,18 +40,19 @@ class Govspeak::HtmlSanitizer
     @allowed_image_hosts = options[:allowed_image_hosts]
   end
 
-  def sanitize
+  def sanitize(allowed_elements: [])
     transformers = [TableCellTextAlignWhitelister.new]
     if @allowed_image_hosts && @allowed_image_hosts.any?
       transformers << ImageSourceWhitelister.new(@allowed_image_hosts)
     end
-    Sanitize.clean(@dirty_html, Sanitize::Config.merge(sanitize_config, transformers: transformers))
+
+    Sanitize.clean(@dirty_html, Sanitize::Config.merge(sanitize_config(allowed_elements: allowed_elements), transformers: transformers))
   end
 
-  def sanitize_config
+  def sanitize_config(allowed_elements: [])
     Sanitize::Config.merge(
       Sanitize::Config::RELAXED,
-      elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment govspeak-embed-attachment-link svg path],
+      elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment govspeak-embed-attachment-link svg path].concat(allowed_elements),
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label],
         "a" => Sanitize::Config::RELAXED[:attributes]["a"] + [:data],

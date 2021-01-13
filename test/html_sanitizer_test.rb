@@ -96,4 +96,10 @@ class HtmlSanitizerTest < Minitest::Test
       assert_equal "<table><thead><tr><th>thing</th></tr></thead><tbody><tr><td>thing</td></tr></tbody></table>", Govspeak::HtmlSanitizer.new(html).sanitize
     end
   end
+
+  test "excludes specified elements from sanitization" do
+    html = "<custom-allowed-element><p>text</p></custom-allowed-element>"
+    assert_equal "<p>text</p>", Govspeak::HtmlSanitizer.new(html).sanitize
+    assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize(allowed_elements: %w[custom-allowed-element])
+  end
 end
