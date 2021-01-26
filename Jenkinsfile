@@ -3,5 +3,5 @@
 library("govuk")
 
 node {
-  govuk.buildProject(rubyLintDiff: false)
+  govuk.buildProject()
 }
