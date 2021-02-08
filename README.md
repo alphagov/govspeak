@@ -598,8 +598,8 @@ will output
 ```html
 <div id="contact_123" class="contact">
   <div class="content">
-    <h3>Government Digital Service</h3>
     <div class="vcard contact-inner">
+      <p>Government Digital Service</p>
       <div class="email-url-number">
         <p class="email">
           <span class="type">Email</span>

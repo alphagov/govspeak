@@ -4,8 +4,8 @@
 %>
 <div id="contact_<%= contact.content_id %>" class="<%= ['contact', extra_class].flatten.join(' ') %>">
   <div class="content">
-    <h3><%= contact.title %></h3>
     <div class="vcard contact-inner">
+    <p><%= contact.title %></p>
     <% contact.post_addresses.each do |address| %>
       <%= Govspeak::HCardPresenter.new(address).render %>
     <% end %>
