@@ -62,8 +62,8 @@ class GovspeakContactsTest < Minitest::Test
     expected_html_output = %(
       <div id="contact_4f3383e4-48a2-4461-a41d-f85ea8b89ba0" class="contact postal-address">
         <div class="content">
-          <h3>Government Digital Service</h3>
           <div class="vcard contact-inner">
+            <p>Government Digital Service</p>
             <p class="adr">
               <span class="street-address">125 Kingsway</span><br>
               <span class="locality">Holborn</span><br>
@@ -106,8 +106,8 @@ class GovspeakContactsTest < Minitest::Test
     expected_html_output = %(
       <div id="contact_4f3383e4-48a2-4461-a41d-f85ea8b89ba0" class="contact">
         <div class="content">
-          <h3>Government Digital Service</h3>
           <div class="vcard contact-inner">
+            <p>Government Digital Service</p>
             <div class="email-url-number">
               <p class="email">
                 <span class="type">Email</span>
