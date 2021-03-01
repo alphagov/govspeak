@@ -1,3 +1,7 @@
+## 6.7.0
+
+* Update heading & docs [#206](https://github.com/alphagov/govspeak/pull/206)
+
 ## 6.6.0
 
 * Allow passed elements to be relaxed from sanitization [#203](https://github.com/alphagov/govspeak/pull/203)
