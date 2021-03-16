@@ -18,6 +18,23 @@ then create a new document
     doc = Govspeak::Document.new "^Test^"
     puts doc.to_html
 
+## Changes appearing across GOV.UK
+
+Some additional steps or considerations are needed to ensure changes to govspeak cascade across GOV.UK in a holistic way.
+
+Once govspeak has been updated and version incremented then: 
+- [`govuk_publishing_components` govspeak](https://components.publishing.service.gov.uk/component-guide/govspeak) will also need updating to reflect your most recent change.
+- [Publishing apps](https://docs.publishing.service.gov.uk/apps.html) (including but not limited to [content-publisher](https://github.com/alphagov/content-publisher) & [whitehall](https://github.com/alphagov/whitehall)) also use govspeak, these apps will need to be released with the new govspeak version present.
+
+Also, consider if:
+- [whitehall](https://github.com/alphagov/whitehall) needs updating (as custom govspeak changes are present)
+- [govuk-content-schema](https://github.com/alphagov/govuk-content-schemas) needs updating
+- [govpspeak-preview](https://github.com/alphagov/govspeak-preview) is worth updating
+
+Any pages that use govspeak to generate Content will need to *republished* in order for the new changes to be reflected.  
+
+- Data Labs can help identify which pages need updating by [submitting a request](https://gov-uk.atlassian.net/wiki/spaces/GOVUK/pages/1860075525/GOV.UK+Data+Labs#Submitting-a-data-science-request) and [#govuk-2ndline](https://docs.publishing.service.gov.uk/manual/2nd-line.html) can help with republishing
+  
 # Extensions
 
 In addition to the [standard Markdown syntax](http://daringfireball.net/projects/markdown/syntax "Markdown syntax"), we have added our own extensions.
