@@ -31,7 +31,7 @@ Also, consider if:
 - [govuk-content-schema](https://github.com/alphagov/govuk-content-schemas) needs updating
 - [govpspeak-preview](https://github.com/alphagov/govspeak-preview) is worth updating
 
-Any pages that use govspeak to generate Content will need to *republished* in order for the new changes to be reflected.  
+Any pages that use govspeak to generate Content will need to *[republished](https://docs.publishing.service.gov.uk/manual/republishing-content.html)* in order for the new changes to be reflected. 
 
 - Data Labs can help identify which pages need updating by [submitting a request](https://gov-uk.atlassian.net/wiki/spaces/GOVUK/pages/1860075525/GOV.UK+Data+Labs#Submitting-a-data-science-request) and [#govuk-2ndline](https://docs.publishing.service.gov.uk/manual/2nd-line.html) can help with republishing
   
