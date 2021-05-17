@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 6.7.1
+
 * Update failing test [212](https://github.com/alphagov/govspeak/pull/212)
 * Fix stats headline HTML semantics [213](https://github.com/alphagov/govspeak/pull/213)
 
