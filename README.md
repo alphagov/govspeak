@@ -123,9 +123,9 @@ Statistic headlines highlight important numbers in content. Displays a statistic
 Creates the following:
 
 ```html
-<aside class="stat-headline">
+<div class="stat-headline">
   <p><em>13.8bn</em> years since the big bang</p>
-</aside>
+</div>
 ```
 
 ## Points of Contact

@@ -185,8 +185,8 @@ module Govspeak
     end
 
     extension("stat-headline", %r${stat-headline}(.*?){/stat-headline}$m) do |body|
-      %(\n\n<aside class="stat-headline">
-#{Govspeak::Document.new(body.strip).to_html}</aside>\n)
+      %(\n\n<div class="stat-headline">
+#{Govspeak::Document.new(body.strip).to_html}</div>\n)
     end
 
     # FIXME: these surrounded_by arguments look dodgy
