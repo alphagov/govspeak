@@ -66,14 +66,14 @@ module Govspeak
 
     def to_html
       @to_html ||= begin
-                     html = if @options[:sanitize]
-                              HtmlSanitizer.new(kramdown_doc.to_html).sanitize(allowed_elements: @allowed_elements)
-                            else
-                              kramdown_doc.to_html
-                            end
+        html = if @options[:sanitize]
+                 HtmlSanitizer.new(kramdown_doc.to_html).sanitize(allowed_elements: @allowed_elements)
+               else
+                 kramdown_doc.to_html
+               end
 
-                     Govspeak::PostProcessor.process(html, self)
-                   end
+        Govspeak::PostProcessor.process(html, self)
+      end
     end
 
     def to_liquid
@@ -161,7 +161,7 @@ module Govspeak
           ([^)]+)  # capture inside of link text markdown
         \) # match end of link text markdown
         \s*  # any whitespace between opening bracket and link
-      {\/button} # match ending bracket
+      {/button} # match ending bracket
       (?:\r|\n|$) # non-capturing match to make sure end of line and linebreak
     }x) do |attributes, text, href|
       button_classes = "govuk-button"

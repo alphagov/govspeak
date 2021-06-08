@@ -30,9 +30,10 @@ module Govspeak
     def find_headers(parent)
       headers = []
 
-      if parent.type == :header
+      case parent.type
+      when :header
         headers << build_header(parent)
-      elsif parent.type == :html_element
+      when :html_element
         parent.children.each do |child|
           if child.type == :header
             headers << build_header(child)
