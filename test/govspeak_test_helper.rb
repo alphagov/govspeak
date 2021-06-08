@@ -26,6 +26,12 @@ module GovspeakTestHelper
       @testcase.assert expected.strip == actual, describe_error(@govspeak, expected.strip, actual)
     end
 
+    def assert_html_selector(selector)
+      html = document.to_html
+      fragment = Nokogiri::HTML.fragment(html)
+      @testcase.assert fragment.css(selector).any?, "Expected to find #{selector} within #{html}"
+    end
+
     def remove_indentation(raw)
       lines = raw.split("\n")
       if lines.first.empty?
