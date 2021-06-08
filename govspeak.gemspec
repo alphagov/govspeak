@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 library for use in the UK Government Single Domain project'
   s.required_ruby_version = ">= 2.6"
 
-  s.files         = Dir[
+  s.files = Dir[
     "lib/**/*",
     "assets/*",
     "config/*",

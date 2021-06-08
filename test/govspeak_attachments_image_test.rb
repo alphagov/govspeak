@@ -15,7 +15,7 @@ class GovspeakAttachmentsImageTest < Minitest::Test
   end
 
   def compress_html(html)
-    html.gsub(/[\n\r]+[\s]*/, "")
+    html.gsub(/[\n\r]+\s*/, "")
   end
 
   test "renders an empty string for an image attachment not found" do

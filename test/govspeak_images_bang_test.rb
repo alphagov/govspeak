@@ -18,9 +18,7 @@ class GovspeakImagesBangTest < Minitest::Test
   test "!!n syntax renders an image in options[:images]" do
     given_govspeak "!!1", images: [Image.new] do
       assert_html_output(
-        %(<figure class="image embedded">) +
-        %(<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>) +
-        %(</figure>),
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div></figure>",
       )
     end
   end
@@ -28,9 +26,7 @@ class GovspeakImagesBangTest < Minitest::Test
   test "!!n syntax escapes alt text" do
     given_govspeak "!!1", images: [Image.new(alt_text: %(my alt '&"<>))] do
       assert_html_output(
-        %(<figure class="image embedded">) +
-        %(<div class="img"><img src="http://example.com/image.jpg" alt="my alt '&amp;&quot;&lt;&gt;"></div>) +
-        %(</figure>),
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt '&amp;&quot;&lt;&gt;\"></div></figure>",
       )
     end
   end
@@ -48,10 +44,7 @@ class GovspeakImagesBangTest < Minitest::Test
   test "!!n syntax adds image caption if given" do
     given_govspeak "!!1", images: [Image.new(caption: "My Caption & so on")] do
       assert_html_output(
-        %(<figure class="image embedded">) +
-        %(<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n) +
-        %(<figcaption><p>My Caption &amp; so on</p></figcaption>) +
-        %(</figure>),
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div>\n<figcaption><p>My Caption &amp; so on</p></figcaption></figure>",
       )
     end
   end
@@ -59,9 +52,7 @@ class GovspeakImagesBangTest < Minitest::Test
   test "!!n syntax ignores a blank caption" do
     given_govspeak "!!1", images: [Image.new(caption: "  ")] do
       assert_html_output(
-        %(<figure class="image embedded">) +
-        %(<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>) +
-        %(</figure>),
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div></figure>",
       )
     end
   end
@@ -69,10 +60,7 @@ class GovspeakImagesBangTest < Minitest::Test
   test "¡¡n syntax adds image credit if given" do
     given_govspeak "!!1", images: [Image.new(credit: "My Credit & so on")] do
       assert_html_output(
-        %(<figure class="image embedded">) +
-        %(<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n) +
-        %(<figcaption><p>Image credit: My Credit &amp; so on</p></figcaption>) +
-        %(</figure>),
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div>\n<figcaption><p>Image credit: My Credit &amp; so on</p></figcaption></figure>",
       )
     end
   end
@@ -80,9 +68,7 @@ class GovspeakImagesBangTest < Minitest::Test
   test "!!n syntax ignores a blank credit" do
     given_govspeak "!!1", images: [Image.new(credit: "  ")] do
       assert_html_output(
-        %(<figure class="image embedded">) +
-        %(<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>) +
-        %(</figure>),
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div></figure>",
       )
     end
   end
@@ -90,13 +76,7 @@ class GovspeakImagesBangTest < Minitest::Test
   test "!!n syntax adds image caption and credit if given" do
     given_govspeak "!!1", images: [Image.new(caption: "My Caption & so on", credit: "My Credit & so on")] do
       assert_html_output(
-        %(<figure class="image embedded">) +
-        %(<div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div>\n) +
-        %(<figcaption>) +
-          %(<p>My Caption &amp; so on</p>\n) +
-          %(<p>Image credit: My Credit &amp; so on</p>) +
-        %(</figcaption>) +
-        %(</figure>),
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div>\n<figcaption><p>My Caption &amp; so on</p>\n<p>Image credit: My Credit &amp; so on</p></figcaption></figure>",
       )
     end
   end

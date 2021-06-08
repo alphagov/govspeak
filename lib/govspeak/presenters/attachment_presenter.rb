@@ -4,6 +4,7 @@ require "htmlentities"
 module Govspeak
   class AttachmentPresenter
     attr_reader :attachment
+
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::NumberHelper
     include ActionView::Helpers::TextHelper
@@ -25,7 +26,7 @@ module Govspeak
     end
 
     def file_extension
-      # Note: this is a separate parameter rather than being calculated from the
+      # NOTE: this is a separate parameter rather than being calculated from the
       # filename because at the time of writing not all apps were using the effects
       # of this field.
       attachment[:file_extension]

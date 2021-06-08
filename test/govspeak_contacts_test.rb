@@ -51,7 +51,7 @@ class GovspeakContactsTest < Minitest::Test
   end
 
   def compress_html(html)
-    html.gsub(/[\n\r]+[\s]*/, "")
+    html.gsub(/[\n\r]+\s*/, "")
   end
 
   test "contact is rendered when present in options[:contacts]" do

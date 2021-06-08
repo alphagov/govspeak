@@ -33,7 +33,7 @@ module GovspeakTestHelper
         nonblanks = lines.reject { |l| l.match(/^ *$/) }
         indentation = nonblanks.map { |line| line.match(/^ */)[0].size }.min
         unindented = lines.map do |line|
-          line[indentation..-1]
+          line[indentation..]
         end
         unindented.join "\n"
       else
