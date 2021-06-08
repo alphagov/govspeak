@@ -7,13 +7,13 @@ class GovspeakTest < Minitest::Test
   include GovspeakTestHelper
 
   test_given_govspeak "{button start cross-domain-tracking:UA-23066786-5}[Start now](https://www.registertovote.service.gov.uk/register-to-vote/start){/button}" do
-    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="cross-domain-tracking" data-tracking-code="UA-23066786-5" data-tracking-name="govspeakButtonTracker" href="https://www.registertovote.service.gov.uk/register-to-vote/start"> Start now <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
+    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="cross-domain-tracking" data-tracking-code="UA-23066786-5" data-tracking-name="govspeakButtonTracker" href="https://www.registertovote.service.gov.uk/register-to-vote/start"> Start now <svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
     assert_text_output "Start now"
   end
 
   # The same as above but with line breaks
   test_given_govspeak "{button start cross-domain-tracking:UA-23066786-5}\n\n\n[Start now](https://www.registertovote.service.gov.uk/register-to-vote/start)\n\n\n{/button}" do
-    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="cross-domain-tracking" data-tracking-code="UA-23066786-5" data-tracking-name="govspeakButtonTracker" href="https://www.registertovote.service.gov.uk/register-to-vote/start"> Start now <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
+    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="cross-domain-tracking" data-tracking-code="UA-23066786-5" data-tracking-name="govspeakButtonTracker" href="https://www.registertovote.service.gov.uk/register-to-vote/start"> Start now <svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
     assert_text_output "Start now"
   end
 
@@ -23,7 +23,7 @@ class GovspeakTest < Minitest::Test
   end
 
   test_given_govspeak "{button start}[Start now](https://www.registertovote.service.gov.uk/register-to-vote/start){/button}" do
-    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" href="https://www.registertovote.service.gov.uk/register-to-vote/start"> Start now <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
+    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" href="https://www.registertovote.service.gov.uk/register-to-vote/start"> Start now <svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
     assert_text_output "Start now"
   end
 
@@ -61,12 +61,12 @@ class GovspeakTest < Minitest::Test
   end
 
   test_given_govspeak "{button start}[Start Now](https://gov.uk/random){/button}" do
-    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" href="https://gov.uk/random"> Start Now <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
+    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" href="https://gov.uk/random"> Start Now <svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
     assert_text_output "Start Now"
   end
 
   test_given_govspeak "{button start cross-domain-tracking:UA-XXXXXX-Y}[Start Now](https://example.com/external-service/start-now){/button}" do
-    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="cross-domain-tracking" data-tracking-code="UA-XXXXXX-Y" data-tracking-name="govspeakButtonTracker" href="https://example.com/external-service/start-now"> Start Now <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
+    assert_html_output '<p><a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="cross-domain-tracking" data-tracking-code="UA-XXXXXX-Y" data-tracking-name="govspeakButtonTracker" href="https://example.com/external-service/start-now"> Start Now <svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>'
     assert_text_output "Start Now"
   end
 
@@ -120,7 +120,7 @@ class GovspeakTest < Minitest::Test
       <p>lorem lorem lorem
       lorem lorem lorem</p>
 
-      <p><a class="gem-c-button govuk-button govuk-button--start" role="button" href="https://gov.uk/random"> Start Now <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>
+      <p><a class="gem-c-button govuk-button govuk-button--start" role="button" href="https://gov.uk/random"> Start Now <svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>
 
       <p>lorem lorem lorem
       lorem lorem lorem</p>

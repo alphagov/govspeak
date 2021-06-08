@@ -17,7 +17,7 @@ class GovspeakAttachmentTest < Minitest::Test
     }
 
     rendered = render_govspeak("[Attachment:attachment.pdf]", [attachment])
-    assert_match(/<section class="gem-c-attachment">/, rendered)
+    assert_match(/<section class="gem-c-attachment/, rendered)
     assert_match(/Attachment Title/, rendered)
   end
 
@@ -32,7 +32,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_equal("<p>some text [Attachment:attachment.pdf]</p>\n", rendered)
 
     rendered = render_govspeak("[Attachment:attachment.pdf] some text", [attachment])
-    assert_match(/<section class="gem-c-attachment">/, rendered)
+    assert_match(/<section class="gem-c-attachment/, rendered)
     assert_match(/<p>some text<\/p>/, rendered)
   end
 end
