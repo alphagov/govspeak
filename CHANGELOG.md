@@ -1,5 +1,7 @@
 ## Unreleased
 
+* Minimum Ruby version specified at 2.6 [215](https://github.com/alphagov/govspeak/pull/215)
+
 ## 6.7.1
 
 * Update failing test [212](https://github.com/alphagov/govspeak/pull/212)
