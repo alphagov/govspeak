@@ -62,6 +62,7 @@ module Govspeak
                    sanitize: true,
                    syntax_highlighter: nil }.merge(options)
       @options[:entity_output] = :symbolic
+      @footnote_definition_html = nil
     end
 
     def to_html
@@ -71,6 +72,16 @@ module Govspeak
                else
                  kramdown_doc.to_html
                end
+
+        unless @footnote_definition_html.nil?
+          regex = /<div class="footnotes".*[<\/div>]/m
+
+          if html.scan(regex).empty?
+            html << @footnote_definition_html
+          else
+            html.gsub!(regex, @footnote_definition_html)
+          end
+        end
 
         Govspeak::PostProcessor.process(html, self)
       end
@@ -110,12 +121,43 @@ module Govspeak
     def preprocess(source)
       source = Govspeak::BlockquoteExtraQuoteRemover.remove(source)
       source = remove_forbidden_characters(source)
+
+      legislative_list_footnote_definitions(source)
+
       self.class.extensions.each do |_, regexp, block|
         source.gsub!(regexp) do
           instance_exec(*Regexp.last_match.captures, &block)
         end
       end
       source
+    end
+
+    def legislative_list_footnote_definitions(source)
+      is_legislative_list = source.scan(/\$LegislativeList.*?\[\^\d\]*.*?\$EndLegislativeList/m).size.positive?
+      footnotes = source.scan(/\[\^(\d)\]:(.*)/)
+
+      if is_legislative_list && footnotes.size.positive?
+        list_items = footnotes.map do |footnote|
+          number = footnote[0]
+          text = footnote[1].strip
+
+          <<~HTML_SNIPPET
+            <li id="fn:#{number}" role="doc-endnote">
+              <p>
+                #{text}<a href="#fnref:#{number}" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+              </p>
+            </li>
+          HTML_SNIPPET
+        end
+
+        @footnote_definition_html = <<~HTML_CONTAINER
+          <div class="footnotes" role="doc-endnotes">
+            <ol>
+              #{list_items.join.strip}
+            </ol>
+          </div>
+        HTML_CONTAINER
+      end
     end
 
     def remove_forbidden_characters(source)
@@ -295,6 +337,16 @@ module Govspeak
           doc.gsub!("<ul>", "<ol>")
           doc.gsub!("</ul>", "</ol>")
           doc.sub!("<ol>", '<ol class="legislative-list">')
+
+          footnotes = body.scan(/\[\^(\d+)\]/).flatten
+
+          footnotes.each do |footnote|
+            html = "<sup id=\"fnref:#{footnote}\" role=\"doc-noteref\">" \
+            "<a href=\"#fn:#{footnote}\" class=\"footnote\" rel=\"footnote\">" \
+            "[footnote #{footnote}]</a></sup>"
+
+            doc.sub!(/(\[\^#{footnote}\])/, html)
+          end
         end
       end
     end
