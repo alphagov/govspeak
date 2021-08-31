@@ -140,11 +140,12 @@ module Govspeak
         list_items = footnotes.map do |footnote|
           number = footnote[0]
           text = footnote[1].strip
+          footnote_definition = Govspeak::Document.new(text).to_html[/(?<=<p>).*(?=<\/p>)/]
 
           <<~HTML_SNIPPET
             <li id="fn:#{number}" role="doc-endnote">
               <p>
-                #{text}<a href="#fnref:#{number}" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+                #{footnote_definition}<a href="#fnref:#{number}" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
               </p>
             </li>
           HTML_SNIPPET

@@ -725,6 +725,42 @@ Teston
   end
 
   test_given_govspeak "
+    $LegislativeList
+    * 1. Item 1[^1] with a [link](http://www.gov.uk)
+    * 2. Item 2
+    * 3. Item 3[^2]
+    $EndLegislativeList
+
+    [^1]: Footnote definition one with a [link](http://www.gov.uk) included
+    [^2]: Footnote definition two with an external [link](http://www.google.com)
+  " do
+    assert_html_output %(
+      <ol class="legislative-list">
+        <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup> with a <a href="http://www.gov.uk">link</a>
+      </li>
+        <li>2. Item 2</li>
+        <li>3. Item 3<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>
+      </li>
+      </ol>
+
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+        <p>
+          Footnote definition one with a <a href="http://www.gov.uk">link</a> included<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:2" role="doc-endnote">
+        <p>
+          Footnote definition two with an external <a rel="external" href="http://www.google.com">link</a><a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+        </ol>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
     The quick brown
     $LegislativeList
     * 1. fox jumps over
