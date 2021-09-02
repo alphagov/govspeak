@@ -63,6 +63,7 @@ module Govspeak
                    syntax_highlighter: nil }.merge(options)
       @options[:entity_output] = :symbolic
       @footnote_definition_html = nil
+      @acronyms = []
     end
 
     def to_html
@@ -135,6 +136,7 @@ module Govspeak
     def legislative_list_footnote_definitions(source)
       is_legislative_list = source.scan(/\$LegislativeList.*?\[\^\d\]*.*?\$EndLegislativeList/m).size.positive?
       footnotes = source.scan(/\[\^(\d)\]:(.*)/)
+      @acronyms = source.scan(/(?<=\*)\[(.*)\]:(.*)/)
 
       if is_legislative_list && footnotes.size.positive?
         list_items = footnotes.map do |footnote|
@@ -158,6 +160,10 @@ module Govspeak
             </ol>
           </div>
         HTML_CONTAINER
+      end
+
+      unless @footnote_definition_html.nil? && @acronyms.size.positive?
+        add_acronym_alt_text(@footnote_definition_html)
       end
     end
 
@@ -348,6 +354,8 @@ module Govspeak
 
             doc.sub!(/(\[\^#{footnote}\])/, html)
           end
+
+          add_acronym_alt_text(doc) if @acronyms.size.positive?
         end
       end
     end
@@ -438,6 +446,12 @@ module Govspeak
 
     def encode(text)
       HTMLEntities.new.encode(text)
+    end
+
+    def add_acronym_alt_text(html)
+      @acronyms.each do |acronym|
+        html.gsub!(acronym[0], "<abbr title=\"#{acronym[1].strip}\">#{acronym[0]}</abbr>")
+      end
     end
   end
 end

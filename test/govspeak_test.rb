@@ -761,6 +761,44 @@ Teston
   end
 
   test_given_govspeak "
+    $LegislativeList
+    * 1. Item 1[^1] with an ACRONYM
+    * 2. Item 2[^2]
+    * 3. Item 3
+    $EndLegislativeList
+
+    [^1]: Footnote definition one
+    [^2]: Footnote definition two with an ACRONYM
+
+    *[ACRONYM]: This is the acronym explanation
+  " do
+    assert_html_output %(
+      <ol class="legislative-list">
+        <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup> with an <abbr title="This is the acronym explanation">ACRONYM</abbr>
+      </li>
+        <li>2. Item 2<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>
+      </li>
+        <li>3. Item 3</li>
+      </ol>
+
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+        <p>
+          Footnote definition one<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:2" role="doc-endnote">
+        <p>
+          Footnote definition two with an <abbr title="This is the acronym explanation">ACRONYM</abbr><a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+        </ol>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
     The quick brown
     $LegislativeList
     * 1. fox jumps over
