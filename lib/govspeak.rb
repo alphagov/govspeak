@@ -135,7 +135,7 @@ module Govspeak
 
     def legislative_list_footnote_definitions(source)
       is_legislative_list = source.scan(/\$LegislativeList.*?\[\^\d\]*.*?\$EndLegislativeList/m).size.positive?
-      footnotes = source.scan(/\[\^(\d)\]:(.*)/)
+      footnotes = source.scan(/\[\^(\d+)\]:(.*)/)
       @acronyms = source.scan(/(?<=\*)\[(.*)\]:(.*)/)
 
       if is_legislative_list && footnotes.size.positive?
