@@ -687,6 +687,145 @@ Teston
 
   test_given_govspeak "
     $LegislativeList
+    * 1. Item 1[^1]
+    * 2. Item 2[^2]
+    * 3. Item 3[^3]
+    $EndLegislativeList
+
+    This is a paragraph with a footnote[^4].
+
+    $LegislativeList
+    * 1. Item 1[^5]
+    * 2. Item 2[^6]
+    * 3. Item 3[^7]
+    $EndLegislativeList
+
+    This is a paragraph with a footnote[^8].
+
+    $LegislativeList
+    * 1. Item 1[^9]
+    * 2. Item 2[^10]
+    * 3. Item 3[^11]
+    $EndLegislativeList
+
+    This is a paragraph with a footnote[^12].
+
+    [^1]: Footnote definition 1
+    [^2]: Footnote definition 2
+    [^3]: Footnote definition 3
+    [^4]: Footnote definition 4
+    [^5]: Footnote definition 5
+    [^6]: Footnote definition 6
+    [^7]: Footnote definition 7
+    [^8]: Footnote definition 8
+    [^9]: Footnote definition 9
+    [^10]: Footnote definition 10
+    [^11]: Footnote definition 11
+    [^12]: Footnote definition 12
+  " do
+    assert_html_output %(
+      <ol class="legislative-list">
+        <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>
+      </li>
+        <li>2. Item 2<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>
+      </li>
+        <li>3. Item 3<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">[footnote 3]</a></sup>
+      </li>
+      </ol>
+
+      <p>This is a paragraph with a footnote<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">[footnote 4]</a></sup>.</p>
+
+      <ol class="legislative-list">
+        <li>1. Item 1<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">[footnote 5]</a></sup>
+      </li>
+        <li>2. Item 2<sup id="fnref:6" role="doc-noteref"><a href="#fn:6" class="footnote" rel="footnote">[footnote 6]</a></sup>
+      </li>
+        <li>3. Item 3<sup id="fnref:7" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">[footnote 7]</a></sup>
+      </li>
+      </ol>
+
+      <p>This is a paragraph with a footnote<sup id="fnref:8" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">[footnote 8]</a></sup>.</p>
+
+      <ol class="legislative-list">
+        <li>1. Item 1<sup id="fnref:9" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">[footnote 9]</a></sup>
+      </li>
+        <li>2. Item 2<sup id="fnref:10" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">[footnote 10]</a></sup>
+      </li>
+        <li>3. Item 3<sup id="fnref:11" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">[footnote 11]</a></sup>
+      </li>
+      </ol>
+
+      <p>This is a paragraph with a footnote<sup id="fnref:12" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">[footnote 12]</a></sup>.</p>
+
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+        <p>
+          Footnote definition 1<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:2" role="doc-endnote">
+        <p>
+          Footnote definition 2<a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:3" role="doc-endnote">
+        <p>
+          Footnote definition 3<a href="#fnref:3" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:4" role="doc-endnote">
+        <p>
+          Footnote definition 4<a href="#fnref:4" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:5" role="doc-endnote">
+        <p>
+          Footnote definition 5<a href="#fnref:5" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:6" role="doc-endnote">
+        <p>
+          Footnote definition 6<a href="#fnref:6" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:7" role="doc-endnote">
+        <p>
+          Footnote definition 7<a href="#fnref:7" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:8" role="doc-endnote">
+        <p>
+          Footnote definition 8<a href="#fnref:8" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:9" role="doc-endnote">
+        <p>
+          Footnote definition 9<a href="#fnref:9" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:10" role="doc-endnote">
+        <p>
+          Footnote definition 10<a href="#fnref:10" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:11" role="doc-endnote">
+        <p>
+          Footnote definition 11<a href="#fnref:11" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:12" role="doc-endnote">
+        <p>
+          Footnote definition 12<a href="#fnref:12" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+        </ol>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
+    $LegislativeList
     * 1. Item 1[^1] with a [link](http://www.gov.uk)
     * 2. Item 2
     * 3. Item 3
