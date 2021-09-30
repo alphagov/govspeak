@@ -5,8 +5,7 @@
 
 ## 6.7.3
 
-* Fix regex for footnotes in legislative lists [218](
-https://github.com/alphagov/govspeak/pull/218
+* Fix regex for footnotes in legislative lists [218](https://github.com/alphagov/govspeak/pull/218)
 
 ## 6.7.2
 
