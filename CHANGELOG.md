@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Remove Nokogumbo dependency to [resolve warning](https://github.com/sparklemotion/nokogiri/issues/2205) [220](https://github.com/alphagov/govspeak/pull/220)
 * Minimum Ruby version specified at 2.6 [215](https://github.com/alphagov/govspeak/pull/215)
 
 ## 6.7.3
