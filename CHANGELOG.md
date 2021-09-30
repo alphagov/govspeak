@@ -1,4 +1,4 @@
-## Unreleased
+## 6.7.4
 
 * Remove Nokogumbo dependency to [resolve warning](https://github.com/sparklemotion/nokogiri/issues/2205) [220](https://github.com/alphagov/govspeak/pull/220)
 
