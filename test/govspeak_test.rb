@@ -474,6 +474,101 @@ Teston
   end
 
   test_given_govspeak "
+    $CTA
+    Click here to start the tool[^1]
+    $CTA
+    [^1]: Footnote definition one
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+      <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+      </div>
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+        <p>
+          Footnote definition one<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+        </ol>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
+    $CTA
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Fusce felis ante[^1], lobortis non quam sit amet, tempus interdum justo.
+    $CTA
+    $CTA
+    Pellentesque quam enim, egestas sit amet congue sit amet[^2], ultrices vitae arcu.
+    Fringilla, metus dui scelerisque est.
+    $CTA
+    [^1]: Footnote definition one
+    [^2]: Footnote definition two
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Fusce felis ante<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>, lobortis non quam sit amet, tempus interdum justo.</p>
+      </div>
+
+      <div class="call-to-action">
+      <p>Pellentesque quam enim, egestas sit amet congue sit amet<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>, ultrices vitae arcu.
+      Fringilla, metus dui scelerisque est.</p>
+      </div>
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+        <p>
+          Footnote definition one<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:2" role="doc-endnote">
+        <p>
+          Footnote definition two<a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+        </ol>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
+    $CTA
+    Click here to start the tool[^1]
+    $CTA
+
+    Lorem ipsum dolor sit amet[^2]
+
+    [^1]: Footnote definition 1
+    [^2]: Footnote definition 2
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+      <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+      </div>
+
+      <p>Lorem ipsum dolor sit amet<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup></p>
+
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+        <p>
+          Footnote definition 1<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:2" role="doc-endnote">
+        <p>
+          Footnote definition 2<a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+        </ol>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
     1. rod
     2. jane
     3. freddy" do
