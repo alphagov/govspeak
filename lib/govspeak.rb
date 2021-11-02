@@ -122,7 +122,7 @@ module Govspeak
       source = Govspeak::BlockquoteExtraQuoteRemover.remove(source)
       source = remove_forbidden_characters(source)
 
-      legislative_list_footnote_definitions(source)
+      footnote_definitions(source)
 
       self.class.extensions.each do |_, regexp, block|
         source.gsub!(regexp) do
@@ -132,12 +132,12 @@ module Govspeak
       source
     end
 
-    def legislative_list_footnote_definitions(source)
+    def footnote_definitions(source)
       is_legislative_list = source.scan(/\$LegislativeList.*?\[\^\d\]*.*?\$EndLegislativeList/m).size.positive?
+      is_cta = source.scan(/\$CTA.*?\[\^\d\]*.*?\$CTA/m).size.positive?
       footnotes = source.scan(/\[\^(\d+)\]:(.*)/)
       @acronyms = source.scan(/(?<=\*)\[(.*)\]:(.*)/)
-
-      if is_legislative_list && footnotes.size.positive?
+      if (is_legislative_list || is_cta) && footnotes.size.positive?
         list_items = footnotes.map do |footnote|
           number = footnote[0]
           text = footnote[1].strip
@@ -321,10 +321,26 @@ module Govspeak
       lines.join
     end
 
+    extension("call-to-action", surrounded_by("$CTA")) do |body|
+      doc = Kramdown::Document.new(body.strip).to_html
+      doc = %(\n<div class="call-to-action">\n#{doc}</div>\n)
+      footnotes = body.scan(/\[\^(\d+)\]/).flatten
+
+      footnotes.each do |footnote|
+        html = "<sup id=\"fnref:#{footnote}\" role=\"doc-noteref\">" \
+        "<a href=\"#fn:#{footnote}\" class=\"footnote\" rel=\"footnote\">" \
+        "[footnote #{footnote}]</a></sup>"
+
+        doc.sub!(/(\[\^#{footnote}\])/, html)
+      end
+
+      add_acronym_alt_text(doc) if @acronyms.size.positive?
+      doc
+    end
+
     # More specific tags must be defined first. Those defined earlier have a
     # higher precedence for being matched. For example $CTA must be defined
     # before $C otherwise the first ($C)TA fill be matched to a contact tag.
-    wrap_with_div("call-to-action", "$CTA", Govspeak::Document)
     wrap_with_div("summary", "$!")
     wrap_with_div("form-download", "$D")
     wrap_with_div("contact", "$C")
