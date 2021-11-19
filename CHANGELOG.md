@@ -1,3 +1,7 @@
+## Unreleased
+
+* Add draggable false to button markup and validation [#224](https://github.com/alphagov/govspeak/pull/224)
+
 ## 6.7.5
 
 * Fix footnotes in call-to-action boxes [222](https://github.com/alphagov/govspeak/pull/222)

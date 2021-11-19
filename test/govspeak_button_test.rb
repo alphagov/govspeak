@@ -47,7 +47,7 @@ class GovspeakTest < Minitest::Test
     assert_html_output %(
       <p>Text before the button with line breaks</p>
 
-      <p><a class="gem-c-button govuk-button" role="button" href="http://www.gov.uk">Start Now</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="http://www.gov.uk">Start Now</a></p>
 
       <p>test after the button</p>
     )
@@ -65,21 +65,21 @@ class GovspeakTest < Minitest::Test
   # Make sure button renders when typical linebreaks are before it, seen in publishing applications
   test_given_govspeak "{button}[Line breaks](https://gov.uk/random){/button}\r\n\r\n{button}[Continue](https://gov.uk/random){/button}\r\n\r\n{button}[Continue](https://gov.uk/random){/button}" do
     assert_html_output %(
-      <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Line breaks</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Line breaks</a></p>
 
-      <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Continue</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Continue</a></p>
 
-      <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Continue</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Continue</a></p>
     )
   end
 
   test_given_govspeak "{button}[More line breaks](https://gov.uk/random){/button}\n\n{button}[Continue](https://gov.uk/random){/button}\n\n{button}[Continue](https://gov.uk/random){/button}" do
     assert_html_output %(
-      <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">More line breaks</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">More line breaks</a></p>
 
-      <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Continue</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Continue</a></p>
 
-      <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Continue</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Continue</a></p>
     )
   end
 
@@ -104,7 +104,7 @@ class GovspeakTest < Minitest::Test
       <p>lorem lorem lorem
       lorem lorem lorem</p>
 
-      <p><a class="gem-c-button govuk-button" role="button" href="https://gov.uk/random">Random page</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Random page</a></p>
 
       <p>lorem lorem lorem
       lorem lorem lorem</p>
