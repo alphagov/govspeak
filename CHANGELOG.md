@@ -1,4 +1,4 @@
-## Unreleased
+## 6.7.6
 
 * Add draggable false to button markup and validation [#224](https://github.com/alphagov/govspeak/pull/224)
 
