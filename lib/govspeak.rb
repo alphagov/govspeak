@@ -224,7 +224,7 @@ module Govspeak
       text = text.strip
       href = href.strip
 
-      %(\n<a role="button" class="#{button_classes}" href="#{href}" #{data_attribute}>#{text}</a>\n)
+      %(\n<a role="button" draggable="false" class="#{button_classes}" href="#{href}" #{data_attribute}>#{text}</a>\n)
     end
 
     extension("highlight-answer") do |body|
