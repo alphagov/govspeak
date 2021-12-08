@@ -442,6 +442,60 @@ Teston
 
   test_given_govspeak "
     $CTA
+
+    This is a test:
+
+    s1. This is number 1.
+    s2. This is number 2.
+    s3. This is number 3.
+    s4. This is number 4.
+
+    $CTA" do
+    assert_html_output %(
+        <div class="call-to-action">
+        <p>This is a test:</p>
+
+        <ol class="steps">
+        <li>
+        <p>This is number 1.</p>
+        </li>
+        <li>
+        <p>This is number 2.</p>
+        </li>
+        <li>
+        <p>This is number 3.</p>
+        </li>
+        <li>
+        <p>This is number 4.</p>
+        </li>
+        </ol>
+        </div>
+        )
+  end
+
+  test_given_govspeak "
+    $CTA
+    [external link](http://www.external.com) some text
+    $CTA
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+      <p><a rel="external" href="http://www.external.com">external link</a> some text</p>
+      </div>)
+  end
+
+  test_given_govspeak "
+    $CTA
+    [internal link](http://www.not-external.com) some text
+    $CTA", document_domains: %w[www.not-external.com] do
+    assert_html_output %(
+      <div class="call-to-action">
+      <p><a href="http://www.not-external.com">internal link</a> some text</p>
+      </div>)
+  end
+
+  test_given_govspeak "
+    $CTA
     Click here to start the tool
     $CTA
 
