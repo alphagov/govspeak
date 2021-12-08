@@ -1,3 +1,7 @@
+## 6.7.7
+
+* Fix broken HTML in CTA extension. [#226](https://github.com/alphagov/govspeak/pull/226)
+
 ## 6.7.6
 
 * Add draggable false to button markup and validation [#224](https://github.com/alphagov/govspeak/pull/224)
