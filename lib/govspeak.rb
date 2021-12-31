@@ -465,7 +465,7 @@ module Govspeak
 
     def add_acronym_alt_text(html)
       @acronyms.each do |acronym|
-        html.gsub!(acronym[0], "<abbr title=\"#{acronym[1].strip}\">#{acronym[0]}</abbr>")
+        html.gsub!(/(?<!=")#{acronym[0]}/, "<abbr title=\"#{acronym[1].strip}\">#{acronym[0]}</abbr>")
       end
     end
   end
