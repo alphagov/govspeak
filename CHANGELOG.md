@@ -1,3 +1,7 @@
+## 6.7.8
+
+* Fixes bug which reverts acronyms from being converted into abbr tags [#229](https://github.com/alphagov/govspeak/pull/229)
+
 ## 6.7.7
 
 * Fix broken HTML in CTA extension. [#226](https://github.com/alphagov/govspeak/pull/226)
