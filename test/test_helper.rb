@@ -1,8 +1,6 @@
 require "simplecov"
-require "simplecov-rcov"
 
 SimpleCov.start
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 
 $LOAD_PATH.unshift(File.expand_path("../lib")) unless $LOAD_PATH.include?(File.expand_path("../lib"))
 
