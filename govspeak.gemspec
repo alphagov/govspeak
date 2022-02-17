@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary       = "Markup language for single domain"
   s.description   = 'A set of extensions to markdown layered on top of the kramdown
 library for use in the UK Government Single Domain project'
-  s.required_ruby_version = ">= 2.6"
+  s.required_ruby_version = ">= 2.7"
 
   s.files = Dir[
     "lib/**/*",
@@ -29,7 +29,7 @@ library for use in the UK Government Single Domain project'
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = %w[lib]
 
-  s.add_dependency "actionview", ">= 5.0", "< 7"
+  s.add_dependency "actionview", ">= 6"
   s.add_dependency "addressable", ">= 2.3.8", "< 3"
   s.add_dependency "govuk_publishing_components", ">= 23"
   s.add_dependency "htmlentities", "~> 4"
@@ -42,7 +42,6 @@ library for use in the UK Government Single Domain project'
   s.add_development_dependency "minitest", "~> 5.14"
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "rake"
-  s.add_development_dependency "rubocop-govuk", "~> 4.2.0"
+  s.add_development_dependency "rubocop-govuk", "4.3.0"
   s.add_development_dependency "simplecov"
-  s.add_development_dependency "simplecov-rcov"
 end

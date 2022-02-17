@@ -1,3 +1,9 @@
+## 6.8.0
+
+* Drop support for Ruby 2.6 which reaches End of Life (EOL) on 31/03/2022
+* Add support for Rails 7 by loosening the version constraint on `activeview` gem
+* Fix deprecation notices caused by the bump in Ruby version
+
 ## 6.7.8
 
 * Fixes bug which reverts acronyms from being converted into abbr tags [#229](https://github.com/alphagov/govspeak/pull/229)
