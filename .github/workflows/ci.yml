@@ -2,7 +2,8 @@ name: Continuous integration
 on: [push, pull_request]
 
 jobs:
-  test:
+  # This matrix job runs the test suite against multiple Ruby versions
+  test_matrix:
     strategy:
       fail-fast: false
       matrix:
@@ -16,6 +17,15 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
     - run: bundle exec rake
+
+  # This job is needed to work around the fact that matrix jobs spawn multiple status checks – i.e. one job per variant.
+  # The branch protection rules depend on this as a composite job to ensure that all preceding test_matrix checks passed.
+  # Solution taken from: https://github.community/t/status-check-for-a-matrix-jobs/127354/3
+  test:
+    needs: test_matrix
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All matrix tests have passed 🚀"
   
   release:
     needs: test
