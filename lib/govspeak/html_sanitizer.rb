@@ -56,7 +56,7 @@ class Govspeak::HtmlSanitizer
       attributes: {
         :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label],
         "a" => Sanitize::Config::RELAXED[:attributes]["a"] + [:data] + %w[draggable],
-        "svg" => Sanitize::Config::RELAXED[:attributes][:all] + %w[xmlns width height viewbox focusable],
+        "svg" => Sanitize::Config::RELAXED[:attributes][:all] + %w[xmlns width height viewbox focusable aria-hidden],
         "path" => Sanitize::Config::RELAXED[:attributes][:all] + %w[fill d],
         "div" => [:data],
         "th" => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
