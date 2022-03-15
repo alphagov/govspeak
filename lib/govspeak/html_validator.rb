@@ -1,9 +1,9 @@
 class Govspeak::HtmlValidator
   attr_reader :govspeak_string
 
-  def initialize(govspeak_string, sanitization_options = {})
+  def initialize(govspeak_string, options = {})
     @govspeak_string = govspeak_string.dup.force_encoding(Encoding::UTF_8)
-    @sanitization_options = sanitization_options
+    @allowed_image_hosts = options[:allowed_image_hosts]
   end
 
   def invalid?
@@ -24,6 +24,10 @@ private
   end
 
   def govspeak_to_html(sanitize:)
-    Govspeak::Document.new(govspeak_string, sanitize: sanitize).to_html
+    Govspeak::Document.new(
+      govspeak_string,
+      sanitize: sanitize,
+      allowed_image_hosts: @allowed_image_hosts,
+    ).to_html
   end
 end
