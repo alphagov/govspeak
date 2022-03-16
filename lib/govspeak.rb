@@ -54,6 +54,7 @@ module Govspeak
 
       @images = options.delete(:images) || []
       @allowed_elements = options.delete(:allowed_elements) || []
+      @allowed_image_hosts = options.delete(:allowed_image_hosts) || []
       @attachments = Array.wrap(options.delete(:attachments))
       @links = Array.wrap(options.delete(:links))
       @contacts = Array.wrap(options.delete(:contacts))
@@ -69,7 +70,8 @@ module Govspeak
     def to_html
       @to_html ||= begin
         html = if @options[:sanitize]
-                 HtmlSanitizer.new(kramdown_doc.to_html).sanitize(allowed_elements: @allowed_elements)
+                 HtmlSanitizer.new(kramdown_doc.to_html, allowed_image_hosts: @allowed_image_hosts)
+                              .sanitize(allowed_elements: @allowed_elements)
                else
                  kramdown_doc.to_html
                end

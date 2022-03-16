@@ -46,7 +46,17 @@ class Govspeak::HtmlSanitizer
       transformers << ImageSourceWhitelister.new(@allowed_image_hosts)
     end
 
-    Sanitize.clean(@dirty_html, Sanitize::Config.merge(sanitize_config(allowed_elements: allowed_elements), transformers: transformers))
+    # It would be cleaner to move this `transformers` key into the `sanitize_config` method rather
+    # than having to use Sanitize::Config.merge() twice in succession. However, `sanitize_config`
+    # is a public method and it looks like other projects depend on it behaving the way it
+    # currently does – i.e. to return Sanitize config without any transformers.
+    # e.g. https://github.com/alphagov/hmrc-manuals-api/blob/4a83f78d0bb839520155623fd9b63b3b12a3b13a/app/validators/no_dangerous_html_in_text_fields_validator.rb#L44
+    config_with_transformers = Sanitize::Config.merge(
+      sanitize_config(allowed_elements: allowed_elements),
+      transformers: transformers,
+    )
+
+    Sanitize.clean(@dirty_html, config_with_transformers)
   end
 
   def sanitize_config(allowed_elements: [])

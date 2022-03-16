@@ -1,3 +1,7 @@
+## Unreleased
+
+* Fix a bug which resulted in validation errors on 'Start Button' elements [#237](https://github.com/alphagov/govspeak/pull/237)
+
 ## 6.8.0
 
 * Drop support for Ruby 2.6 which reaches End of Life (EOL) on 31/03/2022
