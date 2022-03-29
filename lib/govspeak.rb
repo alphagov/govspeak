@@ -138,7 +138,7 @@ module Govspeak
     def footnote_definitions(source)
       is_legislative_list = source.scan(/\$LegislativeList.*?\[\^\d\]*.*?\$EndLegislativeList/m).size.positive?
       is_cta = source.scan(/\$CTA.*?\[\^\d\]*.*?\$CTA/m).size.positive?
-      footnotes = source.scan(/\[\^(\d+)\]:(.*)/)
+      footnotes = source.scan(/^\s*\[\^(\d+)\]:(.*)/)
       @acronyms = source.scan(/(?<=\*)\[(.*)\]:(.*)/)
       if (is_legislative_list || is_cta) && footnotes.size.positive?
         list_items = footnotes.map do |footnote|
