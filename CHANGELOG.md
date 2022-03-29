@@ -1,3 +1,7 @@
+## 6.8.2
+
+* Fix footnote numbering [#239](https://github.com/alphagov/govspeak/pull/239)
+
 ## 6.8.1
 
 * Fix a bug which resulted in validation errors on 'Start Button' elements [#237](https://github.com/alphagov/govspeak/pull/237)
