@@ -1048,6 +1048,48 @@ Teston
     )
   end
 
+  test_given_govspeak "
+    $LegislativeList
+    1.  some text[^1]:
+    $EndLegislativeList
+    [^1]: footnote text
+  " do
+    assert_html_output %(
+      <p>1.  some text<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>:</p>
+
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+        <p>
+          footnote text<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+        </ol>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
+    $LegislativeList
+    1.  some text[^1]: extra
+    $EndLegislativeList
+    [^1]: footnote text
+    " do
+      assert_html_output %(
+      <p>1.  some text<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>: extra</p>
+
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+        <p>
+          footnote text<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+        </ol>
+      </div>
+    )
+    end
+
   # FIXME: this code is buggy and replaces abbreviations in HTML tags - removing the functionality for now
   # test_given_govspeak "
   #   $LegislativeList
