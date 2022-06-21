@@ -1,3 +1,7 @@
+## 6.8.3
+
+* Require Kramdown minimum version of 2.3.1 to avoid CVE-2021-28834 [#246](https://github.com/alphagov/govspeak/pull/246)
+
 ## 6.8.2
 
 * Fix footnote numbering [#239](https://github.com/alphagov/govspeak/pull/239)
