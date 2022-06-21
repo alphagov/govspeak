@@ -34,7 +34,7 @@ library for use in the UK Government Single Domain project'
   s.add_dependency "govuk_publishing_components", ">= 23"
   s.add_dependency "htmlentities", "~> 4"
   s.add_dependency "i18n", ">= 0.7"
-  s.add_dependency "kramdown", ">= 2.3.0"
+  s.add_dependency "kramdown", ">= 2.3.1"
   s.add_dependency "nokogiri", "~> 1.12"
   s.add_dependency "rinku", "~> 2.0"
   s.add_dependency "sanitize", "~> 6"
