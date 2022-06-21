@@ -26,33 +26,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "All matrix tests have passed 🚀"
-  
-  release:
+      
+  publish:
     needs: test
-    runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
     permissions:
       contents: write
-    steps:
-    - uses: actions/checkout@v2
-    - uses: ruby/setup-ruby@v1
-
-      # Update to >= v3.0.5
-      # https://gitlab.com/gitlab-org/gitlab-qa/-/issues/431
-    - run: gem update --system
-
-    - env:
-        GEM_HOST_API_KEY: ${{ secrets.ALPHAGOV_RUBYGEMS_API_KEY }}
-      run: |
-        VERSION=$(ruby -e "puts eval(File.read('govspeak.gemspec')).version")
-        GEM_VERSION=$(gem list --exact --remote govspeak)
-
-        if [ "${GEM_VERSION}" != "govspeak (${VERSION})" ]; then
-          gem build govspeak.gemspec
-          gem push "govspeak-${VERSION}.gem"
-        fi
-
-        if ! git ls-remote --tags --exit-code origin v${VERSION}; then
-          git tag v${VERSION}
-          git push --tags
-        fi
+    uses: alphagov/govuk-infrastructure/.github/workflows/publish-rubygem.yaml@main
+    secrets:
+      GEM_HOST_API_KEY: ${{ secrets.ALPHAGOV_RUBYGEMS_API_KEY }}
