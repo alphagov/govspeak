@@ -1,0 +1,17 @@
+name: Publish gem
+on:
+  workflow_run:
+    workflows: ["Continuous integration"]
+    types: [completed]
+    # branches: [separate-publish-action]
+
+# We want to cancel any pending publish jobs when a new one is triggered.
+# concurrency: publish
+
+jobs:
+  publish:
+    permissions:
+      contents: write
+    uses: alphagov/govuk-infrastructure/.github/workflows/publish-rubygem.yaml@main
+    secrets:
+      GEM_HOST_API_KEY: ${{ secrets.ALPHAGOV_RUBYGEMS_API_KEY }}
