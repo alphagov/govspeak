@@ -1,3 +1,7 @@
+## 7.0.0
+
+* BREAKING CHANGE Remove `PriorityList`, the `PrimaryList` JS module to render the priority list on the frontend is to be removed [#249](https://github.com/alphagov/govspeak/pull/249)
+
 ## 6.8.4
 
 * Fix bug where inconsistent linebreaks trigger validations [#250](https://github.com/alphagov/govspeak/pull/250)
