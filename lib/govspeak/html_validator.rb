@@ -20,7 +20,7 @@ private
 
   # Make whitespace in html tags consistent
   def normalise_html(html)
-    Nokogiri::HTML5.fragment(html).to_s
+    Nokogiri::HTML5.fragment(html).to_s.gsub("\n", "")
   end
 
   def govspeak_to_html(sanitize:)
