@@ -108,4 +108,9 @@ class HtmlValidatorTest < Minitest::Test
     assert Govspeak::HtmlValidator.new("<table><tr><td>Hello</td></tr></table>").valid?, "No <tbody> is valid"
     assert Govspeak::HtmlValidator.new("<table><tbody><tr><td>Hello</td></tr></tbody></table>").valid?, "<tbody> is valid"
   end
+
+  test "allow HTML tables with \n" do
+    html = "<table>\n<thead>\n<tr>\n<th></th>\n<th></th>\n<th colspan=\"3\"></th>\n\n</tr>\n</thead>\n<tr>\n<th></th>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n</table>"
+    assert Govspeak::HtmlValidator.new(html).valid?, 'Tables with no <tbody> and \n are valid'
+  end
 end
