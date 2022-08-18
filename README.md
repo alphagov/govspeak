@@ -292,29 +292,6 @@ For lists where you want to specify the numbering and have multiple indent level
     $EndLegislativeList
     (to indent, add 2 spaces)
 
-## Priority Lists
-
-For lists where you want to specify a number of items to be highlighted as priority.
-
-    $PriorityList:3
-    - Item 1
-    - Item 2
-    - Item 3
-    - Item 4
-    - Item 5
-
-creates a list with priority items flagged with a class
-
-```html
-<ul>
-  <li class="primary-item">Item 1</li>
-  <li class="primary-item">Item 2</li>
-  <li class="primary-item">Item 3</li>
-  <li>Item 4</li>
-  <li>Item 5</li>
-</ul>
-```
-
 ## Devolved content
 
     :england:content goes here:england:

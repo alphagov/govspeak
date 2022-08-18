@@ -405,19 +405,6 @@ module Govspeak
       end
     end
 
-    extension("Priority list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$PriorityList:(\d+)\s*$(.*?)(?:^\s*$|\Z)/m) do |number_to_show, body|
-      number_to_show = number_to_show.to_i
-      tagged = 0
-      Govspeak::Document.new(body.strip).to_html.gsub(/<li>/) do |match|
-        if tagged < number_to_show
-          tagged += 1
-          '<li class="primary-item">'
-        else
-          match
-        end
-      end
-    end
-
     extension("embed link", /\[embed:link:\s*(.*?)\s*\]/) do |content_id|
       link = links.detect { |l| l[:content_id] == content_id }
       next "" unless link
