@@ -7,18 +7,18 @@ class GovspeakTest < Minitest::Test
   include GovspeakTestHelper
 
   test_given_govspeak "{button start cross-domain-tracking:UA-23066786-5}[Start now](https://www.registertovote.service.gov.uk/register-to-vote/start){/button}" do
-    assert_html_selector 'a.gem-c-button.govuk-button--start[data-module="cross-domain-tracking"][data-tracking-code="UA-23066786-5"][href="https://www.registertovote.service.gov.uk/register-to-vote/start"]'
+    assert_html_selector 'a.gem-c-button.govuk-button--start[data-module="govuk-button cross-domain-tracking"][data-tracking-code="UA-23066786-5"][href="https://www.registertovote.service.gov.uk/register-to-vote/start"]'
     assert_text_output "Start now"
   end
 
   # The same as above but with line breaks
   test_given_govspeak "{button start cross-domain-tracking:UA-23066786-5}\n\n\n[Start now](https://www.registertovote.service.gov.uk/register-to-vote/start)\n\n\n{/button}" do
-    assert_html_selector 'a.gem-c-button.govuk-button--start[data-module="cross-domain-tracking"][data-tracking-code="UA-23066786-5"][href="https://www.registertovote.service.gov.uk/register-to-vote/start"]'
+    assert_html_selector 'a.gem-c-button.govuk-button--start[data-module="govuk-button cross-domain-tracking"][data-tracking-code="UA-23066786-5"][href="https://www.registertovote.service.gov.uk/register-to-vote/start"]'
     assert_text_output "Start now"
   end
 
   test_given_govspeak "{button cross-domain-tracking:UA-23066786-5}[Start now](https://www.registertovote.service.gov.uk/register-to-vote/start){/button}" do
-    assert_html_selector 'a.gem-c-button:not(.govuk-button--start)[data-module="cross-domain-tracking"][data-tracking-code="UA-23066786-5"][href="https://www.registertovote.service.gov.uk/register-to-vote/start"]'
+    assert_html_selector 'a.gem-c-button:not(.govuk-button--start)[data-module="govuk-button cross-domain-tracking"][data-tracking-code="UA-23066786-5"][href="https://www.registertovote.service.gov.uk/register-to-vote/start"]'
     assert_text_output "Start now"
   end
 
@@ -47,7 +47,7 @@ class GovspeakTest < Minitest::Test
     assert_html_output %(
       <p>Text before the button with line breaks</p>
 
-      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="http://www.gov.uk">Start Now</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" data-module="govuk-button" draggable="false" href="http://www.gov.uk">Start Now</a></p>
 
       <p>test after the button</p>
     )
@@ -65,21 +65,21 @@ class GovspeakTest < Minitest::Test
   # Make sure button renders when typical linebreaks are before it, seen in publishing applications
   test_given_govspeak "{button}[Line breaks](https://gov.uk/random){/button}\r\n\r\n{button}[Continue](https://gov.uk/random){/button}\r\n\r\n{button}[Continue](https://gov.uk/random){/button}" do
     assert_html_output %(
-      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Line breaks</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" data-module="govuk-button" draggable="false" href="https://gov.uk/random">Line breaks</a></p>
 
-      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Continue</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" data-module="govuk-button" draggable="false" href="https://gov.uk/random">Continue</a></p>
 
-      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Continue</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" data-module="govuk-button" draggable="false" href="https://gov.uk/random">Continue</a></p>
     )
   end
 
   test_given_govspeak "{button}[More line breaks](https://gov.uk/random){/button}\n\n{button}[Continue](https://gov.uk/random){/button}\n\n{button}[Continue](https://gov.uk/random){/button}" do
     assert_html_output %(
-      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">More line breaks</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" data-module="govuk-button" draggable="false" href="https://gov.uk/random">More line breaks</a></p>
 
-      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Continue</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" data-module="govuk-button" draggable="false" href="https://gov.uk/random">Continue</a></p>
 
-      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Continue</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" data-module="govuk-button" draggable="false" href="https://gov.uk/random">Continue</a></p>
     )
   end
 
@@ -104,7 +104,7 @@ class GovspeakTest < Minitest::Test
       <p>lorem lorem lorem
       lorem lorem lorem</p>
 
-      <p><a class="gem-c-button govuk-button" role="button" draggable="false" href="https://gov.uk/random">Random page</a></p>
+      <p><a class="gem-c-button govuk-button" role="button" data-module="govuk-button" draggable="false" href="https://gov.uk/random">Random page</a></p>
 
       <p>lorem lorem lorem
       lorem lorem lorem</p>
