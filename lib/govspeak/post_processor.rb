@@ -47,6 +47,19 @@ module Govspeak
       end
     end
 
+    extension("apply anchor links to headings") do |document|
+      document.css(".govuk-anchor").map do |el|
+        anchor_heading = GovukPublishingComponents.render(
+          "govuk_publishing_components/components/heading",
+          text: el.children.to_s,
+          heading_level: el.name[/[0-9]/].to_i,
+          id: el.attributes["id"].value,
+          is_anchor: true, # TBC
+        )
+        el.swap(anchor_heading)
+      end
+    end
+
     extension("embed attachment HTML") do |document|
       document.css("govspeak-embed-attachment").map do |el|
         attachment = govspeak_document.attachments.detect { |a| a[:id] == el["id"] }

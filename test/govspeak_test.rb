@@ -227,6 +227,16 @@ Teston
     assert_text_output "Hello I am very helpful Young Workers"
   end
 
+  test_given_govspeak "## Hello\n{: .govuk-anchor}" do
+    assert_html_output %(
+      <h2 class="gem-c-heading gem-c-heading--font-size-27" id="hello">Hello</h2>
+      <a href="#hello">
+        <span aria-hidden="true">#</span>
+        <span class="hidden">Section titled hello</span>
+      </a>)
+    assert_text_output "Hello Section titled hello"
+  end
+
   test_given_govspeak "% I am very helpful" do
     assert_html_output %(
       <div role="note" aria-label="Warning" class="application-notice help-notice">
