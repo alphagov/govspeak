@@ -131,6 +131,34 @@ class GovspeakTableWithHeadersTest < Minitest::Test
 )
   end
 
+  def expected_outcome_for_table_with_table_headers_containing_superscript
+    %(
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Foo<sup>bar</sup>
+</th>
+      <th scope="col">Third Column</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cell</td>
+      <td>Cell</td>
+    </tr>
+  </tbody>
+</table>
+)
+  end
+
+  def document_body_with_table_headers_containing_superscript
+    @document_body_with_table_headers_containing_superscript ||= Govspeak::Document.new(%(
+| Foo<sup>bar</sup>     | Third Column        |
+| ---------------       | ------------------- |
+| Cell                  | Cell                |
+))
+  end
+
   def expected_outcome_for_table_headers_containing_links
     %(
 <table>
@@ -241,5 +269,9 @@ class GovspeakTableWithHeadersTest < Minitest::Test
 
   test "Table headers are not blank" do
     assert_equal document_body_with_blank_table_headers.to_html, expected_outcome_for_table_with_blank_table_headers
+  end
+
+  test "Table header superscript should parse" do
+    assert_equal document_body_with_table_headers_containing_superscript.to_html, expected_outcome_for_table_with_table_headers_containing_superscript
   end
 end

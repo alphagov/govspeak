@@ -85,20 +85,20 @@ module Govspeak
 
     extension("Add table headers and row / column scopes") do |document|
       document.css("thead th").map do |el|
-        el.content = el.content.gsub(/^# /, "")
-        el.content = el.content.gsub(/[[:space:]]/, "") if el.content.blank? # Removes a strange whitespace in the cell if the cell is already blank.
-        el.name = "td" if el.content.blank? # This prevents a `th` with nothing inside it; a `td` is preferable.
-        el[:scope] = "col" if el.content.present? # `scope` shouldn't be used if there's nothing in the table heading.
+        el.inner_html = el.inner_html.gsub(/^# /, "")
+        el.inner_html = el.inner_html.gsub(/[[:space:]]/, "") if el.inner_html.blank? # Removes a strange whitespace in the cell if the cell is already blank.
+        el.name = "td" if el.inner_html.blank? # This prevents a `th` with nothing inside it; a `td` is preferable.
+        el[:scope] = "col" if el.inner_html.present? # `scope` shouldn't be used if there's nothing in the table heading.
       end
 
       document.css(":not(thead) tr td:first-child").map do |el|
-        next unless el.content.match?(/^#($|\s.*$)/)
+        next unless el.inner_html.match?(/^#($|\s.*$)/)
 
         # Replace '# ' and '#', but not '#Word'.
         # This runs on the first child of the element to preserve any links
         el.children.first.content = el.children.first.content.gsub(/^#($|\s)/, "")
-        el.name = "th" if el.content.present? # This also prevents a `th` with nothing inside it; a `td` is preferable.
-        el[:scope] = "row" if el.content.present? # `scope` shouldn't be used if there's nothing in the table heading.
+        el.name = "th" if el.inner_html.present? # This also prevents a `th` with nothing inside it; a `td` is preferable.
+        el[:scope] = "row" if el.inner_html.present? # `scope` shouldn't be used if there's nothing in the table heading.
       end
     end
 
@@ -106,7 +106,7 @@ module Govspeak
       document.css(".govuk-button").map do |el|
         button_html = GovukPublishingComponents.render(
           "govuk_publishing_components/components/button",
-          text: el.content,
+          text: el.inner_html,
           href: el["href"],
           start: el["data-start"],
           data_attributes: {
@@ -123,7 +123,7 @@ module Govspeak
     extension("use custom footnotes") do |document|
       document.css("a.footnote").map do |el|
         footnote_number = el[:href].gsub(/\D/, "")
-        el.content = "[footnote #{footnote_number}]"
+        el.inner_html = "[footnote #{footnote_number}]"
       end
       document.css("[role='doc-backlink']").map do |el|
         backlink_number = " #{el.css('sup')[0].content}" if el.css("sup")[0].present?
