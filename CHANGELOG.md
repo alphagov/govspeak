@@ -1,3 +1,7 @@
+## 7.0.1
+
+* Govspeak was stripping superscript from markdown when it shouldn't have. [#264](https://github.com/alphagov/govspeak/pull/264)
+
 ## 7.0.0
 
 * BREAKING CHANGE Remove `PriorityList`, the `PrimaryList` JS module to render the priority list on the frontend is to be removed [#249](https://github.com/alphagov/govspeak/pull/249)
