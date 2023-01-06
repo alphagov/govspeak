@@ -1,3 +1,7 @@
+## 7.0.2
+
+* Fix for abbreviations nested in button. [#267] (https://github.com/alphagov/govspeak/pull/267)
+
 ## 7.0.1
 
 * Govspeak was stripping superscript from markdown when it shouldn't have. [#264](https://github.com/alphagov/govspeak/pull/264)

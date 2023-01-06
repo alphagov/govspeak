@@ -110,4 +110,15 @@ class GovspeakTest < Minitest::Test
       lorem lorem lorem</p>
     )
   end
+
+  test_given_govspeak "
+    {button start}[Start now JSA](https://www.apply-for-new-style-jsa.dwp.gov.uk/?lang=cy){/button}
+    \n\n
+    *[JSA]: Jobseeker's Allowance
+  " do
+    assert_text_output "Start now JSA"
+    assert_html_output %(
+      <p><a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="govuk-button" draggable="false" href="https://www.apply-for-new-style-jsa.dwp.gov.uk/?lang=cy"> Start now <abbr title="Jobseeker's Allowance">JSA</abbr><svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewbox="0 0 33 40" focusable="false" aria-hidden="true"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>
+    )
+  end
 end

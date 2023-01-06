@@ -106,7 +106,7 @@ module Govspeak
       document.css(".govuk-button").map do |el|
         button_html = GovukPublishingComponents.render(
           "govuk_publishing_components/components/button",
-          text: el.inner_html,
+          text: el.inner_html.html_safe,
           href: el["href"],
           start: el["data-start"],
           data_attributes: {
