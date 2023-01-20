@@ -69,6 +69,8 @@ class Govspeak::HtmlSanitizer
         "svg" => Sanitize::Config::RELAXED[:attributes][:all] + %w[xmlns width height viewbox focusable],
         "path" => Sanitize::Config::RELAXED[:attributes][:all] + %w[fill d],
         "div" => [:data],
+        # @TODO  These style attributes can be removed once we've checked there
+        # isn't hardcoded HTML in documents that uses them
         "th" => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
         "td" => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
         "govspeak-embed-attachment" => %w[content-id],
