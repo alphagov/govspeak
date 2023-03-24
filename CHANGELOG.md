@@ -1,3 +1,7 @@
+## Unreleased
+
+* Drop support for Ruby 2.7.
+
 ## 7.0.2
 
 * Fix for abbreviations nested in button. [#267](https://github.com/alphagov/govspeak/pull/267)
