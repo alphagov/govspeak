@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Drop support for Ruby 2.7.
 * Replace inline style attributes in td/th elements with classes [#268](https://github.com/alphagov/govspeak/pull/268)
 
 ## 7.0.2
