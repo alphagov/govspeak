@@ -102,6 +102,23 @@ module Govspeak
       end
     end
 
+    extension("convert table cell inline styles to classes") do |document|
+      document.css("th[style], td[style]").each do |el|
+        style = el.remove_attribute("style")
+        matches = style.value.scan(/text-align:\s*(left|center|right)/).flatten
+
+        next unless matches.any?
+
+        class_name = "cell-text-#{matches.last}"
+
+        if el[:class]
+          el[:class] += " #{class_name}"
+        else
+          el[:class] = class_name
+        end
+      end
+    end
+
     extension("use gem component for buttons") do |document|
       document.css(".govuk-button").map do |el|
         button_html = GovukPublishingComponents.render(

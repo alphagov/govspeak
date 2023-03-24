@@ -1,3 +1,7 @@
+## Unreleased
+
+* Replace inline style attributes in td/th elements with classes [#268](https://github.com/alphagov/govspeak/pull/268)
+
 ## 7.0.2
 
 * Fix for abbreviations nested in button. [#267](https://github.com/alphagov/govspeak/pull/267)

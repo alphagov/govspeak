@@ -58,21 +58,21 @@ class GovspeakTableWithHeadersTest < Minitest::Test
 <table>
   <thead>
     <tr>
-      <td style="text-align: left"></td>
-      <th style="text-align: center" scope="col">Second Column</th>
-      <th style="text-align: right" scope="col">Third Column</th>
+      <td class="cell-text-left"></td>
+      <th scope="col" class="cell-text-center">Second Column</th>
+      <th scope="col" class="cell-text-right">Third Column</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th style="text-align: left" scope="row">First row</th>
-      <td style="text-align: center">Cell</td>
-      <td style="text-align: right">Cell</td>
+      <th scope="row" class="cell-text-left">First row</th>
+      <td class="cell-text-center">Cell</td>
+      <td class="cell-text-right">Cell</td>
     </tr>
     <tr>
-      <th style="text-align: left" scope="row">Second row</th>
-      <td style="text-align: center">Cell</td>
-      <td style="text-align: right">Cell</td>
+      <th scope="row" class="cell-text-left">Second row</th>
+      <td class="cell-text-center">Cell</td>
+      <td class="cell-text-right">Cell</td>
     </tr>
   </tbody>
 </table>
@@ -255,7 +255,7 @@ class GovspeakTableWithHeadersTest < Minitest::Test
     assert_equal document_body_with_hashes_for_row_headers.to_html, expected_outcome
   end
 
-  test "Cells are aligned correctly" do
+  test "Cells are given classes to indicate alignment" do
     assert_equal document_body_with_alignments.to_html, expected_outcome_for_table_with_alignments
   end
 
