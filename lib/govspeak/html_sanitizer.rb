@@ -71,8 +71,8 @@ class Govspeak::HtmlSanitizer
         # We purposefully disable style attributes which Sanitize::Config::RELAXED allows
         :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label] - %w[style],
         "a" => Sanitize::Config::RELAXED[:attributes]["a"] + [:data] + %w[draggable],
-        "svg" => Sanitize::Config::RELAXED[:attributes][:all] + %w[xmlns width height viewbox focusable],
-        "path" => Sanitize::Config::RELAXED[:attributes][:all] + %w[fill d],
+        "svg" => %w[xmlns width height viewbox focusable],
+        "path" => %w[fill d],
         "div" => [:data],
         # The style attributes are permitted here just for the ones Kramdown for table alignment
         # we replace them in a post processor.
