@@ -1,3 +1,7 @@
+## Unreleased
+
+* BREAKING: HTML style attribute and style element, which were never supposed to be available, are forbidden.
+
 ## 7.1.1
 
 * Make image and attachment embedding syntax more consistent [#274](https://github.com/alphagov/govspeak/pull/274)

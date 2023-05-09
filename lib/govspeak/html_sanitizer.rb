@@ -60,11 +60,16 @@ class Govspeak::HtmlSanitizer
   end
 
   def sanitize_config(allowed_elements: [])
+    # We purposefully disable style elements which Sanitize::Config::RELAXED allows
+    elements = Sanitize::Config::RELAXED[:elements] - %w[style] +
+      %w[govspeak-embed-attachment govspeak-embed-attachment-link svg path].concat(allowed_elements)
+
     Sanitize::Config.merge(
       Sanitize::Config::RELAXED,
-      elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment govspeak-embed-attachment-link svg path].concat(allowed_elements),
+      elements: elements,
       attributes: {
-        :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label],
+        # We purposefully disable style attributes which Sanitize::Config::RELAXED allows
+        :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label] - %w[style],
         "a" => Sanitize::Config::RELAXED[:attributes]["a"] + [:data] + %w[draggable],
         "svg" => Sanitize::Config::RELAXED[:attributes][:all] + %w[xmlns width height viewbox focusable],
         "path" => Sanitize::Config::RELAXED[:attributes][:all] + %w[fill d],

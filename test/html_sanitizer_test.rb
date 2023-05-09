@@ -17,6 +17,16 @@ class HtmlSanitizerTest < Minitest::Test
     assert_equal "<a href=\"/\">Link</a>", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
+  test "disallow style attributes" do
+    html = '<a href="/" style="font-weight:bold">Link</a>'
+    assert_equal '<a href="/">Link</a>', Govspeak::HtmlSanitizer.new(html).sanitize
+  end
+
+  test "disallow style elements" do
+    html = "<style>h1 { color: pink; }</style><h1>Hi</h1>"
+    assert_equal "<h1>Hi</h1>", Govspeak::HtmlSanitizer.new(html).sanitize
+  end
+
   test "allow non-JS HTML content" do
     html = "<a href='foo'>"
     assert_equal "<a href=\"foo\"></a>", Govspeak::HtmlSanitizer.new(html).sanitize
