@@ -424,7 +424,7 @@ module Govspeak
       renderer.render(contact: ContactPresenter.new(contact))
     end
 
-    extension("Image", /#{NEW_PARAGRAPH_LOOKBEHIND}\[Image:\s*(.*?)\s*\]/) do |image_id|
+    extension("Image", /^\[Image:\s*(.*?)\s*\]/) do |image_id|
       image = images.detect { |c| c.is_a?(Hash) && c[:id] == image_id }
       next "" unless image
 
