@@ -21,7 +21,7 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(/Attachment Title/, rendered)
   end
 
-  test "only renders attachment when markdown extension starts on a line" do
+  test "only renders attachment when markdown extension starts on a new line" do
     attachment = {
       id: "attachment.pdf",
       url: "http://example.com/attachment.pdf",
@@ -34,5 +34,10 @@ class GovspeakAttachmentTest < Minitest::Test
     rendered = render_govspeak("[Attachment:attachment.pdf] some text", [attachment])
     assert_match(/<section class="gem-c-attachment/, rendered)
     assert_match(/<p>some text<\/p>/, rendered)
+
+    rendered = render_govspeak("some text\n[Attachment:attachment.pdf]\nsome more text", [attachment])
+    assert_match(/<p>some text<\/p>/, rendered)
+    assert_match(/<section class="gem-c-attachment/, rendered)
+    assert_match(/<p>some more text<\/p>/, rendered)
   end
 end
