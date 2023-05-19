@@ -1,3 +1,7 @@
+## 7.1.1
+
+* Make image and attachment embedding syntax more consistent [#274](https://github.com/alphagov/govspeak/pull/274)
+
 ## 7.1.0
 
 * Drop support for Ruby 2.7 [#272](https://github.com/alphagov/govspeak/pull/272)

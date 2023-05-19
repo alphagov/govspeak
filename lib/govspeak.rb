@@ -424,14 +424,14 @@ module Govspeak
       renderer.render(contact: ContactPresenter.new(contact))
     end
 
-    extension("Image", /#{NEW_PARAGRAPH_LOOKBEHIND}\[Image:\s*(.*?)\s*\]/) do |image_id|
+    extension("Image", /^\[Image:\s*(.*?)\s*\]/) do |image_id|
       image = images.detect { |c| c.is_a?(Hash) && c[:id] == image_id }
       next "" unless image
 
       render_image(ImagePresenter.new(image))
     end
 
-    extension("Attachment", /#{NEW_PARAGRAPH_LOOKBEHIND}\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|
+    extension("Attachment", /^\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|
       next "" if attachments.none? { |a| a[:id] == attachment_id }
 
       %(<govspeak-embed-attachment id="#{attachment_id}"></govspeak-embed-attachment>)

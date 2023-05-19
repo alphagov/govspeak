@@ -80,4 +80,30 @@ class GovspeakImagesBangTest < Minitest::Test
       )
     end
   end
+
+  test "!!n syntax must start on a new line" do
+    given_govspeak "some text !!1", images: [Image.new] do
+      assert_html_output("<p>some text !!1</p>")
+    end
+
+    given_govspeak "!!1", images: [Image.new] do
+      assert_html_output(
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div></figure>",
+      )
+    end
+
+    given_govspeak "!!1 some text", images: [Image.new] do
+      assert_html_output(
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div></figure>\n<p>some text</p>",
+      )
+    end
+
+    given_govspeak "some text\n!!1\nsome more text", images: [Image.new] do
+      assert_html_output <<~HTML
+        <p>some text</p>
+        <figure class="image embedded"><div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div></figure>
+        <p>some more text</p>
+      HTML
+    end
+  end
 end

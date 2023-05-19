@@ -88,5 +88,13 @@ class GovspeakImagesTest < Minitest::Test
         "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div></figure>\n<p>some text</p>",
       )
     end
+
+    given_govspeak "some text\n[Image:image-id]\nsome more text", images: [build_image] do
+      assert_html_output <<~HTML
+        <p>some text</p>
+        <figure class="image embedded"><div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div></figure>
+        <p>some more text</p>
+      HTML
+    end
   end
 end
