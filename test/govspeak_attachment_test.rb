@@ -21,6 +21,18 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_match(/Attachment Title/, rendered)
   end
 
+  test "allows spaces and special characters in the identifier" do
+    attachment = {
+      id: "This is the name of my &%$@€? attachment",
+      url: "http://example.com/attachment.pdf",
+      title: "Attachment Title",
+    }
+
+    rendered = render_govspeak("[Attachment: This is the name of my &%$@€? attachment]", [attachment])
+    assert_match(/<section class="gem-c-attachment/, rendered)
+    assert_match(/Attachment Title/, rendered)
+  end
+
   test "only renders attachment when markdown extension starts on a new line" do
     attachment = {
       id: "attachment.pdf",
