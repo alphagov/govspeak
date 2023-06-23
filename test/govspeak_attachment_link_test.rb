@@ -35,4 +35,15 @@ class GovspeakAttachmentLinkTest < Minitest::Test
     assert(root.css("p").size, 0)
     assert_match(/Attachment Title\s*test/, root.text)
   end
+
+  test "allows spaces and special characters in the identifier" do
+    attachment = {
+      id: "This is the name of my &%$@€? attachment",
+      url: "http://example.com/attachment.pdf",
+      title: "Attachment Title",
+    }
+
+    rendered = render_govspeak("[AttachmentLink: This is the name of my &%$@€? attachment]", [attachment])
+    assert_match(/Attachment Title/, rendered)
+  end
 end
