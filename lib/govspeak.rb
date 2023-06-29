@@ -225,6 +225,7 @@ module Govspeak
         data_attribute << " data-tracking-name='govspeakButtonTracker'"
       end
       text = text.strip
+      text = "<span>#{text}</span>" if attributes =~ /start/
       href = href.strip
 
       %(\n<a role="button" draggable="false" class="#{button_classes}" href="#{href}" #{data_attribute}>#{text}</a>\n)
