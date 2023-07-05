@@ -1,6 +1,6 @@
 require "test_helper"
 
-class GovspeakTableWithHeadersTest < Minitest::Test
+class GovspeakTablesTest < Minitest::Test
   def expected_outcome
     %(
 <table>
