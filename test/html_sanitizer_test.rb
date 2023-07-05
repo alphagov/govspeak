@@ -89,16 +89,16 @@ class HtmlSanitizerTest < Minitest::Test
     assert_equal "<table><tbody><tr><th>thing</th><td>thing</td></tr></tbody></table>", Govspeak::HtmlSanitizer.new(html).sanitize
   end
 
-  test "allows valid text-align properties on the style attribute for table cells and table headings" do
-    %w[left right center].each do |alignment|
-      html = "<table><thead><tr><th style=\"text-align: #{alignment}\">thing</th></tr></thead><tbody><tr><td style=\"text-align: #{alignment}\">thing</td></tr></tbody></table>"
-      assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize
-    end
+  test "allows text-align properties on the style attribute for table cells and table headings" do
+    html = "<table><thead><tr><th style=\"text-align: right\">thing</th></tr></thead><tbody><tr><td style=\"text-align: center\">thing</td></tr></tbody></table>"
+    assert_equal html, Govspeak::HtmlSanitizer.new(html).sanitize
+
+    input = "<table><thead><tr><th style=\"text-align: left;width: 100px;\">thing</th></tr></thead><tbody><tr><td style=\"text-align: center;background-color: blue;\">thing</td></tr></tbody></table>"
+    expected = "<table><thead><tr><th style=\"text-align: left;\">thing</th></tr></thead><tbody><tr><td style=\"text-align: center;\">thing</td></tr></tbody></table>"
+    assert_equal expected, Govspeak::HtmlSanitizer.new(input).sanitize
 
     [
       "width: 10000px",
-      "text-align: middle",
-      "text-align: left; width: 10px",
       "background-image: url(javascript:alert('XSS'))",
       "expression(alert('XSS'));",
     ].each do |style|

@@ -259,6 +259,20 @@ class GovspeakTablesTest < Minitest::Test
     assert_equal expected_outcome_for_table_with_alignments, document_body_with_alignments.to_html
   end
 
+  test "Invalid alignment properties are dropped from cells" do
+    html = %(<table><tbody><tr><td style="text-align: middle">middle</td></tr></tbody></table>)
+    expected = "<table><tbody><tr><td>middle</td></tr></tbody></table>\n"
+
+    assert_equal expected, Govspeak::Document.new(html).to_html
+  end
+
+  test "Styles other than text-align are ignored on a table cell" do
+    html = %(<table><tbody><tr><td style="text-align: center; width: 100px;">middle</td></tr></tbody></table>)
+    expected = %(<table><tbody><tr><td class="cell-text-center">middle</td></tr></tbody></table>\n)
+
+    assert_equal expected, Govspeak::Document.new(html).to_html
+  end
+
   test "Table headers with a scope of row are only in the first column of the table" do
     assert_equal expected_outcome_for_table_headers_in_the_wrong_place, document_body_with_table_headers_in_the_wrong_place.to_html
   end

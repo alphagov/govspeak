@@ -17,31 +17,13 @@ class Govspeak::HtmlSanitizer
     end
   end
 
-  class TableCellTextAlignWhitelister
-    def call(sanitize_context)
-      return unless %w[td th].include?(sanitize_context[:node_name])
-
-      node = sanitize_context[:node]
-
-      # Kramdown uses text-align to allow table cells to be aligned
-      # http://kramdown.gettalong.org/quickref.html#tables
-      if invalid_style_attribute?(node["style"])
-        node.remove_attribute("style")
-      end
-    end
-
-    def invalid_style_attribute?(style)
-      style && !style.match(/^text-align:\s*(center|left|right)$/)
-    end
-  end
-
   def initialize(dirty_html, options = {})
     @dirty_html = dirty_html
     @allowed_image_hosts = options[:allowed_image_hosts]
   end
 
   def sanitize(allowed_elements: [])
-    transformers = [TableCellTextAlignWhitelister.new]
+    transformers = []
     if @allowed_image_hosts && @allowed_image_hosts.any?
       transformers << ImageSourceWhitelister.new(@allowed_image_hosts)
     end
@@ -80,6 +62,9 @@ class Govspeak::HtmlSanitizer
         "td" => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
         "govspeak-embed-attachment" => %w[content-id],
       },
+      # The only styling we permit is text-align on table cells (which is the CSS kramdown
+      # generates), we can therefore only allow this one CSS property
+      css: { properties: %w[text-align] },
     )
   end
 end
