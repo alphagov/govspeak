@@ -1,5 +1,15 @@
 name: Continuous integration
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The branch, tag or SHA to checkout'
+        default: main
+        type: string
 
 jobs:
   # This matrix job runs the test suite against multiple Ruby versions
@@ -12,6 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ inputs.ref || github.ref }}
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
@@ -26,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "All matrix tests have passed 🚀"
-      
+
   publish:
     needs: test
     if: ${{ github.ref == 'refs/heads/main' }}
