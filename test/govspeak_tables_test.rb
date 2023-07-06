@@ -1,7 +1,7 @@
 require "test_helper"
 
-class GovspeakTableWithHeadersTest < Minitest::Test
-  def expected_outcome
+class GovspeakTablesTest < Minitest::Test
+  def expected_outcome_for_headers
     %(
 <table>
   <thead>
@@ -248,30 +248,44 @@ class GovspeakTableWithHeadersTest < Minitest::Test
   end
 
   test "Cells with |# are headers" do
-    assert_equal document_body_with_hashes_for_all_headers.to_html, expected_outcome
+    assert_equal expected_outcome_for_headers, document_body_with_hashes_for_all_headers.to_html
   end
 
   test "Cells outside of thead with |# are th; thead still only contains th" do
-    assert_equal document_body_with_hashes_for_row_headers.to_html, expected_outcome
+    assert_equal expected_outcome_for_headers, document_body_with_hashes_for_row_headers.to_html
   end
 
   test "Cells are given classes to indicate alignment" do
-    assert_equal document_body_with_alignments.to_html, expected_outcome_for_table_with_alignments
+    assert_equal expected_outcome_for_table_with_alignments, document_body_with_alignments.to_html
+  end
+
+  test "Invalid alignment properties are dropped from cells" do
+    html = %(<table><tbody><tr><td style="text-align: middle">middle</td></tr></tbody></table>)
+    expected = "<table><tbody><tr><td>middle</td></tr></tbody></table>\n"
+
+    assert_equal expected, Govspeak::Document.new(html).to_html
+  end
+
+  test "Styles other than text-align are ignored on a table cell" do
+    html = %(<table><tbody><tr><td style="text-align: center; width: 100px;">middle</td></tr></tbody></table>)
+    expected = %(<table><tbody><tr><td class="cell-text-center">middle</td></tr></tbody></table>\n)
+
+    assert_equal expected, Govspeak::Document.new(html).to_html
   end
 
   test "Table headers with a scope of row are only in the first column of the table" do
-    assert_equal document_body_with_table_headers_in_the_wrong_place.to_html, expected_outcome_for_table_headers_in_the_wrong_place
+    assert_equal expected_outcome_for_table_headers_in_the_wrong_place, document_body_with_table_headers_in_the_wrong_place.to_html
   end
 
   test "Table headers with a scope of row can have embedded links" do
-    assert_equal document_body_with_table_headers_containing_links.to_html, expected_outcome_for_table_headers_containing_links
+    assert_equal expected_outcome_for_table_headers_containing_links, document_body_with_table_headers_containing_links.to_html
   end
 
   test "Table headers are not blank" do
-    assert_equal document_body_with_blank_table_headers.to_html, expected_outcome_for_table_with_blank_table_headers
+    assert_equal expected_outcome_for_table_with_blank_table_headers, document_body_with_blank_table_headers.to_html
   end
 
   test "Table header superscript should parse" do
-    assert_equal document_body_with_table_headers_containing_superscript.to_html, expected_outcome_for_table_with_table_headers_containing_superscript
+    assert_equal expected_outcome_for_table_with_table_headers_containing_superscript, document_body_with_table_headers_containing_superscript.to_html, expected_outcome_for_table_with_table_headers_containing_superscript
   end
 end

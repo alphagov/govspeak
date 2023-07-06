@@ -17,31 +17,13 @@ class Govspeak::HtmlSanitizer
     end
   end
 
-  class TableCellTextAlignWhitelister
-    def call(sanitize_context)
-      return unless %w[td th].include?(sanitize_context[:node_name])
-
-      node = sanitize_context[:node]
-
-      # Kramdown uses text-align to allow table cells to be aligned
-      # http://kramdown.gettalong.org/quickref.html#tables
-      if invalid_style_attribute?(node["style"])
-        node.remove_attribute("style")
-      end
-    end
-
-    def invalid_style_attribute?(style)
-      style && !style.match(/^text-align:\s*(center|left|right)$/)
-    end
-  end
-
   def initialize(dirty_html, options = {})
     @dirty_html = dirty_html
     @allowed_image_hosts = options[:allowed_image_hosts]
   end
 
   def sanitize(allowed_elements: [])
-    transformers = [TableCellTextAlignWhitelister.new]
+    transformers = []
     if @allowed_image_hosts && @allowed_image_hosts.any?
       transformers << ImageSourceWhitelister.new(@allowed_image_hosts)
     end
@@ -60,21 +42,29 @@ class Govspeak::HtmlSanitizer
   end
 
   def sanitize_config(allowed_elements: [])
+    # We purposefully disable style elements which Sanitize::Config::RELAXED allows
+    elements = Sanitize::Config::RELAXED[:elements] - %w[style] +
+      %w[govspeak-embed-attachment govspeak-embed-attachment-link svg path].concat(allowed_elements)
+
     Sanitize::Config.merge(
       Sanitize::Config::RELAXED,
-      elements: Sanitize::Config::RELAXED[:elements] + %w[govspeak-embed-attachment govspeak-embed-attachment-link svg path].concat(allowed_elements),
+      elements: elements,
       attributes: {
-        :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label],
+        # We purposefully disable style attributes which Sanitize::Config::RELAXED allows
+        :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label] - %w[style],
         "a" => Sanitize::Config::RELAXED[:attributes]["a"] + [:data] + %w[draggable],
-        "svg" => Sanitize::Config::RELAXED[:attributes][:all] + %w[xmlns width height viewbox focusable],
-        "path" => Sanitize::Config::RELAXED[:attributes][:all] + %w[fill d],
+        "svg" => %w[xmlns width height viewbox focusable],
+        "path" => %w[fill d],
         "div" => [:data],
-        # @TODO  These style attributes can be removed once we've checked there
-        # isn't hardcoded HTML in documents that uses them
+        # The style attributes are permitted here just for the ones Kramdown for table alignment
+        # we replace them in a post processor.
         "th" => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],
         "td" => Sanitize::Config::RELAXED[:attributes]["td"] + %w[style],
         "govspeak-embed-attachment" => %w[content-id],
       },
+      # The only styling we permit is text-align on table cells (which is the CSS kramdown
+      # generates), we can therefore only allow this one CSS property
+      css: { properties: %w[text-align] },
     )
   end
 end
