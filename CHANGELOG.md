@@ -1,6 +1,6 @@
-## Unreleased
+## 8.0.0
 
-* BREAKING: HTML style attribute and style element, which were never supposed to be available, are forbidden.
+* BREAKING: HTML style attribute and style element, which were never supposed to be available, are forbidden. [#279](https://github.com/alphagov/govspeak/pull/279)
 
 ## 7.1.1
 
