@@ -1,3 +1,7 @@
+## 8.0.1
+
+* Add margin-bottom to embedded attachments ([#281](https://github.com/alphagov/govspeak/pull/281))
+
 ## 8.0.0
 
 * BREAKING: HTML style attribute and style element, which were never supposed to be available, are forbidden. [#279](https://github.com/alphagov/govspeak/pull/279)
