@@ -1,3 +1,7 @@
+## Unreleased
+
+* Allow attachment links wtihin numbered lists ([#283](https://github.com/alphagov/govspeak/pull/283))
+
 ## 8.0.1
 
 * Add margin-bottom to embedded attachments ([#281](https://github.com/alphagov/govspeak/pull/281))
