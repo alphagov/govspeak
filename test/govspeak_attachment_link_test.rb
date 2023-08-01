@@ -46,4 +46,28 @@ class GovspeakAttachmentLinkTest < Minitest::Test
     rendered = render_govspeak("[AttachmentLink: This is the name of my &%$@€? attachment]", [attachment])
     assert_match(/Attachment Title/, rendered)
   end
+
+  test "renders an attachment link inside a numbered list" do
+    attachment = {
+      id: "attachment.pdf",
+      url: "http://example.com/attachment.pdf",
+      title: "Attachment Title",
+    }
+
+    rendered = render_govspeak("s1. First item with [AttachmentLink: attachment.pdf]\ns2. Second item without attachment", [attachment])
+
+    expected_output = <<~TEXT
+      <ol class="steps">
+      <li>
+      <p>First item with <span class="gem-c-attachment-link">
+        <a class="govuk-link" href="http://example.com/attachment.pdf">Attachment Title</a>  </span></p>
+      </li>
+      <li>
+      <p>Second item without attachment</p>
+      </li>
+      </ol>
+    TEXT
+
+    assert_equal(expected_output, rendered)
+  end
 end
