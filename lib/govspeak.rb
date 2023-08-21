@@ -145,6 +145,7 @@ module Govspeak
           number = footnote[0]
           text = footnote[1].strip
           footnote_definition = Govspeak::Document.new(text).to_html[/(?<=<p>).*(?=<\/p>)/]
+          footnote_definition = add_acronym_alt_text(footnote_definition)
 
           <<~HTML_SNIPPET
             <li id="fn:#{number}" role="doc-endnote">
@@ -163,10 +164,6 @@ module Govspeak
           </div>
         HTML_CONTAINER
       end
-
-      # unless @footnote_definition_html.nil? && @acronyms.size.positive?
-      #   add_acronym_alt_text(@footnote_definition_html)
-      # end
     end
 
     def remove_forbidden_characters(source)
@@ -358,6 +355,8 @@ module Govspeak
 
     extension("legislative list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
       Govspeak::KramdownOverrides.with_kramdown_ordered_lists_disabled do
+        body = add_acronym_alt_text(body.strip)
+
         Kramdown::Document.new(body.strip).to_html.tap do |doc|
           doc.gsub!("<ul>", "<ol>")
           doc.gsub!("</ul>", "</ol>")
@@ -372,8 +371,6 @@ module Govspeak
 
             doc.sub!(/(\[\^#{footnote}\])/, html)
           end
-
-          # add_acronym_alt_text(doc) if @acronyms.size.positive?
         end
       end
     end
