@@ -623,6 +623,21 @@ Teston
   end
 
   test_given_govspeak "
+    $CTA
+    Contact the SGD on 0800 000 0000 or contact the OGD on 0800 001 0001
+    $CTA
+
+    *[OGD]: Other Government Department
+    *[SGD]: Some Government Department
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+      <p>Contact the <abbr title="Some Government Department">SGD</abbr> on 0800 000 0000 or contact the <abbr title="Other Government Department">OGD</abbr> on 0800 001 0001</p>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
     1. rod
     2. jane
     3. freddy" do
