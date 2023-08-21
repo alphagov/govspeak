@@ -139,7 +139,7 @@ module Govspeak
       is_legislative_list = source.scan(/\$LegislativeList.*?\[\^\d\]*.*?\$EndLegislativeList/m).size.positive?
       is_cta = source.scan(/\$CTA.*?\[\^\d\]*.*?\$CTA/m).size.positive?
       footnotes = source.scan(/^\s*\[\^(\d+)\]:(.*)/)
-      @acronyms = source.scan(/(?<=\*)\[(.*)\]:(.*)/)
+      @acronyms.concat(source.scan(/(?<=\*)\[(.*)\]:(.*)/))
       if (is_legislative_list || is_cta) && footnotes.size.positive?
         list_items = footnotes.map do |footnote|
           number = footnote[0]
@@ -164,9 +164,9 @@ module Govspeak
         HTML_CONTAINER
       end
 
-      unless @footnote_definition_html.nil? && @acronyms.size.positive?
-        add_acronym_alt_text(@footnote_definition_html)
-      end
+      # unless @footnote_definition_html.nil? && @acronyms.size.positive?
+      #   add_acronym_alt_text(@footnote_definition_html)
+      # end
     end
 
     def remove_forbidden_characters(source)
@@ -326,6 +326,7 @@ module Govspeak
 
     extension("call-to-action", surrounded_by("$CTA")) do |body|
       doc = Kramdown::Document.new(preprocess(body.strip), @options).to_html
+      doc = add_acronym_alt_text(doc)
       doc = %(\n<div class="call-to-action">\n#{doc}</div>\n)
       footnotes = body.scan(/\[\^(\d+)\]/).flatten
 
@@ -337,7 +338,6 @@ module Govspeak
         doc.sub!(/(\[\^#{footnote}\])/, html)
       end
 
-      add_acronym_alt_text(doc) if @acronyms.size.positive?
       doc
     end
 
@@ -373,7 +373,7 @@ module Govspeak
             doc.sub!(/(\[\^#{footnote}\])/, html)
           end
 
-          add_acronym_alt_text(doc) if @acronyms.size.positive?
+          # add_acronym_alt_text(doc) if @acronyms.size.positive?
         end
       end
     end
@@ -454,10 +454,11 @@ module Govspeak
     end
 
     def add_acronym_alt_text(html)
-      # FIXME: this code is buggy and replaces abbreviations in HTML tags - removing the functionality for now
-      # @acronyms.each do |acronym|
-      #   html.gsub!(acronym[0], "<abbr title=\"#{acronym[1].strip}\">#{acronym[0]}</abbr>")
-      # end
+      @acronyms.each do |acronym|
+        html.gsub!(acronym[0], "<abbr title=\"#{acronym[1].strip}\">#{acronym[0]}</abbr>")
+      end
+
+      html
     end
   end
 end
