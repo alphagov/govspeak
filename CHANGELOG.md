@@ -1,3 +1,7 @@
+## Unreleased
+
+* Reintroduce support for acronyms in Call To Action blocks and in Legislative Lists ([#285](https://github.com/alphagov/govspeak/pull/285))
+
 ## 8.1.0
 
 * Allow attachment links wtihin numbered lists ([#283](https://github.com/alphagov/govspeak/pull/283))
