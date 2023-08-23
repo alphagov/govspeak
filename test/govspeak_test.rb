@@ -623,6 +623,21 @@ Teston
   end
 
   test_given_govspeak "
+    $CTA
+    Contact the SGD on 0800 000 0000 or contact the class on 0800 001 0001
+    $CTA
+
+    *[class]: Other Government Department
+    *[SGD]: Some Government Department
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+      <p>Contact the <abbr title="Some Government Department">SGD</abbr> on 0800 000 0000 or contact the <abbr title="Other Government Department">class</abbr> on 0800 001 0001</p>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
     1. rod
     2. jane
     3. freddy" do
@@ -1090,44 +1105,51 @@ Teston
     )
     end
 
-  # FIXME: this code is buggy and replaces abbreviations in HTML tags - removing the functionality for now
-  # test_given_govspeak "
-  #   $LegislativeList
-  #   * 1. Item 1[^1] with an ACRONYM
-  #   * 2. Item 2[^2]
-  #   * 3. Item 3
-  #   $EndLegislativeList
-  #
-  #   [^1]: Footnote definition one
-  #   [^2]: Footnote definition two with an ACRONYM
-  #
-  #   *[ACRONYM]: This is the acronym explanation
-  # " do
-  #   assert_html_output %(
-  #     <ol class="legislative-list">
-  #       <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup> with an <abbr title="This is the acronym explanation">ACRONYM</abbr>
-  #     </li>
-  #       <li>2. Item 2<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>
-  #     </li>
-  #       <li>3. Item 3</li>
-  #     </ol>
-  #
-  #     <div class="footnotes" role="doc-endnotes">
-  #       <ol>
-  #         <li id="fn:1" role="doc-endnote">
-  #       <p>
-  #         Footnote definition one<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
-  #       </p>
-  #     </li>
-  #     <li id="fn:2" role="doc-endnote">
-  #       <p>
-  #         Footnote definition two with an <abbr title="This is the acronym explanation">ACRONYM</abbr><a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
-  #       </p>
-  #     </li>
-  #       </ol>
-  #     </div>
-  #   )
-  # end
+  test_given_govspeak "
+    $LegislativeList
+    * 1. Item 1[^1] with an ACRONYM
+    * 2. Item 2[^2]
+    * 3. Item 3[^3]
+    $EndLegislativeList
+
+    [^1]: Footnote definition one
+    [^2]: Footnote definition two with an ACRONYM
+    [^3]: Footnote definition three with an acronym that matches an HTML tag class
+
+    *[ACRONYM]: This is the acronym explanation
+    *[class]: Testing HTML matching
+  " do
+    assert_html_output %(
+      <ol class="legislative-list">
+        <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup> with an <abbr title="This is the acronym explanation">ACRONYM</abbr>
+      </li>
+        <li>2. Item 2<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>
+      </li>
+        <li>3. Item 3<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">[footnote 3]</a></sup>
+      </li>
+      </ol>
+
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+        <p>
+          Footnote definition one<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:2" role="doc-endnote">
+        <p>
+          Footnote definition two with an <abbr title="This is the acronym explanation">ACRONYM</abbr><a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+      <li id="fn:3" role="doc-endnote">
+        <p>
+          Footnote definition three with an acronym that matches an HTML tag <abbr title="Testing HTML matching">class</abbr><a href="#fnref:3" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
+        </p>
+      </li>
+        </ol>
+      </div>
+    )
+  end
 
   test_given_govspeak "
     The quick brown
