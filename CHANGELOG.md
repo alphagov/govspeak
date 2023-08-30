@@ -1,3 +1,7 @@
+## Unreleased
+
+* Prevent user error when incorrectly formatted footnotes are added to HTML attachments ([#287](https://github.com/alphagov/govspeak/pull/287))
+
 ## 8.2.0
 
 * Reintroduce support for acronyms in Call To Action blocks and in Legislative Lists ([#285](https://github.com/alphagov/govspeak/pull/285))
