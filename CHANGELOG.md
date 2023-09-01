@@ -1,4 +1,4 @@
-## Unreleased
+## 8.2.1
 
 * Prevent user error when incorrectly formatted footnotes are added to HTML attachments ([#287](https://github.com/alphagov/govspeak/pull/287))
 
