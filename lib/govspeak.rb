@@ -323,7 +323,7 @@ module Govspeak
 
     extension("call-to-action", surrounded_by("$CTA")) do |body|
       doc = Kramdown::Document.new(preprocess(body.strip), @options).to_html
-      doc = add_acronym_alt_text(doc)
+      # doc = add_acronym_alt_text(doc)
       doc = %(\n<div class="call-to-action">\n#{doc}</div>\n)
       footnotes = body.scan(/\[\^(\d+)\]/).flatten
 
