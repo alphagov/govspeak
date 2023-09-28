@@ -453,11 +453,16 @@ module Govspeak
     def add_acronym_alt_text(html)
       return unless html
 
-      @acronyms.each do |acronym|
-        html.gsub!(acronym[0], "<abbr title=\"#{acronym[1].strip}\">#{acronym[0]}</abbr>")
+      acronym_map = @acronyms.each_with_object({}) do |acronym, hash|
+        abbreviation = acronym[0]
+        description = acronym[1]
+
+        hash[abbreviation] = "<abbr title=\"#{description.strip}\">#{abbreviation}</abbr>"
       end
 
-      html
+      regex = Regexp.new(acronym_map.keys.map { |acronym| Regexp.escape(acronym) }.join('|'))
+
+      html.gsub(regex, acronym_map)
     end
   end
 end
