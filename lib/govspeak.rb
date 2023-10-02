@@ -137,10 +137,9 @@ module Govspeak
 
     def footnote_definitions(source)
       is_legislative_list = source.scan(/\$LegislativeList.*?\[\^\d\]*.*?\$EndLegislativeList/m).size.positive?
-      is_cta = source.scan(/\$CTA.*?\[\^\d\]*.*?\$CTA/m).size.positive?
       footnotes = source.scan(/^\s*\[\^(\d+)\]:(.*)/)
       @acronyms.concat(source.scan(/(?<=\*)\[(.*)\]:(.*)/))
-      if (is_legislative_list || is_cta) && footnotes.size.positive?
+      if is_legislative_list && footnotes.size.positive?
         list_items = footnotes.map do |footnote|
           number = footnote[0]
           text = footnote[1].strip
@@ -322,20 +321,11 @@ module Govspeak
     end
 
     extension("call-to-action", surrounded_by("$CTA")) do |body|
-      doc = Kramdown::Document.new(preprocess(body.strip), @options).to_html
-      doc = add_acronym_alt_text(doc)
-      doc = %(\n<div class="call-to-action">\n#{doc}</div>\n)
-      footnotes = body.scan(/\[\^(\d+)\]/).flatten
-
-      footnotes.each do |footnote|
-        html = "<sup id=\"fnref:#{footnote}\" role=\"doc-noteref\">" \
-        "<a href=\"#fn:#{footnote}\" class=\"footnote\" rel=\"footnote\">" \
-        "[footnote #{footnote}]</a></sup>"
-
-        doc.sub!(/(\[\^#{footnote}\])/, html)
-      end
-
-      doc
+      <<~BODY
+        {::options parse_block_html=\"true\" /}
+        <div class="call-to-action">#{body}</div>
+        {::options parse_block_html=\"false\" /}
+      BODY
     end
 
     # More specific tags must be defined first. Those defined earlier have a
