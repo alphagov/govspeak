@@ -17,6 +17,13 @@ module Kramdown
     DESCRIPTION
       simple_array_validator(val, :document_domains, AlwaysEqual.new)
     end
+
+    define(:ordered_lists_disabled, Boolean, false, <<~DESCRIPTION)
+      Disables ordered lists
+
+      Default: false
+      Used by: KramdownWithAutomaticExternalLinks
+    DESCRIPTION
   end
 
   module Parser
@@ -46,7 +53,17 @@ module Kramdown
       def parse_block_html
         return false if CUSTOM_INLINE_ELEMENTS.include?(@src[1].downcase)
 
-        super
+        return super unless @options[:ordered_lists_disabled]
+
+        # Kramdown loads parsers into the instance from `options` which are scoped to
+        # the class. Because we are changing these options inside an instance, we must
+        # reconfigure the parser before and after disbaling ordered lists.
+        Govspeak::KramdownOverrides.with_kramdown_ordered_lists_disabled do
+          configure_parser
+          super
+        end
+
+        configure_parser
       end
     end
   end

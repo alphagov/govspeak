@@ -20,6 +20,15 @@ module Govspeak
       end
     end
 
+    extension("covert legislative list ul to ol") do |document|
+      document.css(".legislative-list-wrapper").map do |el|
+        el.inner_html = el.inner_html
+            .sub("<ul>", "<ol class=\"legislative-list\">")
+            .gsub("</ul>", "</ol>")
+            .gsub("<ul>", "<ol>")
+      end
+    end
+
     # This "fix" here is tied into the rendering of images as one of the
     # pre-processor tasks. As images can be created inside block level elements
     # it's possible that their block level elements can be HTML entity escaped
