@@ -420,13 +420,13 @@ Teston
     $CTA" do
     assert_html_output %(
       <div class="call-to-action">
-      <p>Click here to start the tool</p>
+        <p>Click here to start the tool</p>
       </div>)
     assert_text_output "Click here to start the tool"
   end
 
   test_given_govspeak "
-    Here is some text
+    Here is some text\n
 
     $CTA
     Click here to start the tool
@@ -436,7 +436,7 @@ Teston
       <p>Here is some text</p>
 
       <div class="call-to-action">
-      <p>Click here to start the tool</p>
+        <p>Click here to start the tool</p>
       </div>)
   end
 
@@ -453,9 +453,10 @@ Teston
     $CTA" do
     assert_html_output %(
         <div class="call-to-action">
-        <p>This is a test:</p>
 
-        <ol class="steps">
+          <p>This is a test:</p>
+
+          <ol class="steps">
         <li>
         <p>This is number 1.</p>
         </li>
@@ -480,7 +481,7 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
-      <p><a rel="external" href="http://www.external.com">external link</a> some text</p>
+        <p><a rel="external" href="http://www.external.com">external link</a> some text</p>
       </div>)
   end
 
@@ -490,7 +491,7 @@ Teston
     $CTA", document_domains: %w[www.not-external.com] do
     assert_html_output %(
       <div class="call-to-action">
-      <p><a href="http://www.not-external.com">internal link</a> some text</p>
+        <p><a href="http://www.not-external.com">internal link</a> some text</p>
       </div>)
   end
 
@@ -505,7 +506,7 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
-      <p>Click here to start the tool</p>
+        <p>Click here to start the tool</p>
       </div>
 
       <div class="contact">
@@ -514,7 +515,7 @@ Teston
   end
 
   test_given_govspeak "
-    [internal link](http://www.not-external.com)
+    [internal link](http://www.not-external.com)\n
 
     $CTA
     Click here to start the tool
@@ -523,7 +524,7 @@ Teston
       <p><a href="http://www.not-external.com">internal link</a></p>
 
       <div class="call-to-action">
-      <p>Click here to start the tool</p>
+        <p>Click here to start the tool</p>
       </div>)
   end
 
@@ -535,15 +536,13 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
-      <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+        <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
       </div>
       <div class="footnotes" role="doc-endnotes">
         <ol>
           <li id="fn:1" role="doc-endnote">
-        <p>
-          Footnote definition one<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
-        </p>
-      </li>
+            <p>Footnote definition one <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
+          </li>
         </ol>
       </div>
     )
@@ -563,26 +562,21 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       Fusce felis ante<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>, lobortis non quam sit amet, tempus interdum justo.</p>
       </div>
-
       <div class="call-to-action">
-      <p>Pellentesque quam enim, egestas sit amet congue sit amet<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>, ultrices vitae arcu.
+        <p>Pellentesque quam enim, egestas sit amet congue sit amet<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>, ultrices vitae arcu.
       Fringilla, metus dui scelerisque est.</p>
       </div>
       <div class="footnotes" role="doc-endnotes">
         <ol>
           <li id="fn:1" role="doc-endnote">
-        <p>
-          Footnote definition one<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
-        </p>
-      </li>
-      <li id="fn:2" role="doc-endnote">
-        <p>
-          Footnote definition two<a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
-        </p>
-      </li>
+            <p>Footnote definition one <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
+          </li>
+          <li id="fn:2" role="doc-endnote">
+            <p>Footnote definition two <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
+          </li>
         </ol>
       </div>
     )
@@ -600,7 +594,7 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
-      <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+        <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
       </div>
 
       <p>Lorem ipsum dolor sit amet<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup></p>
@@ -608,15 +602,11 @@ Teston
       <div class="footnotes" role="doc-endnotes">
         <ol>
           <li id="fn:1" role="doc-endnote">
-        <p>
-          Footnote definition 1<a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
-        </p>
-      </li>
-      <li id="fn:2" role="doc-endnote">
-        <p>
-          Footnote definition 2<a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
-        </p>
-      </li>
+            <p>Footnote definition 1 <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
+          </li>
+          <li id="fn:2" role="doc-endnote">
+            <p>Footnote definition 2 <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
+          </li>
         </ol>
       </div>
     )
@@ -632,7 +622,63 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
-      <p>Contact the <abbr title="Some Government Department">SGD</abbr> on 0800 000 0000 or contact the <abbr title="Other Government Department">class</abbr> on 0800 001 0001</p>
+        <p>Contact the <abbr title="Some Government Department">SGD</abbr> on 0800 000 0000 or contact the <abbr title="Other Government Department">class</abbr> on 0800 001 0001</p>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
+    $CTA
+    Welcome to the GOV.UK website
+    $CTA
+
+    *[GOV.UK]: The official UK government website
+    *[website]: A collection of web pages, such as GOV.UK
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+        <p>Welcome to the <abbr title="The official UK government website">GOV.UK</abbr> <abbr title="A collection of web pages, such as GOV.UK">website</abbr></p>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
+    $CTA
+    Please email <developer@digital.cabinet-office.GOV.UK>
+    $CTA
+
+    *[GOV.UK]: The official UK government website
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+        <p>Please email <a href="mailto:developer@digital.cabinet-office.GOV.UK">developer@digital.cabinet-office.<abbr title="The official UK government website">GOV.UK</abbr></a></p>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
+    $CTA
+    Welcome to the GOV.UK[^1]
+    $CTA
+
+    [^1]: GOV.UK is the official UK government website
+
+    *[GOV.UK]: The official UK government website
+    *[website]: A collection of web pages, such as GOV.UK
+
+    *[GOV.UK]: The official UK government website
+    " do
+    assert_html_output %(
+      <div class="call-to-action">
+        <p>Welcome to the <abbr title="The official UK government website">GOV.UK</abbr><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+      </div>
+
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1" role="doc-endnote">
+            <p><abbr title="The official UK government website">GOV.UK</abbr> is the official UK government <abbr title="A collection of web pages, such as GOV.UK">website</abbr> <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
+          </li>
+        </ol>
       </div>
     )
   end
