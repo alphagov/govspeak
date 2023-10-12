@@ -63,8 +63,6 @@ module Govspeak
                    sanitize: true,
                    syntax_highlighter: nil }.merge(options)
       @options[:entity_output] = :symbolic
-      @footnote_definition_html = nil
-      @acronyms = []
     end
 
     def to_html
@@ -75,16 +73,6 @@ module Govspeak
                else
                  kramdown_doc.to_html
                end
-
-        unless @footnote_definition_html.nil?
-          regex = /<div class="footnotes".*[<\/div>]/m
-
-          if html.scan(regex).empty?
-            html << @footnote_definition_html
-          else
-            html.gsub!(regex, @footnote_definition_html)
-          end
-        end
 
         Govspeak::PostProcessor.process(html, self)
       end
@@ -125,45 +113,12 @@ module Govspeak
       source = Govspeak::BlockquoteExtraQuoteRemover.remove(source)
       source = remove_forbidden_characters(source)
 
-      footnote_definitions(source)
-
       self.class.extensions.each do |_, regexp, block|
         source.gsub!(regexp) do
           instance_exec(*Regexp.last_match.captures, &block)
         end
       end
       source
-    end
-
-    def footnote_definitions(source)
-      is_legislative_list = source.scan(/\$LegislativeList.*?\[\^\d\]*.*?\$EndLegislativeList/m).size.positive?
-      is_cta = source.scan(/\$CTA.*?\[\^\d\]*.*?\$CTA/m).size.positive?
-      footnotes = source.scan(/^\s*\[\^(\d+)\]:(.*)/)
-      @acronyms.concat(source.scan(/(?<=\*)\[(.*)\]:(.*)/))
-      if (is_legislative_list || is_cta) && footnotes.size.positive?
-        list_items = footnotes.map do |footnote|
-          number = footnote[0]
-          text = footnote[1].strip
-          footnote_definition = Govspeak::Document.new(text).to_html[/(?<=<p>).*(?=<\/p>)/]
-          footnote_definition = add_acronym_alt_text(footnote_definition)
-
-          <<~HTML_SNIPPET
-            <li id="fn:#{number}" role="doc-endnote">
-              <p>
-                #{footnote_definition}<a href="#fnref:#{number}" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a>
-              </p>
-            </li>
-          HTML_SNIPPET
-        end
-
-        @footnote_definition_html = <<~HTML_CONTAINER
-          <div class="footnotes" role="doc-endnotes">
-            <ol>
-              #{list_items.join.strip}
-            </ol>
-          </div>
-        HTML_CONTAINER
-      end
     end
 
     def remove_forbidden_characters(source)
@@ -322,20 +277,11 @@ module Govspeak
     end
 
     extension("call-to-action", surrounded_by("$CTA")) do |body|
-      doc = Kramdown::Document.new(preprocess(body.strip), @options).to_html
-      doc = add_acronym_alt_text(doc)
-      doc = %(\n<div class="call-to-action">\n#{doc}</div>\n)
-      footnotes = body.scan(/\[\^(\d+)\]/).flatten
-
-      footnotes.each do |footnote|
-        html = "<sup id=\"fnref:#{footnote}\" role=\"doc-noteref\">" \
-        "<a href=\"#fn:#{footnote}\" class=\"footnote\" rel=\"footnote\">" \
-        "[footnote #{footnote}]</a></sup>"
-
-        doc.sub!(/(\[\^#{footnote}\])/, html)
-      end
-
-      doc
+      <<~BODY
+        {::options parse_block_html=\"true\" /}
+        <div class="call-to-action">#{body}</div>
+        {::options parse_block_html=\"false\" /}
+      BODY
     end
 
     # More specific tags must be defined first. Those defined earlier have a
@@ -354,25 +300,13 @@ module Govspeak
     end
 
     extension("legislative list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
-      Govspeak::KramdownOverrides.with_kramdown_ordered_lists_disabled do
-        body = add_acronym_alt_text(body.strip)
-
-        Kramdown::Document.new(body.strip).to_html.tap do |doc|
-          doc.gsub!("<ul>", "<ol>")
-          doc.gsub!("</ul>", "</ol>")
-          doc.sub!("<ol>", '<ol class="legislative-list">')
-
-          footnotes = body.scan(/\[\^(\d+)\]/).flatten
-
-          footnotes.each do |footnote|
-            html = "<sup id=\"fnref:#{footnote}\" role=\"doc-noteref\">" \
-            "<a href=\"#fn:#{footnote}\" class=\"footnote\" rel=\"footnote\">" \
-            "[footnote #{footnote}]</a></sup>"
-
-            doc.sub!(/(\[\^#{footnote}\])/, html)
-          end
-        end
-      end
+      # The surrounding div is neccessary to control flow in `parse_block_html` and
+      # maintain the same functionality as a previous version of this extension.
+      <<~BODY
+        {::options parse_block_html=\"true\" ordered_lists_disabled=\"true\" /}
+        <div class="legislative-list-wrapper">#{body}</div>
+        {::options parse_block_html=\"false\" ordered_lists_disabled=\"false\" /}
+      BODY
     end
 
     extension("numbered list", /^[ \t]*((s\d+\.\s.*(?:\n|$))+)/) do |body|
@@ -448,16 +382,6 @@ module Govspeak
 
     def encode(text)
       HTMLEntities.new.encode(text)
-    end
-
-    def add_acronym_alt_text(html)
-      return unless html
-
-      @acronyms.each do |acronym|
-        html.gsub!(acronym[0], "<abbr title=\"#{acronym[1].strip}\">#{acronym[0]}</abbr>")
-      end
-
-      html
     end
   end
 end

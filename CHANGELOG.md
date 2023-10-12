@@ -1,3 +1,7 @@
+## 8.3.0
+
+* Various bug fixes related to abbreviations in call to action and legislative list components ([#291](https://github.com/alphagov/govspeak/pull/291))
+
 ## 8.2.1
 
 * Prevent user error when incorrectly formatted footnotes are added to HTML attachments ([#287](https://github.com/alphagov/govspeak/pull/287))
