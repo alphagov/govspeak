@@ -4,13 +4,6 @@ require "govspeak_test_helper"
 class GovspeakImagesTest < Minitest::Test
   include GovspeakTestHelper
 
-  def build_image(attrs = {})
-    attrs[:alt_text] ||= "my alt"
-    attrs[:url] ||= "http://example.com/image.jpg"
-    attrs[:id] ||= "image-id"
-    attrs
-  end
-
   test "Image:image-id syntax renders an image in options[:images]" do
     given_govspeak "[Image:image-id]", images: [build_image] do
       assert_html_output(

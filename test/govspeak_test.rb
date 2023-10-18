@@ -683,6 +683,24 @@ Teston
     )
   end
 
+  test "CTA with image" do
+    given_govspeak "
+    $CTA
+    [Image:image-id]
+    $CTA
+
+    Some text
+    ", images: [build_image] do
+      assert_html_output %(
+      <div class="call-to-action">
+        <figure class="image embedded"><div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div></figure>
+      </div>
+
+      <p>Some text</p>
+    )
+    end
+  end
+
   test_given_govspeak "
     1. rod
     2. jane
@@ -1266,6 +1284,24 @@ Teston
         </ol>
       </div>
     )
+  end
+
+  test "LegislativeList with image" do
+    given_govspeak "
+    $LegislativeList
+    [Image:image-id]
+    $EndLegislativeList
+
+    Some text
+    ", images: [build_image] do
+      assert_html_output %(
+      <div class="legislative-list-wrapper">
+        <figure class="image embedded"><div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div></figure>
+      </div>
+
+      <p>Some text</p>
+    )
+    end
   end
 
   test_given_govspeak "
