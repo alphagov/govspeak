@@ -278,9 +278,7 @@ module Govspeak
 
     extension("call-to-action", surrounded_by("$CTA")) do |body|
       <<~BODY
-        {::options parse_block_html=\"true\" /}
-        <div class="call-to-action">#{body}</div>
-        {::options parse_block_html=\"false\" /}
+        <div class="call-to-action" markdown="1">#{body}</div>
       BODY
     end
 
@@ -303,9 +301,9 @@ module Govspeak
       # The surrounding div is neccessary to control flow in `parse_block_html` and
       # maintain the same functionality as a previous version of this extension.
       <<~BODY
-        {::options parse_block_html=\"true\" ordered_lists_disabled=\"true\" /}
-        <div class="legislative-list-wrapper">#{body}</div>
-        {::options parse_block_html=\"false\" ordered_lists_disabled=\"false\" /}
+        {::options ordered_lists_disabled=\"true\" /}
+        <div class="legislative-list-wrapper" markdown="1">#{body}</div>
+        {::options ordered_lists_disabled=\"false\" /}
       BODY
     end
 

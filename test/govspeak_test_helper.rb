@@ -73,6 +73,13 @@ module GovspeakTestHelper
     coder.decode(html)
   end
 
+  def build_image(attrs = {})
+    attrs[:alt_text] ||= "my alt"
+    attrs[:url] ||= "http://example.com/image.jpg"
+    attrs[:id] ||= "image-id"
+    attrs
+  end
+
   module ClassMethods
     def test_given_govspeak(govspeak, options = {}, &block)
       test "Given #{govspeak}" do
