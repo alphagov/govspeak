@@ -1,3 +1,7 @@
+## 8.3.2
+
+* Various bug fixes related to legislative list components ([#298](https://github.com/alphagov/govspeak/pull/298))
+
 ## 8.3.1
 
 * Bug fixes related to block elements in call to action and legislative list components ([#293](https://github.com/alphagov/govspeak/pull/293))
