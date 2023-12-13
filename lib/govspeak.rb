@@ -13,7 +13,6 @@ require "govspeak/header_extractor"
 require "govspeak/structured_header_extractor"
 require "govspeak/html_validator"
 require "govspeak/html_sanitizer"
-require "govspeak/kramdown_overrides"
 require "govspeak/blockquote_extra_quote_remover"
 require "govspeak/post_processor"
 require "govspeak/link_extractor"
@@ -298,8 +297,8 @@ module Govspeak
     end
 
     extension("legislative list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
-      # The surrounding div is neccessary to control flow in `parse_block_html` and
-      # maintain the same functionality as a previous version of this extension.
+      # The surrounding div is neccessary to accurately identify legislative lists
+      # in post-processing.
       <<~BODY
         {::options ordered_lists_disabled=\"true\" /}
         <div class="legislative-list-wrapper" markdown="1">#{body}</div>
