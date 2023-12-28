@@ -59,7 +59,7 @@ module Govspeak
           # Not showing United Kingdom country is a "feature" lifted and shifted
           # from Whitehall:
           # https://github.com/alphagov/whitehall/blob/c67d53d80f9856549c2da1941a10dbb9170be494/lib/address_formatter/formatter.rb#L17
-          (key == "world_location" && value.strip == "United Kingdom" || value == "")
+          key == "world_location" && value.strip == "United Kingdom" || value == ""
         end
       end
 
