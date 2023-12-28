@@ -167,7 +167,7 @@ module Govspeak
 
     def output
       document = nokogiri_document
-      self.class.extensions.each do |_, block|
+      self.class.extensions.each do |(_, block)|
         instance_exec(document, &block)
       end
       document.to_html
