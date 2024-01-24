@@ -1,4 +1,4 @@
-## Unreleased
+## 8.3.3
 
 * Fix single line formatting of call to action component ([#302](https://github.com/alphagov/govspeak/pull/302))
 
