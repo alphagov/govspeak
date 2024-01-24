@@ -426,6 +426,48 @@ Teston
   end
 
   test_given_govspeak "
+    $CTA Click here to start the program $CTA
+
+    Here is some text" do
+    assert_html_output %(
+      <div class="call-to-action">
+        <p>Click here to start the program</p>
+      </div>
+
+      <p>Here is some text</p>)
+  end
+
+  test_given_govspeak "
+    Some text
+
+    $CTA     Click there to start the program     $CTA
+
+    Here is some text" do
+    assert_html_output %(
+      <p>Some text</p>
+      <div class="call-to-action">
+        <p>Click there to start the program</p>
+      </div>
+
+      <p>Here is some text</p>)
+  end
+
+  test_given_govspeak "
+    Some text
+
+    $CTAClick anywhere to start the program$CTA
+
+    Here is some text" do
+    assert_html_output %(
+      <p>Some text</p>
+      <div class="call-to-action">
+        <p>Click anywhere to start the program</p>
+      </div>
+
+      <p>Here is some text</p>)
+  end
+
+  test_given_govspeak "
     Here is some text\n
 
     $CTA
@@ -453,7 +495,6 @@ Teston
     $CTA" do
     assert_html_output %(
         <div class="call-to-action">
-
           <p>This is a test:</p>
 
           <ol class="steps">

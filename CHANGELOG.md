@@ -1,3 +1,7 @@
+## Unreleased
+
+* Fix single line formatting of call to action component ([#302](https://github.com/alphagov/govspeak/pull/302))
+
 ## 8.3.2
 
 * Various bug fixes related to legislative list components ([#298](https://github.com/alphagov/govspeak/pull/298))
