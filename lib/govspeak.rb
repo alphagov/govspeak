@@ -278,7 +278,7 @@ module Govspeak
     extension("call-to-action", surrounded_by("$CTA")) do |body|
       <<~BODY
         <div class="call-to-action" markdown="1">
-        #{body.strip}
+        #{body}
         </div>
       BODY
     end

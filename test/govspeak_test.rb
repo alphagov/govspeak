@@ -420,7 +420,9 @@ Teston
     $CTA" do
     assert_html_output %(
       <div class="call-to-action">
+
         <p>Click here to start the tool</p>
+
       </div>)
     assert_text_output "Click here to start the tool"
   end
@@ -440,7 +442,7 @@ Teston
   test_given_govspeak "
     Some text
 
-    $CTA     Click there to start the program     $CTA
+    $CTA   Click there to start the program   $CTA
 
     Here is some text" do
     assert_html_output %(
@@ -468,6 +470,33 @@ Teston
   end
 
   test_given_govspeak "
+    $CTA
+    |Heading 1|Heading 2|
+    |-|-|
+    |information|more information|
+    $CTA" do
+    assert_html_output %(
+      <div class="call-to-action">
+
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Heading 1</th>
+            <th scope="col">Heading 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>information</td>
+            <td>more information</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>)
+  end
+
+  test_given_govspeak "
     Here is some text\n
 
     $CTA
@@ -478,7 +507,9 @@ Teston
       <p>Here is some text</p>
 
       <div class="call-to-action">
+
         <p>Click here to start the tool</p>
+
       </div>)
   end
 
@@ -495,6 +526,7 @@ Teston
     $CTA" do
     assert_html_output %(
         <div class="call-to-action">
+
           <p>This is a test:</p>
 
           <ol class="steps">
@@ -511,6 +543,7 @@ Teston
         <p>This is number 4.</p>
         </li>
         </ol>
+
         </div>
         )
   end
@@ -522,7 +555,9 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
+
         <p><a rel="external" href="http://www.external.com">external link</a> some text</p>
+
       </div>)
   end
 
@@ -532,7 +567,9 @@ Teston
     $CTA", document_domains: %w[www.not-external.com] do
     assert_html_output %(
       <div class="call-to-action">
+
         <p><a href="http://www.not-external.com">internal link</a> some text</p>
+
       </div>)
   end
 
@@ -547,7 +584,9 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
+
         <p>Click here to start the tool</p>
+
       </div>
 
       <div class="contact">
@@ -565,7 +604,9 @@ Teston
       <p><a href="http://www.not-external.com">internal link</a></p>
 
       <div class="call-to-action">
+
         <p>Click here to start the tool</p>
+
       </div>)
   end
 
@@ -577,7 +618,9 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
+
         <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+
       </div>
       <div class="footnotes" role="doc-endnotes">
         <ol>
@@ -603,12 +646,16 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
+
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       Fusce felis ante<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>, lobortis non quam sit amet, tempus interdum justo.</p>
+
       </div>
       <div class="call-to-action">
+
         <p>Pellentesque quam enim, egestas sit amet congue sit amet<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>, ultrices vitae arcu.
       Fringilla, metus dui scelerisque est.</p>
+
       </div>
       <div class="footnotes" role="doc-endnotes">
         <ol>
@@ -635,7 +682,9 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
+
         <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+
       </div>
 
       <p>Lorem ipsum dolor sit amet<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup></p>
@@ -663,7 +712,9 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
+
         <p>Contact the <abbr title="Some Government Department">SGD</abbr> on 0800 000 0000 or contact the <abbr title="Other Government Department">class</abbr> on 0800 001 0001</p>
+
       </div>
     )
   end
@@ -678,7 +729,9 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
+
         <p>Welcome to the <abbr title="The official UK government website">GOV.UK</abbr> <abbr title="A collection of web pages, such as GOV.UK">website</abbr></p>
+
       </div>
     )
   end
@@ -692,7 +745,9 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
+
         <p>Please email <a href="mailto:developer@digital.cabinet-office.GOV.UK">developer@digital.cabinet-office.<abbr title="The official UK government website">GOV.UK</abbr></a></p>
+
       </div>
     )
   end
@@ -711,7 +766,9 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
+
         <p>Welcome to the <abbr title="The official UK government website">GOV.UK</abbr><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+
       </div>
 
       <div class="footnotes" role="doc-endnotes">
@@ -734,7 +791,9 @@ Teston
     ", images: [build_image] do
       assert_html_output %(
       <div class="call-to-action">
+
         <figure class="image embedded"><div class="img"><img src="http://example.com/image.jpg" alt="my alt"></div></figure>
+
       </div>
 
       <p>Some text</p>
