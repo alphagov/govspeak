@@ -1,3 +1,7 @@
+## Unreleased
+
+* Fix tables within call to action component ([#306](https://github.com/alphagov/govspeak/pull/306))
+
 ## 8.3.3
 
 * Fix single line formatting of call to action component ([#302](https://github.com/alphagov/govspeak/pull/302))
