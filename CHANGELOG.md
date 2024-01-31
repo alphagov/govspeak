@@ -1,4 +1,4 @@
-## Unreleased
+## 8.3.4
 
 * Fix tables within call to action component ([#306](https://github.com/alphagov/govspeak/pull/306))
 
