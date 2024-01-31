@@ -468,6 +468,65 @@ Teston
   end
 
   test_given_govspeak "
+      $CTA
+      |Heading 1|Heading 2|
+      |-|-|
+      |information|more information|
+      $CTA" do
+    assert_html_output %(
+        <div class="call-to-action">
+
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Heading 1</th>
+              <th scope="col">Heading 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>information</td>
+              <td>more information</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>)
+  end
+
+  test_given_govspeak "
+      $CTA
+
+      ### A heading within the CTA
+
+      |Heading 1|Heading 2|
+      |-|-|
+      |information|more information|
+
+      $CTA" do
+    assert_html_output %(
+      <div class="call-to-action">
+      <h3 id="a-heading-within-the-cta">A heading within the CTA</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Heading 1</th>
+            <th scope="col">Heading 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>information</td>
+            <td>more information</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>)
+  end
+
+  test_given_govspeak "
     Here is some text\n
 
     $CTA
