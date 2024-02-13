@@ -1,3 +1,8 @@
+## Unreleased
+
+* Drop support for Ruby 3.0. The minimum required Ruby version is now 3.1.4.
+* Add support for Ruby 3.3.
+
 ## 8.3.4
 
 * Fix tables within call to action component ([#306](https://github.com/alphagov/govspeak/pull/306))
