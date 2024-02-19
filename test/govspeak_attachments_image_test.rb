@@ -11,7 +11,7 @@ class GovspeakAttachmentsImageTest < Minitest::Test
   end
 
   def render_govspeak(govspeak, attachments = [])
-    Govspeak::Document.new(govspeak, attachments: attachments).to_html
+    Govspeak::Document.new(govspeak, attachments:).to_html
   end
 
   def compress_html(html)

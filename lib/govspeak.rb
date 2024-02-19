@@ -98,7 +98,7 @@ module Govspeak
     end
 
     def extracted_links(website_root: nil)
-      Govspeak::LinkExtractor.new(self, website_root: website_root).call
+      Govspeak::LinkExtractor.new(self, website_root:).call
     end
 
     def extract_contact_content_ids
@@ -310,7 +310,7 @@ module Govspeak
 
     extension("numbered list", /^[ \t]*((s\d+\.\s.*(?:\n|$))+)/) do |body|
       body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do
-        "<li>#{Govspeak::Document.new(Regexp.last_match(2).strip, attachments: attachments).to_html}</li>\n"
+        "<li>#{Govspeak::Document.new(Regexp.last_match(2).strip, attachments:).to_html}</li>\n"
       end
       %(<ol class="steps">\n#{body}</ol>)
     end

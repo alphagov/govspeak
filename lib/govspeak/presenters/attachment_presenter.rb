@@ -51,7 +51,7 @@ module Govspeak
     MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE = "MS Powerpoint Presentation".freeze
 
     def file_abbr_tag(abbr, title)
-      content_tag(:abbr, abbr, title: title)
+      content_tag(:abbr, abbr, title:)
     end
 
     def humanized_content_type(file_extension)

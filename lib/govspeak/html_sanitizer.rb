@@ -34,8 +34,8 @@ class Govspeak::HtmlSanitizer
     # currently does – i.e. to return Sanitize config without any transformers.
     # e.g. https://github.com/alphagov/hmrc-manuals-api/blob/4a83f78d0bb839520155623fd9b63b3b12a3b13a/app/validators/no_dangerous_html_in_text_fields_validator.rb#L44
     config_with_transformers = Sanitize::Config.merge(
-      sanitize_config(allowed_elements: allowed_elements),
-      transformers: transformers,
+      sanitize_config(allowed_elements:),
+      transformers:,
     )
 
     Sanitize.clean(@dirty_html, config_with_transformers)
@@ -48,7 +48,7 @@ class Govspeak::HtmlSanitizer
 
     Sanitize::Config.merge(
       Sanitize::Config::RELAXED,
-      elements: elements,
+      elements:,
       attributes: {
         # We purposefully disable style attributes which Sanitize::Config::RELAXED allows
         :all => Sanitize::Config::RELAXED[:attributes][:all] + %w[role aria-label] - %w[style],
