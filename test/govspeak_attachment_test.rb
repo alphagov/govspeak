@@ -2,7 +2,7 @@ require "test_helper"
 
 class GovspeakAttachmentTest < Minitest::Test
   def render_govspeak(govspeak, attachments = [])
-    Govspeak::Document.new(govspeak, attachments: attachments).to_html
+    Govspeak::Document.new(govspeak, attachments:).to_html
   end
 
   test "renders an empty string for attachment link that is not found" do

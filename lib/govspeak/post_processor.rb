@@ -67,7 +67,7 @@ module Govspeak
 
         attachment_html = GovukPublishingComponents.render(
           "govuk_publishing_components/components/attachment",
-          attachment: attachment,
+          attachment:,
           margin_bottom: 6,
           locale: govspeak_document.locale,
         )
@@ -86,7 +86,7 @@ module Govspeak
 
         attachment_html = GovukPublishingComponents.render(
           "govuk_publishing_components/components/attachment_link",
-          attachment: attachment,
+          attachment:,
           locale: govspeak_document.locale,
         )
         el.swap(attachment_html)

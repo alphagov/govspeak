@@ -11,7 +11,7 @@ class GovspeakAttachmentsInlineTest < Minitest::Test
   end
 
   def render_govspeak(govspeak, attachments = [])
-    Govspeak::Document.new(govspeak, attachments: attachments).to_html
+    Govspeak::Document.new(govspeak, attachments:).to_html
   end
 
   test "renders an empty string for an inline attachment not found" do

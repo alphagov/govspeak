@@ -26,7 +26,7 @@ private
   def govspeak_to_html(sanitize:)
     Govspeak::Document.new(
       govspeak_string,
-      sanitize: sanitize,
+      sanitize:,
       allowed_image_hosts: @allowed_image_hosts,
     ).to_html
   end
