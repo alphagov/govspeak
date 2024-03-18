@@ -18,6 +18,10 @@ jobs:
     with:
       skip_sca: true
     secrets: inherit
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
   
   codeql-sast:
     name: CodeQL SAST scan
