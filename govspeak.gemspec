@@ -31,7 +31,7 @@ library for use in the UK Government Single Domain project'
 
   s.add_dependency "actionview", ">= 6"
   s.add_dependency "addressable", ">= 2.3.8", "< 3"
-  s.add_dependency "govuk_publishing_components", ">= 35.1"
+  s.add_dependency "govuk_publishing_components", ">= 35.1", "< 38.4.2"
   s.add_dependency "htmlentities", "~> 4"
   s.add_dependency "i18n", ">= 0.7"
   s.add_dependency "kramdown", ">= 2.3.1"
