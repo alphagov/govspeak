@@ -29,12 +29,12 @@ library for use in the UK Government Single Domain project'
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = %w[lib]
 
-  s.add_dependency "actionview", ">= 6"
-  s.add_dependency "addressable", ">= 2.3.8", "< 3"
+  s.add_dependency "actionview", ">= 6", "< 7.1.3.5"
+  s.add_dependency "addressable", ">= 2.3.8", "< 2.8.8"
   s.add_dependency "govuk_publishing_components", ">= 35.1", "< 39.1.1"
   s.add_dependency "htmlentities", "~> 4"
-  s.add_dependency "i18n", ">= 0.7"
-  s.add_dependency "kramdown", ">= 2.3.1"
+  s.add_dependency "i18n", ">= 0.7", "< 1.14.6"
+  s.add_dependency "kramdown", ">= 2.3.1", "< 2.4.1"
   s.add_dependency "nokogiri", "~> 1.12"
   s.add_dependency "rinku", "~> 2.0"
   s.add_dependency "sanitize", "~> 6"
