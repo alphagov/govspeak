@@ -29,7 +29,7 @@ library for use in the UK Government Single Domain project'
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = %w[lib]
 
-  s.add_dependency "actionview", ">= 6", "< 7.2.1"
+  s.add_dependency "actionview", ">= 6", "< 7.2.2"
   s.add_dependency "addressable", ">= 2.3.8", "< 2.8.8"
   s.add_dependency "govuk_publishing_components", ">= 35.1", "< 42.0.1"
   s.add_dependency "htmlentities", "~> 4"
