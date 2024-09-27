@@ -28,7 +28,7 @@ Once govspeak has been updated and version incremented then:
 
 Also, consider if:
 - [whitehall](https://github.com/alphagov/whitehall) needs updating (as custom govspeak changes are present)
-- [govpspeak-preview](https://github.com/alphagov/govspeak-preview) needs updating
+- [govspeak-preview](https://github.com/alphagov/govspeak-preview) needs updating
 
 Any pages that use govspeak to generate Content will need to *republished* in order for the new changes to be reflected.  
 
