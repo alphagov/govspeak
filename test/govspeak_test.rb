@@ -394,6 +394,19 @@ Teston
   end
 
   test_given_govspeak "
+    $A
+    street with ACRONYM
+    road
+    $A
+
+    *[ACRONYM]: This is the acronym explanation" do
+    assert_html_output %(
+      <div class="address"><div class="adr org fn"><p>
+      street with <abbr title="This is the acronym explanation">ACRONYM</abbr><br>road<br>
+      </p></div></div>)
+  end
+
+  test_given_govspeak "
     $P
     $I
     help

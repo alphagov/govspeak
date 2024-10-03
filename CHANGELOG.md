@@ -4,6 +4,7 @@
 * Add support for Ruby 3.3.
 * Allow acronyms within example blocks.
 * Allow tables within example blocks.
+* Allow acronyms within address blocks.
 
 ## 8.3.4
 

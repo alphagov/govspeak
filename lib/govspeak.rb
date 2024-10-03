@@ -302,7 +302,7 @@ module Govspeak
     end
 
     extension("address", surrounded_by("$A")) do |body|
-      %(\n<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", '').gsub("\n", '<br />')}\n</p></div></div>\n)
+      %(\n<div class="address"><div class="adr org fn"><p markdown="1">\n#{body.sub("\n", '').gsub("\n", '<br />')}\n</p></div></div>\n)
     end
 
     extension("legislative list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
