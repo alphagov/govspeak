@@ -1248,6 +1248,20 @@ Teston
     end
 
   test_given_govspeak "
+    $E
+    This is an ACRONYM.
+    $E
+
+    *[ACRONYM]: This is the acronym explanation
+  " do
+    assert_html_output %(
+      <div class="example">
+        <p>This is an <abbr title="This is the acronym explanation">ACRONYM</abbr>.</p>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
     $LegislativeList
     * 1. Item 1[^1] with an ACRONYM
     * 2. Item 2[^2]
