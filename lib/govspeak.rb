@@ -296,7 +296,7 @@ module Govspeak
     extension("example", surrounded_by("$E")) do |body|
       <<~BODY
         <div class="example" markdown="1">
-          #{body.strip}
+          #{body.strip.gsub(/\A^\|/, "\n|").gsub(/\|$\Z/, "|\n")}
         </div>
       BODY
     end

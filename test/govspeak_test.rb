@@ -1262,6 +1262,33 @@ Teston
   end
 
   test_given_govspeak "
+    $E
+    |Heading 1|Heading 2|
+    |-|-|
+    |information|more information|
+    $E" do
+    assert_html_output %(
+    <div class="example">
+
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Heading 1</th>
+          <th scope="col">Heading 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>information</td>
+          <td>more information</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>)
+  end
+
+  test_given_govspeak "
     $LegislativeList
     * 1. Item 1[^1] with an ACRONYM
     * 2. Item 2[^2]
