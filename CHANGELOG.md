@@ -1,7 +1,10 @@
-## Unreleased
+## 8.4.0
 
 * Drop support for Ruby 3.0. The minimum required Ruby version is now 3.1.4.
 * Add support for Ruby 3.3.
+* Allow acronyms within example blocks.
+* Allow tables within example blocks.
+* Allow acronyms within address blocks.
 
 ## 8.3.4
 

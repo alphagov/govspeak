@@ -394,6 +394,19 @@ Teston
   end
 
   test_given_govspeak "
+    $A
+    street with ACRONYM
+    road
+    $A
+
+    *[ACRONYM]: This is the acronym explanation" do
+    assert_html_output %(
+      <div class="address"><div class="adr org fn"><p>
+      street with <abbr title="This is the acronym explanation">ACRONYM</abbr><br>road<br>
+      </p></div></div>)
+  end
+
+  test_given_govspeak "
     $P
     $I
     help
@@ -1246,6 +1259,47 @@ Teston
       </div>
     )
     end
+
+  test_given_govspeak "
+    $E
+    This is an ACRONYM.
+    $E
+
+    *[ACRONYM]: This is the acronym explanation
+  " do
+    assert_html_output %(
+      <div class="example">
+        <p>This is an <abbr title="This is the acronym explanation">ACRONYM</abbr>.</p>
+      </div>
+    )
+  end
+
+  test_given_govspeak "
+    $E
+    |Heading 1|Heading 2|
+    |-|-|
+    |information|more information|
+    $E" do
+    assert_html_output %(
+    <div class="example">
+
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Heading 1</th>
+          <th scope="col">Heading 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>information</td>
+          <td>more information</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>)
+  end
 
   test_given_govspeak "
     $LegislativeList

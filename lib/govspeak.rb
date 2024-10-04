@@ -292,10 +292,17 @@ module Govspeak
     wrap_with_div("place", "$P", Govspeak::Document)
     wrap_with_div("information", "$I", Govspeak::Document)
     wrap_with_div("additional-information", "$AI")
-    wrap_with_div("example", "$E", Govspeak::Document)
+
+    extension("example", surrounded_by("$E")) do |body|
+      <<~BODY
+        <div class="example" markdown="1">
+          #{body.strip.gsub(/\A^\|/, "\n|").gsub(/\|$\Z/, "|\n")}
+        </div>
+      BODY
+    end
 
     extension("address", surrounded_by("$A")) do |body|
-      %(\n<div class="address"><div class="adr org fn"><p>\n#{body.sub("\n", '').gsub("\n", '<br />')}\n</p></div></div>\n)
+      %(\n<div class="address"><div class="adr org fn"><p markdown="1">\n#{body.sub("\n", '').gsub("\n", '<br />')}\n</p></div></div>\n)
     end
 
     extension("legislative list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
