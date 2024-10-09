@@ -1,0 +1,10 @@
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '30 10 * * 1-5' # 10:30am UTC, Mon-Fri.
+
+jobs:
+  autorelease:
+    uses: alphagov/govuk-infrastructure/.github/workflows/autorelease-rubygem.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GOVUK_CI_GITHUB_API_TOKEN }}
