@@ -1,4 +1,4 @@
-## Unreleased
+## 8.4.1
 * Do not pin version of govuk_publishing_components
 
 ## 8.4.0
