@@ -1,3 +1,6 @@
+## Unreleased
+* Do not pin version of govuk_publishing_components
+
 ## 8.4.0
 
 * Drop support for Ruby 3.0. The minimum required Ruby version is now 3.1.4.
