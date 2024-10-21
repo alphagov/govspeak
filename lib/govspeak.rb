@@ -14,11 +14,14 @@ require "govspeak/structured_header_extractor"
 require "govspeak/html_validator"
 require "govspeak/html_sanitizer"
 require "govspeak/blockquote_extra_quote_remover"
+require "govspeak/embed_extractor"
+require "govspeak/embedded_content"
 require "govspeak/post_processor"
 require "govspeak/link_extractor"
 require "govspeak/template_renderer"
 require "govspeak/presenters/attachment_presenter"
 require "govspeak/presenters/contact_presenter"
+require "govspeak/presenters/embed_presenter"
 require "govspeak/presenters/h_card_presenter"
 require "govspeak/presenters/image_presenter"
 require "govspeak/presenters/attachment_image_presenter"
@@ -37,7 +40,7 @@ module Govspeak
     @extensions = []
 
     attr_accessor :images
-    attr_reader :attachments, :contacts, :links, :locale
+    attr_reader :attachments, :contacts, :links, :locale, :embeds
 
     def self.to_html(source, options = {})
       new(source, options).to_html
@@ -57,6 +60,7 @@ module Govspeak
       @attachments = Array.wrap(options.delete(:attachments))
       @links = Array.wrap(options.delete(:links))
       @contacts = Array.wrap(options.delete(:contacts))
+      @embeds = Array.wrap(options.delete(:embeds))
       @locale = options.fetch(:locale, "en")
       @options = { input: PARSER_CLASS_NAME,
                    sanitize: true,
@@ -253,6 +257,13 @@ module Govspeak
       next "" unless attachment
 
       render_image(AttachmentImagePresenter.new(attachment))
+    end
+
+    extension("embeds", Govspeak::EmbeddedContent::EMBED_REGEX) do |_embed_code, _document_type, content_id|
+      embed = embeds.detect { |e| e[:content_id] == content_id }
+      next "" unless embed
+
+      EmbedPresenter.new(embed).render
     end
 
     # As of version 1.12.0 of Kramdown the block elements (div & figcaption)
