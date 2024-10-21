@@ -1,3 +1,7 @@
+### 8.5.0
+
+* Support embeds in Govspeak
+
 ## 8.4.1
 * Do not pin version of govuk_publishing_components
 
