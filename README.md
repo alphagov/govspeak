@@ -608,6 +608,36 @@ will output
 </div>
 ```
 
+### Content blocks
+
+Authors can embed different types of [supported content]() created by the Content Block Manager
+
+```
+{{embed:content_block_email_address:d308f561-e5ee-45b5-90b2-3ac36a23fad9}}
+```
+
+with options provided
+
+```
+{
+  embeds: [
+    {
+      content_id: "d308f561-e5ee-45b5-90b2-3ac36a23fad9",
+      title: "Government Digital Service",
+      details: [
+        { email_address: "test@example.com" }
+      ]
+    }
+  ]
+}
+```
+
+will output
+
+```html
+<span class="embed_content_block_email_address" id="embed_d308f561-e5ee-45b5-90b2-3ac36a23fad9">test@example.com</span>
+```
+
 ### Button
 
 An accessible way to add button links into content, that can also allow cross domain tracking with [Google Analytics](https://support.google.com/analytics/answer/7372977?hl=en)
@@ -670,6 +700,7 @@ which outputs
   <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg>
 </a>
 ```
+
 
 ## Licence
 
