@@ -608,6 +608,34 @@ will output
 </div>
 ```
 
+### Content blocks
+
+Authors can embed different types of [supported content](https://github.com/alphagov/govspeak/blob/main/lib/govspeak/embedded_content.rb#L3) created by the Content Block Manager
+
+```
+{{embed:content_block_email_address:d308f561-e5ee-45b5-90b2-3ac36a23fad9}}
+```
+
+with options provided
+
+```
+{
+  embeds: [
+    {
+      content_id: "d308f561-e5ee-45b5-90b2-3ac36a23fad9",
+      title: "Government Digital Service",
+      details: { email_address: "test@example.com" },
+    }
+  ]
+}
+```
+
+will output
+
+```html
+<span class="embed_content_block_email_address" id="embed_d308f561-e5ee-45b5-90b2-3ac36a23fad9">test@example.com</span>
+```
+
 ### Button
 
 An accessible way to add button links into content, that can also allow cross domain tracking with [Google Analytics](https://support.google.com/analytics/answer/7372977?hl=en)
