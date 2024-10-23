@@ -610,7 +610,7 @@ will output
 
 ### Content blocks
 
-Authors can embed different types of [supported content](https://github.com/alphagov/govspeak/blob/main/lib/govspeak/embedded_content.rb#L3) created by the Content Block Manager
+Authors can embed different types of [supported content](https://github.com/alphagov/govspeak/blob/main/lib/govspeak/content_block.rb#L3) created by the Content Block Manager
 
 ```
 {{embed:content_block_email_address:d308f561-e5ee-45b5-90b2-3ac36a23fad9}}
@@ -620,7 +620,7 @@ with options provided
 
 ```
 {
-  embeds: [
+  content_blocks: [
     {
       content_id: "d308f561-e5ee-45b5-90b2-3ac36a23fad9",
       title: "Government Digital Service",

@@ -1,10 +1,10 @@
 require "test_helper"
 
-class EmbedExtractorTest < Minitest::Test
+class ContentBlockExtractorTest < Minitest::Test
   extend Minitest::Spec::DSL
 
-  describe "EmbedExtractor" do
-    subject { Govspeak::EmbedExtractor.new(document) }
+  describe "ContentBlockExtractor" do
+    subject { Govspeak::ContentBlockExtractor.new(document) }
 
     describe "when there is no embedded content" do
       let(:document) { "foo" }
