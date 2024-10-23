@@ -1,3 +1,8 @@
+### 8.5.1
+
+* Rename embed-related code to `content block`
+* Do not attempt to parse embed codes if `content_blocks` option is missing
+
 ### 8.5.0
 
 * Support embeds in Govspeak
