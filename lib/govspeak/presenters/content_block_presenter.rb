@@ -2,7 +2,7 @@ require "action_view"
 require "htmlentities"
 
 module Govspeak
-  class EmbedPresenter
+  class ContentBlockPresenter
     include ActionView::Helpers::TagHelper
 
     attr_reader :embed
