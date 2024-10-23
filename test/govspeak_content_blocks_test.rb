@@ -42,12 +42,26 @@ class GovspeakContentBlocksTest < Minitest::Test
     assert_equal compress_html(expected), compress_html(rendered)
   end
 
-  it "ignores missing embeds" do
+  it "removes embed code if a content block cannot be found" do
+    content_block = {
+      content_id: SecureRandom.uuid,
+      document_type: "contact",
+      title: "foo",
+    }
+
     govspeak = "{{embed:contact:#{content_id}}}"
 
-    rendered = Govspeak::Document.new(govspeak, content_blocks: []).to_html
+    rendered = Govspeak::Document.new(govspeak, content_blocks: [content_block]).to_html
 
     assert_equal compress_html(""), compress_html(rendered)
+  end
+
+  it "retains an embed code if content_blocks are not specified" do
+    govspeak = "{{embed:contact:#{content_id}}}"
+
+    rendered = Govspeak::Document.new(govspeak).to_html
+
+    assert_equal compress_html("<p>#{govspeak}</p>"), compress_html(rendered)
   end
 
   it "supports multiple embeds" do

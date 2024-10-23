@@ -259,7 +259,9 @@ module Govspeak
       render_image(AttachmentImagePresenter.new(attachment))
     end
 
-    extension("content blocks", Govspeak::ContentBlock::EMBED_REGEX) do |_embed_code, _document_type, content_id|
+    extension("content blocks", Govspeak::ContentBlock::EMBED_REGEX) do |embed_code, _document_type, content_id|
+      next embed_code if content_blocks.empty?
+
       embed = content_blocks.detect { |e| e[:content_id] == content_id }
       next "" unless embed
 
