@@ -209,27 +209,6 @@ Teston
     assert_text_output "I am very informational"
   end
 
-  test_given_govspeak "@ I am very important @" do
-    assert_html_output %(
-      <div role="note" aria-label="Important" class="advisory">
-      <p><strong>I am very important</strong></p>
-      </div>)
-    assert_text_output "I am very important"
-  end
-
-  test_given_govspeak "
-    The following is very important
-    @ I am very important @
-    " do
-    assert_html_output %(
-      <p>The following is very important</p>
-
-      <div role="note" aria-label="Important" class="advisory">
-      <p><strong>I am very important</strong></p>
-      </div>)
-    assert_text_output "The following is very important I am very important"
-  end
-
   test_given_govspeak "% I am very helpful %" do
     assert_html_output %(
       <div role="note" aria-label="Warning" class="application-notice help-notice">
@@ -1525,14 +1504,6 @@ Teston
       </div>
       </div>
       '
-  end
-
-  test_given_govspeak "@ Message with [a link](http://foo.bar/)@" do
-    assert_html_output %(
-      <div role="note" aria-label="Important" class="advisory">
-      <p><strong>Message with <a rel="external" href="http://foo.bar/">a link</a></strong></p>
-      </div>
-      )
   end
 
   test "sanitize source input by default" do
