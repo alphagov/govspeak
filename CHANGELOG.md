@@ -1,3 +1,7 @@
+### 8.6.0
+
+* Remove embed functionality ([#358](https://github.com/alphagov/govspeak/pull/358))
+
 ### 8.5.1
 
 * Rename embed-related code to `content block`
