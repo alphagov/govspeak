@@ -14,14 +14,11 @@ require "govspeak/structured_header_extractor"
 require "govspeak/html_validator"
 require "govspeak/html_sanitizer"
 require "govspeak/blockquote_extra_quote_remover"
-require "govspeak/content_block_extractor"
-require "govspeak/content_block"
 require "govspeak/post_processor"
 require "govspeak/link_extractor"
 require "govspeak/template_renderer"
 require "govspeak/presenters/attachment_presenter"
 require "govspeak/presenters/contact_presenter"
-require "govspeak/presenters/content_block_presenter"
 require "govspeak/presenters/h_card_presenter"
 require "govspeak/presenters/image_presenter"
 require "govspeak/presenters/attachment_image_presenter"
@@ -40,7 +37,7 @@ module Govspeak
     @extensions = []
 
     attr_accessor :images
-    attr_reader :attachments, :contacts, :links, :locale, :content_blocks
+    attr_reader :attachments, :contacts, :links, :locale
 
     def self.to_html(source, options = {})
       new(source, options).to_html
@@ -60,7 +57,6 @@ module Govspeak
       @attachments = Array.wrap(options.delete(:attachments))
       @links = Array.wrap(options.delete(:links))
       @contacts = Array.wrap(options.delete(:contacts))
-      @content_blocks = Array.wrap(options.delete(:content_blocks))
       @locale = options.fetch(:locale, "en")
       @options = { input: PARSER_CLASS_NAME,
                    sanitize: true,
@@ -257,15 +253,6 @@ module Govspeak
       next "" unless attachment
 
       render_image(AttachmentImagePresenter.new(attachment))
-    end
-
-    extension("content blocks", Govspeak::ContentBlock::EMBED_REGEX) do |embed_code, _document_type, content_id|
-      next embed_code if content_blocks.empty?
-
-      embed = content_blocks.detect { |e| e[:content_id] == content_id }
-      next "" unless embed
-
-      ContentBlockPresenter.new(embed).render
     end
 
     # As of version 1.12.0 of Kramdown the block elements (div & figcaption)
