@@ -30,9 +30,20 @@ module Kramdown
     class Govuk < Kramdown::Parser::Kramdown
       CUSTOM_INLINE_ELEMENTS = %w[govspeak-embed-attachment-link].freeze
 
+      BLOCK_EXTENSIONS = {
+        example_block: "govuk/example_block",
+      }.freeze
+
+      private_constant :BLOCK_EXTENSIONS
+
       def initialize(source, options)
         @document_domains = options[:document_domains] || %w[www.gov.uk]
         super
+
+        BLOCK_EXTENSIONS.each do |extension_name, file_name|
+          require_relative file_name
+          @block_parsers.unshift(extension_name)
+        end
       end
 
       def add_link(element, href, title, alt_text = nil, ial = nil)

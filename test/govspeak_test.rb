@@ -1282,7 +1282,6 @@ Teston
     $E" do
     assert_html_output %(
     <div class="example">
-
       <table>
         <thead>
           <tr>
@@ -1297,7 +1296,6 @@ Teston
           </tr>
         </tbody>
       </table>
-
     </div>)
   end
 
