@@ -67,10 +67,10 @@ module Govspeak
     def to_html
       @to_html ||= begin
         html = if @options[:sanitize]
-                 HtmlSanitizer.new(kramdown_doc.to_html, allowed_image_hosts: @allowed_image_hosts)
+                 HtmlSanitizer.new(kramdown_doc.to_govuk_html, allowed_image_hosts: @allowed_image_hosts)
                               .sanitize(allowed_elements: @allowed_elements)
                else
-                 kramdown_doc.to_html
+                 kramdown_doc.to_govuk_html
                end
 
         Govspeak::PostProcessor.process(html, self)
@@ -288,14 +288,6 @@ module Govspeak
     wrap_with_div("place", "$P", Govspeak::Document)
     wrap_with_div("information", "$I", Govspeak::Document)
     wrap_with_div("additional-information", "$AI")
-
-    extension("example", surrounded_by("$E")) do |body|
-      <<~BODY
-        <div class="example" markdown="1">
-        #{body.strip.gsub(/\A^\|/, "\n|").gsub(/\|$\Z/, "|\n")}
-        </div>
-      BODY
-    end
 
     extension("address", surrounded_by("$A")) do |body|
       <<~BODY
