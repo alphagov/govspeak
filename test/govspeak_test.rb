@@ -1283,22 +1283,22 @@ Teston
     assert_html_output %(
     <div class="example">
 
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Heading 1</th>
-          <th scope="col">Heading 2</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>information</td>
-          <td>more information</td>
-        </tr>
-      </tbody>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Heading 1</th>
+            <th scope="col">Heading 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>information</td>
+            <td>more information</td>
+          </tr>
+        </tbody>
+      </table>
 
-  </div>)
+    </div>)
   end
 
   test_given_govspeak "
