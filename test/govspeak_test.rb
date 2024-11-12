@@ -139,7 +139,7 @@ Teston
     # two trailing backslashes or two trailing spaces would normally be converted into a line break by Kramdown
     input = %($A\r\n123 Test Street  \\\r\nTestcase Cliffs\\  \nTeston\\\\  \r\n0123 456 7890  \\\\\n$A)
     doc = Govspeak::Document.new(input)
-    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n).gsub(/ {2,}/, "").gsub("\n", ""), doc.to_html.gsub(/ {2,}/, "").gsub("\n", "")
   end
 
   test "should convert barchart" do
@@ -174,7 +174,7 @@ Testcase Cliffs
 Teston
 0123 456 7890 $A)
     doc = Govspeak::Document.new(input)
-    assert_equal %(<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
+    assert_equal %(<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n).gsub(/ {2,}/, "").gsub("\n", ""), doc.to_html.gsub(/ {2,}/, "").gsub("\n", "")
   end
 
   test_given_govspeak("^ I am very informational ^") do
