@@ -287,16 +287,6 @@ module Govspeak
     wrap_with_div("contact", "$C")
     wrap_with_div("place", "$P", Govspeak::Document)
     wrap_with_div("information", "$I", Govspeak::Document)
-    wrap_with_div("additional-information", "$AI")
-
-    extension("address", surrounded_by("$A")) do |body|
-      <<~BODY
-
-        <div class="address"><div class="adr org fn"><p markdown="1">
-        #{body.lstrip.sub(/[\s\\]*\z/, '').gsub(/[ \\]*\r?\n/, '<br />')}
-        </p></div></div>
-      BODY
-    end
 
     extension("legislative list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
       # The surrounding div is neccessary to accurately identify legislative lists
