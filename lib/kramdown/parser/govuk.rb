@@ -31,6 +31,7 @@ module Kramdown
       CUSTOM_INLINE_ELEMENTS = %w[govspeak-embed-attachment-link].freeze
 
       BLOCK_EXTENSIONS = {
+        additional_information_block: "govuk/additional_information_block",
         address_block: "govuk/address_block",
         example_block: "govuk/example_block",
       }.freeze

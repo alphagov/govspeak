@@ -295,7 +295,6 @@ module Govspeak
     wrap_with_div("contact", "$C")
     wrap_with_div("place", "$P", Govspeak::Document)
     wrap_with_div("information", "$I", Govspeak::Document)
-    wrap_with_div("additional-information", "$AI")
 
     extension("legislative list", /#{NEW_PARAGRAPH_LOOKBEHIND}\$LegislativeList\s*$(.*?)\$EndLegislativeList/m) do |body|
       # The surrounding div is neccessary to accurately identify legislative lists
