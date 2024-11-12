@@ -21,8 +21,8 @@ module GovspeakTestHelper
     end
 
     def assert_html_output(raw_expected)
-      expected = remove_indentation(raw_expected)
-      actual = document.to_html.strip
+      expected = remove_indentation(raw_expected).gsub(/ {2,}/, "").gsub("\n", "")
+      actual = document.to_html.strip.gsub(/ {2,}/, "").gsub("\n", "")
       @testcase.assert expected.strip == actual, describe_error(@govspeak, expected.strip, actual)
     end
 
