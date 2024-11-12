@@ -433,6 +433,22 @@ Teston
       street<br>road
       </p></div></div>)
     assert_text_output "street road"
+    assert_ast_output_pattern do |actual|
+      actual => {
+        type: :root,
+        children: [{
+          type: :address_block,
+          children: [{
+            type: :p,
+            children: [
+              { type: :text, value: "street" },
+              { type: :br },
+              { type: :text, value: "road" },
+            ]
+          }]
+        }]
+      }
+    end
   end
 
   test_given_govspeak "
