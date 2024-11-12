@@ -1347,6 +1347,37 @@ Teston
   end
 
   test_given_govspeak "
+    $E
+    * Item 1[^1]
+    * Item 2[^2]
+    $E
+
+    [^1]: Footnote definition one
+    [^2]: Footnote definition two with an ACRONYM
+  " do
+    assert_html_output %(
+      <div class="example">
+        <ul>
+          <li>Item 1<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup>
+      </li>
+          <li>Item 2<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">[footnote 2]</a></sup>
+      </li>
+        </ul>
+      </div>
+
+      <div class="footnotes" role="doc-endnotes">
+        <ol>
+          <li id="fn:1">
+            <p>Footnote definition one <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
+          </li>
+          <li id="fn:2">
+            <p>Footnote definition two with an ACRONYM <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
+          </li>
+        </ol>
+      </div>)
+  end
+
+  test_given_govspeak "
     $LegislativeList
     * 1. Item 1[^1] with an ACRONYM
     * 2. Item 2[^2]
