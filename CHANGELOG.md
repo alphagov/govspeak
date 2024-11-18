@@ -1,4 +1,8 @@
-# 8.6.1
+## 8.7.0
+
+* Allow data attributes in spans ([#364](https://github.com/alphagov/govspeak/pull/364))
+
+## 8.6.1
 
 * Update dependencies
 
