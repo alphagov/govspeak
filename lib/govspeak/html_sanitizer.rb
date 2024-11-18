@@ -56,6 +56,7 @@ class Govspeak::HtmlSanitizer
         "svg" => %w[xmlns width height viewbox focusable],
         "path" => %w[fill d],
         "div" => [:data],
+        "span" => [:data],
         # The style attributes are permitted here just for the ones Kramdown for table alignment
         # we replace them in a post processor.
         "th" => Sanitize::Config::RELAXED[:attributes]["th"] + %w[style],

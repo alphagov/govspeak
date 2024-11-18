@@ -63,6 +63,15 @@ class HtmlSanitizerTest < Minitest::Test
     )
   end
 
+  test "allow data attributes on spans" do
+    html = "<span data-module='toggle' data-ecommerce-path='/' data-track-category='someSpan'>Test Span</span>"
+
+    assert_equal(
+      "<span data-module=\"toggle\" data-ecommerce-path=\"/\" data-track-category=\"someSpan\">Test Span</span>",
+      Govspeak::HtmlSanitizer.new(html).sanitize,
+    )
+  end
+
   test "allows images on whitelisted domains" do
     html = "<img src='http://allowed.com/image.jgp'>"
     sanitized_html = Govspeak::HtmlSanitizer.new(html, allowed_image_hosts: ["allowed.com"]).sanitize
