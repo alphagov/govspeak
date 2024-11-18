@@ -1,3 +1,5 @@
+# Changelog
+
 ## 8.7.0
 
 * Allow data attributes in spans ([#364](https://github.com/alphagov/govspeak/pull/364))
@@ -6,20 +8,21 @@
 
 * Update dependencies
 
-### 8.6.0
+## 8.6.0
 
 * Remove embed functionality ([#358](https://github.com/alphagov/govspeak/pull/358))
 
-### 8.5.1
+## 8.5.1
 
 * Rename embed-related code to `content block`
 * Do not attempt to parse embed codes if `content_blocks` option is missing
 
-### 8.5.0
+## 8.5.0
 
 * Support embeds in Govspeak
 
 ## 8.4.1
+
 * Do not pin version of govuk_publishing_components
 
 ## 8.4.0
@@ -201,7 +204,7 @@
 * Move from govuk-lint to rubocop-govuk
 * Allow version 6 of actionview
 
-## 6.5.0
+## 6.5.0
 
 * Allow data attributes on links
 
@@ -391,7 +394,8 @@
 * Add an `allowed_image_hosts` options to `HtmlValidator` (and `HtmlSanitizer`)
 * BREAKING CHANGE: Added the `$EndLegislativeList` tag which allows line breaks in `LegislativeLists`.
 
-## 2.0.2
+## 2.0.2
+
 * Fix a bug with the HtmlValidator to do with kramdown now respecting character
   encodings of input data.
 
