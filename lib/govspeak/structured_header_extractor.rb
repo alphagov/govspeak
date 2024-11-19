@@ -44,9 +44,6 @@ module Govspeak
       structured_headers
     end
 
-    attr_reader :doc, :stack, :structured_headers
-    private :doc, :stack, :structured_headers
-
     def headers_list
       @headers_list ||= doc.headers.map do |h|
         StructuredHeader.new(h.text, h.level, h.id, [])
@@ -98,5 +95,9 @@ module Govspeak
     def reset_stack
       @stack = []
     end
+
+  private
+
+    attr_reader :doc, :stack, :structured_headers
   end
 end
