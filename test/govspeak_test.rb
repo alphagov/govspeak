@@ -649,11 +649,11 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
-        <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+        <p>Click here to start the tool<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup></p>
       </div>
       <div class="footnotes" role="doc-endnotes">
         <ol>
-          <li id="fn:1" role="doc-endnote">
+          <li id="fn:1">
             <p>Footnote definition one <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
         </ol>
@@ -676,18 +676,18 @@ Teston
     assert_html_output %(
       <div class="call-to-action">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Fusce felis ante<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>, lobortis non quam sit amet, tempus interdum justo.</p>
+      Fusce felis ante<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup>, lobortis non quam sit amet, tempus interdum justo.</p>
       </div>
       <div class="call-to-action">
-        <p>Pellentesque quam enim, egestas sit amet congue sit amet<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>, ultrices vitae arcu.
+        <p>Pellentesque quam enim, egestas sit amet congue sit amet<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">[footnote 2]</a></sup>, ultrices vitae arcu.
       Fringilla, metus dui scelerisque est.</p>
       </div>
       <div class="footnotes" role="doc-endnotes">
         <ol>
-          <li id="fn:1" role="doc-endnote">
+          <li id="fn:1">
             <p>Footnote definition one <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:2" role="doc-endnote">
+          <li id="fn:2">
             <p>Footnote definition two <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
         </ol>
@@ -707,17 +707,17 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
-        <p>Click here to start the tool<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+        <p>Click here to start the tool<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup></p>
       </div>
 
-      <p>Lorem ipsum dolor sit amet<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup></p>
+      <p>Lorem ipsum dolor sit amet<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">[footnote 2]</a></sup></p>
 
       <div class="footnotes" role="doc-endnotes">
         <ol>
-          <li id="fn:1" role="doc-endnote">
+          <li id="fn:1">
             <p>Footnote definition 1 <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:2" role="doc-endnote">
+          <li id="fn:2">
             <p>Footnote definition 2 <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
         </ol>
@@ -783,12 +783,12 @@ Teston
     " do
     assert_html_output %(
       <div class="call-to-action">
-        <p>Welcome to the <abbr title="The official UK government website">GOV.UK</abbr><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+        <p>Welcome to the <abbr title="The official UK government website">GOV.UK</abbr><sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup></p>
       </div>
 
       <div class="footnotes" role="doc-endnotes">
         <ol>
-          <li id="fn:1" role="doc-endnote">
+          <li id="fn:1">
             <p><abbr title="The official UK government website">GOV.UK</abbr> is the official UK government <abbr title="A collection of web pages, such as GOV.UK">website</abbr> <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
         </ol>
@@ -949,9 +949,9 @@ Teston
     assert_html_output %(
     <div class="legislative-list-wrapper">
       <ol class="legislative-list">
-        <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>
+        <li>1. Item 1<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup>
     </li>
-        <li>2. Item 2<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>
+        <li>2. Item 2<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">[footnote 2]</a></sup>
     </li>
         <li>3. Item 3</li>
       </ol>
@@ -959,10 +959,10 @@ Teston
 
     <div class="footnotes" role="doc-endnotes">
       <ol>
-        <li id="fn:1" role="doc-endnote">
+        <li id="fn:1">
           <p>Footnote definition one <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
         </li>
-        <li id="fn:2" role="doc-endnote">
+        <li id="fn:2">
           <p>Footnote definition two <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
         </li>
       </ol>
@@ -992,19 +992,19 @@ Teston
     assert_html_output %(
     <div class="legislative-list-wrapper">
       <ol class="legislative-list">
-        <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>
+        <li>1. Item 1<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup>
     </li>
         <li>2. Item 2</li>
         <li>3. Item 3</li>
       </ol>
     </div>
 
-    <p>This is a paragraph with a footnote<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>.</p>
+    <p>This is a paragraph with a footnote<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">[footnote 2]</a></sup>.</p>
 
     <div class="legislative-list-wrapper">
       <ol class="legislative-list">
         <li>1. Item 1</li>
-        <li>2. Item 2<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">[footnote 3]</a></sup>
+        <li>2. Item 2<sup id="fnref:3"><a href="#fn:3" class="footnote" rel="footnote" role="doc-noteref">[footnote 3]</a></sup>
     </li>
         <li>3. Item 3</li>
       </ol>
@@ -1012,13 +1012,13 @@ Teston
 
     <div class="footnotes" role="doc-endnotes">
       <ol>
-        <li id="fn:1" role="doc-endnote">
+        <li id="fn:1">
           <p>Footnote definition one <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
         </li>
-        <li id="fn:2" role="doc-endnote">
+        <li id="fn:2">
           <p>Footnote definition two <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
         </li>
-        <li id="fn:3" role="doc-endnote">
+        <li id="fn:3">
           <p>Footnote definition two <a href="#fnref:3" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
         </li>
       </ol>
@@ -1067,79 +1067,79 @@ Teston
     assert_html_output %(
       <div class="legislative-list-wrapper">
         <ol class="legislative-list">
-          <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>
+          <li>1. Item 1<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup>
       </li>
-          <li>2. Item 2<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>
+          <li>2. Item 2<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">[footnote 2]</a></sup>
       </li>
-          <li>3. Item 3<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">[footnote 3]</a></sup>
+          <li>3. Item 3<sup id="fnref:3"><a href="#fn:3" class="footnote" rel="footnote" role="doc-noteref">[footnote 3]</a></sup>
       </li>
         </ol>
       </div>
 
-      <p>This is a paragraph with a footnote<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">[footnote 4]</a></sup>.</p>
+      <p>This is a paragraph with a footnote<sup id="fnref:4"><a href="#fn:4" class="footnote" rel="footnote" role="doc-noteref">[footnote 4]</a></sup>.</p>
 
       <div class="legislative-list-wrapper">
         <ol class="legislative-list">
-          <li>1. Item 1<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">[footnote 5]</a></sup>
+          <li>1. Item 1<sup id="fnref:5"><a href="#fn:5" class="footnote" rel="footnote" role="doc-noteref">[footnote 5]</a></sup>
       </li>
-          <li>2. Item 2<sup id="fnref:6" role="doc-noteref"><a href="#fn:6" class="footnote" rel="footnote">[footnote 6]</a></sup>
+          <li>2. Item 2<sup id="fnref:6"><a href="#fn:6" class="footnote" rel="footnote" role="doc-noteref">[footnote 6]</a></sup>
       </li>
-          <li>3. Item 3<sup id="fnref:7" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">[footnote 7]</a></sup>
+          <li>3. Item 3<sup id="fnref:7"><a href="#fn:7" class="footnote" rel="footnote" role="doc-noteref">[footnote 7]</a></sup>
       </li>
         </ol>
       </div>
 
-      <p>This is a paragraph with a footnote<sup id="fnref:8" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">[footnote 8]</a></sup>.</p>
+      <p>This is a paragraph with a footnote<sup id="fnref:8"><a href="#fn:8" class="footnote" rel="footnote" role="doc-noteref">[footnote 8]</a></sup>.</p>
 
       <div class="legislative-list-wrapper">
         <ol class="legislative-list">
-          <li>1. Item 1<sup id="fnref:9" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">[footnote 9]</a></sup>
+          <li>1. Item 1<sup id="fnref:9"><a href="#fn:9" class="footnote" rel="footnote" role="doc-noteref">[footnote 9]</a></sup>
       </li>
-          <li>2. Item 2<sup id="fnref:10" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">[footnote 10]</a></sup>
+          <li>2. Item 2<sup id="fnref:10"><a href="#fn:10" class="footnote" rel="footnote" role="doc-noteref">[footnote 10]</a></sup>
       </li>
-          <li>3. Item 3<sup id="fnref:11" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">[footnote 11]</a></sup>
+          <li>3. Item 3<sup id="fnref:11"><a href="#fn:11" class="footnote" rel="footnote" role="doc-noteref">[footnote 11]</a></sup>
       </li>
         </ol>
       </div>
 
-      <p>This is a paragraph with a footnote<sup id="fnref:12" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">[footnote 12]</a></sup>.</p>
+      <p>This is a paragraph with a footnote<sup id="fnref:12"><a href="#fn:12" class="footnote" rel="footnote" role="doc-noteref">[footnote 12]</a></sup>.</p>
 
       <div class="footnotes" role="doc-endnotes">
         <ol>
-          <li id="fn:1" role="doc-endnote">
+          <li id="fn:1">
             <p>Footnote definition 1 <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:2" role="doc-endnote">
+          <li id="fn:2">
             <p>Footnote definition 2 <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:3" role="doc-endnote">
+          <li id="fn:3">
             <p>Footnote definition 3 <a href="#fnref:3" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:4" role="doc-endnote">
+          <li id="fn:4">
             <p>Footnote definition 4 <a href="#fnref:4" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:5" role="doc-endnote">
+          <li id="fn:5">
             <p>Footnote definition 5 <a href="#fnref:5" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:6" role="doc-endnote">
+          <li id="fn:6">
             <p>Footnote definition 6 <a href="#fnref:6" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:7" role="doc-endnote">
+          <li id="fn:7">
             <p>Footnote definition 7 <a href="#fnref:7" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:8" role="doc-endnote">
+          <li id="fn:8">
             <p>Footnote definition 8 <a href="#fnref:8" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:9" role="doc-endnote">
+          <li id="fn:9">
             <p>Footnote definition 9 <a href="#fnref:9" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:10" role="doc-endnote">
+          <li id="fn:10">
             <p>Footnote definition 10 <a href="#fnref:10" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:11" role="doc-endnote">
+          <li id="fn:11">
             <p>Footnote definition 11 <a href="#fnref:11" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:12" role="doc-endnote">
+          <li id="fn:12">
             <p>Footnote definition 12 <a href="#fnref:12" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
         </ol>
@@ -1162,21 +1162,21 @@ Teston
     assert_html_output %(
     <div class="legislative-list-wrapper">
       <ol class="legislative-list">
-        <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup> with a <a href="http://www.gov.uk">link</a>
+        <li>1. Item 1<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup> with a <a href="http://www.gov.uk">link</a>
     </li>
         <li>2. Item 2</li>
         <li>3. Item 3</li>
       </ol>
     </div>
 
-    <p>This is a paragraph with a footnote<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup></p>
+    <p>This is a paragraph with a footnote<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">[footnote 2]</a></sup></p>
 
     <div class="footnotes" role="doc-endnotes">
       <ol>
-        <li id="fn:1" role="doc-endnote">
+        <li id="fn:1">
           <p>Footnote definition one <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
         </li>
-        <li id="fn:2" role="doc-endnote">
+        <li id="fn:2">
           <p>Footnote definition two <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
         </li>
       </ol>
@@ -1197,20 +1197,20 @@ Teston
     assert_html_output %(
     <div class="legislative-list-wrapper">
       <ol class="legislative-list">
-        <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup> with a <a href="http://www.gov.uk">link</a>
+        <li>1. Item 1<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup> with a <a href="http://www.gov.uk">link</a>
     </li>
         <li>2. Item 2</li>
-        <li>3. Item 3<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>
+        <li>3. Item 3<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">[footnote 2]</a></sup>
     </li>
       </ol>
     </div>
 
     <div class="footnotes" role="doc-endnotes">
       <ol>
-        <li id="fn:1" role="doc-endnote">
+        <li id="fn:1">
           <p>Footnote definition one with a <a href="http://www.gov.uk">link</a> included <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
         </li>
-        <li id="fn:2" role="doc-endnote">
+        <li id="fn:2">
           <p>Footnote definition two with an external <a rel="external" href="http://www.google.com">link</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
         </li>
       </ol>
@@ -1226,12 +1226,12 @@ Teston
   " do
     assert_html_output %(
      <div class="legislative-list-wrapper">
-       <p>1.  some text<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>:</p>
+       <p>1.  some text<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup>:</p>
      </div>
 
      <div class="footnotes" role="doc-endnotes">
        <ol>
-         <li id="fn:1" role="doc-endnote">
+         <li id="fn:1">
            <p>footnote text <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
          </li>
        </ol>
@@ -1247,12 +1247,12 @@ Teston
     " do
       assert_html_output %(
       <div class="legislative-list-wrapper">
-        <p>1.  some text<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup>: extra</p>
+        <p>1.  some text<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup>: extra</p>
       </div>
 
       <div class="footnotes" role="doc-endnotes">
         <ol>
-          <li id="fn:1" role="doc-endnote">
+          <li id="fn:1">
             <p>footnote text <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
         </ol>
@@ -1318,24 +1318,24 @@ Teston
     assert_html_output %(
       <div class="legislative-list-wrapper">
         <ol class="legislative-list">
-          <li>1. Item 1<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup> with an <abbr title="This is the acronym explanation">ACRONYM</abbr>
+          <li>1. Item 1<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup> with an <abbr title="This is the acronym explanation">ACRONYM</abbr>
       </li>
-          <li>2. Item 2<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">[footnote 2]</a></sup>
+          <li>2. Item 2<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">[footnote 2]</a></sup>
       </li>
-          <li>3. Item 3<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">[footnote 3]</a></sup>
+          <li>3. Item 3<sup id="fnref:3"><a href="#fn:3" class="footnote" rel="footnote" role="doc-noteref">[footnote 3]</a></sup>
       </li>
         </ol>
       </div>
 
       <div class="footnotes" role="doc-endnotes">
         <ol>
-          <li id="fn:1" role="doc-endnote">
+          <li id="fn:1">
             <p>Footnote definition one <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:2" role="doc-endnote">
+          <li id="fn:2">
             <p>Footnote definition two with an <abbr title="This is the acronym explanation">ACRONYM</abbr> <a href="#fnref:2" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
-          <li id="fn:3" role="doc-endnote">
+          <li id="fn:3">
             <p>Footnote definition three with an acronym that matches an HTML tag <abbr title="Testing HTML matching">class</abbr> <a href="#fnref:3" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
         </ol>
@@ -1427,12 +1427,12 @@ Teston
     " do
     assert_html_output %(
       <div class="legislative-list-wrapper">
-        <p>Welcome to the <abbr title="The official UK government website">GOV.UK</abbr><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">[footnote 1]</a></sup></p>
+        <p>Welcome to the <abbr title="The official UK government website">GOV.UK</abbr><sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[footnote 1]</a></sup></p>
       </div>
 
       <div class="footnotes" role="doc-endnotes">
         <ol>
-          <li id="fn:1" role="doc-endnote">
+          <li id="fn:1">
             <p><abbr title="The official UK government website">GOV.UK</abbr> is the official UK government <abbr title="A collection of web pages, such as GOV.UK">website</abbr> <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="go to where this is referenced">↩</a></p>
           </li>
         </ol>
