@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+* Strip trailing backslashes from the lines of an address
+* When replacing line breaks with "&lt;br&gt;"s in the parsing of address blocks,
+replace the whole "\r\n" line break and not just the "\n" character
+
 ## 8.7.0
 
 * Allow data attributes in spans ([#364](https://github.com/alphagov/govspeak/pull/364))

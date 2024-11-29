@@ -305,7 +305,7 @@ module Govspeak
       <<~BODY
 
         <div class="address"><div class="adr org fn"><p markdown="1">
-        #{body.sub("\n", '').gsub("\n", '<br />')}
+        #{body.sub(/\r?\n/, '').gsub(/\\*\r?\n/, '<br />')}
         </p></div></div>
       BODY
     end

@@ -109,6 +109,25 @@ Teston
     assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n), doc.to_html
   end
 
+  test "newlines in address block content are replaced with <br>s" do
+    input = %($A\n123 Test Street\nTestcase Cliffs\nTeston\n0123 456 7890\n$A)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890<br>\n</p></div></div>\n), doc.to_html
+  end
+
+  test "combined return-and-newlines in address block content are replaced with <br>s" do
+    input = %($A\r\n123 Test Street\r\nTestcase Cliffs\r\nTeston\r\n0123 456 7890\r\n$A)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890<br>\n</p></div></div>\n), doc.to_html
+  end
+
+  test "trailing backslashes are stripped from address block content" do
+    # two trailing backslashes would normally be converted into a line break by Kramdown
+    input = %($A\r\n123 Test Street\\\r\nTestcase Cliffs\\\nTeston\\\\\r\n0123 456 7890\\\\\n$A)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890<br>\n</p></div></div>\n), doc.to_html
+  end
+
   test "should convert barchart" do
     input = <<~GOVSPEAK
       |col|
