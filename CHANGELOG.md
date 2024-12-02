@@ -5,6 +5,8 @@
 * Strip trailing backslashes from the lines of an address
 * When replacing line breaks with "&lt;br&gt;"s in the parsing of address blocks,
 replace the whole "\r\n" line break and not just the "\n" character
+* Only strip a leading line break from an address block, not just any old first
+occurrence of a line break
 
 ## 8.7.0
 
