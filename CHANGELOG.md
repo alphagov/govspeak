@@ -1,13 +1,13 @@
 # Changelog
 
-## Unreleased
+## 8.8.0
 
-* Strip trailing backslashes from the lines of an address
+* Strip trailing backslashes from the lines of an address ([#371](https://github.com/alphagov/govspeak/pull/371))
 * When replacing line breaks with "&lt;br&gt;"s in the parsing of address blocks,
-replace the whole "\r\n" line break and not just the "\n" character
+replace the whole "\r\n" line break and not just the "\n" character ([#371](https://github.com/alphagov/govspeak/pull/371))
 * Only strip a leading line break from an address block, not just any old first
-occurrence of a line break
-* Strip trailing whitespace from the lines of an address
+occurrence of a line break ([#371](https://github.com/alphagov/govspeak/pull/371))
+* Strip trailing whitespace from the lines of an address ([#371](https://github.com/alphagov/govspeak/pull/371))
 
 ## 8.7.0
 
