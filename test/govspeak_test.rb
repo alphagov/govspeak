@@ -106,26 +106,40 @@ Testcase Cliffs
 Teston
 0123 456 7890 $A    )
     doc = Govspeak::Document.new(input)
-    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n), doc.to_html
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
   end
 
   test "newlines in address block content are replaced with <br>s" do
     input = %($A\n123 Test Street\nTestcase Cliffs\nTeston\n0123 456 7890\n$A)
     doc = Govspeak::Document.new(input)
-    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890<br>\n</p></div></div>\n), doc.to_html
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
   end
 
   test "combined return-and-newlines in address block content are replaced with <br>s" do
     input = %($A\r\n123 Test Street\r\nTestcase Cliffs\r\nTeston\r\n0123 456 7890\r\n$A)
     doc = Govspeak::Document.new(input)
-    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890<br>\n</p></div></div>\n), doc.to_html
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
   end
 
   test "trailing backslashes are stripped from address block content" do
     # two trailing backslashes would normally be converted into a line break by Kramdown
     input = %($A\r\n123 Test Street\\\r\nTestcase Cliffs\\\nTeston\\\\\r\n0123 456 7890\\\\\n$A)
     doc = Govspeak::Document.new(input)
-    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890<br>\n</p></div></div>\n), doc.to_html
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
+  end
+
+  test "trailing spaces are stripped from address block content" do
+    # two trailing spaces would normally be converted into a line break by Kramdown
+    input = %($A\r\n123 Test Street \r\nTestcase Cliffs  \nTeston   \r\n0123 456 7890    \n$A)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
+  end
+
+  test "trailing backslashes and spaces are stripped from address block content" do
+    # two trailing backslashes or two trailing spaces would normally be converted into a line break by Kramdown
+    input = %($A\r\n123 Test Street  \\\r\nTestcase Cliffs\\  \nTeston\\\\  \r\n0123 456 7890  \\\\\n$A)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
   end
 
   test "should convert barchart" do
@@ -160,7 +174,7 @@ Testcase Cliffs
 Teston
 0123 456 7890 $A)
     doc = Govspeak::Document.new(input)
-    assert_equal %(<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890 \n</p></div></div>\n), doc.to_html
+    assert_equal %(<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
   end
 
   test_given_govspeak("^ I am very informational ^") do
@@ -407,7 +421,7 @@ Teston
     $A" do
     assert_html_output %(
       <div class="address"><div class="adr org fn"><p>
-      street<br>road<br>
+      street<br>road
       </p></div></div>)
     assert_text_output "street road"
   end
@@ -421,7 +435,7 @@ Teston
     *[ACRONYM]: This is the acronym explanation" do
     assert_html_output %(
       <div class="address"><div class="adr org fn"><p>
-      street with <abbr title="This is the acronym explanation">ACRONYM</abbr><br>road<br>
+      street with <abbr title="This is the acronym explanation">ACRONYM</abbr><br>road
       </p></div></div>)
   end
 

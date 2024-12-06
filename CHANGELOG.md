@@ -7,6 +7,7 @@
 replace the whole "\r\n" line break and not just the "\n" character
 * Only strip a leading line break from an address block, not just any old first
 occurrence of a line break
+* Strip trailing whitespace from the lines of an address
 
 ## 8.7.0
 

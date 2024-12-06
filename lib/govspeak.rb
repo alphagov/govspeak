@@ -305,7 +305,7 @@ module Govspeak
       <<~BODY
 
         <div class="address"><div class="adr org fn"><p markdown="1">
-        #{body.lstrip.gsub(/\\*\r?\n/, '<br />')}
+        #{body.lstrip.sub(/[\s\\]*\z/, '').gsub(/[ \\]*\r?\n/, '<br />')}
         </p></div></div>
       BODY
     end
