@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.8.1
+
+* Update dependencies
+
 ## 8.8.0
 
 * Strip trailing backslashes from the lines of an address ([#371](https://github.com/alphagov/govspeak/pull/371))
