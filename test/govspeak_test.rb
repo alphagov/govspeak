@@ -1335,6 +1335,22 @@ Teston
   end
 
   test_given_govspeak "
+    $E
+
+    ### A heading within an example
+
+    Some example content
+
+    $E" do
+    assert_html_output %(
+    <div class="example">
+    <h3 id="a-heading-within-an-example">A heading within an example</h3>
+
+    <p>Some example content</p>
+  </div>)
+  end
+
+  test_given_govspeak "
     $LegislativeList
     * 1. Item 1[^1] with an ACRONYM
     * 2. Item 2[^2]
