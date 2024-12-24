@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.8.2
+
+* Fix a bug where headings were no longer rendering inside example boxes ([#374](https://github.com/alphagov/govspeak/pull/374))
+
 ## 8.8.1
 
 * Update dependencies
