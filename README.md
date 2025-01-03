@@ -81,18 +81,6 @@ creates an example box
 
 ## Highlights
 
-### Advisory (DEPRECATED: marked for removal. Use 'Information callouts' instead.)
-
-    @This is a very important message or warning@
-
-highlights the enclosed text in yellow
-
-```html
-<h3 role="note" aria-label="Important" class="advisory">
-  <span>This is a very important message or warning</span>
-</h3>
-```
-
 ### Answer (DEPRECATED: marked for removal)
 
     {::highlight-answer}

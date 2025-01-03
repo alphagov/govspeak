@@ -201,10 +201,6 @@ module Govspeak
 #{Govspeak::Document.new(body.strip).to_html}</div>\n)
     end
 
-    extension("important", surrounded_by("@")) do |body|
-      %(\n\n<div role="note" aria-label="Important" class="advisory">#{insert_strong_inside_p(body)}</div>\n)
-    end
-
     extension("helpful", surrounded_by("%")) do |body|
       %(\n\n<div role="note" aria-label="Warning" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n)
     end

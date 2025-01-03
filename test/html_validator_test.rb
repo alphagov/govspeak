@@ -22,7 +22,6 @@ class HtmlValidatorTest < Minitest::Test
       "This is [an example](http://example.com/ \"Title\"){:rel=\"external\"} inline link to an external resource.",
       "^Your text here^ - creates a callout with an info (i) icon.",
       "%Your text here% - creates a callout with a warning or alert (!) icon",
-      "@Your text here@ - highlights the enclosed text in yellow",
       "$CSome contact information here$C - contact information",
       "$A Hercules House Hercules Road London SE1 7DU $A",
       "$D [An example form download link](http://example.com/ \"Example form\") Something about this form download $D",
