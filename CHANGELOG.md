@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 9.0.0
 
 * Remove Advisory component ([#357](https://github.com/alphagov/govspeak/pull/357))
 
