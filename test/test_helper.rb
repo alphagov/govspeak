@@ -9,7 +9,11 @@ Bundler.setup :default, :development, :test
 
 require "minitest/autorun"
 
+require "support/html_helpers"
+
 class Minitest::Test
+  include HtmlHelpers
+
   class << self
     def test(name, &block)
       clean_name = name.gsub(/\s+/, "_")
