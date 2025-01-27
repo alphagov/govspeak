@@ -17,7 +17,7 @@ class GovspeakAttachmentTest < Minitest::Test
     }
 
     rendered = render_govspeak("[Attachment:attachment.pdf]", [attachment])
-    assert_match(/<section class="gem-c-attachment/, rendered)
+    assert html_has_selector?(rendered, "section.gem-c-attachment")
     assert_match(/Attachment Title/, rendered)
   end
 
@@ -29,7 +29,7 @@ class GovspeakAttachmentTest < Minitest::Test
     }
 
     rendered = render_govspeak("[Attachment: This is the name of my &%$@€? attachment]", [attachment])
-    assert_match(/<section class="gem-c-attachment/, rendered)
+    assert html_has_selector?(rendered, "section.gem-c-attachment")
     assert_match(/Attachment Title/, rendered)
   end
 
@@ -44,12 +44,12 @@ class GovspeakAttachmentTest < Minitest::Test
     assert_equal("<p>some text [Attachment:attachment.pdf]</p>\n", rendered)
 
     rendered = render_govspeak("[Attachment:attachment.pdf] some text", [attachment])
-    assert_match(/<section class="gem-c-attachment/, rendered)
+    assert html_has_selector?(rendered, "section.gem-c-attachment")
     assert_match(/<p>some text<\/p>/, rendered)
 
     rendered = render_govspeak("some text\n[Attachment:attachment.pdf]\nsome more text", [attachment])
     assert_match(/<p>some text<\/p>/, rendered)
-    assert_match(/<section class="gem-c-attachment/, rendered)
+    assert html_has_selector?(rendered, "section.gem-c-attachment")
     assert_match(/<p>some more text<\/p>/, rendered)
   end
 end

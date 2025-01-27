@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary       = "Markup language for single domain"
   s.description   = 'A set of extensions to markdown layered on top of the kramdown
 library for use in the UK Government Single Domain project'
-  s.required_ruby_version = ">= 3.1.4"
+  s.required_ruby_version = ">= 3.2"
 
   s.files = Dir[
     "lib/**/*",
@@ -31,7 +31,7 @@ library for use in the UK Government Single Domain project'
 
   s.add_dependency "actionview", ">= 6", "< 8.0.2"
   s.add_dependency "addressable", ">= 2.3.8", "< 2.8.8"
-  s.add_dependency "govuk_publishing_components", ">= 35.1"
+  s.add_dependency "govuk_publishing_components", ">= 43"
   s.add_dependency "htmlentities", "~> 4"
   s.add_dependency "i18n", ">= 0.7", "< 1.14.7"
   s.add_dependency "kramdown", ">= 2.3.1", "< 2.5.2"

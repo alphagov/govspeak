@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.0.0
+
+* Drop support for Ruby <3.2
+* Drop support for govuk_publishing_components <43.0.0
+
 ## 9.0.0
 
 * Remove Advisory component ([#357](https://github.com/alphagov/govspeak/pull/357))
