@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.1
+
+* Update dependencies
+
 ## 10.0.0
 
 * Drop support for Ruby <3.2
