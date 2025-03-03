@@ -52,4 +52,32 @@ class GovspeakAttachmentTest < Minitest::Test
     assert html_has_selector?(rendered, "section.gem-c-attachment")
     assert_match(/<p>some more text<\/p>/, rendered)
   end
+
+  test "renders attachments with details elements with the correct GA4 index" do
+    attachments = []
+
+    (1..3).each do |index|
+      attachments << {
+        id: "attachment#{index}.ods",
+        url: "http://example.com/attachment#{index}",
+        title: "Attachment Title #{index}",
+        alternative_format_contact_email: "example@gov.uk",
+      }
+    end
+
+    # Insert an attachment without a details element, to ensure our code to increment the index ignores these
+    attachments.insert(1, {
+      id: "attachment.pdf",
+      url: "http://example.com/attachment.pdf",
+      title: "Attachment Title",
+    })
+
+    rendered = render_govspeak("[Attachment:attachment1.ods]\n[Attachment:attachment.pdf]\n[Attachment:attachment2.ods]\n[Attachment:attachment3.ods]", attachments)
+    node = Nokogiri::HTML(rendered)
+    node.css(".gem-c-details").each_with_index.map do |details, index|
+      ga4_event = JSON.parse(details.attribute("data-ga4-event"))
+      assert_equal ga4_event["index_section"], index + 1
+      assert_equal ga4_event["index_section_count"], 3
+    end
+  end
 end
