@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 10.1.0
 
 * Add GA4 indexes to attachments that render a details component ([#385](https://github.com/alphagov/govspeak/pull/385))
 
