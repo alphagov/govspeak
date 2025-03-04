@@ -19,7 +19,7 @@
 
 ## 8.8.3
 
-* Update dependencies (actionview < 8.0.2, sanitize < 8, rubocop-govuk = 5.0.7) 
+* Update dependencies (actionview < 8.0.2, sanitize < 8, rubocop-govuk = 5.0.7)
 
 ## 8.8.2
 
