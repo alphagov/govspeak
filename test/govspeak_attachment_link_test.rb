@@ -58,13 +58,13 @@ class GovspeakAttachmentLinkTest < Minitest::Test
 
     expected_output = <<~TEXT
       <ol class="steps">
-      <li>
-      <p>First item with <span class="gem-c-attachment-link">
+        <li>
+          <p>First item with <span class="gem-c-attachment-link">
         <a class="govuk-link" href="http://example.com/attachment.pdf">Attachment Title</a>  </span></p>
-      </li>
-      <li>
-      <p>Second item without attachment</p>
-      </li>
+        </li>
+        <li>
+          <p>Second item without attachment</p>
+        </li>
       </ol>
     TEXT
 

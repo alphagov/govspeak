@@ -317,10 +317,19 @@ module Govspeak
     end
 
     extension("numbered list", /^[ \t]*((s\d+\.\s.*(?:\n|$))+)/) do |body|
-      body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/) do
-        "<li>#{Govspeak::Document.new(Regexp.last_match(2).strip, attachments:).to_html}</li>\n"
+      li_elements = body.gsub!(/s(\d+)\.\s(.*)(?:\n|$)/).map do
+        element = <<~BODY
+          <li markdown="1">
+            #{Regexp.last_match(2).strip}
+          </li>
+        BODY
+        element.strip
       end
-      %(<ol class="steps">\n#{body}</ol>)
+      <<~BODY
+        <ol class="steps">
+          #{li_elements.join("\n  ")}
+        </ol>
+      BODY
     end
 
     def self.devolved_options
