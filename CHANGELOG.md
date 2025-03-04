@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* Allow acronyms/abbreviations in steps ([#387](https://github.com/alphagov/govspeak/pull/387)).
 * Add GA4 indexes to attachments that render a details component ([#385](https://github.com/alphagov/govspeak/pull/385))
 
 ## 10.0.1
