@@ -600,6 +600,23 @@ Teston
   end
 
   test_given_govspeak "
+    s1. This is number 1.
+    s2. This is number 2 with an ACRONYM.
+
+    *[ACRONYM]: This is the acronym explanation" do
+    assert_html_output <<~HTML
+      <ol class="steps">
+        <li>
+          <p>This is number 1.</p>
+        </li>
+        <li>
+          <p>This is number 2 with an <abbr title="This is the acronym explanation">ACRONYM</abbr>.</p>
+        </li>
+      </ol>
+    HTML
+  end
+
+  test_given_govspeak "
     $CTA
     [external link](http://www.external.com) some text
     $CTA
