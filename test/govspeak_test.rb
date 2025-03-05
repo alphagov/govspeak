@@ -582,21 +582,38 @@ Teston
           <p>This is a test:</p>
 
           <ol class="steps">
-        <li>
-        <p>This is number 1.</p>
-        </li>
-        <li>
-        <p>This is number 2.</p>
-        </li>
-        <li>
-        <p>This is number 3.</p>
-        </li>
-        <li>
-        <p>This is number 4.</p>
-        </li>
+          <li>
+              <p>This is number 1.</p>
+            </li>
+          <li>
+              <p>This is number 2.</p>
+            </li>
+          <li>
+              <p>This is number 3.</p>
+            </li>
+          <li>
+              <p>This is number 4.</p>
+            </li>
         </ol>
         </div>
         )
+  end
+
+  test_given_govspeak "
+    s1. This is number 1.
+    s2. This is number 2 with an ACRONYM.
+
+    *[ACRONYM]: This is the acronym explanation" do
+    assert_html_output <<~HTML
+      <ol class="steps">
+        <li>
+          <p>This is number 1.</p>
+        </li>
+        <li>
+          <p>This is number 2 with an <abbr title="This is the acronym explanation">ACRONYM</abbr>.</p>
+        </li>
+      </ol>
+    HTML
   end
 
   test_given_govspeak "
@@ -841,15 +858,15 @@ Teston
     " do
     assert_html_output %(
       <ol class="steps">
-      <li>
-      <p>zippy</p>
-      </li>
-      <li>
-      <p>bungle</p>
-      </li>
-      <li>
-      <p>george</p>
-      </li>
+        <li>
+          <p>zippy</p>
+        </li>
+        <li>
+          <p>bungle</p>
+        </li>
+        <li>
+          <p>george</p>
+        </li>
       </ol>)
     assert_text_output "zippy bungle george"
   end
@@ -868,12 +885,12 @@ Teston
       </ul>
 
       <ol class="steps">
-      <li>
-      <p>step</p>
-      </li>
-      <li>
-      <p>list</p>
-      </li>
+        <li>
+          <p>step</p>
+        </li>
+        <li>
+          <p>list</p>
+        </li>
       </ol>)
     assert_text_output "unordered list step list"
   end
