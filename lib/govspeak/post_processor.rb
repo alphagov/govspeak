@@ -57,11 +57,6 @@ module Govspeak
     end
 
     extension("embed attachment HTML") do |document|
-      # Attachments with details components need indexes set for GA4 tracking purposes
-      details_attachments = govspeak_document.attachments.select { |attachment| attachment[:alternative_format_contact_email] }
-      details_attachments_size = details_attachments.size
-      details_attachment_index = 0
-
       document.css("govspeak-embed-attachment").map do |el|
         attachment = govspeak_document.attachments.detect { |a| a[:id] == el["id"] }
 
@@ -70,17 +65,11 @@ module Govspeak
           next
         end
 
-        if attachment[:alternative_format_contact_email]
-          details_attachment_index += 1
-          details_ga4_attributes = { index_section: details_attachment_index, index_section_count: details_attachments_size }
-        end
-
         attachment_html = GovukPublishingComponents.render(
           "govuk_publishing_components/components/attachment",
           attachment:,
           margin_bottom: 6,
           locale: govspeak_document.locale,
-          details_ga4_attributes:,
         )
         el.swap(attachment_html)
       end

@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.2.0
+
+* Revert 'Add GA4 indexes to attachments that render a details component' ([#389](https://github.com/alphagov/govspeak/pull/389))
+
 ## 10.1.0
 
 * Allow acronyms/abbreviations in steps ([#387](https://github.com/alphagov/govspeak/pull/387)).
