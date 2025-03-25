@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* BREAKING: Drop support for Ruby 3.1 [PR](https://github.com/alphagov/govspeak/pull/399)
+
 ## 10.2.2
 
 * Update dependencies
