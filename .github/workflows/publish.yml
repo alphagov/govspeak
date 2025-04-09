@@ -1,0 +1,17 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  publish:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    permissions:
+      contents: write
+    uses: alphagov/govuk-infrastructure/.github/workflows/publish-rubygem.yml@main
+    secrets:
+      GEM_HOST_API_KEY: ${{ secrets.ALPHAGOV_RUBYGEMS_API_KEY }}

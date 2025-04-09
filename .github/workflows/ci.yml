@@ -21,7 +21,7 @@ jobs:
   dependency-review:
     name: Dependency Review scan
     uses: alphagov/govuk-infrastructure/.github/workflows/dependency-review.yml@main
-  
+
   # This matrix job runs the test suite against multiple Ruby versions
   test_matrix:
     strategy:
@@ -47,12 +47,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "All matrix tests have passed 🚀"
-
-  publish:
-    needs: test
-    if: ${{ github.ref == 'refs/heads/main' }}
-    permissions:
-      contents: write
-    uses: alphagov/govuk-infrastructure/.github/workflows/publish-rubygem.yml@main
-    secrets:
-      GEM_HOST_API_KEY: ${{ secrets.ALPHAGOV_RUBYGEMS_API_KEY }}
