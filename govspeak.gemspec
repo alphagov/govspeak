@@ -22,7 +22,7 @@ library for use in the UK Government Single Domain project'
     "README.md",
     "CHANGELOG.md",
     "Gemfile",
-    "Rakefile"
+    "Rakefile",
   ]
   s.test_files    = Dir["test/**/*"]
   s.bindir        = "bin"
