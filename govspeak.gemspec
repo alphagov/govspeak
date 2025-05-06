@@ -22,7 +22,7 @@ library for use in the UK Government Single Domain project'
     "README.md",
     "CHANGELOG.md",
     "Gemfile",
-    "Rakefile"
+    "Rakefile",
   ]
   s.test_files    = Dir["test/**/*"]
   s.bindir        = "bin"
@@ -42,6 +42,6 @@ library for use in the UK Government Single Domain project'
   s.add_development_dependency "minitest", "~> 5.14"
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "rake"
-  s.add_development_dependency "rubocop-govuk", "5.1.5"
+  s.add_development_dependency "rubocop-govuk", "5.1.7"
   s.add_development_dependency "simplecov"
 end
