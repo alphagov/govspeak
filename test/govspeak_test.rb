@@ -14,6 +14,17 @@ class GovspeakTest < Minitest::Test
   test "simple smoke-test for simplified API" do
     rendered = Govspeak::Document.to_html("*this is markdown*")
     assert_equal "<p><em>this is markdown</em></p>\n", rendered
+    ast = Govspeak::Document.to_hash_ast("*this is markdown*")
+    assert_instance_of Hash, ast
+  end
+
+  test "simple smoke-test for abstract syntax tree" do
+    ast = Govspeak::Document.new("*this is markdown*").to_hash_ast
+    assert_pattern do
+      ast.dig(:children, 0) => {type: :p, children: [
+        {type: :em, children: [{type: :text, value: "this is markdown" }]}
+      ]}
+    end
   end
 
   test "strips forbidden unicode characters" do
@@ -183,6 +194,25 @@ Teston
       <p>I am very informational</p>
       </div>)
     assert_text_output "I am very informational"
+    assert_ast_output_pattern do |actual|
+      actual => {
+        type: :root,
+        children: [*, {
+          type: :html_element,
+          value: "div",
+          attr: {
+            role: "note",
+            "aria-label": "Information",
+            class: "application-notice info-notice",
+          },
+          children: [*, {
+            type: :html_element,
+            value: "p",
+            children: [{ type: :text, value: "I am very informational" }]
+          }, *]
+        }, *]
+      }
+    end
   end
 
   test "processing an extension does not modify the provided input" do

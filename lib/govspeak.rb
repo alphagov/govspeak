@@ -43,6 +43,10 @@ module Govspeak
       new(source, options).to_html
     end
 
+    def self.to_hash_ast(source, options = {})
+      new(source, options).to_hash_ast
+    end
+
     class << self
       attr_reader :extensions
     end
@@ -83,6 +87,10 @@ module Govspeak
 
     def to_text
       HTMLEntities.new.decode(to_html.gsub(/(?:<[^>]+>|\s)+/, " ").strip)
+    end
+
+    def to_hash_ast
+      transform_ast(kramdown_doc.to_hash_ast.deep_symbolize_keys)
     end
 
     def valid?(validation_options = {})
@@ -390,6 +398,19 @@ module Govspeak
 
     def encode(text)
       HTMLEntities.new.encode(text)
+    end
+
+    def transform_ast(ast)
+      case ast
+      in { type: :blockquote }
+
+      in Array
+        ast.map { |e| transform_ast(e) }
+      in Hash
+        ast.transform_values { |v| transform_ast(v) }
+      else
+        ast
+      end
     end
   end
 end

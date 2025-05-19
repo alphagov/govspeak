@@ -26,6 +26,13 @@ module GovspeakTestHelper
       @testcase.assert expected.strip == actual, describe_error(@govspeak, expected.strip, actual)
     end
 
+    def assert_ast_output_pattern(&block)
+      actual = document.to_hash_ast
+      @testcase.assert_pattern do
+        block.call(actual)
+      end
+    end
+
     def assert_html_selector(selector)
       html = document.to_html
       fragment = Nokogiri::HTML.fragment(html)
