@@ -4,6 +4,9 @@ en:
     contact:
       email: Email
       contact_form: Contact form
+    footnote:
+      label: footnote
+      backlink_aria_label: go to where this is referenced
     image:
       figure:
         credit: "Image credit: %{credit}"

@@ -4,6 +4,9 @@ cy:
     contact:
       contact_form: Ffurflen cysylltu
       email: E-bost
+    footnote:
+      label: troednodyn
+      backlink_aria_label: ewch i ble mae hyn wedi'i gyfeirio
     image:
       figure:
         credit: "Credyd delwedd: %{credit}"

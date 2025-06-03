@@ -43,4 +43,24 @@ class GovspeakFootnoteTest < Minitest::Test
       </div>),
     )
   end
+
+  test "uses localised labels when locale is not English" do
+    given_govspeak "
+    Gellir ychwanegu troednodiadau[^1].
+
+    [^1]: Ac yna wedi'i ddiffinio'n ddiweddarach.", locale: "cy" do
+      assert_html_output(
+        %(
+        <p>Gellir ychwanegu troednodiadau<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">[troednodyn 1]</a></sup>.</p>
+
+        <div class="footnotes" role="doc-endnotes">
+          <ol>
+            <li id="fn:1">
+              <p>Ac yna wedi’i ddiffinio’n ddiweddarach. <a href="#fnref:1" class="reversefootnote" role="doc-backlink" aria-label="ewch i ble mae hyn wedi'i gyfeirio">↩</a></p>
+            </li>
+          </ol>
+        </div>),
+      )
+    end
+  end
 end
