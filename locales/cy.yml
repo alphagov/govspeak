@@ -4,6 +4,13 @@ cy:
     contact:
       contact_form: Ffurflen cysylltu
       email: E-bost
+    devolved:
+      scotland: Mae'r adran hon yn berthnasol i'r Alban
+      england: Mae'r adran hon yn berthnasol i Loegr
+      england-wales: Mae'r adran hon yn berthnasol i Gymru a Lloegr
+      northern-ireland: Mae'r adran hon yn berthnasol i Ogledd Iwerddon
+      wales: Mae'r adran hon yn berthnasol i Gymru
+      london: Mae'r adran hon yn berthnasol i Lundain
     footnote:
       label: troednodyn
       backlink_aria_label: ewch i ble mae hyn wedi'i gyfeirio

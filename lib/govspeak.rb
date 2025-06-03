@@ -332,20 +332,18 @@ module Govspeak
       BODY
     end
 
-    def self.devolved_options
-      { "scotland" => "Scotland",
-        "england" => "England",
-        "england-wales" => "England and Wales",
-        "northern-ireland" => "Northern Ireland",
-        "wales" => "Wales",
-        "london" => "London" }
-    end
+    %w[scotland
+       england
+       england-wales
+       northern-ireland
+       wales
+       london].each do |devolved_option|
+      extension("devolved-#{devolved_option}", /:#{devolved_option}:(.*?):#{devolved_option}:/m) do |body|
+        header_content = I18n.t("govspeak.devolved.#{devolved_option}", locale:)
 
-    devolved_options.each do |k, v|
-      extension("devolved-#{k}", /:#{k}:(.*?):#{k}:/m) do |body|
         <<~HTML
-          <div class="devolved-content #{k}">
-          <p class="devolved-header">This section applies to #{v}</p>
+          <div class="devolved-content #{devolved_option}">
+          <p class="devolved-header">#{header_content}</p>
           <div class="devolved-body">#{Govspeak::Document.new(body.strip).to_html}</div>
           </div>
         HTML
