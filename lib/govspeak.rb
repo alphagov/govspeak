@@ -225,7 +225,7 @@ module Govspeak
       image = images[image_number.to_i - 1]
       next "" unless image
 
-      render_image(ImagePresenter.new(image))
+      render_image(ImagePresenter.new(image, locale:))
     end
 
     # DEPRECATED: use 'AttachmentLink:attachment-id' instead
@@ -375,7 +375,7 @@ module Govspeak
       image = images.detect { |c| c.is_a?(Hash) && c[:id] == image_id }
       next "" unless image
 
-      render_image(ImagePresenter.new(image))
+      render_image(ImagePresenter.new(image, locale:))
     end
 
     extension("Attachment", /^\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|

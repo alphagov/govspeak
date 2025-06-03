@@ -49,6 +49,14 @@ class GovspeakImagesTest < Minitest::Test
     end
   end
 
+  test "Image:image-id syntax adds image credit with localised label when locale is not English" do
+    given_govspeak "[Image:image-id]", { images: [build_image(credit: "Fy Nghredyd ac ati")], locale: "cy" } do
+      assert_html_output(
+        "<figure class=\"image embedded\"><div class=\"img\"><img src=\"http://example.com/image.jpg\" alt=\"my alt\"></div>\n<figcaption><p>Credyd delwedd: Fy Nghredyd ac ati</p></figcaption></figure>",
+      )
+    end
+  end
+
   test "Image:image-id syntax ignores a blank credit" do
     given_govspeak "[Image:image-id]", images: [build_image(credit: "  ")] do
       assert_html_output(
