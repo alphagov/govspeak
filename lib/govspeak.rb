@@ -204,11 +204,6 @@ module Govspeak
       Kramdown::Document.new("[#{body.strip}){:rel='external'}").to_html
     end
 
-    extension("informational", surrounded_by("^")) do |body|
-      %(\n\n<div role="note" aria-label="Information" class="application-notice info-notice">
-#{Govspeak::Document.new(body.strip).to_html}</div>\n)
-    end
-
     extension("helpful", surrounded_by("%")) do |body|
       %(\n\n<div role="note" aria-label="Warning" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n)
     end

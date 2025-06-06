@@ -34,6 +34,7 @@ module Kramdown
         additional_information_block: "govuk/additional_information_block",
         address_block: "govuk/address_block",
         example_block: "govuk/example_block",
+        informational: "govuk/informational",
       }.freeze
 
       private_constant :BLOCK_EXTENSIONS

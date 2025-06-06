@@ -197,20 +197,13 @@ Teston
     assert_ast_output_pattern do |actual|
       actual => {
         type: :root,
-        children: [*, {
-          type: :html_element,
-          value: "div",
-          attr: {
-            role: "note",
-            "aria-label": "Information",
-            class: "application-notice info-notice",
-          },
-          children: [*, {
-            type: :html_element,
-            value: "p",
+        children: [{
+          type: :informational,
+          children: [{
+            type: :p,
             children: [{ type: :text, value: "I am very informational" }]
-          }, *]
-        }, *]
+          }]
+        }]
       }
     end
   end
@@ -229,6 +222,24 @@ Teston
       <p>I am very informational</p>
       </div>)
     assert_text_output "The following is very informational I am very informational"
+    assert_ast_output_pattern do |actual|
+      actual => {
+        type: :root,
+        children: [
+          {
+            type: :p,
+            children: [{ type: :text, value: "The following is very informational" }]
+          },
+          {
+            type: :informational,
+            children: [{
+              type: :p,
+              children: [{ type: :text, value: "I am very informational" }],
+            }]
+          }
+        ]
+      }
+    end
   end
 
   test_given_govspeak "^ I am very informational" do
