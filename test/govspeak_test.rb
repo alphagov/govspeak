@@ -556,8 +556,7 @@ Teston
       |information|more information|
       $CTA" do
     assert_html_output %(
-        <div class="call-to-action">
-
+      <div class="call-to-action">
         <table>
           <thead>
             <tr>
@@ -572,7 +571,6 @@ Teston
             </tr>
           </tbody>
         </table>
-
       </div>)
   end
 
@@ -604,7 +602,6 @@ Teston
           </tr>
         </tbody>
       </table>
-
     </div>)
   end
 
@@ -694,6 +691,7 @@ Teston
       </div>)
   end
 
+  # broken because we've migrated $CTA to a Kramdown parser but not $C ':|
   test_given_govspeak "
     $CTA
     Click here to start the tool

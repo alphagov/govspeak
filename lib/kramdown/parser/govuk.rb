@@ -33,6 +33,7 @@ module Kramdown
       BLOCK_EXTENSIONS = {
         additional_information_block: "govuk/additional_information_block",
         address_block: "govuk/address_block",
+        call_to_action: "govuk/call_to_action",
         example_block: "govuk/example_block",
         informational: "govuk/informational",
       }.freeze

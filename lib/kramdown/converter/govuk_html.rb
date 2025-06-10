@@ -24,6 +24,15 @@ module Kramdown
         )
       end
 
+      def convert_call_to_action(element, _indent)
+        format_as_block_html(
+          "div",
+          { "class" => "call-to-action" },
+          "\n#{inner(element, NO_INDENT)}",
+          NO_INDENT,
+        )
+      end
+
       def convert_div(element, indent)
         format_as_block_html("div", element.attr, inner(element, indent), indent)
       end

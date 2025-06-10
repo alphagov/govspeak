@@ -274,14 +274,6 @@ module Govspeak
       lines.join
     end
 
-    extension("call-to-action", surrounded_by("$CTA")) do |body|
-      <<~BODY
-        <div class="call-to-action" markdown="1">
-        #{body.strip.gsub(/\A^\|/, "\n|").gsub(/\|$\Z/, "|\n")}
-        </div>
-      BODY
-    end
-
     # More specific tags must be defined first. Those defined earlier have a
     # higher precedence for being matched. For example $CTA must be defined
     # before $C otherwise the first ($C)TA fill be matched to a contact tag.
