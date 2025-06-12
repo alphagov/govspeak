@@ -4,6 +4,16 @@ en:
     contact:
       email: Email
       contact_form: Contact form
+    devolved:
+      scotland: This section applies to Scotland
+      england: This section applies to England
+      england-wales: This section applies to England and Wales
+      northern-ireland: This section applies to Northern Ireland
+      wales: This section applies to Wales
+      london: This section applies to London
+    footnote:
+      label: footnote
+      backlink_aria_label: go to where this is referenced
     image:
       figure:
         credit: "Image credit: %{credit}"

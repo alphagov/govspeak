@@ -198,4 +198,22 @@ class GovspeakContactsTest < Minitest::Test
     assert_match(%(<p class="comments">My description about <a href="https://www.gov.uk">https://www.gov.uk</a></p>),
                  compress_html(rendered))
   end
+
+  test "uses localised email label when locale is not English" do
+    contact = build_contact
+    govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
+
+    rendered = Govspeak::Document.new(govspeak, contacts: [contact], locale: "cy").to_html
+    assert_match(%(<p class="email"><span class="type">E-bost</span>),
+                 compress_html(rendered))
+  end
+
+  test "uses localised contact form label when locale is not English" do
+    contact = build_contact
+    govspeak = "[Contact:4f3383e4-48a2-4461-a41d-f85ea8b89ba0]"
+
+    rendered = Govspeak::Document.new(govspeak, contacts: [contact], locale: "cy").to_html
+    assert_match(%(<p class="contact_form_url"><span class="type">Ffurflen cysylltu</span>),
+                 compress_html(rendered))
+  end
 end

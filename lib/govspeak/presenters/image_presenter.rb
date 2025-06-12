@@ -1,9 +1,10 @@
 module Govspeak
   class ImagePresenter
-    attr_reader :image
+    attr_reader :image, :locale
 
-    def initialize(image)
+    def initialize(image, locale: "en")
       @image = image
+      @locale = locale
     end
 
     def url
@@ -34,7 +35,7 @@ module Govspeak
       lines = []
       lines << "<figcaption>"
       lines << %(<p>#{caption}</p>) if caption.present?
-      lines << %(<p>#{I18n.t('govspeak.image.figure.credit', credit:)}</p>) if credit.present?
+      lines << %(<p>#{I18n.t('govspeak.image.figure.credit', credit:, locale:)}</p>) if credit.present?
       lines << "</figcaption>"
       lines.join
     end
