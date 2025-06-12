@@ -62,9 +62,12 @@ module Govspeak
       @links = Array.wrap(options.delete(:links))
       @contacts = Array.wrap(options.delete(:contacts))
       @locale = options.fetch(:locale, "en")
-      @options = { input: PARSER_CLASS_NAME,
-                   sanitize: true,
-                   syntax_highlighter: nil }.merge(options)
+      @options = {
+        input: PARSER_CLASS_NAME,
+        sanitize: true,
+        syntax_highlighter: nil,
+        version: VERSION,
+      }.merge(options)
       @options[:entity_output] = :symbolic
     end
 
