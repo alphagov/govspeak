@@ -27,6 +27,30 @@ class GovspeakTest < Minitest::Test
     end
   end
 
+  test "versioned abstract syntax tree" do
+    input = %($A
+      123 Test Street
+      Testcase Cliffs
+      Teston
+      0123 456 7890
+      $A)
+    ast = Govspeak::Document.new(input, version: "v2").to_hash_ast
+    assert_pattern do
+      ast => {
+        type: :root,
+        children: [{
+          type: :address_block,
+          children: [{
+            type: :p,
+            children: [
+              { type: :text, value: "This is a very particular version" },
+            ]
+          }]
+        }]
+      }
+    end
+  end
+
   test "strips forbidden unicode characters" do
     rendered = Govspeak::Document.new(
       "this is text with forbidden characters \u0008\u000b\ufffe\u{2ffff}\u{5fffe}",

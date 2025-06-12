@@ -18,6 +18,12 @@ module Kramdown
 
         value = @src.scan_until(ADDRESS_BLOCK_END)&.sub(ADDRESS_BLOCK_END, "")
 
+        if @options[:version] == "v2"
+          p.children << Element.new(:raw_text, "This is a very particular version")
+
+          return true
+        end
+
         if value
           text_lines = value.lstrip.sub(/[\s\\]*\z/, '').split(/[ \\]*\r?\n/)
 
