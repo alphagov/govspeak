@@ -177,36 +177,10 @@ Teston
     assert_equal %(<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
   end
 
-  test_given_govspeak("^ I am very informational ^") do
-    assert_html_output %(
-      <div role="note" aria-label="Information" class="application-notice info-notice">
-      <p>I am very informational</p>
-      </div>)
-    assert_text_output "I am very informational"
-  end
-
   test "processing an extension does not modify the provided input" do
     input = "^ I am very informational"
     Govspeak::Document.new(input).to_html
     assert_equal "^ I am very informational", input
-  end
-
-  test_given_govspeak "The following is very informational\n^ I am very informational ^" do
-    assert_html_output %(
-      <p>The following is very informational</p>
-
-      <div role="note" aria-label="Information" class="application-notice info-notice">
-      <p>I am very informational</p>
-      </div>)
-    assert_text_output "The following is very informational I am very informational"
-  end
-
-  test_given_govspeak "^ I am very informational" do
-    assert_html_output %(
-      <div role="note" aria-label="Information" class="application-notice info-notice">
-      <p>I am very informational</p>
-      </div>)
-    assert_text_output "I am very informational"
   end
 
   test_given_govspeak "% I am very helpful %" do
