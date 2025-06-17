@@ -382,10 +382,10 @@ module Govspeak
 
     def transform_ast(ast)
       case ast
-      in { type: :blockquote }
-
       in Array
         ast.map { |e| transform_ast(e) }
+      in { options: Hash, **rest } # Remove options nodes, as these are unnecessary detail
+        rest.transform_values { |v| transform_ast(v) }
       in Hash
         ast.transform_values { |v| transform_ast(v) }
       else
