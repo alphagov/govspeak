@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 10.4.0
 
 * Support abbreviations in informationals
 
