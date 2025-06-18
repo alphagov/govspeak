@@ -37,7 +37,7 @@ module Govspeak
     @extensions = []
 
     attr_accessor :images
-    attr_reader :attachments, :contacts, :links, :locale
+    attr_reader :attachments, :contacts, :links, :locale, :log_snapshots
 
     def self.to_html(source, options = {})
       new(source, options).to_html
@@ -50,6 +50,10 @@ module Govspeak
     def initialize(source, options = {})
       options = options.dup.deep_symbolize_keys
       @source = source ? source.dup : ""
+
+      @log_snapshots = options.fetch(:log_snapshots, false)
+      log_snapshot("options", options)
+      log_snapshot("source", @source)
 
       @images = options.delete(:images) || []
       @allowed_elements = options.delete(:allowed_elements) || []
@@ -73,7 +77,11 @@ module Govspeak
                  kramdown_doc.to_html
                end
 
-        Govspeak::PostProcessor.process(html, self)
+        log_snapshot("after Kramdown process", html)
+
+        Govspeak::PostProcessor.process(html, self).tap do
+          log_snapshot("after postprocess", _1)
+        end
       end
     end
 
@@ -117,7 +125,8 @@ module Govspeak
           instance_exec(*Regexp.last_match.captures, &block)
         end
       end
-      source
+
+      source.tap { log_snapshot("after preprocess", _1) }
     end
 
     def remove_forbidden_characters(source)
@@ -389,6 +398,13 @@ module Govspeak
     end
 
   private
+
+    def log_snapshot(description, *objects)
+      return unless log_snapshots
+
+      puts "===== #{description} ====="
+      !objects.empty? && objects.each { puts _1 }
+    end
 
     def kramdown_doc
       @kramdown_doc ||= Kramdown::Document.new(preprocess(@source), @options)

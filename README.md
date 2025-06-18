@@ -33,7 +33,17 @@ Also, consider if:
 Any pages that use govspeak to generate Content will need to *republished* in order for the new changes to be reflected.  
 
 - Data Labs can help identify which pages need updating by [submitting a request](https://gov-uk.atlassian.net/wiki/spaces/GOVUK/pages/1860075525/GOV.UK+Data+Labs#Submitting-a-data-science-request) and [#govuk-2ndline](https://docs.publishing.service.gov.uk/manual/2nd-line.html) can help with republishing
-  
+
+## Debugging
+
+If `log_snapshots: true` is provided as an option when initialising a
+`Govspeak::Document`, a few useful snapshots will be provided. This can help
+with understanding how the content transforms from source through:
+
+- preprocessing (our main Govspeak rendering point);
+- Kramdown processing (the Markdown rendering point); and
+- postprocessing (an additional Govspeak rendering point).
+
 # Extensions
 
 In addition to the [standard Markdown syntax](http://daringfireball.net/projects/markdown/syntax "Markdown syntax"), we have added our own extensions.
