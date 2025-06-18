@@ -206,8 +206,11 @@ module Govspeak
     end
 
     extension("informational", surrounded_by("^")) do |body|
-      %(\n\n<div role="note" aria-label="Information" class="application-notice info-notice">
-#{Govspeak::Document.new(body.strip).to_html}</div>\n)
+      <<~BODY
+        \n\n<div role="note" aria-label="Information" class="application-notice info-notice" markdown="1">
+        #{body.strip}
+        </div>
+      BODY
     end
 
     extension("helpful", surrounded_by("%")) do |body|

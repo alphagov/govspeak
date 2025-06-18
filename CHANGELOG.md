@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.4.0
+
+* Support abbreviations in informationals
+
 ## 10.3.0
 
 * Add Welsh translations for various components: devolved content headings, footnote labels, and image credit labels ([#417](https://github.com/alphagov/govspeak/pull/417))
