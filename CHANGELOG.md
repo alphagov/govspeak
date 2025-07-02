@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.4.1
+
+* Update dependencies
+
 ## 10.4.0
 
 * Support abbreviations in informationals
