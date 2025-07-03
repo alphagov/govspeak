@@ -152,13 +152,20 @@ module Govspeak
 
     def self.wrap_with_div(class_name, character, parser = Kramdown::Document)
       extension(class_name, surrounded_by(character)) do |body|
-        content = parser ? parser.new("#{body.strip}\n").to_html : body.strip
+        content = if parser
+                    parser.new("#{body.strip}\n", locale: @locale).to_html
+                  else
+                    body.strip
+                  end
         %(\n<div class="#{class_name}">\n#{content}</div>\n)
       end
     end
 
     def insert_strong_inside_p(body, parser = Govspeak::Document)
-      parser.new(body.strip).to_html.sub(/^<p>(.*)<\/p>$/, "<p><strong>\\1</strong></p>")
+      parser
+        .new(body.strip, locale: @locale)
+        .to_html
+        .sub(/^<p>(.*)<\/p>$/, "<p><strong>\\1</strong></p>")
     end
 
     extension("button", %r{
@@ -192,12 +199,12 @@ module Govspeak
 
     extension("highlight-answer") do |body|
       %(\n\n<div class="highlight-answer">
-#{Govspeak::Document.new(body.strip).to_html}</div>\n)
+#{Govspeak::Document.new(body.strip, locale: @locale).to_html}</div>\n)
     end
 
     extension("stat-headline", %r${stat-headline}(.*?){/stat-headline}$m) do |body|
       %(\n\n<div class="stat-headline">
-#{Govspeak::Document.new(body.strip).to_html}</div>\n)
+#{Govspeak::Document.new(body.strip, locale: @locale).to_html}</div>\n)
     end
 
     extension("external", surrounded_by("x[", ")x")) do |body|
@@ -213,7 +220,7 @@ module Govspeak
     end
 
     extension("helpful", surrounded_by("%")) do |body|
-      %(\n\n<div role="note" aria-label="Warning" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip).to_html}</div>\n)
+      %(\n\n<div role="note" aria-label="Warning" class="application-notice help-notice">\n#{Govspeak::Document.new(body.strip, locale: @locale).to_html}</div>\n)
     end
 
     extension("barchart", /{barchart(.*?)}/) do |captures|
@@ -349,13 +356,19 @@ module Govspeak
        northern-ireland
        wales
        london].each do |devolved_option|
-      extension("devolved-#{devolved_option}", /:#{devolved_option}:(.*?):#{devolved_option}:/m) do |body|
+      extension(
+        "devolved-#{devolved_option}",
+        /:#{devolved_option}:(.*?):#{devolved_option}:/m,
+      ) do |body|
         header_content = I18n.t("govspeak.devolved.#{devolved_option}", locale:)
+        body_content = Govspeak::Document
+          .new(body.strip, locale: @locale)
+          .to_html
 
         <<~HTML
           <div class="devolved-content #{devolved_option}">
           <p class="devolved-header">#{header_content}</p>
-          <div class="devolved-body">#{Govspeak::Document.new(body.strip).to_html}</div>
+          <div class="devolved-body">#{body_content}</div>
           </div>
         HTML
       end
