@@ -94,7 +94,10 @@ module Govspeak
     end
 
     def valid?(validation_options = {})
-      Govspeak::HtmlValidator.new(@source, validation_options).valid?
+      Govspeak::HtmlValidator.new(
+        @source,
+        validation_options.merge({ locale: @locale }),
+      ).valid?
     end
 
     def headers
