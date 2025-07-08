@@ -341,8 +341,6 @@ Teston
 
   # Regression test - the surrounded_by helper doesn't require the closing x
   # so 'xaa' was getting picked up by the external link helper above
-  # TODO: review whether we should require closing symbols for these extensions
-  #       need to check all existing content.
   test_given_govspeak "xaa" do
     assert_html_output "<p>xaa</p>"
     assert_text_output "xaa"
