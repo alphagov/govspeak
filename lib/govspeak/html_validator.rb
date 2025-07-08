@@ -4,6 +4,7 @@ class Govspeak::HtmlValidator
   def initialize(govspeak_string, options = {})
     @govspeak_string = govspeak_string.dup.force_encoding(Encoding::UTF_8)
     @allowed_image_hosts = options[:allowed_image_hosts]
+    @locale = options[:locale]
   end
 
   def invalid?
@@ -28,6 +29,7 @@ private
       govspeak_string,
       sanitize:,
       allowed_image_hosts: @allowed_image_hosts,
+      locale: @locale,
     ).to_html
   end
 end
