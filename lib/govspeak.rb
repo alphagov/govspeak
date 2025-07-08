@@ -200,7 +200,6 @@ module Govspeak
 #{Govspeak::Document.new(body.strip).to_html}</div>\n)
     end
 
-    # FIXME: these surrounded_by arguments look dodgy
     extension("external", surrounded_by("x[", ")x")) do |body|
       Kramdown::Document.new("[#{body.strip}){:rel='external'}").to_html
     end
