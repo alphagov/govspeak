@@ -150,12 +150,12 @@ module Govspeak
     extension("use custom footnotes") do |document|
       document.css("a.footnote").map do |el|
         footnote_number = el[:href].gsub(/\D/, "")
-        label = I18n.t("govspeak.footnote.label", locale: govspeak_document.locale)
+        label = Govspeak::TranslationHelper.t_with_fallback("govspeak.footnote.label", locale: govspeak_document.locale)
         el.inner_html = "[#{label} #{footnote_number}]"
       end
       document.css("[role='doc-backlink']").map do |el|
         backlink_number = " #{el.css('sup')[0].content}" if el.css("sup")[0].present?
-        aria_label = I18n.t("govspeak.footnote.backlink_aria_label", locale: govspeak_document.locale)
+        aria_label = Govspeak::TranslationHelper.t_with_fallback("govspeak.footnote.backlink_aria_label", locale: govspeak_document.locale)
         el["aria-label"] = "#{aria_label}#{backlink_number}"
       end
     end
