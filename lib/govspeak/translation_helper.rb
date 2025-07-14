@@ -1,7 +1,9 @@
 module Govspeak
   module TranslationHelper
     def self.t_with_fallback(key, **options)
-      options[:locale] ||= I18n.default_locale
+      if I18n.available_locales.none?(options[:locale]&.to_sym)
+        options[:locale] = I18n.default_locale
+      end
 
       if options[:locale] != I18n.default_locale
         options[:default] = I18n.t(

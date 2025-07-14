@@ -38,6 +38,11 @@ class TranslationHelperTest < Minitest::Test
       Govspeak::TranslationHelper.t_with_fallback("whatever", locale: :cy)
     end
 
+    it "passes the default locale to I18n.t when the provided locale is unsupported" do
+      I18n.expects(:t).with("whatever", locale: :en)
+      Govspeak::TranslationHelper.t_with_fallback("whatever", locale: :yo)
+    end
+
     it "passes the default locale to I18n.t when a locale is not provided" do
       I18n.expects(:t).with("whatever", locale: :en)
       Govspeak::TranslationHelper.t_with_fallback("whatever")
