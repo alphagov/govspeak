@@ -35,7 +35,7 @@ module Govspeak
       lines = []
       lines << "<figcaption>"
       lines << %(<p>#{caption}</p>) if caption.present?
-      lines << %(<p>#{I18n.t('govspeak.image.figure.credit', credit:, locale:)}</p>) if credit.present?
+      lines << %(<p>#{Govspeak::TranslationHelper.t_with_fallback('govspeak.image.figure.credit', credit:, locale:)}</p>) if credit.present?
       lines << "</figcaption>"
       lines.join
     end

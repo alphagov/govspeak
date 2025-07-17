@@ -17,6 +17,7 @@ require "govspeak/blockquote_extra_quote_remover"
 require "govspeak/post_processor"
 require "govspeak/link_extractor"
 require "govspeak/template_renderer"
+require "govspeak/translation_helper"
 require "govspeak/presenters/attachment_presenter"
 require "govspeak/presenters/contact_presenter"
 require "govspeak/presenters/h_card_presenter"
@@ -363,7 +364,10 @@ module Govspeak
         "devolved-#{devolved_option}",
         /:#{devolved_option}:(.*?):#{devolved_option}:/m,
       ) do |body|
-        header_content = I18n.t("govspeak.devolved.#{devolved_option}", locale:)
+        header_content = Govspeak::TranslationHelper.t_with_fallback(
+          "govspeak.devolved.#{devolved_option}",
+          locale:,
+        )
         body_content = Govspeak::Document
           .new(body.strip, locale: @locale)
           .to_html
@@ -437,3 +441,5 @@ end
 I18n.load_path.unshift(
   *Dir.glob(File.expand_path("locales/*.yml", Govspeak.root)),
 )
+
+I18n.default_locale = :en

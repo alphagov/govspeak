@@ -8,6 +8,7 @@ require "bundler"
 Bundler.setup :default, :development, :test
 
 require "minitest/autorun"
+require "mocha/minitest"
 
 require "support/html_helpers"
 

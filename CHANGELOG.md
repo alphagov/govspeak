@@ -3,6 +3,7 @@
 ## Unreleased
 
 * Pass locale to child instances of `Govspeak::Document` (where one instance instantiates another) and to `HtmlValidator`
+* Fall back to English when provided with on invalid locale or a translation is not available for the given locale
 
 ## 10.4.1
 
