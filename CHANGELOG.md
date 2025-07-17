@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Pass locale to child instances of `Govspeak::Document` (where one instance instantiates another) and to `HtmlValidator`
+
 ## 10.4.1
 
 * Update dependencies
