@@ -14,10 +14,8 @@ module Govspeak
       erb.result(template_binding)
     end
 
-    def t(*args)
-      options = args.last.is_a?(Hash) ? args.last.dup : {}
-      key = args.shift
-      I18n.t!(key, **options.merge(locale:))
+    def t(key, **options)
+      Govspeak::TranslationHelper.t_with_fallback(key, **options.merge(locale:))
     end
 
     def format_with_html_line_breaks(string)
