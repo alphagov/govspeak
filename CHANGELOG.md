@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 10.6.0
 
 * Expose supported locales with their codes, English names, and native names:
 `Govspeak::TranslationHelper.supported_locales`
