@@ -1,5 +1,7 @@
 ---
 el:
+  english_name: Greek
+  native_name: Ελληνικά
   govspeak:
     contact:
       contact_form: "Φόρμα επικοινωνίας"
