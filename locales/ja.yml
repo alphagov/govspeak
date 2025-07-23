@@ -1,5 +1,7 @@
 ---
 ja:
+  english_name: Japanese
+  native_name: 日本語
   govspeak:
     contact:
       contact_form: "連絡フォーム"

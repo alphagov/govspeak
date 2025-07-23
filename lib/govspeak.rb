@@ -438,8 +438,10 @@ module Govspeak
   end
 end
 
-I18n.load_path.unshift(
-  *Dir.glob(File.expand_path("locales/*.yml", Govspeak.root)),
-)
+locale_paths = *Dir.glob(File.expand_path("locales/*.yml", Govspeak.root))
 
+I18n.load_path.unshift(locale_paths)
+I18n.available_locales = locale_paths.map do |path|
+  path.match(/([^\/]+).yml/)[1].to_sym
+end
 I18n.default_locale = :en

@@ -1,5 +1,7 @@
 ---
 ru:
+  english_name: Russian
+  native_name: Русский
   govspeak:
     contact:
       contact_form: "Контактная форма"

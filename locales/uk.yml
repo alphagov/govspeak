@@ -1,5 +1,7 @@
 ---
 uk:
+  english_name: Ukrainian
+  native_name: Українська
   govspeak:
     contact:
       contact_form: "Форма зворотнього зв'язку"

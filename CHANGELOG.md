@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.6.0
+
+* Expose supported locales with their codes, English names, and native names:
+`Govspeak::TranslationHelper.supported_locales`
+
 ## 10.5.0
 
 * Pass locale to child instances of `Govspeak::Document` (where one instance instantiates another) and to `HtmlValidator`

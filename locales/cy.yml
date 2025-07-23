@@ -1,5 +1,7 @@
 ---
 cy:
+  english_name: Welsh
+  native_name: Cymraeg
   govspeak:
     contact:
       contact_form: Ffurflen cysylltu

@@ -1,5 +1,6 @@
----
 hi:
+  english_name: Hindi
+  native_name: हिंदी
   govspeak:
     contact:
       contact_form: "संपर्क प्रपत्र"

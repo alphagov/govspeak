@@ -1,5 +1,7 @@
 ---
 bg:
+  english_name: Bulgarian
+  native_name: български
   govspeak:
     contact:
       contact_form: "Контактна форма"

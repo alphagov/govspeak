@@ -1,5 +1,7 @@
 ---
 es-419:
+  english_name: Latin American Spanish
+  native_name: Español de América Latina
   govspeak:
     contact:
       contact_form: Formulario de contacto

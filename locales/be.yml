@@ -1,5 +1,7 @@
 ---
 be:
+  english_name: Belarusian
+  native_name: Беларуская
   govspeak:
     contact:
       contact_form: "Кантактная форма"

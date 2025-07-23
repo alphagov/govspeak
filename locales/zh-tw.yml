@@ -1,5 +1,7 @@
 ---
 zh-tw:
+  english_name: Traditional Chinese
+  native_name: 繁體中文
   govspeak:
     contact:
       contact_form: "聯絡資料表"

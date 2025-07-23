@@ -1,5 +1,7 @@
 ---
 ko:
+  english_name: Korean
+  native_name: 한국어
   govspeak:
     contact:
       contact_form: "콘택트 폼"

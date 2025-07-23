@@ -1,5 +1,7 @@
 ---
 zh:
+  english_name: Chinese
+  native_name: 中文
   govspeak:
     contact:
       contact_form: "联系表格"

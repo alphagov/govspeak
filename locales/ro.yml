@@ -1,5 +1,7 @@
 ---
 ro:
+  english_name: Romanian
+  native_name: Română
   govspeak:
     contact:
       contact_form: Formular de contact
