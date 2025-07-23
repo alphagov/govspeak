@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Fix native name of zh-hk locale (to match Frontend and Whitehall)
+
 ## 10.6.0
 
 * Expose supported locales with their codes, English names, and native names:

@@ -97,7 +97,7 @@ class TranslationHelperTest < Minitest::Test
         { code: :ur, english_name: "Urdu", native_name: "اردو" },
         { code: :uz, english_name: "Uzbek", native_name: "Oʻzbek" },
         { code: :vi, english_name: "Vietnamese", native_name: "Tiếng Việt" },
-        { code: :"zh-hk", english_name: "Cantonese", native_name: "粵語" },
+        { code: :"zh-hk", english_name: "Cantonese", native_name: "中文" },
         {
           code: :"zh-tw",
           english_name: "Traditional Chinese",
