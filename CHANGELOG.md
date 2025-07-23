@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 10.6.1
 
 * Fix native name of zh-hk locale (to match Frontend and Whitehall)
 
