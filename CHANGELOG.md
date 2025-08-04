@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.6.1
+
+* Fix English and native names of Chinese locales
+
 ## 10.6.0
 
 * Expose supported locales with their codes, English names, and native names:
