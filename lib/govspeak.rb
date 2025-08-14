@@ -358,12 +358,6 @@ module Govspeak
       render_image(ImagePresenter.new(image))
     end
 
-    extension("Attachment", /^\[Attachment:\s*(.*?)\s*\]/) do |attachment_id|
-      next "" if attachments.none? { |a| a[:id] == attachment_id }
-
-      %(<govspeak-embed-attachment id="#{attachment_id}"></govspeak-embed-attachment>)
-    end
-
     extension("AttachmentLink", /\[AttachmentLink:\s*(.*?)\s*\]/) do |attachment_id|
       next "" if attachments.none? { |a| a[:id] == attachment_id }
 
