@@ -42,6 +42,7 @@ module Kramdown
 
       def initialize(source, options)
         @document_domains = options[:document_domains] || %w[www.gov.uk]
+        @attachments = options.fetch(:attachments, [])
         super
 
         BLOCK_EXTENSIONS.each do |extension_name, file_name|
