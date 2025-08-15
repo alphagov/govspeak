@@ -43,6 +43,6 @@ library for use in the UK Government Single Domain project'
   s.add_development_dependency "mocha"
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "rake"
-  s.add_development_dependency "rubocop-govuk", "5.1.19"
+  s.add_development_dependency "rubocop-govuk", "5.1.20"
   s.add_development_dependency "simplecov"
 end
