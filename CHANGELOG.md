@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.6.2
+
+* Update dependencies
+
 ## 10.6.1
 
 * Fix English and native names of Chinese locales
