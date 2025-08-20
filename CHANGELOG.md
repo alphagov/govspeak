@@ -1,5 +1,9 @@
 # Changelog
 
+# Unreleased
+
+* fix: When finding/returning headers, filter links from header titles [PR #439](https://github.com/alphagov/govspeak/pull/439)
+
 ## 10.6.5
 
 * Update dependencies
