@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.6.3
+
+* Add locales for Kurdish Sorani and Tigrinyan
+
 ## 10.6.2
 
 * Update dependencies
