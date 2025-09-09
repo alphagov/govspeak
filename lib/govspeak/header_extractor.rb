@@ -20,11 +20,15 @@ module Govspeak
   private
 
     def id(element)
-      element.attr.fetch("id", generate_id(element.options[:raw_text]))
+      element.attr.fetch("id", generate_id(text_with_links(element)))
     end
 
     def build_header(element)
-      Header.new(element.options[:raw_text], element.options[:level], id(element))
+      Header.new(text_with_links(element), element.options[:level], id(element))
+    end
+
+    def text_with_links(element)
+      element.options[:raw_text].gsub(/\[(.+)\]\((.*)\)/, '\1')
     end
 
     def find_headers(parent)
