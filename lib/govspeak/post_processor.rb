@@ -160,6 +160,42 @@ module Govspeak
       end
     end
 
+    extension("use auto-numbered headers") do |document|
+      if govspeak_document.auto_numbered_headers
+        h2, h3, h4, h5, h6 = 0, 0, 0, 0, 0, 0
+
+        document.css("h2,h3,h4,h5,h6").map do |el|
+          case el.name
+          when "h2"
+            h2 += 1
+            h3 = 0
+            h4 = 0
+            h5 = 0
+            h6 = 0
+            el.inner_html = "#{h2}. #{el.inner_html}"
+          when "h3"
+            h3 += 1
+            h4 = 0
+            h5 = 0
+            h6 = 0
+            el.inner_html = "#{h2}.#{h3} #{el.inner_html}"
+          when "h4"
+            h4 += 1
+            h5 = 0
+            h6 = 0
+            el.inner_html = "#{h2}.#{h3}.#{h4} #{el.inner_html}"
+          when "h5"
+            h5 += 1
+            h6 = 0
+            el.inner_html = "#{h2}.#{h3}.#{h4}.#{h5} #{el.inner_html}"
+          when "h6"
+            h6 += 1
+            el.inner_html = "#{h2}.#{h3}.#{h4}.#{h5}.#{h6} #{el.inner_html}"
+          end
+        end
+      end
+    end
+
     attr_reader :input, :govspeak_document
 
     def initialize(html, govspeak_document)
