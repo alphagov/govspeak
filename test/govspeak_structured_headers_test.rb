@@ -21,15 +21,15 @@ class GovspeakStructuredHeadersTest < Minitest::Test
 
 ### Sub heading 4.1
 
-#### Sub heading 4.1.1
+#### Sub sub heading 4.1.1
 
-##### Sub heading 4.1.1.1
+##### Sub sub sub heading 4.1.1.1
 
 ### Sub heading 4.2
 
 ## Heading 5
 
-### [Heading 5.1](https://www.example.com)
+### [Sub heading 5.1](https://www.example.com)
 
     )
   end
@@ -70,8 +70,8 @@ class GovspeakStructuredHeadersTest < Minitest::Test
   end
 
   test "headers that are links are based on the link text not the link" do
-    assert_equal "Heading 5.1", structured_headers[4].headers[0].text
-    assert_equal "heading-51", structured_headers[4].headers[0].id
+    assert_equal "Sub heading 5.1", structured_headers[4].headers[0].text
+    assert_equal "sub-heading-51", structured_headers[4].headers[0].id
   end
 
   test "structured headers serialize to hashes recursively serializing sub headers" do
