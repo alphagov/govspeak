@@ -38,7 +38,7 @@ module Govspeak
     @extensions = []
 
     attr_accessor :images
-    attr_reader :attachments, :contacts, :links, :locale, :log_snapshots
+    attr_reader :attachments, :auto_numbered_headers, :contacts, :links, :locale, :log_snapshots
 
     def self.to_html(source, options = {})
       new(source, options).to_html
@@ -60,6 +60,7 @@ module Govspeak
       @allowed_elements = options.delete(:allowed_elements) || []
       @allowed_image_hosts = options.delete(:allowed_image_hosts) || []
       @attachments = Array.wrap(options.delete(:attachments))
+      @auto_numbered_headers = options.fetch(:auto_numbered_headers, false)
       @links = Array.wrap(options.delete(:links))
       @contacts = Array.wrap(options.delete(:contacts))
       @locale = options.fetch(:locale, "en")
