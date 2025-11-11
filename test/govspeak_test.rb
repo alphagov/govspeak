@@ -99,6 +99,28 @@ class GovspeakTest < Minitest::Test
     assert_equal "foo bar baz", doc.to_text
   end
 
+  test "adds auto-numbered headings when the auto_numbered_headings option is on" do
+    input = %(
+## H2 One
+
+### H3 One
+
+### H3 Two
+
+## H2 Two
+
+### H3 Three
+
+#### H4 One
+
+##### H5 One
+
+###### H6 One
+)
+    doc = Govspeak::Document.new(input, auto_numbered_headers: true)
+    assert_equal %(\n<h2 id="h2-one">1. H2 One</h2>\n\n<h3 id="h3-one">1.1 H3 One</h3>\n\n<h3 id="h3-two">1.2 H3 Two</h3>\n\n<h2 id="h2-two">2. H2 Two</h2>\n\n<h3 id="h3-three">2.1 H3 Three</h3>\n\n<h4 id="h4-one">2.1.1 H4 One</h4>\n\n<h5 id="h5-one">2.1.1.1 H5 One</h5>\n\n<h6 id="h6-one">2.1.1.1.1 H6 One</h6>\n), doc.to_html
+  end
+
   test "trailing space after the address should not prevent parsing" do
     input = %($A
 123 Test Street

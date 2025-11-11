@@ -41,6 +41,8 @@ module Govspeak
         stack.push(header)
       end
 
+      add_auto_numbering(structured_headers) if doc.auto_numbered_headers
+
       structured_headers
     end
 
@@ -94,6 +96,13 @@ module Govspeak
 
     def reset_stack
       @stack = []
+    end
+
+    def add_auto_numbering(structured_headers, prefix: "")
+      structured_headers.each.with_index(1) do |header, index|
+        header[:text] = "#{prefix}#{index}#{'.' if prefix == ''} #{header[:text]}"
+        add_auto_numbering(header[:headers], prefix: "#{prefix}#{index}.")
+      end
     end
 
   private
