@@ -1,7 +1,8 @@
 # Changelog
 
-# Unreleased
+## 10.7.0
 
+* feature: Add auto-numbered headers option [PR #449](https://github.com/alphagov/govspeak/pull/449)
 * fix: When finding/returning headers, filter links from header titles [PR #439](https://github.com/alphagov/govspeak/pull/439)
 
 ## 10.6.5
