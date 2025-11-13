@@ -22,7 +22,7 @@ then create a new document
 
 Some additional steps or considerations are needed to ensure changes to govspeak cascade across GOV.UK in a holistic way.
 
-Once govspeak has been updated and version incremented then: 
+Once govspeak has been updated and version incremented then:
 - [`govuk_publishing_components` govspeak](https://components.publishing.service.gov.uk/component-guide/govspeak) will also need updating to reflect your most recent change.
 - [Publishing apps](https://docs.publishing.service.gov.uk/apps.html) (including but not limited to [content-publisher](https://github.com/alphagov/content-publisher) & [whitehall](https://github.com/alphagov/whitehall)) also use govspeak, these apps will need to be released with the new govspeak version present.
 
@@ -30,7 +30,7 @@ Also, consider if:
 - [whitehall](https://github.com/alphagov/whitehall) needs updating (as custom govspeak changes are present)
 - [govspeak-preview](https://github.com/alphagov/govspeak-preview) needs updating
 
-Any pages that use govspeak to generate Content will need to *republished* in order for the new changes to be reflected.  
+Any pages that use govspeak to generate Content will need to *republished* in order for the new changes to be reflected.
 
 - Data Labs can help identify which pages need updating by [submitting a request](https://gov-uk.atlassian.net/wiki/spaces/GOVUK/pages/1860075525/GOV.UK+Data+Labs#Submitting-a-data-science-request) and [#govuk-2ndline](https://docs.publishing.service.gov.uk/manual/2nd-line.html) can help with republishing
 
@@ -47,6 +47,34 @@ with understanding how the content transforms from source through:
 # Extensions
 
 In addition to the [standard Markdown syntax](http://daringfireball.net/projects/markdown/syntax "Markdown syntax"), we have added our own extensions.
+
+## Autonumbered headers
+
+This extension is off by default, can be turned on with
+
+    doc = Govspeak::Document.new "## Header\n### Sub-header\n#### Sub-sub-header", auto_numbered_headers: true
+
+Creates automatically numbered headers
+
+```html
+<h2>1 Header</h2>
+<h3>1.1 Sub-header</h3>
+<h4>1.1.1 Sub-sub-header</h4>
+```
+
+By default the numbering scheme will work for all headers apart from H1s, if you want to
+restrict this you can specify the levels you want in an array (default value is [2,3,4,5,6])
+
+    doc = Govspeak::Document.new "## Header\n### Sub-header\n#### Sub-sub-header", auto_numbered_headers: true, auto_numbered_header_levels: [2,3]
+
+Creates automatically numbered headers
+
+```html
+<h2>1 Header</h2>
+<h3>1.1 Sub-header</h3>
+<h4>Sub-sub-header</h4>
+```
+
 
 ## Callouts
 
