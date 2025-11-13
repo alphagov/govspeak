@@ -164,7 +164,9 @@ module Govspeak
       if govspeak_document.auto_numbered_headers
         h2, h3, h4, h5, h6 = 0, 0, 0, 0, 0, 0
 
-        document.css("h2,h3,h4,h5,h6").map do |el|
+        selector = govspeak_document.auto_numbered_header_levels.map { |i| "h#{i}" }.join(",")
+
+        document.css(selector).map do |el|
           case el.name
           when "h2"
             h2 += 1
