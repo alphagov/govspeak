@@ -166,4 +166,25 @@ class GovspeakStructuredHeadersTest < Minitest::Test
     assert_equal "5. Heading 5", headers[4][:text]
     assert_equal "5.1 Sub heading 5.1", headers[4][:headers][0][:text]
   end
+
+  test "auto-numbered headers are restricted to appropriate levels when the option is set on the document" do
+    doc = Govspeak::Document.new(document_body, auto_numbered_headers: true, auto_numbered_header_levels: [2, 3])
+
+    headers = doc.structured_headers
+
+    assert_equal "1. Heading 1", headers[0][:text]
+    assert_equal "2. Heading 2", headers[1][:text]
+    assert_equal "2.1 Sub heading 2.1", headers[1][:headers][0][:text]
+    assert_equal "2.2 Sub heading 2.2", headers[1][:headers][1][:text]
+    assert_equal "Sub sub heading 2.2.1", headers[1][:headers][1][:headers][0][:text]
+    assert_equal "2.3 Sub heading 2.3", headers[1][:headers][2][:text]
+    assert_equal "3. Heading 3", headers[2][:text]
+    assert_equal "4. Heading 4", headers[3][:text]
+    assert_equal "4.1 Sub heading 4.1", headers[3][:headers][0][:text]
+    assert_equal "Sub sub heading 4.1.1", headers[3][:headers][0][:headers][0][:text]
+    assert_equal "Sub sub sub heading 4.1.1.1", headers[3][:headers][0][:headers][0][:headers][0][:text]
+    assert_equal "4.2 Sub heading 4.2", headers[3][:headers][1][:text]
+    assert_equal "5. Heading 5", headers[4][:text]
+    assert_equal "5.1 Sub heading 5.1", headers[4][:headers][0][:text]
+  end
 end

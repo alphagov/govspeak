@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* feature: Allow callers to specify which headers will be auto-numbered [PR #451](https://github.com/alphagov/govspeak/pull/451)
+
 ## 10.7.0
 
 * feature: Add auto-numbered headers option [PR #449](https://github.com/alphagov/govspeak/pull/449)

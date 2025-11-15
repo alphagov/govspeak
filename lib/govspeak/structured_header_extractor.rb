@@ -41,7 +41,7 @@ module Govspeak
         stack.push(header)
       end
 
-      add_auto_numbering(structured_headers) if doc.auto_numbered_headers
+      add_auto_numbering(structured_headers, doc.auto_numbered_header_levels) if doc.auto_numbered_headers
 
       structured_headers
     end
@@ -98,10 +98,10 @@ module Govspeak
       @stack = []
     end
 
-    def add_auto_numbering(structured_headers, prefix: "")
+    def add_auto_numbering(structured_headers, levels, prefix: "")
       structured_headers.each.with_index(1) do |header, index|
-        header[:text] = "#{prefix}#{index}#{'.' if prefix == ''} #{header[:text]}"
-        add_auto_numbering(header[:headers], prefix: "#{prefix}#{index}.")
+        header[:text] = "#{prefix}#{index}#{'.' if prefix == ''} #{header[:text]}" if levels.include?(header[:level])
+        add_auto_numbering(header[:headers], levels, prefix: "#{prefix}#{index}.")
       end
     end
 
