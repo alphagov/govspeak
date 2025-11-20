@@ -1601,4 +1601,8 @@ Or so we thought.)
       )
     end
   end
+
+  test "I18n load_path is not set as a nested array" do
+    assert_equal I18n.load_path.count, I18n.load_path.flatten.count
+  end
 end
