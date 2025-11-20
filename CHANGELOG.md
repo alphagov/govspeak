@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.8.1
+
+* fix: Ensure i18n load paths are flattened [PR #453](https://github.com/alphagov/govspeak/pull/453)
+
 ## 10.8.0
 
 * feature: Allow callers to specify which headers will be auto-numbered [PR #451](https://github.com/alphagov/govspeak/pull/451)
