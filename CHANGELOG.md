@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Remove version restriction on acceptable `minitest` dependency, to allow upgrading to version 6.x [PR #460](https://github.com/alphagov/govspeak/pull/460).
+
 ## 10.8.3
 
 * Update dependencies
