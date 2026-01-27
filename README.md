@@ -568,30 +568,6 @@ will output a image section
 </figure>
 ```
 
-### Link
-
-Links to different documents can be embedded so they change when the documents
-they reference change.
-
-    A link to [embed:link:c636b433-1e5c-46d4-96b0-b5a168fac26c]
-
-with options provided
-
-    {
-      links: [
-        {
-          url: "http://example.com",
-          title: "An excellent website",
-        }
-      ]
-    }
-
-will output
-
-```html
-<p>A link to <a href="http://example.com">An excellent website</a></p>
-```
-
 ### Contact
 
     [Contact:df62690f-34a0-4840-a7fa-4ef5acc18666]
