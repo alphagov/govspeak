@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.9.0
+
+* BREAKING: drops support for `embed:link` syntax
+* Not a major version change as we don't see any usages of the syntax in the wild
+
 ## 10.8.5
 
 * Update dependencies

@@ -382,17 +382,6 @@ module Govspeak
       end
     end
 
-    extension("embed link", /\[embed:link:\s*(.*?)\s*\]/) do |content_id|
-      link = links.detect { |l| l[:content_id] == content_id }
-      next "" unless link
-
-      if link[:url]
-        "[#{link[:title]}](#{link[:url]})"
-      else
-        link[:title]
-      end
-    end
-
     extension("Contact", /\[Contact:\s*(.*?)\s*\]/) do |content_id|
       contact = contacts.detect { |c| c[:content_id] == content_id }
       next "" unless contact
