@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.8.9
+
+* Update dependencies
+
 ## 10.8.8
 
 * Update dependencies
