@@ -8,6 +8,7 @@ updates:
       time: "07:00"
     cooldown:
       default-days: 3
+    open-pull-requests-limit: 25
     groups:
       test:
         patterns:
@@ -23,3 +24,4 @@ updates:
       time: "07:00"
     cooldown:
       default-days: 3
+    open-pull-requests-limit: 25
