@@ -3,7 +3,9 @@ updates:
   - package-ecosystem: bundler
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: tuesday
+      time: "07:00"
     cooldown:
       default-days: 3
     groups:
@@ -16,6 +18,8 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: tuesday
+      time: "07:00"
     cooldown:
       default-days: 3
