@@ -3,8 +3,27 @@ updates:
   - package-ecosystem: bundler
     directory: /
     schedule:
-      interval: daily
-  - package-ecosystem: "github-actions"
+      interval: weekly
+      day: tuesday
+      time: "07:00"
+    allow:
+      - dependency-type: direct
+    cooldown:
+      default-days: 3
+    open-pull-requests-limit: 25
+    groups:
+      test:
+        patterns:
+          - "minitest"
+          - "mocha"
+          - "simplecov"
+
+  - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: tuesday
+      time: "07:00"
+    cooldown:
+      default-days: 3
+    open-pull-requests-limit: 25
