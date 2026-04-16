@@ -6,6 +6,12 @@ updates:
       interval: daily
     cooldown:
       default-days: 3
+    groups:
+      test:
+        patterns:
+          - "minitest"
+          - "mocha"
+          - "simplecov"
 
   - package-ecosystem: github-actions
     directory: /
