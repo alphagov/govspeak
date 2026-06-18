@@ -202,6 +202,23 @@ module Govspeak
       %(\n<a role="button" draggable="false" class="#{button_classes}" href="#{href}" #{data_attribute}>#{text}</a>\n)
     end
 
+    extension("cards", %r$^{cards}(.*?){/cards}$m) do |body|
+      links = body.scan(/\s*\[([^\]]+)\]\(([^)]+)\)([^{\[$*\#]*)\s*/)
+      all_links = []
+
+      links.each do |text, href, description|
+        all_links << {
+          link: {
+            text: text,
+            path: href,
+          },
+          description: description,
+        }
+      end
+
+      GovukPublishingComponents.render("govuk_publishing_components/components/cards", { items: all_links, columns: "auto", margin_bottom: 6 }).to_s
+    end
+
     extension("highlight-answer") do |body|
       %(\n\n<div class="highlight-answer">
 #{Govspeak::Document.new(body.strip, locale: @locale).to_html}</div>\n)
