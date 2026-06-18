@@ -697,6 +697,67 @@ which outputs
 </a>
 ```
 
+### Cards
+
+Adds cards using the cards component from the components gem, using the [auto layout](https://components.publishing.service.gov.uk/component-guide/cards/auto_layout).
+
+#### Examples
+
+The most basic card.
+
+```
+{cards}[Benefits](https://www.gov.uk/browse/benefits){/cards}
+```
+
+which outputs
+
+```html
+<div class="gem-c-cards gem-c-cards--auto-layout">
+  <ul class="gem-c-cards__list">
+    <li class="gem-c-cards__list-item">
+      <div class="gem-c-cards__list-item-wrapper">
+        <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+          <a class="govuk-link gem-c-cards__link gem-print-force-link-styles" href="http://www.gov.uk/browse/benefits">Benefits</a>
+        </h3>
+      </div>
+    </li>
+  </ul>
+</div>
+```
+
+To include a description on the card, include after the link.
+
+```
+{cards}[Benefits](https://www.gov.uk/browse/benefits) Includes eligibility, appeals, tax credits and Universal Credit{/cards}
+```
+
+which outputs
+
+```html
+<div class="gem-c-cards gem-c-cards--auto-layout">
+  <ul class="gem-c-cards__list">
+    <li class="gem-c-cards__list-item">
+      <div class="gem-c-cards__list-item-wrapper">
+        <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+          <a class="govuk-link gem-c-cards__link gem-print-force-link-styles" href="http://www.gov.uk/browse/benefits">Benefits</a>
+        </h3>
+        <p class="govuk-body gem-c-cards__description">Includes eligibility, appeals, tax credits and Universal Credit</p>
+      </div>
+    </li>
+  </ul>
+</div>
+```
+
+To output more than one card, repeat the link pattern.
+
+```
+{cards}
+  [Benefits](https://www.gov.uk/browse/benefits) Includes eligibility, appeals, tax credits and Universal Credit
+  [Births, deaths, marriages and care](https://www.gov.uk/browse/births-deaths-marriages) Parenting, civil partnerships, divorce and Lasting Power of Attorney
+{/cards}
+```
+
+
 ## Licence
 
 [MIT License](LICENCE)
