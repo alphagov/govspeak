@@ -204,19 +204,18 @@ module Govspeak
 
     extension("cards", %r$^{cards}(.*?){/cards}$m) do |body|
       links = body.scan(/\s*\[([^\]]+)\]\(([^)]+)\)([^{\[$*\#]*)\s*/)
-      all_links = []
+      cards = ""
 
       links.each do |text, href, description|
-        all_links << {
-          link: {
-            text: text,
-            path: href,
-          },
-          description: description,
-        }
+        cards << "
+          <a class='card' href='#{href.strip}'>
+            <span class='text'>#{text.strip}</span>
+            <span class='description'>#{description.strip}</span>
+          </a>
+        "
       end
 
-      GovukPublishingComponents.render("govuk_publishing_components/components/cards", { items: all_links, columns: "auto", margin_bottom: 6 }).to_s
+      "<div class='cards'>#{cards}</div>"
     end
 
     extension("highlight-answer") do |body|
