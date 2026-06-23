@@ -202,6 +202,22 @@ module Govspeak
       %(\n<a role="button" draggable="false" class="#{button_classes}" href="#{href}" #{data_attribute}>#{text}</a>\n)
     end
 
+    extension("cards", %r$^{cards}(.*?){/cards}$m) do |body|
+      links = body.scan(/\s*\[([^\]]+)\]\(([^)]+)\)([^{\[$*\#]*)\s*/)
+      cards = ""
+
+      links.each do |text, href, description|
+        cards << "
+          <a class='card' href='#{href.strip}'>
+            <span class='text'>#{text.strip}</span>
+            <span class='description'>#{description.strip}</span>
+          </a>
+        "
+      end
+
+      "<div class='cards'>#{cards}</div>"
+    end
+
     extension("highlight-answer") do |body|
       %(\n\n<div class="highlight-answer">
 #{Govspeak::Document.new(body.strip, locale: @locale).to_html}</div>\n)

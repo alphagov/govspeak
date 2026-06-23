@@ -14,6 +14,7 @@ class Govspeak::HtmlValidator
   def valid?
     dirty_html = govspeak_to_html(sanitize: false)
     clean_html = govspeak_to_html(sanitize: true)
+
     normalise_html(dirty_html) == normalise_html(clean_html)
   end
 
