@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.10.0
+
+* feature: Add cards to govspeak [PR #489](https://github.com/alphagov/govspeak/pull/489)
+
 ## 10.9.1
 
 * Update dependencies
