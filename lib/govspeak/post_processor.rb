@@ -147,30 +147,6 @@ module Govspeak
       end
     end
 
-    extension("use gem component for cards") do |document|
-      document.css(".cards").map do |cards|
-        links = cards.css(".card").map do |card|
-          {
-            link: {
-              path: card["href"],
-              text: card.css(".text").inner_html.html_safe,
-            },
-            description: card.css(".description").inner_html.html_safe,
-          }
-        end
-
-        cards_html = GovukPublishingComponents.render(
-          "govuk_publishing_components/components/cards", {
-            items: links,
-            columns: "auto",
-            margin_bottom: 6,
-          }
-        ).squish.gsub("> <", "><").gsub!(/\s+/, " ")
-
-        cards.swap(cards_html)
-      end
-    end
-
     extension("use custom footnotes") do |document|
       document.css("a.footnote").map do |el|
         footnote_number = el[:href].gsub(/\D/, "")
