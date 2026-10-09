@@ -186,6 +186,44 @@ Teston
     assert_equal %(\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
   end
 
+  test "address div is separated from paragraph text by a couple of line-breaks" do
+    # else kramdown processes address div as part of paragraph text and escapes HTML
+    input = %(Paragraph1
+
+$A
+123 Test Street
+Testcase Cliffs
+Teston
+0123 456 7890 $A)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
+  end
+
+  test_given_govspeak "
+    $A
+    street
+    road
+    $A" do
+    assert_html_output %(
+      <div class="address"><div class="adr org fn"><p>
+      street<br>road
+      </p></div></div>)
+    assert_text_output "street road"
+  end
+
+  test_given_govspeak "
+    $A
+    street with ACRONYM
+    road
+    $A
+
+    *[ACRONYM]: This is the acronym explanation" do
+    assert_html_output %(
+      <div class="address"><div class="adr org fn"><p>
+      street with <abbr title="This is the acronym explanation">ACRONYM</abbr><br>road
+      </p></div></div>)
+  end
+
   test "should convert barchart" do
     input = <<~GOVSPEAK
       |col|
@@ -206,19 +244,6 @@ Teston
     GOVSPEAK
     html = Govspeak::Document.new(input).to_html
     assert_equal %(<table class=\"js-barchart-table mc-stacked compact mc-negative mc-auto-outdent\">\n  <thead>\n    <tr>\n      <th scope="col">col</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>val</td>\n    </tr>\n  </tbody>\n</table>\n), html
-  end
-
-  test "address div is separated from paragraph text by a couple of line-breaks" do
-    # else kramdown processes address div as part of paragraph text and escapes HTML
-    input = %(Paragraph1
-
-$A
-123 Test Street
-Testcase Cliffs
-Teston
-0123 456 7890 $A)
-    doc = Govspeak::Document.new(input)
-    assert_equal %(<p>Paragraph1</p>\n\n<div class="address"><div class="adr org fn"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div></div>\n), doc.to_html
   end
 
   test "processing an extension does not modify the provided input" do
@@ -407,31 +432,6 @@ Teston
       <p>help, send cake</p>
       </div>)
     assert_text_output "help, send cake"
-  end
-
-  test_given_govspeak "
-    $A
-    street
-    road
-    $A" do
-    assert_html_output %(
-      <div class="address"><div class="adr org fn"><p>
-      street<br>road
-      </p></div></div>)
-    assert_text_output "street road"
-  end
-
-  test_given_govspeak "
-    $A
-    street with ACRONYM
-    road
-    $A
-
-    *[ACRONYM]: This is the acronym explanation" do
-    assert_html_output %(
-      <div class="address"><div class="adr org fn"><p>
-      street with <abbr title="This is the acronym explanation">ACRONYM</abbr><br>road
-      </p></div></div>)
   end
 
   test_given_govspeak "
