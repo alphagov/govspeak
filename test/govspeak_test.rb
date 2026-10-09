@@ -224,6 +224,87 @@ Teston
       </p></div></div>)
   end
 
+  test "trailing space after the contact should not prevent parsing" do
+    input = %($C
+123 Test Street
+Testcase Cliffs
+Teston
+0123 456 7890 $C    )
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="contact"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div>\n), doc.to_html
+  end
+
+  test "newlines in contact block content are replaced with <br>s" do
+    input = %($C\n123 Test Street\nTestcase Cliffs\nTeston\n0123 456 7890\n$C)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="contact"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div>\n), doc.to_html
+  end
+
+  test "combined return-and-newlines in contact block content are replaced with <br>s" do
+    input = %($C\r\n123 Test Street\r\nTestcase Cliffs\r\nTeston\r\n0123 456 7890\r\n$C)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="contact"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div>\n), doc.to_html
+  end
+
+  test "trailing backslashes are stripped from contact block content" do
+    # two trailing backslashes would normally be converted into a line break by Kramdown
+    input = %($C\r\n123 Test Street\\\r\nTestcase Cliffs\\\nTeston\\\\\r\n0123 456 7890\\\\\n$C)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="contact"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div>\n), doc.to_html
+  end
+
+  test "trailing spaces are stripped from contact block content" do
+    # two trailing spaces would normally be converted into a line break by Kramdown
+    input = %($C\r\n123 Test Street \r\nTestcase Cliffs  \nTeston   \r\n0123 456 7890    \n$C)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="contact"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div>\n), doc.to_html
+  end
+
+  test "trailing backslashes and spaces are stripped from contact block content" do
+    # two trailing backslashes or two trailing spaces would normally be converted into a line break by Kramdown
+    input = %($C\r\n123 Test Street  \\\r\nTestcase Cliffs\\  \nTeston\\\\  \r\n0123 456 7890  \\\\\n$C)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(\n<div class="contact"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div>\n), doc.to_html
+  end
+
+  test "contact div is separated from paragraph text by a couple of line-breaks" do
+    # else kramdown processes contact div as part of paragraph text and escapes HTML
+    input = %(Paragraph1
+
+$C
+123 Test Street
+Testcase Cliffs
+Teston
+0123 456 7890 $C)
+    doc = Govspeak::Document.new(input)
+    assert_equal %(<p>Paragraph1</p>\n\n<div class="contact"><p>\n123 Test Street<br>Testcase Cliffs<br>Teston<br>0123 456 7890\n</p></div>\n), doc.to_html
+  end
+
+  test_given_govspeak "
+    $C
+    street
+    road
+    $C" do
+    assert_html_output %(
+      <div class="contact"><p>
+      street<br>road
+      </p></div>)
+    assert_text_output "street road"
+  end
+
+  test_given_govspeak "
+    $C
+    street with ACRONYM
+    road
+    $C
+
+    *[ACRONYM]: This is the acronym explanation" do
+    assert_html_output %(
+      <div class="contact"><p>
+      street with <abbr title="This is the acronym explanation">ACRONYM</abbr><br>road
+      </p></div>)
+  end
+
   test "should convert barchart" do
     input = <<~GOVSPEAK
       |col|
@@ -428,9 +509,9 @@ Teston
 
   test_given_govspeak "$C help, send cake $C" do
     assert_html_output %(
-      <div class="contact">
-      <p>help, send cake</p>
-      </div>)
+      <div class="contact"><p>
+      help, send cake
+      </p></div>)
     assert_text_output "help, send cake"
   end
 
@@ -667,9 +748,9 @@ Teston
         <p>Click here to start the tool</p>
       </div>
 
-      <div class="contact">
-      <p>Here is some text</p>
-      </div>)
+      <div class="contact"><p>
+      Here is some text
+      </p></div>)
   end
 
   test_given_govspeak "
