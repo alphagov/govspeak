@@ -30,7 +30,7 @@ library for use in the UK Government Single Domain project'
   s.require_paths = %w[lib]
 
   s.add_dependency "actionview", ">= 6", "< 8.1.5"
-  s.add_dependency "addressable", ">= 2.3.8", "< 2.9.1"
+  s.add_dependency "addressable", ">= 2.3.8", "< 2.9.2"
   s.add_dependency "govuk_publishing_components", ">= 43"
   s.add_dependency "htmlentities", "~> 4"
   s.add_dependency "i18n", ">= 0.7", "< 1.15.3"
