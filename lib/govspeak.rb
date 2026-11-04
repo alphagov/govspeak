@@ -307,7 +307,6 @@ module Govspeak
     # before $C otherwise the first ($C)TA fill be matched to a contact tag.
     wrap_with_div("summary", "$!")
     wrap_with_div("form-download", "$D")
-    wrap_with_div("contact", "$C")
     wrap_with_div("place", "$P", Govspeak::Document)
     wrap_with_div("information", "$I", Govspeak::Document)
     wrap_with_div("additional-information", "$AI")
@@ -326,6 +325,15 @@ module Govspeak
         <div class="address"><div class="adr org fn"><p markdown="1">
         #{body.lstrip.sub(/[\s\\]*\z/, '').gsub(/[ \\]*\r?\n/, '<br />')}
         </p></div></div>
+      BODY
+    end
+
+    extension("contact", surrounded_by("$C")) do |body|
+      <<~BODY
+
+        <div class="contact"><p markdown="1">
+        #{body.lstrip.sub(/[\s\\]*\z/, '').gsub(/[ \\]*\r?\n/, '<br />')}
+        </p></div>
       BODY
     end
 
