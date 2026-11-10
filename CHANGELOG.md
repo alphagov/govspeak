@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.11.10
+
+* Update dependencies
+
 ## 10.11.9
 
 * Update dependencies
