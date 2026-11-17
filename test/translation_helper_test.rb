@@ -84,6 +84,7 @@ class TranslationHelperTest < Minitest::Test
         { code: :ku, english_name: "Kurdish Sorani", native_name: "سۆرانی کوردی" },
         { code: :lt, english_name: "Lithuanian", native_name: "Lietuvių" },
         { code: :lv, english_name: "Latvian", native_name: "Latviešu" },
+        { code: :mfe, english_name: "Mauritian Creole", native_name: "Kreol Morisien" },
         { code: :pl, english_name: "Polish", native_name: "Polski" },
         { code: :ps, english_name: "Pashto", native_name: "پښتو" },
         { code: :pt, english_name: "Portuguese", native_name: "Português" },

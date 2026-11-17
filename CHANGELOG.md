@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.11.11
+
+* Add locales for Mauritian Creole
+
 ## 10.11.10
 
 * Update dependencies
