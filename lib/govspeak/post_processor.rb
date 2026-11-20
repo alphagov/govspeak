@@ -198,6 +198,49 @@ module Govspeak
       end
     end
 
+    extension("chart embed HTML") do |document|
+      document.css(".chart-embed-61c40a04-7a77-4aa2-8f8b-14b7927955e1").map do |el|
+        chart_component = GovukPublishingComponents.render(
+          "govuk_publishing_components/components/chart",
+          heading: "Chart showing page views on the website in January 2015",
+          h_axis_title: "Day",
+          v_axis_title: "Views",
+          description: "This chart shows page views for January 2015.",
+          source: "GOV.UK",
+          keys: %w[
+            2015-01-01
+            2015-01-02
+            2015-01-03
+            2015-01-04
+            2015-01-05
+            2015-01-06
+            2015-01-07
+            2015-01-08
+            2015-01-09
+            2015-01-10
+          ],
+          rows: [
+            {
+              label: "January 2015",
+              values: [
+                500,
+                1190,
+                740,
+                820,
+                270,
+                450,
+                110,
+                210,
+                670,
+                430,
+              ],
+            },
+          ],
+        )
+        el.swap(chart_component)
+      end
+    end
+
     attr_reader :input, :govspeak_document
 
     def initialize(html, govspeak_document)

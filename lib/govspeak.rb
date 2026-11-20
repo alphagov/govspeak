@@ -420,6 +420,10 @@ module Govspeak
       %(<govspeak-embed-attachment-link id="#{attachment_id}"></govspeak-embed-attachment-link>)
     end
 
+    extension("ChartEmbed", /^\[Chart-embed-61c40a04-7a77-4aa2-8f8b-14b7927955e1]/) do |body|
+      "<div class='chart-embed-61c40a04-7a77-4aa2-8f8b-14b7927955e1'></div>"
+    end
+
   private
 
     def log_snapshot(description, *objects)
